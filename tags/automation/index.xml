@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Automation on 서랍 속 폰으로 서버 운영하기</title><link>https://qofo.github.io/tags/automation/</link><description>Recent content in Automation on 서랍 속 폰으로 서버 운영하기</description><generator>Hugo</generator><language>ko-KR</language><lastBuildDate>Fri, 18 Sep 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://qofo.github.io/tags/automation/index.xml" rel="self" type="application/rss+xml"/><item><title>Termux:Boot와 감시 데몬으로 무인 운영 구성하기</title><link>https://qofo.github.io/posts/termux-boot-supervisor/</link><pubDate>Thu, 17 Sep 2026 00:00:00 +0000</pubDate><guid>https://qofo.github.io/posts/termux-boot-supervisor/</guid><description>&lt;p&gt;&lt;a href="https://qofo.github.io/posts/fixed-address-without-domain/"&gt;4편&lt;/a&gt;에서 고정 주소를 확보했다. 남은 요구사항은 무인 운영이다. 사람이 Termux 앱을 열지 않아도 서버가 떠 있어야 한다.&lt;/p&gt;
+&lt;p&gt;폰은 일반 서버보다 프로세스가 죽을 이유가 많다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;재부팅&lt;/strong&gt;: 배터리가 닳거나 시스템 업데이트로 꺼졌다 켜진다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;LMK(Low Memory Killer)&lt;/strong&gt;: 메모리가 부족하면 안드로이드가 백그라운드 프로세스를 경고 없이 &lt;code&gt;SIGKILL&lt;/code&gt;로 정리한다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Doze&lt;/strong&gt;: 화면이 꺼지고 기기가 정지 상태면 CPU와 네트워크가 묶인다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;각각에 대응하는 계층을 세 개 만들었다. 이 글은 그 v1 구조의 기록이다. 결론을 먼저 밝히면 &lt;strong&gt;이 구조는 하루를 버티지 못했다.&lt;/strong&gt; 원인은 마지막 절에 있고, 재설계는 &lt;a href="https://qofo.github.io/posts/supervisor-postmortem/"&gt;6편&lt;/a&gt;에 있다.&lt;/p&gt;</description></item></channel></rss>

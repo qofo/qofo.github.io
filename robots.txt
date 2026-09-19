@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://qofo.github.io/sitemap.xml

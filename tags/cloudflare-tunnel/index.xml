@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Cloudflare Tunnel on 서랍 속 폰으로 서버 운영하기</title><link>https://qofo.github.io/tags/cloudflare-tunnel/</link><description>Recent content in Cloudflare Tunnel on 서랍 속 폰으로 서버 운영하기</description><generator>Hugo</generator><language>ko-KR</language><lastBuildDate>Fri, 18 Sep 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://qofo.github.io/tags/cloudflare-tunnel/index.xml" rel="self" type="application/rss+xml"/><item><title>파이썬 표준 라이브러리만으로 만든 블로그, 그리고 첫 외부 공개</title><link>https://qofo.github.io/posts/stdlib-python-blog/</link><pubDate>Thu, 17 Sep 2026 00:00:00 +0000</pubDate><guid>https://qofo.github.io/posts/stdlib-python-blog/</guid><description>&lt;p&gt;&lt;a href="https://qofo.github.io/posts/ubuntu-on-galaxy-note-fe/"&gt;1편&lt;/a&gt;에서 폰 안에 Ubuntu를 올리고 AI 에이전트를 붙였다. 다음 문제는 가독성이었다. 작업 기록을 마크다운으로 남겼는데, 터미널에서 &lt;code&gt;cat&lt;/code&gt;으로 읽으면 표는 어긋나고 코드 블록은 백틱이 그대로 보인다.&lt;/p&gt;
+&lt;p&gt;그래서 폰에서 바로 구동할 수 있는 경량 웹 뷰어를 만들었다. 설계 목표는 두 가지다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;추가 의존성 설치가 없을 것&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;모바일 브라우저에서 정상적으로 렌더링될 것&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="무의존성-경량-웹-서버-구현"&gt;무의존성 경량 웹 서버 구현&lt;/h2&gt;
+&lt;p&gt;외부 프레임워크 대신 Python 표준 라이브러리만을 사용하여 웹 서버를 구현했다. RAM 4GB 환경의 스마트폰에서 수백 개의 패키지를 설치하는 것은 리소스 소모가 크며, 특히 proot 환경에서는 다수의 소용량 파일을 생성하는 작업(&lt;code&gt;npm install&lt;/code&gt; 등)의 I/O 속도가 크게 저하되기 때문이다.&lt;/p&gt;</description></item><item><title>도메인 없이 고정 주소 갖기: Cloudflare, DuckDNS, ngrok 실전 비교</title><link>https://qofo.github.io/posts/fixed-address-without-domain/</link><pubDate>Thu, 17 Sep 2026 00:00:00 +0000</pubDate><guid>https://qofo.github.io/posts/fixed-address-without-domain/</guid><description>&lt;p&gt;결론부터 쓰면 ngrok의 무료 고정 도메인을 채택했다. 개인 도메인을 사지 않고, 공유기를 건드리지 않고, 폰이 어느 망에 붙어 있든 같은 주소로 열리는 방식은 이것뿐이었다.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://qofo.github.io/posts/stdlib-python-blog/"&gt;2편&lt;/a&gt;에서 쓴 Cloudflare Quick Tunnel은 주소가 무작위로 발급되고 재시작할 때마다 바뀐다. 블로그라면 어제 공유한 링크가 오늘도 열려야 한다. 아래 세 가지를 차례로 구현했고 두 번 실패했다.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="시도-1-cloudflare-named-tunnel--도메인-소유권의-벽"&gt;시도 1: Cloudflare Named Tunnel — 도메인 소유권의 벽&lt;/h2&gt;
+&lt;p&gt;Quick Tunnel과 달리 Named Tunnel은 고정된 이름을 갖는다. 연결까지는 문제가 없었지만 공개 주소를 붙이는 마지막 단계에서 막혔다.&lt;/p&gt;</description></item></channel></rss>

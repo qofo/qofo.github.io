@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Termux:API on 서랍 속 폰으로 서버 운영하기</title><link>https://qofo.github.io/tags/termuxapi/</link><description>Recent content in Termux:API on 서랍 속 폰으로 서버 운영하기</description><generator>Hugo</generator><language>ko-KR</language><lastBuildDate>Fri, 18 Sep 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://qofo.github.io/tags/termuxapi/index.xml" rel="self" type="application/rss+xml"/><item><title>감시 데몬이 지키지 못한 것: 원인 분석과 재설계</title><link>https://qofo.github.io/posts/supervisor-postmortem/</link><pubDate>Fri, 18 Sep 2026 00:00:00 +0000</pubDate><guid>https://qofo.github.io/posts/supervisor-postmortem/</guid><description>&lt;p&gt;&lt;a href="https://qofo.github.io/posts/termux-boot-supervisor/"&gt;5편&lt;/a&gt;에서 3층 자동 시작과 10초 주기 감시 데몬을 만들었다. 하루 뒤 상태를 점검한 결과는 이렇다.&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;=== Galaxy Note FE Service Status ===
+Blog Server: [STOPPED]
+ngrok Tunnel: [STOPPED]
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;블로그도 터널도 꺼져 있었고, 열려 있는 포트는 SSH(8022) 하나뿐이었다. 이 글은 원인 분석과 재설계 기록이다.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="원인-1-proot-세션과-함께-사라진-프로세스"&gt;원인 1: proot 세션과 함께 사라진 프로세스&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;proot-distro login&lt;/code&gt;은 proot를 &lt;code&gt;--kill-on-exit&lt;/code&gt;로 실행한다. 처음 실행한 명령(대화형 셸)이 끝나면 그 안에 남은 프로세스를 모두 정리한다는 뜻이다(&lt;a href="https://qofo.github.io/posts/proot-constraints/"&gt;3편&lt;/a&gt; 참고).&lt;/p&gt;
+&lt;p&gt;전날의 서비스들은 작업 도중 proot 안에서 띄운 것이었다. 세션이 닫히는 순간 함께 사라졌고, 감시 데몬도 같은 세션 안에 있었으므로 같이 죽었다. 아무도 다시 띄우지 않았다.&lt;/p&gt;</description></item></channel></rss>
