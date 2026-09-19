@@ -17,6 +17,7 @@
 | 6 | [감시 데몬이 지키지 못한 것: 원인 분석과 재설계](https://qofo.github.io/posts/supervisor-postmortem/) |
 | 7 | [살아 있지만 일하지 않는 프로세스: 재부팅 후 멈춘 ngrok과 능동 헬스체크](https://qofo.github.io/posts/hung-ngrok-health-checks/) |
 | 8 | [Tailscale 안에서만 열리는 문서 서버: 방화벽 없는 폰에서 접근 제어하기](https://qofo.github.io/posts/tailnet-only-docs-server/) |
+| 9 | [원본 하나, 서버 둘: Hugo로 옮겨 폰과 GitHub Pages에 동시에 배포하기](https://qofo.github.io/posts/hugo-phone-and-pages/) |
 
 ## 구조
 
