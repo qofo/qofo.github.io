@@ -14,4 +14,5 @@
 14:10:26 msg=&amp;#34;starting web service&amp;#34; obj=web ← 로컬 관리 API(4040) 열림
 14:10:27 msg=&amp;#34;client session established&amp;#34; ← ngrok 서버와 연결
 14:10:27 msg=&amp;#34;started tunnel&amp;#34; url=https://daringly-marrow-penny.ngrok-free.dev
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;설정을 읽고, 로컬 관리 API를 열고, 서버에 붙어 터널을 연다. 2초면 끝난다. 문제의 재부팅 직후 로그는 이랬다.&lt;/p&gt;</description></item></channel></rss>
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;설정을 읽고, 로컬 관리 API를 열고, 서버에 붙어 터널을 연다. 2초면 끝난다. 문제의 재부팅 직후 로그는 이랬다.&lt;/p&gt;</description></item><item><title>원본 하나, 서버 둘: Hugo로 옮겨 폰과 GitHub Pages에 동시에 배포하기</title><link>https://qofo.github.io/posts/hugo-phone-and-pages/</link><pubDate>Sat, 19 Sep 2026 00:00:00 +0000</pubDate><guid>https://qofo.github.io/posts/hugo-phone-and-pages/</guid><description>&lt;p&gt;&lt;a href="https://qofo.github.io/posts/stdlib-python-blog/"&gt;2편&lt;/a&gt;에서 만든 블로그는 파이썬 파일 하나가 전부였다. 글 목록을 파싱하고, HTML을 문자열로 들고 있다가 내보내고, 마크다운은 브라우저가 marked로 그렸다. 이 구조에는 약점이 하나 있다. &lt;strong&gt;폰이 꺼지면 글도 사라진다.&lt;/strong&gt; &lt;a href="https://qofo.github.io/posts/hung-ngrok-health-checks/"&gt;7편&lt;/a&gt;의 재부팅 장애 때 방문자가 본 것은 글이 아니라 ngrok의 오류 페이지였다.&lt;/p&gt;
+&lt;p&gt;이 글은 블로그를 Hugo 정적 사이트로 옮기고, 같은 원본을 폰과 GitHub Pages 두 곳에서 서비스하게 만든 기록이다. 계획과 달라진 곳이 세 군데 있었다. 그중 둘은 실제로 붙여 보기 전까지 드러나지 않았다.&lt;/p&gt;</description></item></channel></rss>
