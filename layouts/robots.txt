@@ -1,0 +1,8 @@
+User-agent: *
+{{- if eq site.Params.origin "phone" }}
+# The phone serves a mirror; the canonical copy is {{ site.Params.canonicalBase }}
+Disallow: /
+{{- else }}
+Allow: /
+Sitemap: {{ "sitemap.xml" | absURL }}
+{{- end }}

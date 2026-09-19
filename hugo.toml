@@ -1,0 +1,44 @@
+# Default build = GitHub Pages (https://qofo.github.io/).
+# The phone build runs `hugo --environment phone`, which layers config/phone/hugo.toml on top.
+baseURL = "https://qofo.github.io/"
+languageCode = "ko-KR"
+defaultContentLanguage = "ko"
+title = "서랍 속 폰으로 서버 운영하기"
+enableRobotsTXT = true
+disableHugoGeneratorInject = true
+# No timeZone: the phone's Ubuntu has no tzdata, so Hugo there rejects "Asia/Seoul".
+# Posts carry dates without times, so UTC shows the same dates.
+
+[taxonomies]
+  tag = "tags"
+  series = "series"
+
+[permalinks.page]
+  posts = "/posts/:slug/"
+
+[markup.goldmark.renderer]
+  unsafe = false
+
+[markup.highlight]
+  noClasses = false
+
+[markup.tableOfContents]
+  startLevel = 2
+  endLevel = 3
+
+[params]
+  description = "쓰지 않던 갤럭시 노트 FE(Android 9)에 우분투를 올려 블로그를 24시간 공개하면서 겪은 일을 기록한 연재다."
+  author = "qofo"
+  # Every copy of a page points search engines here, whichever server delivered it.
+  canonicalBase = "https://qofo.github.io/"
+  phoneURL = "https://daringly-marrow-penny.ngrok-free.dev/"
+  repoURL = "https://github.com/qofo/qofo.github.io"
+  codeRepoURL = "https://github.com/qofo/phone-homeserver"
+  # "pages" or "phone": which server this build is for
+  origin = "pages"
+  # Live numbers always come from the phone. Cross-origin requests carry the
+  # ngrok-skip-browser-warning header, which the phone answers in its CORS preflight.
+  metricsURL = "https://daringly-marrow-penny.ngrok-free.dev/api/metrics"
+  # Seconds between polls while the page is visible (the ngrok free plan meters requests)
+  pollHome = 30
+  pollDashboard = 5

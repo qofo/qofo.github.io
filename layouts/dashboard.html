@@ -1,0 +1,76 @@
+{{ define "main" }}
+<section class="dashboard-view" data-metrics-dashboard>
+  <div class="dash-header">
+    <div class="dash-device-title">
+      <h1>📱 폰 서버 실시간 상태</h1>
+      <div class="dash-device-meta">
+        <span>Samsung Galaxy Note FE (SM-N935L)</span>
+        <span>Exynos 8890 8-Core (aarch64)</span>
+        <span>Ubuntu 26.04 LTS (PRoot)</span>
+      </div>
+    </div>
+    <div class="live-status" data-m="live">
+      <span class="live-dot" aria-hidden="true"></span>
+      <span data-m="status">폰에 연결하는 중…</span>
+    </div>
+  </div>
+
+  <p class="dash-note">
+    {{- if eq site.Params.origin "phone" }}
+    이 수치는 이 페이지를 보낸 폰이 {{ site.Params.pollDashboard }}초마다 직접 계산한다.
+    {{- else }}
+    이 페이지는 GitHub Pages에서 왔지만, 수치는 폰이 ngrok 터널을 거쳐 {{ site.Params.pollDashboard }}초마다 보낸다. 폰이 꺼져 있으면 연결 실패로 표시된다.
+    {{- end }}
+  </p>
+
+  <div class="dash-grid">
+    <div class="dash-card">
+      <div class="dash-card-title"><span>🔥 8코어 CPU 사용률</span><span class="mono accent" data-m="cpuFreq">-- MHz</span></div>
+      <div class="dash-big-stat" data-m="cpuTotal">--%</div>
+      <div class="dash-progress-wrap"><div class="dash-progress-bar" data-m="cpuBar"></div></div>
+      <div class="dash-sub-stats"><span>Load Avg: <b data-m="load">--</b></span><span>업타임: <b data-m="uptimeFull">--</b></span></div>
+    </div>
+
+    <div class="dash-card">
+      <div class="dash-card-title"><span>💾 메모리 (RAM & zRAM)</span><span data-m="ramText">-- / -- MB</span></div>
+      <div class="dash-big-stat" data-m="ramPct">--%</div>
+      <div class="dash-progress-wrap"><div class="dash-progress-bar" data-m="ramBar"></div></div>
+      <div class="dash-sub-stats"><span>zRAM Swap: <b data-m="swap">--</b></span><span>가용 RAM: <b data-m="ramAvail">-- MB</b></span></div>
+    </div>
+
+    <div class="dash-card">
+      <div class="dash-card-title"><span>📶 네트워크 & 스토리지</span><span data-m="storageFree">-- GB 가용</span></div>
+      <div class="dash-big-stat net-stat">
+        <div><small>다운로드 (RX)</small><span data-m="rx">-- KB/s</span></div>
+        <div><small>업로드 (TX)</small><span data-m="tx">-- KB/s</span></div>
+      </div>
+      <div class="dash-progress-wrap"><div class="dash-progress-bar storage" data-m="storageBar"></div></div>
+      <div class="dash-sub-stats"><span>저장 공간 사용률: <b data-m="storagePct">--%</b></span></div>
+    </div>
+
+    <div class="dash-card">
+      <div class="dash-card-title"><span>🔋 배터리</span><span data-m="battPlugged">--</span></div>
+      <div class="battery-status-box">
+        <div class="battery-icon-large" data-m="battIcon" aria-hidden="true">🔋</div>
+        <div class="battery-info-text"><div class="battery-pct" data-m="battPct">--%</div><p data-m="battStatus">상태 확인 중…</p></div>
+      </div>
+      <div class="dash-sub-stats"><span>온도: <b data-m="battTemp">-- °C</b></span><span>상태: <b data-m="battHealth">--</b></span></div>
+    </div>
+  </div>
+
+  <div class="dash-card cores-card">
+    <div class="dash-card-title"><span>⚙️ 코어별 사용률 (big.LITTLE)</span><span class="muted small">4× Exynos-M1 + 4× Cortex-A53</span></div>
+    <div class="cores-section-title">🚀 빅코어 (4~7번, Exynos-M1, 최대 2.6GHz)</div>
+    <div class="cores-grid" data-m="bigCores"></div>
+    <div class="cores-section-title">🌱 리틀코어 (0~3번, Cortex-A53, 최대 1.58GHz)</div>
+    <div class="cores-grid" data-m="littleCores"></div>
+  </div>
+
+  <div class="dash-card">
+    <div class="dash-card-title"><span>⏱️ 최근 중단</span></div>
+    <p class="downtime" data-m="downtime">--</p>
+  </div>
+</section>
+{{ end }}
+
+{{ define "scripts" }}{{ partial "telemetry-script.html" . }}{{ end }}

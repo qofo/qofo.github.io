@@ -1,0 +1,14 @@
+<footer class="site-footer">
+  <p>
+    {{- if eq site.Params.origin "phone" }}
+    이 페이지는 폰이 직접 보내고 있다. 같은 글이 <a href="{{ site.Params.canonicalBase }}">GitHub Pages</a>에도 있다.
+    {{- else }}
+    글은 GitHub Pages에서 열린다. 폰이 직접 응답하는 사본은 <a href="{{ site.Params.phoneURL }}">여기</a>에 있다.
+    {{- end }}
+  </p>
+  <p>
+    글 <a href="{{ site.Params.repoURL }}">qofo/qofo.github.io</a> (CC BY 4.0) ·
+    코드 <a href="{{ site.Params.codeRepoURL }}">qofo/phone-homeserver</a> (MIT) ·
+    <a href="{{ "index.xml" | relURL }}">RSS</a>
+  </p>
+</footer>

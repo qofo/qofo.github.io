@@ -1,0 +1,11 @@
+<a class="post-card" href="{{ .RelPermalink }}">
+  <div class="post-card-header">
+    <h3 class="post-card-title">{{ with .Params.series }}{{ with $.Weight }}<span class="part">{{ . }}편</span>{{ end }}{{ end }}{{ .Title }}</h3>
+    <time class="post-card-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006년 1월 2일" }}</time>
+  </div>
+  <p class="post-card-excerpt">{{ .Description }}</p>
+  <div class="post-card-footer">
+    <div class="tags">{{ range .Params.tags }}<span class="tag">#{{ . }}</span>{{ end }}</div>
+    <span class="read-more">읽기 →</span>
+  </div>
+</a>

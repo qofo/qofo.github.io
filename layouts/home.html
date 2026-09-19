@@ -1,0 +1,30 @@
+{{ define "main" }}
+<main>
+  <section class="hero">
+    <div class="hero-badge">📱 Galaxy Note FE · Termux · proot Ubuntu</div>
+    <h1>{{ site.Title }}</h1>
+    <p>{{ site.Params.description }}
+      {{- if eq site.Params.origin "phone" }} 이 페이지는 그 폰이 직접 응답하고 있다.
+      {{- else }} 글은 GitHub Pages에서 열리고, 아래 수치는 폰이 지금 보내는 값이다.
+      {{- end }}</p>
+    {{ partial "telemetry-pills.html" . }}
+  </section>
+
+  <h2 class="section-title">📖 연재 글 목록</h2>
+  <div class="posts-grid">
+    {{- range (where site.RegularPages "Section" "posts").ByWeight }}
+    {{ partial "post-card.html" . }}
+    {{- end }}
+  </div>
+</main>
+
+{{- /* Old links from the single-page app looked like /#post=<file id> and /#dashboard */}}
+{{- $legacy := dict "dashboard" (site.GetPage "/dashboard").RelPermalink }}
+{{- range where site.RegularPages "Section" "posts" }}
+  {{- $post := . }}
+  {{- with .Params.legacy_id }}{{ $legacy = merge $legacy (dict . $post.RelPermalink) }}{{ end }}
+{{- end }}
+<script type="application/json" id="legacy-links">{{ $legacy | jsonify | safeJS }}</script>
+{{ end }}
+
+{{ define "scripts" }}{{ partial "telemetry-script.html" . }}{{ end }}

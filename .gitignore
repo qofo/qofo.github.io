@@ -1,0 +1,4 @@
+# Hugo output and caches: the phone builds into /root/blog_builds, GitHub Actions into its runner
+/public/
+/resources/
+.hugo_build.lock

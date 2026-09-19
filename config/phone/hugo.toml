@@ -1,0 +1,9 @@
+# Build served by the phone itself: hugo --environment phone
+baseURL = "https://daringly-marrow-penny.ngrok-free.dev/"
+
+[params]
+  origin = "phone"
+  # Same origin, so no ngrok header and no preflight
+  metricsURL = "/api/metrics"
+  pollHome = 10
+  pollDashboard = 3

@@ -1,0 +1,18 @@
+{{ define "main" }}
+<main>
+  <h1 class="page-title">{{ if eq .Kind "term" }}{{ with .Data.Singular }}{{ if eq . "tag" }}#{{ end }}{{ end }}{{ end }}{{ .Title }}</h1>
+  {{- if eq .Kind "taxonomy" }}
+  <div class="term-cloud">
+    {{- range .Data.Terms.Alphabetical }}
+    <a class="tag" href="{{ .Page.RelPermalink }}">#{{ .Page.Title }} <small>{{ .Count }}</small></a>
+    {{- end }}
+  </div>
+  {{- else }}
+  <div class="posts-grid">
+    {{- range .Pages.ByWeight }}
+    {{ partial "post-card.html" . }}
+    {{- end }}
+  </div>
+  {{- end }}
+</main>
+{{ end }}

@@ -1,0 +1,9 @@
+{{- $dash := site.GetPage "/dashboard" }}
+<a class="telemetry-pills" href="{{ $dash.RelPermalink }}" title="상세 대시보드 열기" data-metrics-pills>
+  <span class="pill-item"><span class="pill-label">🔥 CPU</span><span class="pill-val" data-m="cpu">--</span></span>
+  <span class="pill-item"><span class="pill-label">💾 RAM</span><span class="pill-val" data-m="ram">--</span></span>
+  <span class="pill-item"><span class="pill-label">🌐 NET</span><span class="pill-val" data-m="net">--</span></span>
+  <span class="pill-item"><span class="pill-label">🔋 BATT</span><span class="pill-val" data-m="batt">--</span></span>
+  <span class="pill-item"><span class="pill-label">⏱️ UPTIME</span><span class="pill-val" data-m="uptime">--</span></span>
+  <span class="pill-status" data-m="status">폰에 연결하는 중…</span>
+</a>
