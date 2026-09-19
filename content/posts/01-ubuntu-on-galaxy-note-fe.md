@@ -1,10 +1,14 @@
-# 1편. 서랍 속 갤럭시 노트 FE에 우분투를 올리기까지
-
-> **작성일**: 2026년 9월 17일  
-> **개정**: 2026년 9월 18일  
-> **시리즈**: 스마트폰으로 서버 만들기 (1편)  
-> **태그**: `Termux`, `proot-distro`, `Ubuntu`, `Android`, `Antigravity`, `agy`, `Troubleshooting`
-
+---
+title: "서랍 속 갤럭시 노트 FE에 우분투를 올리기까지"
+slug: "ubuntu-on-galaxy-note-fe"
+date: 2026-09-17
+lastmod: 2026-09-18
+weight: 1
+series: ["스마트폰으로 서버 만들기"]
+tags: ["Termux", "proot-distro", "Ubuntu", "Android", "Antigravity", "agy", "Troubleshooting"]
+description: "서랍에 있던 갤럭시 노트 FE(SM-N935L)로 서버를 만들기로 했다. 2017년 기기이고 안드로이드 9에서 업데이트가 멈췄지만, 8코어 CPU와 4GB RAM, 64GB 저장 공간이 들어 있다. 라즈베리파이 3보다 빠르고, 화면과 배터리가 달려 있고, 소비 전력은 5W 미만이다."
+legacy_id: "01_agy_setup_and_troubleshooting"
+---
 서랍에 있던 갤럭시 노트 FE(SM-N935L)로 서버를 만들기로 했다. 2017년 기기이고 안드로이드 9에서 업데이트가 멈췄지만, 8코어 CPU와 4GB RAM, 64GB 저장 공간이 들어 있다. 라즈베리파이 3보다 빠르고, 화면과 배터리가 달려 있고, 소비 전력은 5W 미만이다.
 
 목표는 리눅스를 올리고 AI 코딩 에이전트를 붙여 24시간 돌리는 것이다. 이 단계에서 발목을 잡은 것은 기기 성능이 아니라 **바이너리 호환성**이었다.
@@ -118,4 +122,4 @@ proot 기반 배포판 환경에서 HTTPS 통신 오류가 발생할 경우 우�
 
 다음 편에서는 Ubuntu 환경 위에 Python 표준 라이브러리 기반 블로그 서버를 구축하고 외부로 공개하는 과정을 다룬다.
 
-→ [2편. 파이썬 표준 라이브러리만으로 만든 블로그, 그리고 첫 외부 공개](#post=02_web_server_and_cloudflare_tunnel)
+→ [2편. 파이썬 표준 라이브러리만으로 만든 블로그, 그리고 첫 외부 공개](02-stdlib-python-blog.md)

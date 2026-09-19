@@ -1,13 +1,17 @@
-# 4편. 도메인 없이 고정 주소 갖기: Cloudflare, DuckDNS, ngrok 실전 비교
-
-> **작성일**: 2026년 9월 17일  
-> **개정**: 2026년 9월 18일  
-> **시리즈**: 스마트폰으로 서버 만들기 (4편)  
-> **태그**: `ngrok`, `Cloudflare Tunnel`, `DuckDNS`, `DDNS`, `CGNAT`, `Networking`
-
+---
+title: "도메인 없이 고정 주소 갖기: Cloudflare, DuckDNS, ngrok 실전 비교"
+slug: "fixed-address-without-domain"
+date: 2026-09-17
+lastmod: 2026-09-18
+weight: 4
+series: ["스마트폰으로 서버 만들기"]
+tags: ["ngrok", "Cloudflare Tunnel", "DuckDNS", "DDNS", "CGNAT", "Networking"]
+description: "결론부터 쓰면 ngrok의 무료 고정 도메인을 채택했다. 개인 도메인을 사지 않고, 공유기를 건드리지 않고, 폰이 어느 망에 붙어 있든 같은 주소로 열리는 방식은 이것뿐이었다."
+legacy_id: "04_permanent_tunneling_and_domain_strategy"
+---
 결론부터 쓰면 ngrok의 무료 고정 도메인을 채택했다. 개인 도메인을 사지 않고, 공유기를 건드리지 않고, 폰이 어느 망에 붙어 있든 같은 주소로 열리는 방식은 이것뿐이었다.
 
-[2편](#post=02_web_server_and_cloudflare_tunnel)에서 쓴 Cloudflare Quick Tunnel은 주소가 무작위로 발급되고 재시작할 때마다 바뀐다. 블로그라면 어제 공유한 링크가 오늘도 열려야 한다. 아래 세 가지를 차례로 구현했고 두 번 실패했다.
+[2편](02-stdlib-python-blog.md)에서 쓴 Cloudflare Quick Tunnel은 주소가 무작위로 발급되고 재시작할 때마다 바뀐다. 블로그라면 어제 공유한 링크가 오늘도 열려야 한다. 아래 세 가지를 차례로 구현했고 두 번 실패했다.
 
 ---
 
@@ -112,4 +116,4 @@ $ curl -s -A "Mozilla/5.0 (Linux; Android 14) ... Chrome/140.0" ...
 
 주소 문제는 여기서 끝났다. 남은 과제는 사람이 손대지 않아도 이 프로세스들이 계속 살아 있게 만드는 것이다. 다음 편에서 부팅 자동 실행과 감시 데몬을 구성한다.
 
-→ [5편. Termux:Boot와 감시 데몬으로 무인 운영 구성하기](#post=05_headless_autostart_and_self_healing_daemon)
+→ [5편. Termux:Boot와 감시 데몬으로 무인 운영 구성하기](05-termux-boot-supervisor.md)

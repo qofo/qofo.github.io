@@ -1,10 +1,14 @@
-# 6편. 감시 데몬이 지키지 못한 것: 원인 분석과 재설계
-
-> **작성일**: 2026년 9월 18일  
-> **시리즈**: 스마트폰으로 서버 만들기 (6편)  
-> **태그**: `Supervisor`, `PRoot`, `Signals`, `setsid`, `Termux:API`, `Postmortem`
-
-[5편](#post=05_headless_autostart_and_self_healing_daemon)에서 3층 자동 시작과 10초 주기 감시 데몬을 만들었다. 하루 뒤 상태를 점검한 결과는 이렇다.
+---
+title: "감시 데몬이 지키지 못한 것: 원인 분석과 재설계"
+slug: "supervisor-postmortem"
+date: 2026-09-18
+weight: 6
+series: ["스마트폰으로 서버 만들기"]
+tags: ["Supervisor", "PRoot", "Signals", "setsid", "Termux:API", "Postmortem"]
+description: "5편에서 3층 자동 시작과 10초 주기 감시 데몬을 만들었다. 하루 뒤 상태를 점검한 결과는 이렇다."
+legacy_id: "06_audit_and_supervisor_rewrite"
+---
+[5편](05-termux-boot-supervisor.md)에서 3층 자동 시작과 10초 주기 감시 데몬을 만들었다. 하루 뒤 상태를 점검한 결과는 이렇다.
 
 ```
 === Galaxy Note FE Service Status ===
@@ -18,7 +22,7 @@ ngrok Tunnel: [STOPPED]
 
 ## 원인 1: proot 세션과 함께 사라진 프로세스
 
-`proot-distro login`은 proot를 `--kill-on-exit`로 실행한다. 처음 실행한 명령(대화형 셸)이 끝나면 그 안에 남은 프로세스를 모두 정리한다는 뜻이다([3편](#post=03_android_proot_server_architecture_and_gotchas) 참고).
+`proot-distro login`은 proot를 `--kill-on-exit`로 실행한다. 처음 실행한 명령(대화형 셸)이 끝나면 그 안에 남은 프로세스를 모두 정리한다는 뜻이다([3편](03-proot-constraints.md) 참고).
 
 전날의 서비스들은 작업 도중 proot 안에서 띄운 것이었다. 세션이 닫히는 순간 함께 사라졌고, 감시 데몬도 같은 세션 안에 있었으므로 같이 죽었다. 아무도 다시 띄우지 않았다.
 

@@ -1,10 +1,14 @@
-# 3편. 스마트폰 리눅스의 진짜 제약: 가짜 root, 없는 systemd, 그리고 가짜 /proc
-
-> **작성일**: 2026년 9월 17일  
-> **개정**: 2026년 9월 18일  
-> **시리즈**: 스마트폰으로 서버 만들기 (3편)  
-> **태그**: `PRoot`, `Termux`, `Android`, `Linux`, `systemd`, `procfs`, `Architecture`
-
+---
+title: "스마트폰 리눅스의 진짜 제약: 가짜 root, 없는 systemd, 그리고 가짜 /proc"
+slug: "proot-constraints"
+date: 2026-09-17
+lastmod: 2026-09-18
+weight: 3
+series: ["스마트폰으로 서버 만들기"]
+tags: ["PRoot", "Termux", "Android", "Linux", "systemd", "procfs", "Architecture"]
+description: "PRoot 환경의 Ubuntu는 겉보기에 표준 리눅스와 같다. apt-get이 돌고, whoami는 root를 출력하고, /etc/os-release는 Ubuntu 26.04.1 LTS라고 답한다. 그래서 일반 서버처럼 다루게 되고, 그러다 벽에 부딪힌다."
+legacy_id: "03_android_proot_server_architecture_and_gotchas"
+---
 PRoot 환경의 Ubuntu는 겉보기에 표준 리눅스와 같다. `apt-get`이 돌고, `whoami`는 `root`를 출력하고, `/etc/os-release`는 Ubuntu 26.04.1 LTS라고 답한다. 그래서 일반 서버처럼 다루게 되고, 그러다 벽에 부딪힌다.
 
 이 글은 그 제약의 목록이다. 이후 편에서 벌어지는 사고는 대부분 여기 적힌 항목을 잊어서 생겼다.
@@ -52,7 +56,7 @@ uid=0(root) gid=0(root) groups=0(root),3003(aid_inet),9997(aid_everybody),
 
 proot 환경에서는 `systemd`가 동작하지 않으므로 `systemctl`, `service`, `journalctl` 등의 시스템 관리 도구를 사용할 수 없다. Android 시스템의 `init`이 PID 1을 점유하며, Ubuntu 환경은 해당 `init` 하위의 애플리케이션 프로세스 트리에 불과하다.
 
-따라서 표준 데몬 서비스 등록 방식이 불가능하며, 프로세스 실행 및 생명주기 감시를 별도의 스크립트와 감시 데몬으로 직접 구현해야 한다. 상세한 프로세스 감시 구조는 [5편](#post=05_headless_autostart_and_self_healing_daemon)과 [6편](#post=06_audit_and_supervisor_rewrite)에서 다룬다.
+따라서 표준 데몬 서비스 등록 방식이 불가능하며, 프로세스 실행 및 생명주기 감시를 별도의 스크립트와 감시 데몬으로 직접 구현해야 한다. 상세한 프로세스 감시 구조는 [5편](05-termux-boot-supervisor.md)과 [6편](06-supervisor-postmortem.md)에서 다룬다.
 
 ## 4. 세션 종료 시 하위 프로세스 종료 제약 (--kill-on-exit)
 
@@ -64,7 +68,7 @@ proot --kill-on-exit --link2symlink --sysvipc ... /bin/bash -l
 
 `--kill-on-exit` 옵션은 진입 시 실행된 루트 명령(로그인 셸)이 종료될 때 **해당 세션 내부에서 생성된 모든 하위 프로세스를 함께 강제 종료**한다. 대화형 셸에서 `nohup ... &` 명령어로 백그라운드 서버를 구동하더라도, 로그인 세션을 종료(로그아웃)하는 순간 백그라운드 프로세스까지 함께 종료된다.
 
-이 제약으로 인해 서버가 백그라운드에서 유지되지 않고 중단되는 문제가 발생한다. 이에 대한 구체적인 분석 및 해결책은 [6편](#post=06_audit_and_supervisor_rewrite)에서 설명한다.
+이 제약으로 인해 서버가 백그라운드에서 유지되지 않고 중단되는 문제가 발생한다. 이에 대한 구체적인 분석 및 해결책은 [6편](06-supervisor-postmortem.md)에서 설명한다.
 
 ## 5. procfs 가상화 한계: /proc/stat, /proc/uptime, /proc/loadavg의 정적 데이터
 
@@ -140,4 +144,4 @@ Android OS는 모바일 배터리와 자원 관리를 위해 백그라운드 프
 
 소비 전력, 무소음, 내장 배터리는 확실한 이점이다. 다만 "배터리가 곧 UPS"라는 말에는 조건이 붙는다. **충전기에 꽂혀 있어야** 성립한다. 충전이 끊기면 시간당 약 2.6%씩 줄어 하루 만에 꺼진다. 가장 정교한 자동 복구 장치보다 케이블 하나가 중요할 때가 있다.
 
-→ [4편. 도메인 없이 고정 주소 갖기: Cloudflare, DuckDNS, ngrok 실전 비교](#post=04_permanent_tunneling_and_domain_strategy)
+→ [4편. 도메인 없이 고정 주소 갖기: Cloudflare, DuckDNS, ngrok 실전 비교](04-fixed-address-without-domain.md)

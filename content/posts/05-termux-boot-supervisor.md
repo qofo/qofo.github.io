@@ -1,11 +1,15 @@
-# 5편. Termux:Boot와 감시 데몬으로 무인 운영 구성하기
-
-> **작성일**: 2026년 9월 17일  
-> **개정**: 2026년 9월 18일  
-> **시리즈**: 스마트폰으로 서버 만들기 (5편)  
-> **태그**: `Termux:Boot`, `Supervisor`, `Self-Healing`, `Android`, `PRoot`, `Automation`
-
-[4편](#post=04_permanent_tunneling_and_domain_strategy)에서 고정 주소를 확보했다. 남은 요구사항은 무인 운영이다. 사람이 Termux 앱을 열지 않아도 서버가 떠 있어야 한다.
+---
+title: "Termux:Boot와 감시 데몬으로 무인 운영 구성하기"
+slug: "termux-boot-supervisor"
+date: 2026-09-17
+lastmod: 2026-09-18
+weight: 5
+series: ["스마트폰으로 서버 만들기"]
+tags: ["Termux:Boot", "Supervisor", "Self-Healing", "Android", "PRoot", "Automation"]
+description: "4편에서 고정 주소를 확보했다. 남은 요구사항은 무인 운영이다. 사람이 Termux 앱을 열지 않아도 서버가 떠 있어야 한다."
+legacy_id: "05_headless_autostart_and_self_healing_daemon"
+---
+[4편](04-fixed-address-without-domain.md)에서 고정 주소를 확보했다. 남은 요구사항은 무인 운영이다. 사람이 Termux 앱을 열지 않아도 서버가 떠 있어야 한다.
 
 폰은 일반 서버보다 프로세스가 죽을 이유가 많다.
 
@@ -13,7 +17,7 @@
 - **LMK(Low Memory Killer)**: 메모리가 부족하면 안드로이드가 백그라운드 프로세스를 경고 없이 `SIGKILL`로 정리한다.
 - **Doze**: 화면이 꺼지고 기기가 정지 상태면 CPU와 네트워크가 묶인다.
 
-각각에 대응하는 계층을 세 개 만들었다. 이 글은 그 v1 구조의 기록이다. 결론을 먼저 밝히면 **이 구조는 하루를 버티지 못했다.** 원인은 마지막 절에 있고, 재설계는 [6편](#post=06_audit_and_supervisor_rewrite)에 있다.
+각각에 대응하는 계층을 세 개 만들었다. 이 글은 그 v1 구조의 기록이다. 결론을 먼저 밝히면 **이 구조는 하루를 버티지 못했다.** 원인은 마지막 절에 있고, 재설계는 [6편](06-supervisor-postmortem.md)에 있다.
 
 ---
 
@@ -64,7 +68,7 @@ start_daemon() {
 }
 ```
 
-`pgrep`으로 프로세스 존재 여부를 확인하고 없으면 다시 띄운다. 무한 루프가 도는 동안에는 proot 세션도 끝나지 않으므로, [3편](#post=03_android_proot_server_architecture_and_gotchas)에서 정리한 `--kill-on-exit` 문제도 함께 피한다고 판단했다.
+`pgrep`으로 프로세스 존재 여부를 확인하고 없으면 다시 띄운다. 무한 루프가 도는 동안에는 proot 세션도 끝나지 않으므로, [3편](03-proot-constraints.md)에서 정리한 `--kill-on-exit` 문제도 함께 피한다고 판단했다.
 
 ## 3층: 진입 경로마다 자동 시작
 
@@ -109,4 +113,4 @@ ngrok Tunnel: [STOPPED]
 
 정리하면 **복구 장치를 만든 것과 복구되는 것을 확인한 것은 다르다.** `pkill` 한 번으로 통과한 테스트는 "프로세스가 죽는 경우"만 검증했다. "감시자 자신이 죽는 경우"와 "프로세스가 잘못된 세션에서 태어난 경우"는 검증하지 않았다.
 
-→ [6편. 감시 데몬이 지키지 못한 것: 원인 분석과 재설계](#post=06_audit_and_supervisor_rewrite)
+→ [6편. 감시 데몬이 지키지 못한 것: 원인 분석과 재설계](06-supervisor-postmortem.md)

@@ -1,10 +1,14 @@
-# 7편. 살아 있지만 일하지 않는 프로세스: 재부팅 후 멈춘 ngrok과 능동 헬스체크
-
-> **작성일**: 2026년 9월 19일  
-> **시리즈**: 스마트폰으로 서버 만들기 (7편)  
-> **태그**: `ngrok`, `Health Check`, `Supervisor`, `Reboot`, `Downtime`, `Postmortem`
-
-[6편](#post=06_audit_and_supervisor_rewrite)에서 감시 데몬을 다시 만들고 "재부팅까지 시험해야 한다"고 정리했다. 그날 밤 폰을 재부팅했더니 블로그 주소에 ngrok의 `ERR_NGROK_3200`(엔드포인트 오프라인) 오류 페이지가 떴다.
+---
+title: "살아 있지만 일하지 않는 프로세스: 재부팅 후 멈춘 ngrok과 능동 헬스체크"
+slug: "hung-ngrok-health-checks"
+date: 2026-09-19
+weight: 7
+series: ["스마트폰으로 서버 만들기"]
+tags: ["ngrok", "Health Check", "Supervisor", "Reboot", "Downtime", "Postmortem"]
+description: "6편에서 감시 데몬을 다시 만들고 \"재부팅까지 시험해야 한다\"고 정리했다. 그날 밤 폰을 재부팅했더니 블로그 주소에 ngrok의 ERRNGROK3200(엔드포인트 오프라인) 오류 페이지가 떴다."
+legacy_id: "07_reboot_hung_ngrok_and_active_health_checks"
+---
+[6편](06-supervisor-postmortem.md)에서 감시 데몬을 다시 만들고 "재부팅까지 시험해야 한다"고 정리했다. 그날 밤 폰을 재부팅했더니 블로그 주소에 ngrok의 `ERR_NGROK_3200`(엔드포인트 오프라인) 오류 페이지가 떴다.
 
 터널이 없다는 뜻이다. 그런데 감시 데몬은 아무것도 하지 않았다. 이 글은 **프로세스는 살아 있는데 일을 하지 않는** 장애의 분석과, 원인을 끝내 확정하지 못한 채 선택한 대응 기록이다.
 

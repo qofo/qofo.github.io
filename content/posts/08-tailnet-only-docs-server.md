@@ -1,12 +1,16 @@
-# 8편. Tailscale 안에서만 열리는 문서 서버: 방화벽 없는 폰에서 접근 제어하기
-
-> **작성일**: 2026년 9월 19일  
-> **시리즈**: 스마트폰으로 서버 만들기 (8편)  
-> **태그**: `Tailscale`, `Security`, `DNS Rebinding`, `CSP`, `DOMPurify`, `Python`
-
+---
+title: "Tailscale 안에서만 열리는 문서 서버: 방화벽 없는 폰에서 접근 제어하기"
+slug: "tailnet-only-docs-server"
+date: 2026-09-19
+weight: 8
+series: ["스마트폰으로 서버 만들기"]
+tags: ["Tailscale", "Security", "DNS Rebinding", "CSP", "DOMPurify", "Python"]
+description: "이 폰에서는 블로그 말고도 문서를 쓴다. 사이드 프로젝트 기획서, 기존 서비스 조사, 블로그 이전 계획 같은 것들이다. 이런 문서를 노트북이나 다른 폰의 브라우저로 읽고 싶었다. 조건은 하나다. 나만 봐야 한다."
+legacy_id: "08_tailnet_only_private_docs_server"
+---
 이 폰에서는 블로그 말고도 문서를 쓴다. 사이드 프로젝트 기획서, 기존 서비스 조사, 블로그 이전 계획 같은 것들이다. 이런 문서를 노트북이나 다른 폰의 브라우저로 읽고 싶었다. 조건은 하나다. **나만 봐야 한다.**
 
-블로그에 올리는 방법은 쓸 수 없다. [4편](#post=04_permanent_tunneling_and_domain_strategy)에서 만든 ngrok 터널이 8080 포트를 인터넷 전체에 공개하고 있다. 그렇다고 새 서버를 `0.0.0.0`에 띄우면 같은 Wi-Fi의 모든 기기가 접근할 수 있다. 이 글은 Tailscale 사설망에서만 응답하는 문서 서버를 만든 기록이다.
+블로그에 올리는 방법은 쓸 수 없다. [4편](04-fixed-address-without-domain.md)에서 만든 ngrok 터널이 8080 포트를 인터넷 전체에 공개하고 있다. 그렇다고 새 서버를 `0.0.0.0`에 띄우면 같은 Wi-Fi의 모든 기기가 접근할 수 있다. 이 글은 Tailscale 사설망에서만 응답하는 문서 서버를 만든 기록이다.
 
 ---
 
@@ -26,7 +30,7 @@
 
 ## 1층: 방화벽이 없으니 바인딩 주소가 방화벽이다
 
-보통의 리눅스 서버라면 `0.0.0.0`에 띄우고 방화벽으로 Tailscale 인터페이스만 열 것이다. 여기서는 그럴 수 없다. `iptables`가 설치돼 있지 않고, 설치하더라도 [3편](#post=03_android_proot_server_architecture_and_gotchas)에서 본 것처럼 proot의 root는 가짜라서 커널 방화벽 규칙을 넣을 권한이 없다.
+보통의 리눅스 서버라면 `0.0.0.0`에 띄우고 방화벽으로 Tailscale 인터페이스만 열 것이다. 여기서는 그럴 수 없다. `iptables`가 설치돼 있지 않고, 설치하더라도 [3편](03-proot-constraints.md)에서 본 것처럼 proot의 root는 가짜라서 커널 방화벽 규칙을 넣을 권한이 없다.
 
 그래서 **소켓을 Tailscale 주소에만 바인딩**한다. 다른 인터페이스로 들어온 연결은 커널 단계에서 거부된다. 문제는 그 주소를 알아내는 방법이다.
 
@@ -166,7 +170,7 @@ Cache-Control: no-store
 
 처음에는 이 서버를 블로그의 감시 데몬(`start_services.sh`)에 한 줄 끼워 넣으려 했다. 그러다 멈췄다. 그 데몬은 공개 블로그를 지키는 코드다. 비공개 문서 기능을 고치다가 실수하면 블로그가 멈춘다. 두 기능은 수명도 다르다. 블로그는 늘 떠 있어야 하고, 문서 서버는 VPN이 꺼져 있으면 쉬어도 된다.
 
-그래서 [6편](#post=06_audit_and_supervisor_rewrite)의 구조를 **통째로 한 벌 더** 만들었다.
+그래서 [6편](06-supervisor-postmortem.md)의 구조를 **통째로 한 벌 더** 만들었다.
 
 | 구분 | 블로그 (공개) | 문서 서버 (비공개) |
 |:---|:---|:---|
@@ -269,7 +273,7 @@ stub start mode=exit2
 [21:28:52] [REFUSED] server refused its bind address (code 2); retrying in 300s
 ```
 
-먹통 감지, 주소 변경 시 즉시 재시작, 바인딩 거부 시 5분 대기가 모두 설계대로 동작했다. [7편](#post=07_reboot_hung_ngrok_and_active_health_checks)의 먹통 감지도 이렇게 시험할 수 있었으면 재부팅을 기다리지 않아도 됐을 것이다.
+먹통 감지, 주소 변경 시 즉시 재시작, 바인딩 거부 시 5분 대기가 모두 설계대로 동작했다. [7편](07-hung-ngrok-health-checks.md)의 먹통 감지도 이렇게 시험할 수 있었으면 재부팅을 기다리지 않아도 됐을 것이다.
 
 ---
 
