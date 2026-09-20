@@ -18,6 +18,7 @@
 | 7 | [살아 있지만 일하지 않는 프로세스: 재부팅 후 멈춘 ngrok과 능동 헬스체크](https://qofo.github.io/posts/hung-ngrok-health-checks/) |
 | 8 | [Tailscale 안에서만 열리는 문서 서버: 방화벽 없는 폰에서 접근 제어하기](https://qofo.github.io/posts/tailnet-only-docs-server/) |
 | 9 | [원본 하나, 서버 둘: Hugo로 옮겨 폰과 GitHub Pages에 동시에 배포하기](https://qofo.github.io/posts/hugo-phone-and-pages/) |
+| 10 | [터미널 말고 편집기: 폰에 VS Code를 올리고 tailnet 안에서만 열기](https://qofo.github.io/posts/code-server-on-the-phone/) |
 
 ## 구조
 
