@@ -104,6 +104,8 @@ Hugo의 표준 방법은 `relref` 단축 코드다. 하지만 이 문법은 GitH
 
 ## 2. 테마: 외부 테마 대신 옛 화면을 옮겼다
 
+(이 결정도 뒤에 바꿨다. 절 끝의 덧붙임을 보라.)
+
 계획서는 Hugo 테마 PaperMod를 권했다. 실제로는 쓰지 않았다. 홈의 실시간 수치 표시와 대시보드는 PaperMod에 없어서, 결국 템플릿을 덮어써야 했다. 그렇다면 옛 단일 페이지 앱의 CSS 변수와 카드 디자인을 레이아웃 몇 장으로 옮기는 편이 짧았다. 외부 테마 서브모듈이 없으니 테마 버전이 Hugo 버전과 어긋날 걱정도 없다.
 
 코드 강조는 브라우저의 highlight.js 대신 Hugo의 Chroma가 빌드할 때 처리한다. 어두운 테마와 밝은 테마의 스타일시트를 `hugo gen chromastyles`로 하나씩 만들어 이어 붙였더니, 밝은 테마에서 코드 글자가 거의 보이지 않았다.
@@ -114,6 +116,10 @@ Hugo의 표준 방법은 `relref` 단축 코드다. 하지만 이 문법은 GitH
 ```
 
 밝은 스타일은 배경색만 바꾸고 글자색은 정하지 않는다. 그래서 어두운 쪽의 밝은 글자색(`#e6edf3`)이 밝은 배경 위에 그대로 남았다. 두 스타일이 서로 겹치지 않게 범위를 나눠서 해결했다. 하나는 `:root:not([data-theme="light"])` 아래에만, 다른 하나는 `[data-theme="light"]` 아래에만 적용된다.
+
+> **덧붙임 (2026-09-20)**: 직접 옮긴 화면이 마음에 들지 않아 결국 **PaperMod로 갈아탔다.** 이 절의 판단은 "실시간 수치를 넣으려면 템플릿을 덮어써야 한다"였는데, 이는 덮어쓰기를 테마를 포기할 이유로 본 것이었다. PaperMod는 덮어쓸 자리를 미리 열어 둔다. `extend_head.html`, `extend_footer.html`, `extend_post_content.html`은 비어 있는 채로 불리고, `assets/css/extended/*.css`는 테마 스타일시트 뒤에 그대로 이어 붙는다. 홈의 수치 표시는 `home_info.html`을, 목록의 "N편" 표시는 `post_meta.html`을 각각 같은 이름으로 다시 쓰면 된다. 대시보드 레이아웃과 링크 렌더 훅은 손댈 필요도 없었다. 결과적으로 테마 파일을 통째로 복사해 온 것은 두 개, 고친 줄은 각각 한 줄이다. canonical을 `.Permalink` 대신 Pages 주소로 두는 `head.html`과, 목록 요약을 본문 앞부분 대신 글의 `description`으로 두는 `list.html`이다. 코드 강조도 PaperMod가 자기 Chroma 스타일시트를 들고 있어서, 위에서 직접 나눈 스타일시트는 지웠다. `noClasses = false`는 그대로 둬야 한다.
+>
+> 테마를 고를 때 걸린 것은 디자인이 아니라 빌드 환경이었다. [hugo-theme-stack](https://github.com/CaiJimmy/hugo-theme-stack)은 `theme.toml`이 Hugo 0.157 이상을 요구하는데, 폰의 apt Hugo는 0.154.5다. [Congo](https://github.com/jpanther/congo)는 이 폰에서 5분을 넘겨도 빌드가 끝나지 않아 중단했다. PaperMod는 같은 글 열 편을 약 2초에 빌드했다. 테마는 서브모듈이나 Hugo 모듈이 아니라 `themes/PaperMod/`에 파일째 넣었다. 빌드하는 쪽이 폰이라, 빌드가 네트워크를 타지 않는 편이 낫다.
 
 ## 3. 폰 서버: 렌더러에서 정적 파일 서버로
 
