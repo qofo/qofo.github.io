@@ -36,9 +36,6 @@ disableHugoGeneratorInject = true
   codeRepoURL = "https://github.com/qofo/phone-homeserver"
   # "pages" or "phone": which server this build is for
   origin = "pages"
-  # Live numbers always come from the phone. Cross-origin requests carry the
-  # ngrok-skip-browser-warning header, which the phone answers in its CORS preflight.
-  metricsURL = "https://daringly-marrow-penny.ngrok-free.dev/api/metrics"
-  # Seconds between polls while the page is visible (the ngrok free plan meters requests)
-  pollHome = 30
-  pollDashboard = 5
+  # No live numbers here: the dashboard and the home telemetry strip exist only in the
+  # phone build (content-phone/, mounted by config/phone/hugo.toml). A public page that
+  # calls the phone on every visit is not what this site is for.

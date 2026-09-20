@@ -15,13 +15,7 @@
     </div>
   </div>
 
-  <p class="dash-note">
-    {{- if eq site.Params.origin "phone" }}
-    이 수치는 이 페이지를 보낸 폰이 {{ site.Params.pollDashboard }}초마다 직접 계산한다.
-    {{- else }}
-    이 페이지는 GitHub Pages에서 왔지만, 수치는 폰이 ngrok 터널을 거쳐 {{ site.Params.pollDashboard }}초마다 보낸다. 폰이 꺼져 있으면 연결 실패로 표시된다.
-    {{- end }}
-  </p>
+  <p class="dash-note">이 수치는 이 페이지를 보낸 폰이 {{ site.Params.pollDashboard }}초마다 직접 계산한다. 이 페이지는 폰 사본에만 있다.</p>
 
   <div class="dash-grid">
     <div class="dash-card">

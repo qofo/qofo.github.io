@@ -27,7 +27,7 @@
 | 경로 | 내용 |
 |---|---|
 | `content/posts/` | 글 원본. 파일 이름은 `NN-<slug>.md`, 주소는 `/posts/<slug>/` |
-| `content/dashboard.md` | 폰의 실시간 상태를 보여 주는 대시보드 페이지 |
+| `content-phone/` | 폰 빌드에만 들어가는 페이지. 지금은 실시간 대시보드 하나다 |
 | `layouts/`, `assets/` | 템플릿, CSS, JS |
 | `hugo.toml` | GitHub Pages 빌드 설정 |
 | `config/phone/hugo.toml` | 폰 빌드에서 덮어쓰는 설정 (`hugo --environment phone`) |
@@ -41,7 +41,7 @@
 
 두 빌드는 폰의 배포 스크립트 하나(`publish_blog.sh publish`, [`qofo/phone-homeserver`](https://github.com/qofo/phone-homeserver))가 같은 커밋과 같은 Hugo로 만들고, `main`과 `gh-pages`를 함께 push한다.
 
-대시보드의 수치는 어느 쪽에서 열어도 폰의 `/api/metrics`에서 온다. Pages에서 열면 ngrok 터널을 거쳐 가져오고, 폰이 꺼져 있으면 연결 실패로 표시된다. 검색엔진용 canonical 주소는 두 사본 모두 Pages로 고정했다.
+실시간 대시보드는 **폰 사본에만** 있다. 공개 사이트를 여는 사람마다 폰을 호출하게 되는 구조가 맞지 않아서, GitHub Pages 쪽에서는 대시보드와 홈의 수치 표시를 뺐다. 검색엔진용 canonical 주소는 두 사본 모두 Pages로 고정했다.
 
 글끼리는 `[2편](02-stdlib-python-blog.md)`처럼 파일 이름으로 링크한다. 이렇게 쓰면 GitHub에서 파일을 읽을 때도 링크가 열린다. Hugo는 빌드할 때 이 링크를 실제 주소로 바꾸고, 대상 글이 없으면 빌드를 실패시킨다.
 

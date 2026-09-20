@@ -1,5 +1,4 @@
-{{- $dash := site.GetPage "/dashboard" }}
-<a class="telemetry-pills" href="{{ $dash.RelPermalink }}" title="상세 대시보드 열기" data-metrics-pills>
+<a class="telemetry-pills" href="{{ .RelPermalink }}" title="상세 대시보드 열기" data-metrics-pills>
   <span class="pill-item"><span class="pill-label">🔥 CPU</span><span class="pill-val" data-m="cpu">--</span></span>
   <span class="pill-item"><span class="pill-label">💾 RAM</span><span class="pill-val" data-m="ram">--</span></span>
   <span class="pill-item"><span class="pill-label">🌐 NET</span><span class="pill-val" data-m="net">--</span></span>

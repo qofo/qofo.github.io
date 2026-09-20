@@ -1,12 +1,15 @@
-{{- $dash := site.GetPage "/dashboard" }}
 <header class="top-header">
   <a class="brand" href="{{ "/" | relURL }}">
     <span class="logo-icon" aria-hidden="true">⚡</span>
     <span>{{ site.Title }}</span>
   </a>
   <nav class="header-actions" aria-label="사이트 메뉴">
-    <a class="nav-btn{{ if not (eq $.RelPermalink $dash.RelPermalink) }} active{{ end }}" href="{{ "/" | relURL }}"><span aria-hidden="true">📚</span><span>글 목록</span></a>
-    <a class="nav-btn{{ if eq $.RelPermalink $dash.RelPermalink }} active{{ end }}" href="{{ $dash.RelPermalink }}"><span aria-hidden="true">📊</span><span>대시보드</span></a>
+    {{- $dash := site.GetPage "/dashboard" }}
+    {{- $onDash := and $dash (eq $.RelPermalink (cond (not $dash) "" $dash.RelPermalink)) }}
+    <a class="nav-btn{{ if not $onDash }} active{{ end }}" href="{{ "/" | relURL }}"><span aria-hidden="true">📚</span><span>글 목록</span></a>
+    {{- with $dash }}
+    <a class="nav-btn{{ if $onDash }} active{{ end }}" href="{{ .RelPermalink }}"><span aria-hidden="true">📊</span><span>대시보드</span></a>
+    {{- end }}
     <button class="theme-toggle" id="themeToggle" type="button" title="테마 전환" aria-label="테마 전환">🌓</button>
   </nav>
 </header>

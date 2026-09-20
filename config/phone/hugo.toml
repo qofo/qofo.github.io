@@ -1,6 +1,15 @@
 # Build served by the phone itself: hugo --environment phone
 baseURL = "https://daringly-marrow-penny.ngrok-free.dev/"
 
+# content-phone/ holds the pages that only make sense on the phone: the live dashboard.
+# Declaring content mounts replaces the default one, so content/ is listed again here.
+[[module.mounts]]
+  source = "content"
+  target = "content"
+[[module.mounts]]
+  source = "content-phone"
+  target = "content"
+
 [params]
   origin = "phone"
   # Same origin, so no ngrok header and no preflight
