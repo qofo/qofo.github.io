@@ -1,0 +1,18 @@
+{{- /* Old links shared before the move to Hugo pointed at /#post=<file id> and /#dashboard.
+     site.js reads this map and redirects; it is only needed on the page those links land on. */}}
+{{- if .IsHome }}
+{{- $legacy := dict }}
+{{- with site.GetPage "/dashboard" }}{{ $legacy = dict "dashboard" .RelPermalink }}{{ end }}
+{{- range where site.RegularPages "Section" "posts" }}
+  {{- $post := . }}
+  {{- with .Params.legacy_id }}{{ $legacy = merge $legacy (dict . $post.RelPermalink) }}{{ end }}
+{{- end }}
+<script type="application/json" id="legacy-links">{{ $legacy | jsonify | safeJS }}</script>
+{{- $js := resources.Get "js/site.js" | minify | fingerprint }}
+<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+{{- end }}
+
+{{- /* Live numbers exist only where the dashboard page does, which is the phone build */}}
+{{- if and (site.GetPage "/dashboard") (or .IsHome (eq .Layout "dashboard")) }}
+{{- partial "telemetry-script.html" . }}
+{{- end }}

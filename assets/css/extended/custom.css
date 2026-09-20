@@ -1,0 +1,447 @@
+/* Site additions on top of PaperMod. PaperMod concatenates every assets/css/extended/*.css
+   after its own stylesheet, so nothing here needs an @import or a build step.
+
+   The rules are for the parts the theme knows nothing about: the Korean face, the live
+   telemetry strip and the dashboard page (both phone-build only), and the part number of
+   the series. Everything else is the theme's. */
+
+/* --- Korean text -------------------------------------------------------------------- */
+:root {
+  --korean-font: Pretendard, "Pretendard Variable", -apple-system, BlinkMacSystemFont,
+    "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
+  --mono-font: "JetBrains Mono", ui-monospace, SFMono-Regular, Consolas, Menlo, monospace;
+}
+
+body,
+button,
+input {
+  font-family: var(--korean-font);
+  /* Korean has no spaces inside a word, so break anywhere rather than overflow */
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+/* --- Colours the dashboard borrows ---------------------------------------------------
+   Mapped onto PaperMod's variables so the dashboard follows the reader's theme choice. */
+:root {
+  --card-bg: var(--entry);
+  --card-border: var(--border);
+  --text-main: var(--primary);
+  --text-muted: var(--secondary);
+  --track: var(--tertiary);
+  --inset: var(--code-bg);
+  --accent: #0284c7;
+  --success: #059669;
+  --warning: #b45309;
+  --danger: #dc2626;
+}
+
+:root[data-theme="dark"] {
+  --accent: #38bdf8;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+}
+
+.mono {
+  font-family: var(--mono-font);
+}
+
+.accent {
+  color: var(--accent);
+}
+
+/* --- Series ------------------------------------------------------------------------- */
+.series-part {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 9999px;
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  font-weight: 700;
+  font-size: 0.78rem;
+}
+
+/* --- Tables --------------------------------------------------------------------------
+   The render hook wraps every table so a wide one scrolls instead of stretching the page. */
+.table-wrap {
+  overflow-x: auto;
+  margin: 20px 0;
+}
+
+/* --- 404 ---------------------------------------------------------------------------- */
+.not-found-page {
+  text-align: center;
+  padding: 60px 0;
+}
+
+.not-found-page .not-found-code {
+  font-size: 96px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--tertiary);
+}
+
+.not-found-page h1 {
+  margin: 16px 0 8px;
+}
+
+.not-found-page p {
+  color: var(--secondary);
+}
+
+/* --- Live telemetry strip (phone build only) ----------------------------------------- */
+.telemetry-pills {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: var(--content-gap);
+  padding: 12px;
+  background: var(--inset);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 0.2s;
+}
+
+.telemetry-pills:hover {
+  border-color: var(--accent);
+}
+
+.pill-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  background: var(--card-bg);
+  padding: 4px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--card-border);
+}
+
+.pill-label {
+  color: var(--text-muted);
+}
+
+.pill-val {
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.pill-status {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-left: auto;
+}
+
+.phone-offline .pill-status {
+  color: var(--danger);
+}
+
+/* --- Dashboard page (phone build only) ------------------------------------------------
+   Wider than an article: the cards need the room. */
+.dashboard-view {
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.dash-header {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 24px 20px;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.dash-device-title h1 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.dash-device-meta {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+}
+
+.dash-note {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.live-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: var(--success);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 9999px;
+}
+
+.live-dot {
+  width: 8px;
+  height: 8px;
+  background-color: currentColor;
+  border-radius: 50%;
+  animation: pulse 1.5s infinite;
+}
+
+.phone-offline .live-status {
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: var(--danger);
+}
+
+.phone-offline .live-dot {
+  animation: none;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.3); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .live-dot { animation: none; }
+}
+
+.dash-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.dash-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 18px;
+}
+
+.dash-grid .dash-card {
+  margin-bottom: 0;
+}
+
+.dash-card-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.dash-big-stat {
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+
+.net-stat {
+  font-size: 1.4rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.net-stat small {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.dash-progress-wrap {
+  width: 100%;
+  background: var(--track);
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.dash-progress-bar {
+  height: 100%;
+  width: 0;
+  background: var(--accent);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.dash-progress-bar.storage {
+  background: #818cf8;
+}
+
+.dash-sub-stats {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.dash-sub-stats b {
+  color: var(--text-main);
+}
+
+.cores-section-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin: 12px 0 8px;
+}
+
+.cores-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+@media (max-width: 420px) {
+  .cores-grid { grid-template-columns: 1fr; }
+}
+
+.core-pill {
+  background: var(--inset);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+.core-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  font-size: 0.75rem;
+  margin-bottom: 4px;
+}
+
+.core-name {
+  font-weight: 600;
+}
+
+.core-freq {
+  font-family: var(--mono-font);
+  color: var(--accent);
+}
+
+.core-bar-wrap {
+  width: 100%;
+  height: 5px;
+  background: var(--track);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.core-bar {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 3px;
+  transition: width 0.2s ease;
+}
+
+.battery-status-box {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.battery-icon-large {
+  font-size: 2.4rem;
+  line-height: 1;
+}
+
+.battery-pct {
+  font-size: 1.8rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.battery-info-text p {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.downtime {
+  font-size: 0.9rem;
+}
+
+/* The dashboard is wider than an article. Browsers without :has() simply keep the
+   article width; the card grid reflows on its own, so nothing breaks. */
+main.main:has(.dashboard-view) {
+  max-width: calc(980px + var(--gap) * 2);
+}
+
+/* --- Series index under an article --------------------------------------------------- */
+.series-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+  margin-top: var(--content-gap);
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--code-bg);
+}
+
+.series-nav-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--secondary);
+}
+
+.series-nav-parts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.series-nav-part {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  border: 1px solid var(--border);
+  background: var(--entry);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--secondary);
+  text-decoration: none;
+}
+
+.series-nav-part:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.series-nav-part.current {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}

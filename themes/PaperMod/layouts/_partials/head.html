@@ -22,11 +22,7 @@
     {{- .Summary | default (printf "%s - %s" .Title  site.Title) }}{{- else }}
     {{- with site.Params.description }}{{ . }}{{- end }}{{- end }}{{- end -}}">
 <meta name="author" content="{{ (partial "author.html" . ) }}">
-{{- /* CHANGED FROM THE THEME: the theme uses .Permalink, which on the phone build is the
-     ngrok address. Both servers deliver the same pages, so both point search engines at the
-     GitHub Pages copy. This is the only edit in this file; when PaperMod is updated, copy
-     themes/PaperMod/layouts/_partials/head.html over it again and re-apply just this line. */}}
-<link rel="canonical" href="{{ if .Params.canonicalURL -}} {{ trim .Params.canonicalURL " " }} {{- else -}} {{ site.Params.canonicalBase | strings.TrimSuffix "/" }}{{ .RelPermalink }} {{- end }}">
+<link rel="canonical" href="{{ if .Params.canonicalURL -}} {{ trim .Params.canonicalURL " " }} {{- else -}} {{ .Permalink }} {{- end }}">
 {{- if site.Params.analytics.google.SiteVerificationTag }}
 <meta name="google-site-verification" content="{{ site.Params.analytics.google.SiteVerificationTag }}">
 {{- end }}

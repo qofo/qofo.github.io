@@ -10,6 +10,31 @@ baseURL = "https://daringly-marrow-penny.ngrok-free.dev/"
   source = "content-phone"
   target = "content"
 
+# Menus do not merge across configuration directories: the whole main menu is repeated
+# here so that the phone copy keeps the shared entries next to its own dashboard link.
+[[menus.main]]
+  name = "글 목록"
+  url = "/posts/"
+  weight = 10
+
+[[menus.main]]
+  name = "태그"
+  url = "/tags/"
+  weight = 20
+
+[[menus.main]]
+  name = "검색"
+  url = "/search/"
+  weight = 30
+
+[[menus.main]]
+  name = "📊 대시보드"
+  url = "/dashboard/"
+  weight = 40
+
+[params.footer]
+  text = "이 페이지는 폰이 직접 보내고 있다. 같은 글이 [GitHub Pages](https://qofo.github.io/)에도 있다. · 글 [qofo/qofo.github.io](https://github.com/qofo/qofo.github.io) (CC BY 4.0) · 코드 [qofo/phone-homeserver](https://github.com/qofo/phone-homeserver) (MIT)"
+
 [params]
   origin = "phone"
   # Same origin, so no ngrok header and no preflight

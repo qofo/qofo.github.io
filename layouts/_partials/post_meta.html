@@ -1,0 +1,31 @@
+{{- /* The theme's post_meta, with the part number of the series in front. Post titles carry
+     no "N편." prefix, so without this the order of the series is invisible in a list. */ -}}
+{{- $scratch := newScratch }}
+
+{{- with .Params.series }}
+    {{- with $.Weight }}
+        {{- $scratch.Add "meta" (slice (printf "<span class=\"series-part\">%d편</span>" .)) }}
+    {{- end }}
+{{- end }}
+
+{{- if not .Date.IsZero -}}
+    {{- $scratch.Add "meta" (slice (printf "<span title='%s'>%s</span>" (.Date) (.Date | time.Format (default ":date_long" site.Params.DateFormat)))) }}
+{{- end }}
+
+{{- if (.Param "ShowReadingTime") -}}
+    {{- $scratch.Add "meta" (slice (printf "<span>%s</span>" (i18n "read_time" .ReadingTime | default (printf "%d min" .ReadingTime)))) }}
+{{- end }}
+
+{{- if (.Param "ShowWordCount") -}}
+    {{- $scratch.Add "meta" (slice (printf "<span>%s</span>" (i18n "words" .WordCount | default (printf "%d words" .WordCount)))) }}
+{{- end }}
+
+{{- if not (.Param "hideAuthor") -}}
+    {{- with (partial "author.html" .) }}
+        {{- $scratch.Add "meta" (slice (printf "<span>%s</span>" .)) }}
+    {{- end }}
+{{- end }}
+
+{{- with ($scratch.Get "meta") }}
+    {{- delimit . "&nbsp;·&nbsp;" | safeHTML -}}
+{{- end -}}

@@ -1,0 +1,23 @@
+{{- /* The series index the old layout had: jump straight to any part instead of stepping
+     through the previous/next links the theme puts below. Rendered only for a post that
+     belongs to a series and carries a part number. */ -}}
+{{- with .Params.series }}
+{{- $name := index . 0 }}
+{{- with site.Taxonomies.series.Get $name }}
+{{- $parts := .Pages.ByWeight }}
+{{- if gt (len $parts) 1 }}
+<nav class="series-nav" aria-label="연재 편 이동">
+  <span class="series-nav-title">{{ $name }}</span>
+  <span class="series-nav-parts">
+    {{- range $parts }}
+    {{- if eq .RelPermalink $.RelPermalink }}
+    <span class="series-nav-part current" aria-current="page" title="{{ .Title }}">{{ .Weight }}편</span>
+    {{- else }}
+    <a class="series-nav-part" href="{{ .RelPermalink }}" title="{{ .Title }}">{{ .Weight }}편</a>
+    {{- end }}
+    {{- end }}
+  </span>
+</nav>
+{{- end }}
+{{- end }}
+{{- end }}

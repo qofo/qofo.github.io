@@ -81,11 +81,7 @@
   </header>
   {{- if (ne (.Param "hideSummary") true) }}
   <div class="entry-content">
-    {{- /* CHANGED FROM THE THEME: every post carries a description written for the list, so
-         it is used instead of the first 70 words of the body. The theme's summary stays as
-         the fallback. This is the only edit in this file; when PaperMod is updated, copy
-         themes/PaperMod/layouts/list.html over it again and re-apply just this line. */}}
-    <p>{{ with .Description }}{{ . }}{{ else }}{{ $.Summary | plainify | htmlUnescape }}{{ if $.Truncated }}...{{ end }}{{ end }}</p>
+    <p>{{ .Summary | plainify | htmlUnescape }}{{ if .Truncated }}...{{ end }}</p>
   </div>
   {{- end }}
   {{- if not (.Param "hideMeta") }}

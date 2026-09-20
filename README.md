@@ -22,15 +22,25 @@
 
 ## 구조
 
-[Hugo](https://gohugo.io/) 사이트다. 외부 테마 없이 레이아웃을 저장소 안에 두었다.
+[Hugo](https://gohugo.io/) 사이트이고, 테마는 [PaperMod](https://github.com/adityatelange/hugo-PaperMod) (MIT)다. 서브모듈이나 Hugo 모듈이 아니라 `themes/PaperMod/`에 파일째 넣어 두었다. 폰에서 빌드하므로 빌드 시점에 네트워크를 타지 않는 편이 낫고, `git clone` 한 번으로 빌드가 되기 때문이다.
 
 | 경로 | 내용 |
 |---|---|
 | `content/posts/` | 글 원본. 파일 이름은 `NN-<slug>.md`, 주소는 `/posts/<slug>/` |
 | `content-phone/` | 폰 빌드에만 들어가는 페이지. 지금은 실시간 대시보드 하나다 |
-| `layouts/`, `assets/` | 템플릿, CSS, JS |
+| `themes/PaperMod/` | 테마 원본. 직접 고치지 않는다 |
+| `layouts/`, `assets/` | 테마 위에 얹는 것들. 대시보드, 텔레메트리, 한국어 폰트, 링크 렌더 훅 |
 | `hugo.toml` | GitHub Pages 빌드 설정 |
 | `config/phone/hugo.toml` | 폰 빌드에서 덮어쓰는 설정 (`hugo --environment phone`) |
+
+테마에 손대는 대신 `layouts/`와 `assets/css/extended/`에서 덮어쓴다. 테마 파일을 통째로 복사해 온 것은 두 개뿐이고, 둘 다 한 줄만 고쳤다. 파일 안에 `CHANGED FROM THE THEME` 주석으로 표시해 두었다.
+
+| 복사해 온 파일 | 고친 곳 |
+|---|---|
+| `layouts/_partials/head.html` | canonical 주소를 `.Permalink` 대신 Pages 주소로 |
+| `layouts/list.html` | 목록 요약을 본문 앞부분 대신 글의 `description`으로 |
+
+테마를 올릴 때는 `themes/PaperMod/`를 새 버전으로 교체한 뒤, 위 두 파일을 다시 복사하고 그 한 줄씩만 다시 적용한다. 지금 들어 있는 버전은 PaperMod `d376885`(2026-08-02)다.
 
 `main`에는 원본만 있다. Pages가 서비스하는 빌드 결과는 `gh-pages` 브랜치에 있다.
 

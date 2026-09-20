@@ -1,0 +1,16 @@
+{{- /* The theme's home_info, with the phone's live strip added under the intro. The strip
+     and the dashboard it links to exist only in the phone build, so both are optional. */ -}}
+{{- with site.Params.homeInfoParams }}
+<article class="first-entry home-info">
+    <header class="entry-header">
+        <h1>{{ .Title | markdownify }}</h1>
+    </header>
+    <div class="entry-content md-content">
+        {{ $opts := dict "display" "block" }}
+        {{ .Content | $.Page.RenderString $opts }}
+    </div>
+    {{- with site.GetPage "/dashboard" }}
+    {{ partial "telemetry-pills.html" . }}
+    {{- end }}
+</article>
+{{- end -}}

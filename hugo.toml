@@ -4,6 +4,7 @@ baseURL = "https://qofo.github.io/"
 languageCode = "ko-KR"
 defaultContentLanguage = "ko"
 title = "서랍 속 폰으로 서버 운영하기"
+theme = "PaperMod"
 enableRobotsTXT = true
 disableHugoGeneratorInject = true
 # No timeZone: the phone's Ubuntu has no tzdata, so Hugo there rejects "Asia/Seoul".
@@ -16,15 +17,39 @@ disableHugoGeneratorInject = true
 [permalinks.page]
   posts = "/posts/:slug/"
 
+[pagination]
+  # The series is short; one page holds all of it.
+  pagerSize = 30
+
 [markup.goldmark.renderer]
   unsafe = false
 
 [markup.highlight]
+  # PaperMod ships the chroma stylesheet, so the classes must stay in the HTML.
   noClasses = false
 
 [markup.tableOfContents]
   startLevel = 2
   endLevel = 3
+
+# The home page also emits JSON, which is the index PaperMod's search page reads.
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+[[menus.main]]
+  name = "글 목록"
+  url = "/posts/"
+  weight = 10
+
+[[menus.main]]
+  name = "태그"
+  url = "/tags/"
+  weight = 20
+
+[[menus.main]]
+  name = "검색"
+  url = "/search/"
+  weight = 30
 
 [params]
   description = "쓰지 않던 갤럭시 노트 FE(Android 9)에 우분투를 올려 블로그를 24시간 공개하면서 겪은 일을 기록한 연재다."
@@ -39,3 +64,48 @@ disableHugoGeneratorInject = true
   # No live numbers here: the dashboard and the home telemetry strip exist only in the
   # phone build (content-phone/, mounted by config/phone/hugo.toml). A public page that
   # calls the phone on every visit is not what this site is for.
+
+  # --- PaperMod ---
+  env = "production"
+  mainSections = ["posts"]
+  defaultTheme = "auto"
+  DateFormat = "2006년 1월 2일"
+  ShowReadingTime = true
+  ShowCodeCopyButtons = true
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowRssButtonInSectionTermList = true
+  ShowToc = true
+  TocOpen = false
+  ShowWordCount = false
+  # One author writes everything here, so repeating the name on every entry is noise.
+  hideAuthor = true
+  # The home page opens with homeInfoParams, so the first entry gets no special size.
+  disableSpecial1stPost = true
+  ShowShareButtons = false
+
+[params.footer]
+  # Which server sent this page, and where the other copy is. The phone build replaces
+  # this line in config/phone/hugo.toml.
+  text = "글은 GitHub Pages에서 열린다. 폰이 직접 응답하는 사본은 [여기](https://daringly-marrow-penny.ngrok-free.dev/)에 있다. · 글 [qofo/qofo.github.io](https://github.com/qofo/qofo.github.io) (CC BY 4.0) · 코드 [qofo/phone-homeserver](https://github.com/qofo/phone-homeserver) (MIT)"
+
+[params.homeInfoParams]
+  Title = "서랍 속 폰으로 서버 운영하기 📱"
+  Content = """
+쓰지 않던 갤럭시 노트 FE(Android 9)에 Termux와 proot로 우분투를 올려, 블로그를 24시간 공개하면서 겪은 일을 기록한 연재다.
+systemd도 도커도 없는 환경에서 무엇이 어떻게 깨졌고 어떻게 고쳤는지, 실제 로그와 코드에 맞춰 적었다.
+"""
+
+[params.assets]
+  favicon = "/favicon.svg"
+  favicon16x16 = "/favicon.svg"
+  favicon32x32 = "/favicon.svg"
+  apple_touch_icon = "/favicon.svg"
+  safari_pinned_tab = "/favicon.svg"
+
+[params.fuseOpts]
+  isCaseSensitive = false
+  shouldSort = true
+  threshold = 0.4
+  minMatchCharLength = 1
+  keys = ["title", "permalink", "summary", "content"]
