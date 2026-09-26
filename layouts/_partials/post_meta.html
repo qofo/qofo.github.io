@@ -9,7 +9,15 @@
 {{- end }}
 
 {{- if not .Date.IsZero -}}
-    {{- $scratch.Add "meta" (slice (printf "<span title='%s'>%s</span>" (.Date) (.Date | time.Format (default ":date_long" site.Params.DateFormat)))) }}
+    {{- $format := default ":date_long" site.Params.DateFormat }}
+    {{- /* A post revised on a later day says so. lastmod comes only from front matter, not
+         git: the move into Hugo touched every file without changing what the posts say.
+         Lists hide it (custom.css), where the publication date is enough. */ -}}
+    {{- $revised := "" }}
+    {{- if ne (.Lastmod.Format "2006-01-02") (.Date.Format "2006-01-02") }}
+        {{- $revised = printf "<span class=\"post-lastmod\" title='%s'> (수정 %s)</span>" .Lastmod (.Lastmod | time.Format $format) }}
+    {{- end }}
+    {{- $scratch.Add "meta" (slice (printf "<span title='%s'>%s%s</span>" (.Date) (.Date | time.Format $format) $revised)) }}
 {{- end }}
 
 {{- if (.Param "ShowReadingTime") -}}

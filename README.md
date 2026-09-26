@@ -29,7 +29,7 @@
 | `content/posts/` | 글 원본. 파일 이름은 `NN-<slug>.md`, 주소는 `/posts/<slug>/` |
 | `content-phone/` | 폰 빌드에만 들어가는 페이지. 지금은 실시간 대시보드 하나다 |
 | `themes/PaperMod/` | 테마 원본. 직접 고치지 않는다 |
-| `layouts/`, `assets/` | 테마 위에 얹는 것들. 대시보드, 텔레메트리, 한국어 폰트, 링크 렌더 훅 |
+| `layouts/`, `assets/` | 테마 위에 얹는 것들. 대시보드, 텔레메트리, 한국어 폰트, 링크 렌더 훅, 글 아래의 연재 편 이동·링크 복사·함께 읽을 글, 넓은 화면의 옆 목차(`assets/js/post.js`) |
 | `hugo.toml` | GitHub Pages 빌드 설정 |
 | `config/phone/hugo.toml` | 폰 빌드에서 덮어쓰는 설정 (`hugo --environment phone`) |
 
@@ -52,6 +52,8 @@
 두 빌드는 폰의 배포 스크립트 하나(`publish_blog.sh publish`, [`qofo/phone-homeserver`](https://github.com/qofo/phone-homeserver))가 같은 커밋과 같은 Hugo로 만들고, `main`과 `gh-pages`를 함께 push한다.
 
 실시간 대시보드는 **폰 사본에만** 있다. 공개 사이트를 여는 사람마다 폰을 호출하게 되는 구조가 맞지 않아서, GitHub Pages 쪽에서는 대시보드와 홈의 수치 표시를 뺐다. 검색엔진용 canonical 주소는 두 사본 모두 Pages로 고정했다.
+
+글을 게시한 뒤 다른 날에 내용을 고쳤으면 front matter에 `lastmod: YYYY-MM-DD`를 적는다. 글 머리에 "(수정 날짜)"로 표시된다. 날짜를 git에서 가져오지 않는 까닭은, Hugo로 옮기면서 모든 파일을 한 번씩 건드렸기 때문이다. 오타나 링크를 고친 정도라면 적지 않는다.
 
 글끼리는 `[2편](02-stdlib-python-blog.md)`처럼 파일 이름으로 링크한다. 이렇게 쓰면 GitHub에서 파일을 읽을 때도 링크가 열린다. Hugo는 빌드할 때 이 링크를 실제 주소로 바꾸고, 대상 글이 없으면 빌드를 실패시킨다.
 

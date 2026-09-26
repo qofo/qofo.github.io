@@ -28,6 +28,16 @@ disableHugoGeneratorInject = true
   # PaperMod ships the chroma stylesheet, so the classes must stay in the HTML.
   noClasses = false
 
+# "함께 읽을 글" under each post. Every post is in the one series, so tags are what tell
+# them apart; newer posts count too, since a reader of part 3 wants part 7 as much as part 2.
+[related]
+  includeNewer = true
+  threshold = 50
+  toLower = true
+  [[related.indices]]
+    name = "tags"
+    weight = 100
+
 [markup.tableOfContents]
   startLevel = 2
   endLevel = 3
@@ -40,6 +50,11 @@ disableHugoGeneratorInject = true
   name = "글 목록"
   url = "/posts/"
   weight = 10
+
+[[menus.main]]
+  name = "보관함"
+  url = "/archives/"
+  weight = 15
 
 [[menus.main]]
   name = "태그"
@@ -82,7 +97,15 @@ disableHugoGeneratorInject = true
   hideAuthor = true
   # The home page opens with homeInfoParams, so the first entry gets no special size.
   disableSpecial1stPost = true
+  # The theme's share buttons are Western networks only; the post footer has its own
+  # copy-link and native share buttons (assets/js/post.js) instead.
   ShowShareButtons = false
+
+[params.editPost]
+  # "수정 제안" next to the date: GitHub's editor, which offers a fork and a pull request
+  URL = "https://github.com/qofo/qofo.github.io/edit/main/content"
+  Text = "수정 제안"
+  appendFilePath = true
 
 [params.footer]
   # Which server sent this page, and where the other copy is. The phone build replaces

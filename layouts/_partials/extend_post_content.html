@@ -1,3 +1,14 @@
+{{- /* Copy-link and native share. The address handed out is the canonical GitHub Pages one,
+     not location.href: a page read over the tailnet has an address nobody else can open.
+     Hidden until assets/js/post.js wires the buttons, so a reader without JavaScript never
+     sees buttons that do nothing. */ -}}
+{{- if eq .Section "posts" }}
+<div class="post-share" hidden data-url="{{ site.Params.canonicalBase | strings.TrimSuffix "/" }}{{ .RelPermalink }}" data-title="{{ .Title }}">
+  <button type="button" class="post-share-button" data-action="copy">링크 복사</button>
+  <button type="button" class="post-share-button" data-action="share" hidden>공유</button>
+</div>
+{{- end }}
+
 {{- /* The series index the old layout had: jump straight to any part instead of stepping
      through the previous/next links the theme puts below. Rendered only for a post that
      belongs to a series and carries a part number. */ -}}
@@ -19,5 +30,31 @@
   </span>
 </nav>
 {{- end }}
+{{- end }}
+{{- end }}
+
+{{- /* "함께 읽을 글": up to three posts that share the most tags (the [related] block in
+     hugo.toml). The two the theme already links as previous/next are left out, so every
+     entry here is a new way in. */ -}}
+{{- if eq .Section "posts" }}
+{{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
+{{- $linked := slice }}
+{{- with $pages.Next . }}{{ $linked = $linked | append . }}{{ end }}
+{{- with $pages.Prev . }}{{ $linked = $linked | append . }}{{ end }}
+{{- $related := first 3 (complement $linked (site.RegularPages.Related .)) }}
+{{- with $related }}
+<nav class="related-posts" aria-label="함께 읽을 글">
+  <h2 class="related-posts-title">함께 읽을 글</h2>
+  <ul>
+    {{- range . }}
+    <li>
+      <a href="{{ .RelPermalink }}">
+        {{- if and .Params.series .Weight }}<span class="series-part">{{ .Weight }}편</span>{{ end -}}
+        <span class="related-posts-name">{{ .Title }}</span>
+      </a>
+    </li>
+    {{- end }}
+  </ul>
+</nav>
 {{- end }}
 {{- end }}

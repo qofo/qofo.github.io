@@ -18,6 +18,11 @@ baseURL = "https://daringly-marrow-penny.ngrok-free.dev/"
   weight = 10
 
 [[menus.main]]
+  name = "보관함"
+  url = "/archives/"
+  weight = 15
+
+[[menus.main]]
   name = "태그"
   url = "/tags/"
   weight = 20

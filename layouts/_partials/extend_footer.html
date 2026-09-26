@@ -16,3 +16,9 @@
 {{- if and (site.GetPage "/dashboard") (or .IsHome (eq .Layout "dashboard")) }}
 {{- partial "telemetry-script.html" . }}
 {{- end }}
+
+{{- /* Post pages: copy-link and share buttons, and the table of contents beside the article */}}
+{{- if and .IsPage (eq .Section "posts") }}
+{{- $post := resources.Get "js/post.js" | minify | fingerprint }}
+<script src="{{ $post.RelPermalink }}" integrity="{{ $post.Data.Integrity }}" defer></script>
+{{- end }}

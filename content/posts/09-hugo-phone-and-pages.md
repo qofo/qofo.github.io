@@ -2,6 +2,7 @@
 title: "원본 하나, 서버 둘: Hugo로 옮겨 폰과 GitHub Pages에 동시에 배포하기"
 slug: "hugo-phone-and-pages"
 date: 2026-09-19
+lastmod: 2026-09-20
 weight: 9
 series: ["스마트폰으로 서버 만들기"]
 tags: ["Hugo", "GitHub Pages", "CORS", "ngrok", "Static Site", "Python"]
