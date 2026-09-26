@@ -1,0 +1,31 @@
+{{- /* The series box under the post header, as velog and minyeamer.github.io put it: the name
+     of the series, where this part sits in it, and every part by title. It is a <details>,
+     closed by default so eleven titles do not push the article down on a phone; post.js
+     remembers whether the reader keeps it open. Rendered only for a post that belongs to a
+     series and carries a part number. */ -}}
+{{- with .Params.series }}
+{{- $name := index . 0 }}
+{{- with site.Taxonomies.series.Get $name }}
+{{- $parts := .Pages.ByWeight }}
+{{- if gt (len $parts) 1 }}
+{{- $here := 0 }}
+{{- range $i, $p := $parts }}{{ if eq $p.RelPermalink $.RelPermalink }}{{ $here = add $i 1 }}{{ end }}{{ end }}
+<details class="series-box">
+  <summary>
+    <span class="series-box-label">연재</span>
+    <span class="series-box-name">{{ $name }}</span>
+    <span class="series-box-count">{{ $here }}/{{ len $parts }}</span>
+  </summary>
+  <ol class="series-box-list">
+    {{- range $parts }}
+    {{- if eq .RelPermalink $.RelPermalink }}
+    <li class="current" aria-current="page"><span class="series-box-part">{{ .Weight }}편</span><span>{{ .Title }}</span></li>
+    {{- else }}
+    <li><a href="{{ .RelPermalink }}"><span class="series-box-part">{{ .Weight }}편</span><span>{{ .Title }}</span></a></li>
+    {{- end }}
+    {{- end }}
+  </ol>
+</details>
+{{- end }}
+{{- end }}
+{{- end }}

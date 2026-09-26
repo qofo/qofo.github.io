@@ -8,16 +8,18 @@
   {{- with .Params.legacy_id }}{{ $legacy = merge $legacy (dict . $post.RelPermalink) }}{{ end }}
 {{- end }}
 <script type="application/json" id="legacy-links">{{ $legacy | jsonify | safeJS }}</script>
-{{- $js := resources.Get "js/site.js" | minify | fingerprint }}
-<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
 {{- end }}
+
+{{- /* Every page: the legacy redirect above (home only) and the "/" search shortcut */}}
+{{- $js := resources.Get "js/site.js" | minify | fingerprint }}
+<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" data-search="{{ with site.GetPage "/search" }}{{ .RelPermalink }}{{ end }}" defer></script>
 
 {{- /* Live numbers exist only where the dashboard page does, which is the phone build */}}
 {{- if and (site.GetPage "/dashboard") (or .IsHome (eq .Layout "dashboard")) }}
 {{- partial "telemetry-script.html" . }}
 {{- end }}
 
-{{- /* Post pages: copy-link and share buttons, and the table of contents beside the article */}}
+{{- /* Post pages: share buttons, series box state, reading progress, side table of contents */}}
 {{- if and .IsPage (eq .Section "posts") }}
 {{- $post := resources.Get "js/post.js" | minify | fingerprint }}
 <script src="{{ $post.RelPermalink }}" integrity="{{ $post.Data.Integrity }}" defer></script>

@@ -2,8 +2,11 @@
    after its own stylesheet, so nothing here needs an @import or a build step.
 
    The rules are for the parts the theme knows nothing about: the Korean face, the live
-   telemetry strip and the dashboard page (both phone-build only), and the part number of
-   the series. Everything else is the theme's. */
+   telemetry strip and the dashboard page (both phone-build only), the part number of the
+   series, and what the reference blogs (velog, kimjy99.github.io, minyeamer.github.io)
+   add around an article: the series box, code language labels, list tags, the reading
+   progress bar, the author card and the side table of contents. Everything else is the
+   theme's. */
 
 /* --- Korean text -------------------------------------------------------------------- */
 :root {
@@ -398,54 +401,6 @@ main.main:has(.dashboard-view) {
   max-width: calc(980px + var(--gap) * 2);
 }
 
-/* --- Series index under an article --------------------------------------------------- */
-.series-nav {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px 10px;
-  margin-top: var(--content-gap);
-  padding: 14px 16px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--code-bg);
-}
-
-.series-nav-title {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--secondary);
-}
-
-.series-nav-parts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.series-nav-part {
-  display: inline-block;
-  padding: 3px 10px;
-  border-radius: 9999px;
-  border: 1px solid var(--border);
-  background: var(--entry);
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--secondary);
-  text-decoration: none;
-}
-
-.series-nav-part:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
-.series-nav-part.current {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #fff;
-}
-
 /* --- Revised date --------------------------------------------------------------------
    The article shows when it was revised; a list entry only needs when it came out. */
 .post-entry .post-lastmod {
@@ -552,4 +507,216 @@ main.main:has(.dashboard-view) {
 .toc a.active {
   color: var(--accent);
   font-weight: 700;
+}
+
+/* --- Series box under the post header -------------------------------------------------
+   velog and minyeamer.github.io both open a post with the series it belongs to. It sits
+   inside the theme's .post-meta line, so it resets that line's small grey text. */
+.series-box {
+  margin-top: 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--code-bg);
+  color: var(--primary);
+  font-size: 0.9rem;
+}
+
+.series-box summary {
+  display: flex;
+  list-style: none;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+
+/* display: flex drops the disclosure triangle, so say it in words, as velog does */
+.series-box summary::-webkit-details-marker {
+  display: none;
+}
+
+.series-box summary::after {
+  content: "목록 보기 ▾";
+  color: var(--secondary);
+  font-size: 0.8rem;
+}
+
+.series-box[open] summary::after {
+  content: "접기 ▴";
+}
+
+.series-box-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.series-box-name {
+  font-weight: 700;
+}
+
+.series-box-count {
+  margin-left: auto;
+  color: var(--secondary);
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.series-box-list {
+  margin: 0;
+  padding: 0 14px 12px;
+  list-style: none;
+  border-top: 1px solid var(--border);
+}
+
+.series-box-list li {
+  padding: 5px 0;
+}
+
+.series-box-list li:first-child {
+  padding-top: 10px;
+}
+
+.series-box-list a,
+.series-box-list li.current {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
+
+.post-meta .series-box-list a {
+  color: var(--primary);
+}
+
+.post-meta .series-box-list a:hover span:last-child {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.series-box-list li.current {
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.series-box-part {
+  flex: none;
+  min-width: 2.6em;
+  color: var(--secondary);
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.series-box-list li.current .series-box-part {
+  color: var(--accent);
+}
+
+/* --- Language label on code blocks ----------------------------------------------------
+   data-lang comes from layouts/_markup/render-codeblock.html. The label sits where the
+   theme shows its copy button on hover, and steps aside while the button is there. */
+.md-content .highlight[data-lang]::before {
+  content: attr(data-lang);
+  position: absolute;
+  top: 4px;
+  right: 8px;
+  z-index: 1;
+  color: rgba(255, 255, 255, 0.55);
+  font-family: var(--mono-font);
+  font-size: 12px;
+  line-height: 1.6;
+  pointer-events: none;
+}
+
+.md-content .highlight[data-lang]:hover::before {
+  visibility: hidden;
+}
+
+/* --- Tags in a list entry ------------------------------------------------------------- */
+.entry-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  margin: 6px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.8rem;
+}
+
+/* Above the theme's .entry-link, which covers the whole entry */
+.entry-tags a {
+  position: relative;
+  z-index: 1;
+  color: var(--secondary);
+}
+
+.entry-tags a:hover {
+  color: var(--accent);
+}
+
+/* --- Reading progress bar (post.js) ---------------------------------------------------- */
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  height: 3px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .reading-progress {
+    transition: transform 80ms linear;
+  }
+}
+
+/* --- Author card at the end of a post ------------------------------------------------- */
+.author-card {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin-top: var(--content-gap);
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--entry);
+}
+
+.author-card-avatar {
+  flex: none;
+  width: 56px;
+  height: 56px;
+  margin: 0;
+  /* The site icon already has its own rounded corners */
+  border-radius: 12px;
+}
+
+.author-card-body p {
+  margin: 0;
+}
+
+.author-card-name {
+  font-weight: 700;
+}
+
+.author-card-bio {
+  margin-top: 4px !important;
+  color: var(--secondary);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.author-card-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin-top: 8px !important;
+  font-size: 0.85rem;
+}
+
+.author-card-links a {
+  color: var(--accent);
 }

@@ -1,0 +1,23 @@
+{{- /* The share-preview card (og:image) for a page that has no image of its own, drawn at
+     build time from assets/images/og-base.png and Pretendard Bold (assets/fonts, OFL). The
+     font is read only here; visitors never download it. Returns the image resource. */ -}}
+{{- $base := resources.Get "images/og-base.png" }}
+{{- $font := resources.Get "fonts/Pretendard-Bold.ttf" }}
+{{- /* Posts: series and part / title / site name. Every other page: the topic / site name. */ -}}
+{{- $kicker := "Galaxy Note FE · Termux · Ubuntu" }}
+{{- $title := site.Title }}
+{{- $footer := "qofo.github.io" }}
+{{- if eq .Section "posts" }}
+  {{- $kicker = "" }}
+  {{- $title = .Title }}
+  {{- $footer = printf "%s · qofo.github.io" site.Title }}
+  {{- with .Params.series }}{{ $kicker = printf "%s · %d편" (index . 0) $.Weight }}{{ end }}
+{{- end }}
+{{- $filters := slice }}
+{{- with $kicker }}
+  {{- $filters = $filters | append (images.Text . (dict "font" $font "color" "#7dd3fc" "size" 34 "x" 80 "y" 72)) }}
+{{- end }}
+{{- $filters = $filters | append (images.Text $title (dict "font" $font "color" "#f8fafc" "size" 62 "linespacing" 14 "x" 80 "y" 150)) }}
+{{- $filters = $filters | append (images.Text $footer (dict "font" $font "color" "#94a3b8" "size" 28 "x" 80 "y" 540)) }}
+{{- $card := $base | images.Filter $filters }}
+{{- return $card }}

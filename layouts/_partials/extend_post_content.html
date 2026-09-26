@@ -9,27 +9,23 @@
 </div>
 {{- end }}
 
-{{- /* The series index the old layout had: jump straight to any part instead of stepping
-     through the previous/next links the theme puts below. Rendered only for a post that
-     belongs to a series and carries a part number. */ -}}
-{{- with .Params.series }}
-{{- $name := index . 0 }}
-{{- with site.Taxonomies.series.Get $name }}
-{{- $parts := .Pages.ByWeight }}
-{{- if gt (len $parts) 1 }}
-<nav class="series-nav" aria-label="연재 편 이동">
-  <span class="series-nav-title">{{ $name }}</span>
-  <span class="series-nav-parts">
-    {{- range $parts }}
-    {{- if eq .RelPermalink $.RelPermalink }}
-    <span class="series-nav-part current" aria-current="page" title="{{ .Title }}">{{ .Weight }}편</span>
-    {{- else }}
-    <a class="series-nav-part" href="{{ .RelPermalink }}" title="{{ .Title }}">{{ .Weight }}편</a>
-    {{- end }}
-    {{- end }}
-  </span>
-</nav>
-{{- end }}
+{{- /* Who writes this, the way velog closes every post and kimjy99.github.io keeps in its
+     sidebar. The picture is the site icon, not a photo: the repository uses no photographs
+     of the phone or of anyone. Text and links come from params.authorCard in hugo.toml. */ -}}
+{{- if eq .Section "posts" }}
+{{- with site.Params.authorCard }}
+<aside class="author-card" aria-label="글쓴이">
+  <img class="author-card-avatar" src="{{ "favicon.svg" | relURL }}" alt="" width="56" height="56">
+  <div class="author-card-body">
+    <p class="author-card-name">{{ site.Params.author }}</p>
+    <p class="author-card-bio">{{ .bio }}</p>
+    <p class="author-card-links">
+      {{- range .links }}
+      <a href="{{ .url }}"{{ if hasPrefix .url "http" }} rel="noopener"{{ end }}>{{ .name }}</a>
+      {{- end }}
+    </p>
+  </div>
+</aside>
 {{- end }}
 {{- end }}
 

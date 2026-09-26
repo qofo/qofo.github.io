@@ -1,0 +1,9 @@
+{{- /* A list entry's tags. The whole entry is covered by the theme's .entry-link overlay, so
+     custom.css lifts these links above it to keep them clickable on their own. */ -}}
+{{- with .GetTerms "tags" }}
+<ul class="entry-tags">
+  {{- range . }}
+  <li><a href="{{ .RelPermalink }}">#{{ .LinkTitle }}</a></li>
+  {{- end }}
+</ul>
+{{- end }}

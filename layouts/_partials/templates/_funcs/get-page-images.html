@@ -1,0 +1,57 @@
+{{- $imgs := slice }}
+{{- $imgParams := .Params.images }}
+{{- $resources := .Resources.ByType "image" -}}
+{{/* Find featured image resources if the images parameter is empty. */}}
+{{- if not $imgParams }}
+  {{- $featured := $resources.GetMatch "*feature*" -}}
+  {{- if not $featured }}{{ $featured = $resources.GetMatch "{*cover*,*thumbnail*}" }}{{ end -}}
+  {{- with $featured }}
+    {{- $imgs = $imgs | append (dict
+      "Image" .
+      "RelPermalink" .RelPermalink
+      "Permalink" .Permalink) }}
+  {{- end }}
+{{- end }}
+{{/* Use the first one of site images as the fallback. */}}
+{{- if and (not $imgParams) (not $imgs) }}
+  {{- with site.Params.images }}
+    {{- $imgParams = first 1 . }}
+  {{- end }}
+{{- end }}
+{{/* Parse page's images parameter. */}}
+{{- range $imgParams }}
+  {{- $img := . }}
+  {{- $url := urls.Parse $img }}
+  {{- if eq $url.Scheme "" }}
+    {{/* Internal image. */}}
+    {{- with $resources.GetMatch $img -}}
+      {{/* Image resource. */}}
+      {{- $imgs = $imgs | append (dict
+        "Image" .
+        "RelPermalink" .RelPermalink
+        "Permalink" .Permalink) }}
+    {{- else }}
+      {{- $imgs = $imgs | append (dict
+        "RelPermalink" (relURL $img)
+        "Permalink" (absURL $img)
+      ) }}
+    {{- end }}
+  {{- else }}
+    {{/* External image */}}
+    {{- $imgs = $imgs | append (dict
+      "RelPermalink" $img
+      "Permalink" $img
+    ) }}
+  {{- end }}
+{{- end }}
+{{- /* CHANGED FROM THE THEME: the lines above are the theme's get-page-images.html unchanged
+     except for the final return, which moved below. A page with no image of its own gets
+     the generated share card (_partials/og_card.html), so og:image, the large Twitter card
+     and the JSON-LD image all come from the theme's own templates. When PaperMod is
+     updated, copy the theme's file over this one and re-add this block before its return. */ -}}
+{{- if not $imgs }}
+  {{- with partialCached "og_card.html" . .RelPermalink }}
+    {{- $imgs = $imgs | append (dict "Image" . "RelPermalink" .RelPermalink "Permalink" .Permalink) }}
+  {{- end }}
+{{- end }}
+{{- return $imgs }}

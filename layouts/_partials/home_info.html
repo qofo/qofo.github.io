@@ -12,5 +12,9 @@
     {{- with site.GetPage "/dashboard" }}
     {{ partial "telemetry-pills.html" . }}
     {{- end }}
+    {{- /* The theme's footer: GitHub and RSS icons from site.Params.socialIcons */}}
+    <footer class="entry-footer">
+        {{ partial "social_icons.html" (dict "align" site.Params.homeInfoParams.AlignSocialIconsTo) }}
+    </footer>
 </article>
 {{- end -}}

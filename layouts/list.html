@@ -83,14 +83,18 @@
   <div class="entry-content">
     {{- /* CHANGED FROM THE THEME: every post carries a description written for the list, so
          it is used instead of the first 70 words of the body. The theme's summary stays as
-         the fallback. This is the only edit in this file; when PaperMod is updated, copy
-         themes/PaperMod/layouts/list.html over it again and re-apply just this line. */}}
+         the fallback. This and the tags line in the footer below are the only edits in
+         this file; when PaperMod is updated, copy themes/PaperMod/layouts/list.html over it
+         again and re-apply just those two. */}}
     <p>{{ with .Description }}{{ . }}{{ else }}{{ $.Summary | plainify | htmlUnescape }}{{ if $.Truncated }}...{{ end }}{{ end }}</p>
   </div>
   {{- end }}
   {{- if not (.Param "hideMeta") }}
   <footer class="entry-footer">
     {{- partial "post_meta.html" . -}}
+    {{- /* CHANGED FROM THE THEME: the post's tags under the meta line, as kimjy99.github.io
+         and minyeamer.github.io list them */}}
+    {{- partial "entry_tags.html" . }}
   </footer>
   {{- end }}
   <a class="entry-link" aria-label="post link to {{ .Title | plainify }}" href="{{ .Permalink }}"></a>

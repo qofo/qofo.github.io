@@ -1,0 +1,4 @@
+{{- /* PaperMod's opengraph.html asks for "_funcs/get-page-images", which is Hugo's embedded
+     copy, while its twitter and schema templates ask for "templates/_funcs/...". Send both
+     to the one in templates/_funcs, so every tag gets the same generated share card. */ -}}
+{{- return partial "templates/_funcs/get-page-images.html" . }}

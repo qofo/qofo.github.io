@@ -1,0 +1,15 @@
+{{ if and (.Params.canonicalURL) (.Params.ShowCanonicalLink ) -}}
+{{ $url := urls.Parse .Params.canonicalURL }}
+
+{{- if or .Params.author site.Params.author (.Param "ShowReadingTime") (not .Date.IsZero) .IsTranslated (or .Params.editPost.URL site.Params.editPost.URL) }}&nbsp;|&nbsp;{{- end -}}
+<span>
+    {{- (site.Params.CanonicalLinkText | default .Params.CanonicalLinkText) | default "Originally published at" -}}
+    &nbsp;<a href="{{ trim .Params.canonicalURL " " }}" title="{{ trim .Params.canonicalURL " " }}" target="_blank" rel="noopener noreferrer">{{ $url.Host }}</a>
+</span>
+{{- end }}
+{{- /* CHANGED FROM THE THEME: the lines above are the theme's post_canonical.html unchanged;
+     this call is the only addition. The theme has no hook between the post header and the
+     body, and this partial is the last thing single.html renders in the header, so the
+     series box hangs off it. When PaperMod is updated, copy the theme's file over this one
+     and re-add the line below. */ -}}
+{{- partial "series_box.html" . }}

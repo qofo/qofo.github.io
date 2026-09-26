@@ -29,18 +29,21 @@
 | `content/posts/` | 글 원본. 파일 이름은 `NN-<slug>.md`, 주소는 `/posts/<slug>/` |
 | `content-phone/` | 폰 빌드에만 들어가는 페이지. 지금은 실시간 대시보드 하나다 |
 | `themes/PaperMod/` | 테마 원본. 직접 고치지 않는다 |
-| `layouts/`, `assets/` | 테마 위에 얹는 것들. 대시보드, 텔레메트리, 한국어 폰트, 링크 렌더 훅, 글 아래의 연재 편 이동·링크 복사·함께 읽을 글, 넓은 화면의 옆 목차(`assets/js/post.js`) |
+| `layouts/`, `assets/` | 테마 위에 얹는 것들. 대시보드, 텔레메트리, 한국어 폰트, 링크·표·코드 블록 렌더 훅, 글 머리의 연재 상자, 글 끝의 링크 복사·글쓴이 카드·함께 읽을 글, 읽기 진행 막대와 넓은 화면의 옆 목차(`assets/js/post.js`), `/` 검색 단축키(`assets/js/site.js`), 공유 미리보기 카드 |
+| `assets/fonts/` | 공유 미리보기 카드를 그릴 때만 쓰는 Pretendard Bold. [SIL OFL 1.1](assets/fonts/OFL.txt)이고, 방문자에게는 보내지 않는다 |
 | `hugo.toml` | GitHub Pages 빌드 설정 |
 | `config/phone/hugo.toml` | 폰 빌드에서 덮어쓰는 설정 (`hugo --environment phone`) |
 
-테마에 손대는 대신 `layouts/`와 `assets/css/extended/`에서 덮어쓴다. 테마 파일을 통째로 복사해 온 것은 두 개뿐이고, 둘 다 한 줄만 고쳤다. 파일 안에 `CHANGED FROM THE THEME` 주석으로 표시해 두었다.
+테마에 손대는 대신 `layouts/`와 `assets/css/extended/`에서 덮어쓴다. 테마 파일을 통째로 복사해 온 것은 네 개이고, 모두 고친 곳이 한두 군데뿐이다. 파일 안에 `CHANGED FROM THE THEME` 주석으로 표시해 두었다.
 
 | 복사해 온 파일 | 고친 곳 |
 |---|---|
 | `layouts/_partials/head.html` | canonical 주소를 `.Permalink` 대신 Pages 주소로 |
-| `layouts/list.html` | 목록 요약을 본문 앞부분 대신 글의 `description`으로 |
+| `layouts/list.html` | 목록 요약을 본문 앞부분 대신 글의 `description`으로, 목록 항목 아래에 태그 |
+| `layouts/_partials/post_canonical.html` | 글 머리 끝에 연재 상자(`series_box.html`) 호출 한 줄. 테마에는 머리와 본문 사이에 끼울 자리가 따로 없다 |
+| `layouts/_partials/templates/_funcs/get-page-images.html` | 글에 이미지가 없으면 생성한 공유 카드(`og_card.html`)를 돌려준다. og:image, 트위터 카드, JSON-LD가 모두 이것을 쓴다 |
 
-테마를 올릴 때는 `themes/PaperMod/`를 새 버전으로 교체한 뒤, 위 두 파일을 다시 복사하고 그 한 줄씩만 다시 적용한다. 지금 들어 있는 버전은 PaperMod `d376885`(2026-08-02)다.
+테마를 올릴 때는 `themes/PaperMod/`를 새 버전으로 교체한 뒤, 위 파일들을 다시 복사하고 표시된 곳만 다시 적용한다. 지금 들어 있는 버전은 PaperMod `d376885`(2026-08-02)다.
 
 `main`에는 원본만 있다. Pages가 서비스하는 빌드 결과는 `gh-pages` 브랜치에 있다.
 

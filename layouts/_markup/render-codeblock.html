@@ -1,0 +1,9 @@
+{{- /* Code blocks as Hugo renders them by default, plus the language as data-lang on the
+     .highlight wrapper, so custom.css can label the block ("bash", "go") in the corner where
+     the theme's copy button appears on hover. A block without a language gets no label. */ -}}
+{{- $result := transform.HighlightCodeBlock . }}
+{{- $html := $result.Wrapped }}
+{{- with .Type }}
+{{- $html = replaceRE `^<div class="highlight"` (printf `<div class="highlight" data-lang="%s"` (htmlEscape .)) (string $html) 1 }}
+{{- end }}
+{{- $html | safeHTML }}

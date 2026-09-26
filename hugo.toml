@@ -101,6 +101,28 @@ disableHugoGeneratorInject = true
   # copy-link and native share buttons (assets/js/post.js) instead.
   ShowShareButtons = false
 
+# The card at the end of every post (layouts/_partials/extend_post_content.html). No
+# personal details beyond the account name: see the blog's writing rules.
+[params.authorCard]
+  bio = "쓰지 않던 스마트폰 한 대로 24시간 서버를 운영하며, 무엇이 깨졌고 어떻게 고쳤는지 실제 로그와 코드에 맞춰 기록한다."
+  [[params.authorCard.links]]
+    name = "GitHub"
+    url = "https://github.com/qofo"
+  [[params.authorCard.links]]
+    name = "서버 코드"
+    url = "https://github.com/qofo/phone-homeserver"
+  [[params.authorCard.links]]
+    name = "RSS"
+    url = "/index.xml"
+
+# GitHub and RSS icons under the home page's introduction
+[[params.socialIcons]]
+  name = "github"
+  url = "https://github.com/qofo"
+[[params.socialIcons]]
+  name = "rss"
+  url = "/index.xml"
+
 [params.editPost]
   # "수정 제안" next to the date: GitHub's editor, which offers a fork and a pull request
   URL = "https://github.com/qofo/qofo.github.io/edit/main/content"
