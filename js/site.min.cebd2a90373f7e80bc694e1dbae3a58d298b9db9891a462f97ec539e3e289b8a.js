@@ -1,1 +1,0 @@
-(function(){"use strict";var e,t,n=document.getElementById("legacy-links");if(!n||location.hash.length<2)return;try{e=JSON.parse(n.textContent),t=location.hash.slice(1).replace(/^post=/,""),Object.prototype.hasOwnProperty.call(e,t)&&location.replace(e[t])}catch{}})()
