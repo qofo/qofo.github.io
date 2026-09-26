@@ -1,0 +1,91 @@
+{{- /* The site menu behind the ☰ button, as velog, kimjy99.github.io and minyeamer.github.io
+     have it: who writes here, search, the category tree with post counts, the series, and
+     the remaining links. On a wide screen custom.css pins it to the left edge; below that
+     site.js slides it in and out.
+
+     The category tree is built from what the posts declare, never from a list kept here:
+     front matter `categories: ["section", "subsection"]`. A new topic appears the moment a
+     post names it, and renaming one is a front-matter edit that leaves post URLs alone.
+     Only names and counts go in, not a link per post, so every page stays small (the one
+     thing not to copy from kimjy99.github.io, whose sidebar weighs about 1.9 MB).
+
+     Rendered once and cached (header.html calls partialCached), so nothing in here may
+     depend on the page being built; site.js marks the current link. */ -}}
+{{- $posts := where site.RegularPages "Section" "posts" }}
+{{- $sections := slice }}
+{{- range $posts }}{{ with .Params.categories }}{{ with index . 0 }}{{ $sections = $sections | append . }}{{ end }}{{ end }}{{ end }}
+<div class="drawer-overlay" hidden></div>
+<nav id="site-drawer" class="site-drawer" aria-label="사이트 메뉴">
+  <div class="drawer-head">
+    <a class="drawer-profile" href="{{ site.Home.RelPermalink }}">
+      <img class="drawer-avatar" src="{{ "favicon.svg" | relURL }}" alt="" width="40" height="40">
+      <span class="drawer-title">{{ site.Title }}</span>
+    </a>
+    <button type="button" class="drawer-close" aria-label="메뉴 닫기" title="닫기">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+  {{- with site.Params.description }}
+  <p class="drawer-bio">{{ . }}</p>
+  {{- end }}
+
+  {{- with site.GetPage "/search" }}
+  <a class="drawer-search" href="{{ .RelPermalink }}">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="11" cy="11" r="7"></circle>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </svg>
+    <span>검색</span>
+    <kbd>/</kbd>
+  </a>
+  {{- end }}
+
+  <p class="drawer-heading">카테고리</p>
+  <ul class="drawer-tree">
+    {{- with site.GetPage "/posts" }}
+    <li><a href="{{ .RelPermalink }}"><span>전체 글</span><span class="drawer-count">{{ len $posts }}</span></a></li>
+    {{- end }}
+    {{- range $sections | uniq | sort }}
+    {{- $section := . }}
+    {{- $inSection := where $posts "Params.categories" "intersect" (slice $section) }}
+    {{- $subsections := slice }}
+    {{- range $inSection }}{{ if gt (len .Params.categories) 1 }}{{ with index .Params.categories 1 }}{{ $subsections = $subsections | append . }}{{ end }}{{ end }}{{ end }}
+    <li>
+      <a href="{{ printf "/categories/%s/" (urlize $section) | relURL }}"><span>{{ $section }}</span><span class="drawer-count">{{ len $inSection }}</span></a>
+      {{- with $subsections | uniq | sort }}
+      <ul>
+        {{- range . }}
+        <li><a href="{{ printf "/categories/%s/" (urlize .) | relURL }}"><span>{{ . }}</span><span class="drawer-count">{{ len (where $inSection "Params.categories" "intersect" (slice .)) }}</span></a></li>
+        {{- end }}
+      </ul>
+      {{- end }}
+    </li>
+    {{- end }}
+  </ul>
+
+  {{- with site.Taxonomies.series }}
+  <p class="drawer-heading">연재</p>
+  <ul class="drawer-tree">
+    {{- range .ByCount }}
+    <li><a href="{{ .Page.RelPermalink }}"><span>{{ .Page.LinkTitle }}</span><span class="drawer-count">{{ .Count }}</span></a></li>
+    {{- end }}
+  </ul>
+  {{- end }}
+
+  <ul class="drawer-links">
+    {{- range site.Menus.main }}
+    <li><a href="{{ .URL | relLangURL }}">{{ .Pre }}{{ .Name }}{{ .Post }}</a></li>
+    {{- end }}
+  </ul>
+
+  {{- with site.Params.socialIcons }}
+  <div class="drawer-social">
+    {{- partial "social_icons.html" (dict "align" "left") }}
+  </div>
+  {{- end }}
+</nav>

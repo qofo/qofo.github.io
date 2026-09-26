@@ -4,6 +4,7 @@ slug: "tailnet-only-docs-server"
 date: 2026-09-19
 weight: 8
 series: ["스마트폰으로 서버 만들기"]
+categories: ["인프라", "폰 홈서버"]
 tags: ["Tailscale", "Security", "DNS Rebinding", "CSP", "DOMPurify", "Python"]
 description: "이 폰에서는 블로그 말고도 문서를 쓴다. 사이드 프로젝트 기획서, 기존 서비스 조사, 블로그 이전 계획 같은 것들이다. 이런 문서를 노트북이나 다른 폰의 브라우저로 읽고 싶었다. 조건은 하나다. 나만 봐야 한다."
 legacy_id: "08_tailnet_only_private_docs_server"

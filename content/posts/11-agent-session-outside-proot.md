@@ -4,6 +4,7 @@ slug: "agent-session-outside-proot"
 date: 2026-09-25
 weight: 11
 series: ["스마트폰으로 서버 만들기"]
+categories: ["인프라", "폰 홈서버"]
 tags: ["tmux", "PRoot", "Termux", "SSH", "Session", "Claude Code"]
 description: "1편에 적은 목표는 리눅스를 올리고 AI 코딩 에이전트를 붙여 24시간 돌리는 것이었다. 6편에서 블로그와 터널은 터미널과 무관하게 돌게 됐다. 그런데 정작 그 코드를 고치는 에이전트 세션은 그대로였다."
 ---

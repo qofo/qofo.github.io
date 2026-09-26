@@ -9,6 +9,14 @@
         {{ $opts := dict "display" "block" }}
         {{ .Content | $.Page.RenderString $opts }}
     </div>
+    {{- /* The series, each a way into a run of posts that reads in order */}}
+    {{- with site.Taxonomies.series }}
+    <ul class="home-series">
+        {{- range .ByCount }}
+        <li><span class="home-series-label">연재</span><a href="{{ .Page.RelPermalink }}">{{ .Page.LinkTitle }}</a><span class="home-series-count">{{ .Count }}편</span></li>
+        {{- end }}
+    </ul>
+    {{- end }}
     {{- with site.GetPage "/dashboard" }}
     {{ partial "telemetry-pills.html" . }}
     {{- end }}

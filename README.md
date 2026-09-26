@@ -1,11 +1,12 @@
-# 서랍 속 폰으로 서버 운영하기
+# qofo.log
 
-쓰지 않던 갤럭시 노트 FE(Android 9)에 우분투를 올려 블로그를 24시간 공개하면서 겪은 일을 기술 블로그 형식으로 기록한 연재다. 설치와 외부 공개에서 시작해, 장애를 분석하고 감시 구조를 다시 설계하는 데까지 이어진다.
+읽은 것, 만든 것, 고친 것을 기록하는 개인 블로그 [qofo.log](https://qofo.github.io/)의 원고 저장소다.
 
-- 블로그: <https://qofo.github.io/>
-- 코드와 운영 문서: [`qofo/phone-homeserver`](https://github.com/qofo/phone-homeserver)
+## 연재
 
-## 목차
+### 스마트폰으로 서버 만들기
+
+쓰지 않던 갤럭시 노트 FE(Android 9)에 우분투를 올려 블로그를 24시간 공개하면서 겪은 일을 기록한 연재다. 설치와 외부 공개에서 시작해, 장애를 분석하고 감시 구조를 다시 설계하는 데까지 이어진다. 코드와 운영 문서는 [`qofo/phone-homeserver`](https://github.com/qofo/phone-homeserver)에 있다.
 
 | 편 | 제목 |
 |---|---|
@@ -19,6 +20,7 @@
 | 8 | [Tailscale 안에서만 열리는 문서 서버: 방화벽 없는 폰에서 접근 제어하기](https://qofo.github.io/posts/tailnet-only-docs-server/) |
 | 9 | [원본 하나, 서버 둘: Hugo로 옮겨 폰과 GitHub Pages에 동시에 배포하기](https://qofo.github.io/posts/hugo-phone-and-pages/) |
 | 10 | [터미널 말고 편집기: 폰에 VS Code를 올리고 tailnet 안에서만 열기](https://qofo.github.io/posts/code-server-on-the-phone/) |
+| 11 | [터미널을 닫아도 작업은 이어진다: proot 밖 tmux에 에이전트 세션 두기](https://qofo.github.io/posts/agent-session-outside-proot/) |
 
 ## 구조
 
@@ -34,12 +36,14 @@
 | `hugo.toml` | GitHub Pages 빌드 설정 |
 | `config/phone/hugo.toml` | 폰 빌드에서 덮어쓰는 설정 (`hugo --environment phone`) |
 
-테마에 손대는 대신 `layouts/`와 `assets/css/extended/`에서 덮어쓴다. 테마 파일을 통째로 복사해 온 것은 네 개이고, 모두 고친 곳이 한두 군데뿐이다. 파일 안에 `CHANGED FROM THE THEME` 주석으로 표시해 두었다.
+테마에 손대는 대신 `layouts/`와 `assets/css/extended/`에서 덮어쓴다. 테마 파일을 통째로 복사해 온 것은 여섯 개이고, 모두 고친 곳이 한두 군데뿐이다. 파일 안에 `CHANGED FROM THE THEME` 주석으로 표시해 두었다.
 
 | 복사해 온 파일 | 고친 곳 |
 |---|---|
 | `layouts/_partials/head.html` | canonical 주소를 `.Permalink` 대신 Pages 주소로 |
-| `layouts/list.html` | 목록 요약을 본문 앞부분 대신 글의 `description`으로, 목록 항목 아래에 태그 |
+| `layouts/list.html` | 목록 요약을 본문 앞부분 대신 글의 `description`으로, 최신 글이 먼저 오도록 날짜순, 목록 항목 아래에 태그 |
+| `layouts/_partials/header.html` | 로고 앞에 메뉴 버튼(☰), 가로 메뉴 대신 검색 아이콘, 헤더 뒤에 메뉴 서랍(`site_drawer.html`) |
+| `layouts/_partials/post_nav_links.html` | 이전·다음 글을 편 번호(weight) 대신 날짜순으로 |
 | `layouts/_partials/post_canonical.html` | 글 머리 끝에 연재 상자(`series_box.html`) 호출 한 줄. 테마에는 머리와 본문 사이에 끼울 자리가 따로 없다 |
 | `layouts/_partials/templates/_funcs/get-page-images.html` | 글에 이미지가 없으면 생성한 공유 카드(`og_card.html`)를 돌려준다. og:image, 트위터 카드, JSON-LD가 모두 이것을 쓴다 |
 
@@ -59,6 +63,16 @@
 글을 게시한 뒤 다른 날에 내용을 고쳤으면 front matter에 `lastmod: YYYY-MM-DD`를 적는다. 글 머리에 "(수정 날짜)"로 표시된다. 날짜를 git에서 가져오지 않는 까닭은, Hugo로 옮기면서 모든 파일을 한 번씩 건드렸기 때문이다. 오타나 링크를 고친 정도라면 적지 않는다.
 
 글끼리는 `[2편](02-stdlib-python-blog.md)`처럼 파일 이름으로 링크한다. 이렇게 쓰면 GitHub에서 파일을 읽을 때도 링크가 열린다. Hugo는 빌드할 때 이 링크를 실제 주소로 바꾸고, 대상 글이 없으면 빌드를 실패시킨다.
+
+## 글 쓰기
+
+```bash
+hugo new posts/<slug>.md   # archetypes/posts.md의 틀로 초안(draft)을 만든다
+```
+
+- **카테고리**는 `categories: ["상위", "하위"]` 두 단계다. 메뉴(☰)의 카테고리 트리는 글에 적힌 값으로 빌드할 때 만들어지므로, 새 주제는 글에 새 카테고리를 적는 것으로 생긴다. 글 주소는 `/posts/<slug>/`이고 카테고리가 들어가지 않아서, 분류를 바꿔도 링크는 깨지지 않는다.
+- **연재**에 속하는 글만 `series`와 `weight`(편 번호)를 적고, 파일 이름을 `NN-<slug>.md`로 한다. 연재 밖의 글은 `<slug>.md`이고 둘 다 적지 않는다. 목록과 이전·다음 글은 날짜순이다.
+- 게시한 뒤 다른 날에 내용을 고쳤으면 `lastmod: YYYY-MM-DD`를 적는다(아래).
 
 ## 로컬 빌드
 

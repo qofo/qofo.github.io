@@ -45,7 +45,11 @@
 {{- $pages = where $pages "Params.hiddenInHomeList" "!=" "true"  }}
 {{- end }}
 
-{{- $paginator := .Paginate $pages }}
+{{- /* CHANGED FROM THE THEME: newest first. The default order is weight, which is the part
+     number of a series; a post outside any series has none and would sink to the end.
+     ByDate keeps the weight order for posts of the same day, so .Reverse lists part 5
+     before part 4. */}}
+{{- $paginator := .Paginate $pages.ByDate.Reverse }}
 
 {{- if and .IsHome site.Params.homeInfoParams (eq $paginator.PageNumber 1) }}
 {{- partial "home_info.html" . }}
@@ -83,9 +87,9 @@
   <div class="entry-content">
     {{- /* CHANGED FROM THE THEME: every post carries a description written for the list, so
          it is used instead of the first 70 words of the body. The theme's summary stays as
-         the fallback. This and the tags line in the footer below are the only edits in
-         this file; when PaperMod is updated, copy themes/PaperMod/layouts/list.html over it
-         again and re-apply just those two. */}}
+         the fallback. This, the sort order above and the tags line in the footer below are
+         the only edits in this file; when PaperMod is updated, copy
+         themes/PaperMod/layouts/list.html over it again and re-apply just those three. */}}
     <p>{{ with .Description }}{{ . }}{{ else }}{{ $.Summary | plainify | htmlUnescape }}{{ if $.Truncated }}...{{ end }}{{ end }}</p>
   </div>
   {{- end }}

@@ -5,6 +5,7 @@ date: 2026-09-17
 lastmod: 2026-09-18
 weight: 5
 series: ["스마트폰으로 서버 만들기"]
+categories: ["인프라", "폰 홈서버"]
 tags: ["Termux:Boot", "Supervisor", "Self-Healing", "Android", "PRoot", "Automation"]
 description: "4편에서 고정 주소를 확보했다. 남은 요구사항은 무인 운영이다. 사람이 Termux 앱을 열지 않아도 서버가 떠 있어야 한다."
 legacy_id: "05_headless_autostart_and_self_healing_daemon"

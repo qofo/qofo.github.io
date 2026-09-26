@@ -4,6 +4,7 @@ slug: "supervisor-postmortem"
 date: 2026-09-18
 weight: 6
 series: ["스마트폰으로 서버 만들기"]
+categories: ["인프라", "폰 홈서버"]
 tags: ["Supervisor", "PRoot", "Signals", "setsid", "Termux:API", "Postmortem"]
 description: "5편에서 3층 자동 시작과 10초 주기 감시 데몬을 만들었다. 하루 뒤 상태를 점검한 결과는 이렇다."
 legacy_id: "06_audit_and_supervisor_rewrite"

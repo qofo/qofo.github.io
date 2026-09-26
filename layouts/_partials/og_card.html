@@ -3,15 +3,18 @@
      font is read only here; visitors never download it. Returns the image resource. */ -}}
 {{- $base := resources.Get "images/og-base.png" }}
 {{- $font := resources.Get "fonts/Pretendard-Bold.ttf" }}
-{{- /* Posts: series and part / title / site name. Every other page: the topic / site name. */ -}}
-{{- $kicker := "Galaxy Note FE · Termux · Ubuntu" }}
+{{- /* A post: series and part (or else its category path) / title / blog name. Any other
+     page: blog name / its description. */ -}}
+{{- $kicker := "" }}
 {{- $title := site.Title }}
 {{- $footer := "qofo.github.io" }}
 {{- if eq .Section "posts" }}
-  {{- $kicker = "" }}
   {{- $title = .Title }}
   {{- $footer = printf "%s · qofo.github.io" site.Title }}
+  {{- with .Params.categories }}{{ $kicker = delimit (complement (slice "") .) " › " }}{{ end }}
   {{- with .Params.series }}{{ $kicker = printf "%s · %d편" (index . 0) $.Weight }}{{ end }}
+{{- else }}
+  {{- $footer = site.Params.description | default "qofo.github.io" }}
 {{- end }}
 {{- $filters := slice }}
 {{- with $kicker }}

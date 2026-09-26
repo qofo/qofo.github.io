@@ -4,6 +4,7 @@ slug: "code-server-on-the-phone"
 date: 2026-09-20
 weight: 10
 series: ["스마트폰으로 서버 만들기"]
+categories: ["인프라", "폰 홈서버"]
 tags: ["code-server", "VS Code", "Tailscale", "TLS", "Name Constraints", "PRoot"]
 description: "이 폰은 지금까지 SSH 터미널로만 다뤘다. nano로 파일을 고치고, git 명령을 손으로 치고, 결과는 curl로 확인했다. 글이 열 편이 되고 스크립트가 여섯 개가 되자 이 방식이 버거워졌다."
 ---

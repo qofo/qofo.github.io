@@ -4,6 +4,7 @@ slug: "hung-ngrok-health-checks"
 date: 2026-09-19
 weight: 7
 series: ["스마트폰으로 서버 만들기"]
+categories: ["인프라", "폰 홈서버"]
 tags: ["ngrok", "Health Check", "Supervisor", "Reboot", "Downtime", "Postmortem"]
 description: "6편에서 감시 데몬을 다시 만들고 \"재부팅까지 시험해야 한다\"고 정리했다. 그날 밤 폰을 재부팅했더니 블로그 주소에 ngrok의 ERRNGROK3200(엔드포인트 오프라인) 오류 페이지가 떴다."
 legacy_id: "07_reboot_hung_ngrok_and_active_health_checks"

@@ -1,0 +1,21 @@
+{{- /* CHANGED FROM THE THEME: previous and next by date, not by weight, which is the part
+     number of a series and absent on every other post. Same-day posts keep their weight
+     order. This first line is the only edit; when PaperMod is updated, copy the theme's
+     post_nav_links.html over this file and re-apply it. */ -}}
+{{- $pages := (where site.RegularPages "Type" "in" site.Params.mainSections).ByDate }}
+{{- if and (gt (len $pages) 1) (in $pages . ) }}
+<nav class="paginav">
+  {{- with $pages.Next . }}
+  <a class="prev" href="{{ .Permalink }}">
+    <span class="title">« {{ i18n "prev_page" }}</span>
+    <span>{{- .Name -}}</span>
+  </a>
+  {{- end }}
+  {{- with $pages.Prev . }}
+  <a class="next" href="{{ .Permalink }}">
+    <span class="title">{{ i18n "next_page" }} »</span>
+    <span>{{- .Name -}}</span>
+  </a>
+  {{- end }}
+</nav>
+{{- end }}

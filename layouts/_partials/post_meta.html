@@ -2,6 +2,15 @@
      no "N편." prefix, so without this the order of the series is invisible in a list. */ -}}
 {{- $scratch := newScratch }}
 
+{{- /* The category path first, "인프라 › 폰 홈서버", as minyeamer.github.io heads its posts */ -}}
+{{- with .Params.categories }}
+    {{- $links := slice }}
+    {{- range . }}{{ if . }}
+        {{- $links = $links | append (printf "<a href=\"%s\">%s</a>" (printf "/categories/%s/" (urlize .) | relURL) (htmlEscape .)) }}
+    {{- end }}{{ end }}
+    {{- with $links }}{{ $scratch.Add "meta" (slice (printf "<span class=\"post-category\">%s</span>" (delimit . " › "))) }}{{ end }}
+{{- end }}
+
 {{- with .Params.series }}
     {{- with $.Weight }}
         {{- $scratch.Add "meta" (slice (printf "<span class=\"series-part\">%d편</span>" .)) }}

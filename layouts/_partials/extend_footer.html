@@ -19,8 +19,6 @@
 {{- partial "telemetry-script.html" . }}
 {{- end }}
 
-{{- /* Post pages: share buttons, series box state, reading progress, side table of contents */}}
-{{- if and .IsPage (eq .Section "posts") }}
-{{- $post := resources.Get "js/post.js" | minify | fingerprint }}
-<script src="{{ $post.RelPermalink }}" integrity="{{ $post.Data.Integrity }}" defer></script>
-{{- end }}
+{{- /* post.js is not loaded here: PaperMod caches footer.html per .Layout and .Kind, so a
+     plain page such as /about/ and a post share one cached footer, and whichever renders
+     first decides for both. extend_post_content.html, rendered per post, loads it. */}}

@@ -3,14 +3,18 @@
 baseURL = "https://qofo.github.io/"
 languageCode = "ko-KR"
 defaultContentLanguage = "ko"
-title = "서랍 속 폰으로 서버 운영하기"
+title = "qofo.log"
 theme = "PaperMod"
 enableRobotsTXT = true
 disableHugoGeneratorInject = true
 # No timeZone: the phone's Ubuntu has no tzdata, so Hugo there rejects "Asia/Seoul".
 # Posts carry dates without times, so UTC shows the same dates.
 
+# Topics live in front matter, never in the post URL, so they can be renamed or merged
+# later without breaking a link. categories is [section, subsection]; series is an ordered
+# multi-part run inside it; tags are free.
 [taxonomies]
+  category = "categories"
   tag = "tags"
   series = "series"
 
@@ -46,15 +50,12 @@ disableHugoGeneratorInject = true
 [outputs]
   home = ["HTML", "RSS", "JSON"]
 
-[[menus.main]]
-  name = "글 목록"
-  url = "/posts/"
-  weight = 10
-
+# The site menu (☰): the links under the category tree. Search, categories and series have
+# their own parts of the drawer (layouts/_partials/site_drawer.html).
 [[menus.main]]
   name = "보관함"
   url = "/archives/"
-  weight = 15
+  weight = 10
 
 [[menus.main]]
   name = "태그"
@@ -62,12 +63,12 @@ disableHugoGeneratorInject = true
   weight = 20
 
 [[menus.main]]
-  name = "검색"
-  url = "/search/"
+  name = "소개"
+  url = "/about/"
   weight = 30
 
 [params]
-  description = "쓰지 않던 갤럭시 노트 FE(Android 9)에 우분투를 올려 블로그를 24시간 공개하면서 겪은 일을 기록한 연재다."
+  description = "qofo의 개인 블로그. 읽은 것, 만든 것, 고친 것을 기록한다."
   author = "qofo"
   # Every copy of a page points search engines here, whichever server delivered it.
   canonicalBase = "https://qofo.github.io/"
@@ -104,13 +105,10 @@ disableHugoGeneratorInject = true
 # The card at the end of every post (layouts/_partials/extend_post_content.html). No
 # personal details beyond the account name: see the blog's writing rules.
 [params.authorCard]
-  bio = "쓰지 않던 스마트폰 한 대로 24시간 서버를 운영하며, 무엇이 깨졌고 어떻게 고쳤는지 실제 로그와 코드에 맞춰 기록한다."
+  bio = "공부한 것과 만든 것을, 실제 코드와 기록에 맞춰 정리한다."
   [[params.authorCard.links]]
     name = "GitHub"
     url = "https://github.com/qofo"
-  [[params.authorCard.links]]
-    name = "서버 코드"
-    url = "https://github.com/qofo/phone-homeserver"
   [[params.authorCard.links]]
     name = "RSS"
     url = "/index.xml"
@@ -130,16 +128,13 @@ disableHugoGeneratorInject = true
   appendFilePath = true
 
 [params.footer]
-  # Which server sent this page, and where the other copy is. The phone build replaces
-  # this line in config/phone/hugo.toml.
-  text = "글은 GitHub Pages에서 열린다. 폰이 직접 응답하는 사본은 [여기](https://daringly-marrow-penny.ngrok-free.dev/)에 있다. · 글 [qofo/qofo.github.io](https://github.com/qofo/qofo.github.io) (CC BY 4.0) · 코드 [qofo/phone-homeserver](https://github.com/qofo/phone-homeserver) (MIT)"
+  # A personal blog on GitHub Pages; nothing here is about the phone that also serves a
+  # copy. The phone build replaces this line in config/phone/hugo.toml.
+  text = "글 [qofo/qofo.github.io](https://github.com/qofo/qofo.github.io) (CC BY 4.0)"
 
 [params.homeInfoParams]
-  Title = "서랍 속 폰으로 서버 운영하기 📱"
-  Content = """
-쓰지 않던 갤럭시 노트 FE(Android 9)에 Termux와 proot로 우분투를 올려, 블로그를 24시간 공개하면서 겪은 일을 기록한 연재다.
-systemd도 도커도 없는 환경에서 무엇이 어떻게 깨졌고 어떻게 고쳤는지, 실제 로그와 코드에 맞춰 적었다.
-"""
+  Title = "qofo.log"
+  Content = "읽은 것, 만든 것, 고친 것을 기록한다."
 
 [params.assets]
   favicon = "/favicon.svg"

@@ -5,6 +5,7 @@ date: 2026-09-19
 lastmod: 2026-09-20
 weight: 9
 series: ["스마트폰으로 서버 만들기"]
+categories: ["인프라", "폰 홈서버"]
 tags: ["Hugo", "GitHub Pages", "CORS", "ngrok", "Static Site", "Python"]
 description: "2편에서 만든 블로그는 파이썬 파일 하나가 전부였다. 글 목록을 파싱하고, HTML을 문자열로 들고 있다가 내보내고, 마크다운은 브라우저가 marked로 그렸다. 이 구조에는 약점이 하나 있다. 폰이 꺼지면 글도 사라진다."
 ---

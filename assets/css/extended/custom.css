@@ -720,3 +720,279 @@ main.main:has(.dashboard-view) {
 .author-card-links a {
   color: var(--accent);
 }
+
+/* --- Site menu (☰) --------------------------------------------------------------------
+   layouts/_partials/site_drawer.html, opened by site.js. Below 1340px it slides in from
+   the left over a dimmed page; from 1340px it is pinned to the left edge, next to the
+   720px article and the table of contents on the right, as minyeamer.github.io and
+   kimjy99.github.io lay out a wide screen. */
+.drawer-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin-inline-start: -8px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius);
+  background: none;
+  color: var(--primary);
+  cursor: pointer;
+}
+
+.drawer-toggle:hover {
+  background: var(--tertiary);
+}
+
+.header-nav .search-link {
+  display: flex;
+  align-items: center;
+  height: var(--header-height);
+  color: var(--primary);
+}
+
+.site-drawer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 210;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: min(290px, 85vw);
+  padding: 14px 16px 24px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--theme);
+  border-right: 1px solid var(--border);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  transform: translateX(-100%);
+  visibility: hidden;
+}
+
+.site-drawer.open {
+  transform: none;
+  visibility: visible;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.25);
+}
+
+/* Visible at once when opening, so focus can move in; hidden only after sliding out */
+@media (prefers-reduced-motion: no-preference) {
+  .site-drawer {
+    transition: transform 0.2s ease, visibility 0s linear 0.2s;
+  }
+
+  .site-drawer.open {
+    transition: transform 0.2s ease, visibility 0s;
+  }
+}
+
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.drawer-overlay[hidden] {
+  display: none;
+}
+
+html.drawer-open {
+  overflow: hidden;
+}
+
+.drawer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.drawer-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--primary);
+}
+
+.drawer-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.drawer-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.drawer-close {
+  display: inline-flex;
+  padding: 6px;
+  border: 0;
+  border-radius: var(--radius);
+  background: none;
+  color: var(--secondary);
+  cursor: pointer;
+}
+
+.drawer-close:hover {
+  background: var(--tertiary);
+}
+
+.drawer-bio {
+  margin: 8px 0 6px;
+  color: var(--secondary);
+  font-size: 0.85rem;
+}
+
+.drawer-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 4px 0 8px;
+  padding: 7px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--code-bg);
+  color: var(--secondary);
+}
+
+.drawer-search:hover {
+  border-color: var(--accent);
+}
+
+.drawer-search kbd {
+  margin-left: auto;
+  padding: 0 6px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-family: var(--mono-font);
+  font-size: 0.75rem;
+}
+
+.drawer-heading {
+  margin: 12px 0 2px;
+  color: var(--secondary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.drawer-tree,
+.drawer-tree ul,
+.drawer-links {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.drawer-tree ul {
+  margin-left: 12px;
+  padding-left: 8px;
+  border-left: 1px solid var(--border);
+}
+
+.drawer-tree a,
+.drawer-links a {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  color: var(--primary);
+}
+
+.drawer-tree a:hover,
+.drawer-links a:hover {
+  background: var(--tertiary);
+}
+
+.site-drawer a[aria-current="page"] {
+  background: var(--tertiary);
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.drawer-count {
+  color: var(--secondary);
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.drawer-links {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+
+.drawer-social .social-icons {
+  padding: 8px 4px 0;
+}
+
+@media (min-width: 1340px) {
+  /* Pinned. The dashboard is wider than an article and would run under it, so on that
+     page the menu stays behind the button. */
+  body:not(:has(.dashboard-view)) .site-drawer {
+    width: 260px;
+    transform: none;
+    visibility: visible;
+    box-shadow: none;
+    transition: none;
+  }
+
+  body:not(:has(.dashboard-view)) .drawer-toggle,
+  body:not(:has(.dashboard-view)) .drawer-close,
+  body:not(:has(.dashboard-view)) .drawer-overlay {
+    display: none;
+  }
+
+  /* The drawer carries the blog's name; the header keeps only its switches */
+  body:not(:has(.dashboard-view)) .header .logo > a {
+    visibility: hidden;
+  }
+
+}
+
+/* --- Category path in the post meta line ------------------------------------------------ */
+.post-category a {
+  position: relative;   /* above the list entry's overlay link */
+  z-index: 1;
+}
+
+.post-category a:hover {
+  color: var(--accent);
+}
+
+/* --- Series on the home page ------------------------------------------------------------ */
+.home-series {
+  display: grid;
+  gap: 6px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.home-series li {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.home-series-label {
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.home-series a {
+  font-weight: 600;
+}
+
+.home-series-count {
+  color: var(--secondary);
+  font-size: 0.85rem;
+}

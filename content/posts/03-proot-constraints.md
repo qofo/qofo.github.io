@@ -5,6 +5,7 @@ date: 2026-09-17
 lastmod: 2026-09-18
 weight: 3
 series: ["스마트폰으로 서버 만들기"]
+categories: ["인프라", "폰 홈서버"]
 tags: ["PRoot", "Termux", "Android", "Linux", "systemd", "procfs", "Architecture"]
 description: "PRoot 환경의 Ubuntu는 겉보기에 표준 리눅스와 같다. apt-get이 돌고, whoami는 root를 출력하고, /etc/os-release는 Ubuntu 26.04.1 LTS라고 답한다. 그래서 일반 서버처럼 다루게 되고, 그러다 벽에 부딪힌다."
 legacy_id: "03_android_proot_server_architecture_and_gotchas"

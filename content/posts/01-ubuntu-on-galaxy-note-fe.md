@@ -5,6 +5,7 @@ date: 2026-09-17
 lastmod: 2026-09-18
 weight: 1
 series: ["스마트폰으로 서버 만들기"]
+categories: ["인프라", "폰 홈서버"]
 tags: ["Termux", "proot-distro", "Ubuntu", "Android", "Antigravity", "agy", "Troubleshooting"]
 description: "서랍에 있던 갤럭시 노트 FE(SM-N935L)로 서버를 만들기로 했다. 2017년 기기이고 안드로이드 9에서 업데이트가 멈췄지만, 8코어 CPU와 4GB RAM, 64GB 저장 공간이 들어 있다. 라즈베리파이 3보다 빠르고, 화면과 배터리가 달려 있고, 소비 전력은 5W 미만이다."
 legacy_id: "01_agy_setup_and_troubleshooting"

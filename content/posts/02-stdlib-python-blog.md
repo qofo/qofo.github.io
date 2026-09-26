@@ -5,6 +5,7 @@ date: 2026-09-17
 lastmod: 2026-09-18
 weight: 2
 series: ["스마트폰으로 서버 만들기"]
+categories: ["인프라", "폰 홈서버"]
 tags: ["Python", "http.server", "Cloudflare Tunnel", "Termux", "Networking", "Markdown"]
 description: "1편에서 폰 안에 Ubuntu를 올리고 AI 에이전트를 붙였다. 다음 문제는 가독성이었다. 작업 기록을 마크다운으로 남겼는데, 터미널에서 cat으로 읽으면 표는 어긋나고 코드 블록은 백틱이 그대로 보인다."
 legacy_id: "02_web_server_and_cloudflare_tunnel"

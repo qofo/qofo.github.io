@@ -5,6 +5,7 @@ date: 2026-09-17
 lastmod: 2026-09-18
 weight: 4
 series: ["스마트폰으로 서버 만들기"]
+categories: ["인프라", "폰 홈서버"]
 tags: ["ngrok", "Cloudflare Tunnel", "DuckDNS", "DDNS", "CGNAT", "Networking"]
 description: "결론부터 쓰면 ngrok의 무료 고정 도메인을 채택했다. 개인 도메인을 사지 않고, 공유기를 건드리지 않고, 폰이 어느 망에 붙어 있든 같은 주소로 열리는 방식은 이것뿐이었다."
 legacy_id: "04_permanent_tunneling_and_domain_strategy"
