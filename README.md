@@ -21,6 +21,7 @@
 | 9 | [원본 하나, 서버 둘: Hugo로 옮겨 폰과 GitHub Pages에 동시에 배포하기](https://qofo.github.io/posts/hugo-phone-and-pages/) |
 | 10 | [터미널 말고 편집기: 폰에 VS Code를 올리고 tailnet 안에서만 열기](https://qofo.github.io/posts/code-server-on-the-phone/) |
 | 11 | [터미널을 닫아도 작업은 이어진다: proot 밖 tmux에 에이전트 세션 두기](https://qofo.github.io/posts/agent-session-outside-proot/) |
+| 12 | [알림으로는 배터리를 지킬 수 없었다: 스마트 플러그로 충전기 켜고 끄기](https://qofo.github.io/posts/smart-plug-charging/) |
 
 ## 구조
 
