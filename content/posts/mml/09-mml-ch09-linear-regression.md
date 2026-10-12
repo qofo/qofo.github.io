@@ -11,7 +11,6 @@ description: "MML 9장(교재 289~316쪽) 해설. 3점 데이터 하나로 정�
 UseHugoToc: true
 ---
 > **교재 범위**: Deisenroth, Faisal, Ong, *Mathematics for Machine Learning*(MML), pp. 289–316.  
-> **작성:** Antigravity CLI(agy) 초안, Claude 검토. 같은 3점 데이터로 이어지는 예제(정규방정식, 릿지/MAP, 베이즈 사후분포·예측분산, 사영행렬)를 모두 검산했다.  
 > **선후수 연결 및 의존성**: 이 장은 지도학습(Supervised Learning)의 가장 기본이자 핵심인 연속값 함수 근사 문제를 다룹니다. 2~3장의 벡터 공간·기저·직교 사영(Orthogonal Projection), 5장의 행렬 미분과 경사도(Gradient), 6장의 가우시안 분포 및 베이즈 정리(Bayes' Theorem), 7장의 볼록 최적화(Convex Optimization) 기법이 결합하여 완성됩니다. 본 장에서 확립된 최대가능도(MLE)와 베이즈 추론(Bayesian Inference)의 틀은 10장(PCA), 11장(가우스 혼합 모델 GMM), 12장(서포트 벡터 머신 SVM)으로 이어지는 기계학습 핵심 모델의 토대가 됩니다.
 
 ---

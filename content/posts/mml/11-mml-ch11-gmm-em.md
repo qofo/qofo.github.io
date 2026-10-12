@@ -12,7 +12,6 @@ UseHugoToc: true
 ---
 > **교재 쪽수**: 348~369쪽 (Chapter 11)  
 > **선수 지식 및 연계**: 5장 벡터 미적분(Vector Calculus: 야코비안 및 행렬 미분), 6장 확률과 분포(Probability and Distributions: 다변수 가우시안 분포, 베이즈 정리, 주변확률), 7장 연속 최적화(Continuous Optimization: 라그랑주 승수법), 8장 모델과 데이터(When Models Meet Data: 최대가능도 추정 MLE, 경험적 위험).  
-> **작성:** Antigravity CLI(agy) 초안, Claude 검토. 숫자 예제(식 11.5의 밀도, EM 1회 손계산)는 numpy로 검산했고, 교재와 다른 서술은 고쳤다.  
 > **후속 연계**: 비지도 학습의 대표격인 밀도 추정(density estimation) 및 군집화(clustering)의 수학적 기반을 확립하며, 12장 서포트 벡터 머신(SVM)의 결정 경계 및 확률적 분류 관점과 대조됩니다.
 
 ---

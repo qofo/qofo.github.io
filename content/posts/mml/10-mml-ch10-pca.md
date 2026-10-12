@@ -11,7 +11,6 @@ description: "MML 10장(교재 317~347쪽) 해설. 분산 최대화와 재구성
 UseHugoToc: true
 ---
 > **교재 범위**: Deisenroth, Faisal, Ong, *Mathematics for Machine Learning*(MML), pp. 317–347.  
-> **작성:** Antigravity CLI(agy) 초안, Claude 검토. 손계산 예제(4점 PCA, $N<D$ 예제)와 확인 문제 1~3·7·8의 숫자를 모두 검산했고, 절 쪽수·교재 예제 내용(예제 10.4·10.5)·연산량 비교를 원문에 맞게 고쳤다.  
 > **선후수 연결 및 의존성**: 이 장은 비지도 학습(Unsupervised Learning)의 대표 기법인 차원 축소(Dimensionality Reduction)를 다룹니다. 3장의 직교 사영(Orthogonal Projection), 4장의 고유값 분해(Eigendecomposition) 및 특이값 분해(SVD), 7장의 등식 제약 조건 최적화(라그랑주 승수법, Lagrange Multipliers), 6장의 가우시안 확률 모델이 완벽하게 결합된 장입니다. 여기서 다루는 데이터 압축과 잠재 표현(Latent Representation)의 개념은 현대 오토인코더(Autoencoder), 확산 모델(Diffusion Model), 고차원 임베딩 분석의 기초를 이룹니다.
 
 ---

@@ -11,7 +11,6 @@ description: "MML 5장(교재 139~171쪽) 해설. 편미분과 기울기, 야코
 UseHugoToc: true
 ---
 > **교재 쪽수**: 139~171쪽  
-> **작성:** Antigravity CLI(agy) 초안, Claude 검토. 교재 예제·연습문제 번호와 식 번호를 원문과 대조했고, LaTeX 오타와 역전파 계산량 서술을 고쳤다.
 > **이 장이 뒤쪽 장에서 어디에 다시 쓰이는가**:
 > 7장 연속 최적화(Continuous Optimization, 경사하강법 및 뉴턴 방법의 토대), 9장 선형 회귀(Linear Regression, 비용함수 미분 및 정규방정식 $\nabla_{\boldsymbol{\theta}} L = \mathbf{0}$ 도출), 10장 차원 축소(Dimensionality Reduction/PCA, 라그랑주 승수법을 적용한 분산 극대화 목적식 미분), 11장 밀도 추정(Density Estimation/GMM, EM 알고리즘의 로그우도 매개변수 최적화), 12장 분류(SVM, 초평면 마진 최적화와 KKT 조건 유도). 머신러닝의 '학습(learning)'은 곧 목적함수를 최적화하는 과정이며, 매개변수 공간에서 어느 방향으로 이동해야 손실(오차)이 가장 빠르게 줄어드는지를 알려주는 유일한 나침반이 바로 이 장의 기울기(gradient)와 야코비안(Jacobian)이다.
 
