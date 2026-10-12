@@ -83,7 +83,7 @@ $$p(x) = \sum_{k=1}^K \pi_k p_k(x)$$
 2. 모든 가중치의 합은 1: $\sum_{k=1}^K \pi_k = 1$
 
 이 두 조건 덕분에 $p(x)$를 전체 영역에 대해 적분하면:
-$$\int p(x) dx = \sum_{k=1}^K \pi_k \int p_k(x) dx = \sum_{k=1}^K \pi_k \cdot 1 = 1$$
+$$\begin{aligned} \int p(x) dx &= \sum_{k=1}^K \pi_k \int p_k(x) dx \\ &= \sum_{k=1}^K \pi_k \cdot 1 = 1 \end{aligned}$$
 이 성립하여 $p(x)$는 수학적으로 완벽한 확률밀도 함수의 자격을 갖춥니다.
 
 #### 2. 가우시안 혼합 모델 (GMM)
@@ -98,7 +98,7 @@ $$p(x \mid \theta) = \sum_{k=1}^K \pi_k \mathcal{N}(x \mid \mu_k, \Sigma_k)$$
 
 ### 손으로 풀어 보는 예제 (작은 숫자 계산)
 교재 식 (11.5)에 등장하는 1차원 GMM 모델을 살펴봅시다:
-$$p(x \mid \theta) = 0.5 \mathcal{N}(x \mid -2, 0.5) + 0.2 \mathcal{N}(x \mid 1, 2) + 0.3 \mathcal{N}(x \mid 4, 1)$$
+$$\begin{aligned} p(x \mid \theta) &= 0.5 \mathcal{N}(x \mid -2, 0.5) \\ &\quad + 0.2 \mathcal{N}(x \mid 1, 2) \\ &\quad + 0.3 \mathcal{N}(x \mid 4, 1) \end{aligned}$$
 여기서 $K=3$이며:
 - 성분 1: $\pi_1 = 0.5$, $\mu_1 = -2$, $\sigma_1^2 = 0.5$
 - 성분 2: $\pi_2 = 0.2$, $\mu_2 = 1$, $\sigma_2^2 = 2.0$
@@ -140,15 +140,15 @@ $$p(x \mid \theta) = 0.5 \mathcal{N}(x \mid -2, 0.5) + 0.2 \mathcal{N}(x \mid 1,
 #### 1. GMM의 결합 가능도 및 로그 가능도
 데이터 $x_n$들이 독립항등분포(i.i.d.)를 따른다고 가정하면, 전체 결합 가능도는 각 데이터 밀도의 곱으로 분해됩니다 (교재 식 11.9):
 
-$$p(\mathcal{X} \mid \theta) = \prod_{n=1}^N p(x_n \mid \theta) = \prod_{n=1}^N \sum_{k=1}^K \pi_k \mathcal{N}(x_n \mid \mu_k, \Sigma_k)$$
+$$\begin{aligned} p(\mathcal{X} \mid \theta) &= \prod_{n=1}^N p(x_n \mid \theta) \\ &= \prod_{n=1}^N \sum_{k=1}^K \pi_k \mathcal{N}(x_n \mid \mu_k, \Sigma_k) \end{aligned}$$
 
 양변에 자연로그를 취하여 로그 가능도(log-likelihood) $\mathcal{L}$을 구합니다 (교재 식 11.10):
 
-$$\mathcal{L}(\theta) := \log p(\mathcal{X} \mid \theta) = \sum_{n=1}^N \log \left( \sum_{k=1}^K \pi_k \mathcal{N}(x_n \mid \mu_k, \Sigma_k) \right)$$
+$$\begin{aligned} \mathcal{L}(\theta) &:= \log p(\mathcal{X} \mid \theta) \\ &= \sum_{n=1}^N \log \Bigl( \\ &\quad \sum_{k=1}^K \pi_k \mathcal{N}(x_n \mid \mu_k, \Sigma_k) \Bigr) \end{aligned}$$
 
 #### 2. 왜 닫힌 형태의 해(Closed-form solution)가 불가능한가?
 단일 가우시안($K=1$)일 때는 합 기호($\sum_{k}$)가 없으므로:
-$$\log \mathcal{N}(x \mid \mu, \Sigma) = -\frac{D}{2}\log(2\pi) - \frac{1}{2}\log\det(\Sigma) - \frac{1}{2}(x-\mu)^\top \Sigma^{-1} (x-\mu)$$
+$$\begin{aligned} \log \mathcal{N}(x \mid \mu, \Sigma) &= -\frac{D}{2}\log(2\pi) \\ &\quad - \frac{1}{2}\log\det(\Sigma) \\ &\quad - \frac{1}{2}(x-\mu)^\top \Sigma^{-1} (x-\mu) \end{aligned}$$
 로그가 지수함수 속으로 직접 파고들어 $\mu$와 $\Sigma$에 대한 단순한 2차 형식이 됩니다.
 하지만 $K \ge 2$인 GMM에서는:
 $$\log \left( \sum_{k=1}^K \dots \right)$$
@@ -260,27 +260,19 @@ $\sigma = 1.0$이므로 $\frac{1}{\sqrt{2\pi}} \approx 0.39894$ 입니다.
     $$r_{31} \approx 0.0006, \quad r_{32} \approx 0.9994$$
 
 - **책임도 행렬 $R \in \mathbb{R}^{3 \times 2}$ 요약**:
-  $$R = \begin{bmatrix} r_{11} & r_{12} \\ r_{21} & r_{22} \\ r_{31} & r_{32} \end{bmatrix} = \begin{bmatrix} 0.9994 & 0.0006 \\ 0.8176 & 0.1824 \\ 0.0006 & 0.9994 \end{bmatrix}$$
+  $$\begin{aligned} R &= \begin{bmatrix} r_{11} & r_{12} \\ r_{21} & r_{22} \\ r_{31} & r_{32} \end{bmatrix} \\ &= \begin{bmatrix} 0.9994 & 0.0006 \\ 0.8176 & 0.1824 \\ 0.0006 & 0.9994 \end{bmatrix} \end{aligned}$$
 
 #### 2단계: M-Step (모수 갱신)
 
 1. **유효 데이터 수 $N_k$ 계산**:
-   $$N_1 = r_{11} + r_{21} + r_{31} = 0.9994 + 0.8176 + 0.0006 = 1.8176$$
-   $$N_2 = r_{12} + r_{22} + r_{32} = 0.0006 + 0.1824 + 0.9994 = 1.1824$$
+   $$\begin{aligned} N_1 &= r_{11} + r_{21} + r_{31} \\ &= 0.9994 + 0.8176 + 0.0006 \\ &= 1.8176 \end{aligned}$$
+   $$\begin{aligned} N_2 &= r_{12} + r_{22} + r_{32} \\ &= 0.0006 + 0.1824 + 0.9994 \\ &= 1.1824 \end{aligned}$$
    (검산: $N_1 + N_2 = 1.8176 + 1.1824 = 3.0000 = N$)
 
 2. **새로운 평균 $\mu_k^{\text{new}}$ 계산**:
-   $$\begin{aligned}
-   \mu_1^{\text{new}} &= \frac{r_{11} x_1 + r_{21} x_2 + r_{31} x_3}{N_1} \\
-   &= \frac{0.9994(-1.0) + 0.8176(1.0) + 0.0006(4.0)}{1.8176} \\
-   &= \frac{-0.9994 + 0.8176 + 0.0024}{1.8176} = \frac{-0.1794}{1.8176} \approx -0.0987 \approx -0.099
-   \end{aligned}$$
+   $$\begin{aligned} \mu_1^{\text{new}} &= \frac{r_{11} x_1 + r_{21} x_2 + r_{31} x_3}{N_1} \\ &= \frac{0.9994(-1.0) + 0.8176(1.0) + 0.0006(4.0)}{1.8176} \\ &= \frac{-0.9994 + 0.8176 + 0.0024}{1.8176} \\ &= \frac{-0.1794}{1.8176} \approx -0.0987 \approx -0.099 \end{aligned}$$
 
-   $$\begin{aligned}
-   \mu_2^{\text{new}} &= \frac{r_{12} x_1 + r_{22} x_2 + r_{32} x_3}{N_2} \\
-   &= \frac{0.0006(-1.0) + 0.1824(1.0) + 0.9994(4.0)}{1.1824} \\
-   &= \frac{-0.0006 + 0.1824 + 3.9976}{1.1824} = \frac{4.1794}{1.1824} \approx 3.5347 \approx 3.535
-   \end{aligned}$$
+   $$\begin{aligned} \mu_2^{\text{new}} &= \frac{r_{12} x_1 + r_{22} x_2 + r_{32} x_3}{N_2} \\ &= \frac{0.0006(-1.0) + 0.1824(1.0) + 0.9994(4.0)}{1.1824} \\ &= \frac{-0.0006 + 0.1824 + 3.9976}{1.1824} \\ &= \frac{4.1794}{1.1824} \approx 3.5347 \approx 3.535 \end{aligned}$$
 
 3. **새로운 분산 $(\sigma_k^2)^{\text{new}}$ 계산**:
    - 성분 1의 편차 제곱:
@@ -376,7 +368,7 @@ $\sigma = 1.0$이므로 $\frac{1}{\sqrt{2\pi}} \approx 0.39894$ 입니다.
 
 #### 1. 1-of-K 표현 (One-Hot Encoding)
 $K$개의 성분 중 단 하나만을 선택하는 이산 잠재변수 벡터 $z \in \mathbb{R}^K$를 정의합니다:
-$$z = [z_1, z_2, \dots, z_K]^\top, \quad z_k \in \{0, 1\}, \quad \sum_{k=1}^K z_k = 1$$
+$$\begin{gathered} z = [z_1, z_2, \dots, z_K]^\top, \\ z_k \in \{0, 1\}, \\ \sum_{k=1}^K z_k = 1 \end{gathered}$$
 예를 들어 $K=3$이고 데이터가 2번째 성분에서 생성되었다면 $z = [0, 1, 0]^\top$ 입니다. (이러한 분포를 범주형 분포 또는 다항분포의 특수형태인 'multinoulli'라고 부릅니다).
 
 #### 2. 생성 과정 (Generative Process)
@@ -388,21 +380,21 @@ $$z = [z_1, z_2, \dots, z_K]^\top, \quad z_k \in \{0, 1\}, \quad \sum_{k=1}^K z_
 
 #### 3. 결합분포 및 주변 가능도 (Marginal Likelihood)
 데이터와 잠재변수의 결합확률분포(joint distribution)는 다음과 같습니다 (교재 식 11.61):
-$$p(x, z_k = 1) = p(x \mid z_k = 1) p(z_k = 1) = \pi_k \mathcal{N}(x \mid \mu_k, \Sigma_k)$$
+$$\begin{aligned} p(x, z_k = 1) &= p(x \mid z_k = 1) p(z_k = 1) \\ &= \pi_k \mathcal{N}(x \mid \mu_k, \Sigma_k) \end{aligned}$$
 
 우리가 실제로 관측하는 데이터 $x$의 주변분포(marginal distribution)는 보이지 않는 잠재변수 $z$의 모든 가능한 상태($K$가지의 일-핫 벡터)에 대해 합(marginalize out)을 취한 것입니다 (교재 식 11.63, 11.66):
-$$p(x \mid \theta) = \sum_z p(x, z \mid \theta) = \sum_{k=1}^K p(x, z_k=1 \mid \theta) = \sum_{k=1}^K \pi_k \mathcal{N}(x \mid \mu_k, \Sigma_k)$$
+$$\begin{aligned} p(x \mid \theta) &= \sum_z p(x, z \mid \theta) \\ &= \sum_{k=1}^K p(x, z_k=1 \mid \theta) \\ &= \sum_{k=1}^K \pi_k \mathcal{N}(x \mid \mu_k, \Sigma_k) \end{aligned}$$
 이로써 앞서 11.1절에서 정의했던 GMM 식 (11.3)이 잠재변수 모델의 한계화(marginalization) 결과와 정확히 일치함이 입증됩니다!
 
 #### 4. 사후분포로서의 책임도
 베이즈 정리를 적용하여 관측치 $x$가 주어졌을 때 잠재변수 $z_k=1$일 사후확률을 계산하면 (교재 식 11.69):
-$$p(z_k = 1 \mid x) = \frac{p(x, z_k = 1)}{p(x)} = \frac{\pi_k \mathcal{N}(x \mid \mu_k, \Sigma_k)}{\sum_{j=1}^K \pi_j \mathcal{N}(x \mid \mu_j, \Sigma_j)} \equiv r_k$$
+$$\begin{aligned} p(z_k = 1 \mid x) &= \frac{p(x, z_k = 1)}{p(x)} \\ &= \frac{\pi_k \mathcal{N}(x \mid \mu_k, \Sigma_k)}{\sum_{j=1}^K \pi_j \mathcal{N}(x \mid \mu_j, \Sigma_j)} \\ &\equiv r_k \end{aligned}$$
 따라서 **책임도는 다름 아닌 잠재변수 $z_k=1$의 베이지안 사후확률**입니다!
 
 #### 5. 일반적 EM 알고리즘: $Q$-함수 (Expected Complete-Data Log-Likelihood)
 모수 $\theta^{(t)}$가 주어졌을 때, 잠재변수 $z$의 사후분포 $p(z \mid x, \theta^{(t)})$ 하에서 **완전 데이터 로그 가능도(complete-data log-likelihood)** $\log p(x, z \mid \theta)$의 조건부 기댓값을 $Q$-함수라고 정의합니다 (교재 식 11.73):
 
-$$Q(\theta \mid \theta^{(t)}) := \mathbb{E}_{z \mid x, \theta^{(t)}} [\log p(x, z \mid \theta)] = \sum_z p(z \mid x, \theta^{(t)}) \log p(x, z \mid \theta)$$
+$$\begin{aligned} &Q(\theta \mid \theta^{(t)}) \\ &:= \mathbb{E}_{z \mid x, \theta^{(t)}} [\log p(x, z \mid \theta)] \\ &= \sum_z p(z \mid x, \theta^{(t)}) \log p(x, z \mid \theta) \end{aligned}$$
 
 - **E-단계**: 현재 모수 $\theta^{(t)}$를 이용해 사후분포 $p(z \mid x, \theta^{(t)}) = r_{nk}$를 구하고 $Q(\theta \mid \theta^{(t)})$ 함수를 구성합니다.
 - **M-단계**: 이 $Q$-함수를 새로운 모수 $\theta$에 대해 최대화하여 $\theta^{(t+1)}$을 얻습니다:
@@ -480,23 +472,23 @@ $$\mathcal{N}(x_n \mid x_n, \sigma_k^2) = \frac{1}{\sqrt{2\pi \sigma_k^2}} \exp(
    $$\frac{\partial p(x_n \mid \theta)}{\partial \mu_k} = \pi_k \frac{\partial \mathcal{N}(x_n \mid \mu_k, \Sigma_k)}{\partial \mu_k}$$
 
 3. **가우시안 확률밀도의 평균에 대한 미분**:
-   $\mathcal{N}(x_n \mid \mu_k, \Sigma_k) = \frac{1}{(2\pi)^{D/2}|\Sigma_k|^{1/2}} \exp\left(-\frac{1}{2}(x_n - \mu_k)^\top \Sigma_k^{-1} (x_n - \mu_k)\right)$
+   $$\begin{aligned} &\mathcal{N}(x_n \mid \mu_k, \Sigma_k) \\ &= \frac{1}{(2\pi)^{D/2}|\Sigma_k|^{1/2}} \\ &\quad \exp\left(-\frac{1}{2}(x_n - \mu_k)^\top \Sigma_k^{-1} (x_n - \mu_k)\right) \end{aligned}$$
    지수 부분의 미분: $\frac{\partial}{\partial \mu_k} \left[ -\frac{1}{2}(x_n - \mu_k)^\top \Sigma_k^{-1} (x_n - \mu_k) \right] = (x_n - \mu_k)^\top \Sigma_k^{-1}$
    따라서:
-   $$\frac{\partial \mathcal{N}(x_n \mid \mu_k, \Sigma_k)}{\partial \mu_k} = (x_n - \mu_k)^\top \Sigma_k^{-1} \mathcal{N}(x_n \mid \mu_k, \Sigma_k)$$
+   $$\begin{aligned} &\frac{\partial \mathcal{N}(x_n \mid \mu_k, \Sigma_k)}{\partial \mu_k} \\ &= (x_n - \mu_k)^\top \Sigma_k^{-1} \mathcal{N}(x_n \mid \mu_k, \Sigma_k) \end{aligned}$$
 
 4. **전체 식 결합 및 책임도 $r_{nk}$ 출현**:
-   $$\frac{\partial \mathcal{L}}{\partial \mu_k} = \sum_{n=1}^N \frac{\pi_k \mathcal{N}(x_n \mid \mu_k, \Sigma_k)}{\sum_{j=1}^K \pi_j \mathcal{N}(x_n \mid \mu_j, \Sigma_j)} (x_n - \mu_k)^\top \Sigma_k^{-1}$$
+   $$\begin{aligned} &\frac{\partial \mathcal{L}}{\partial \mu_k} \\ &= \sum_{n=1}^N \frac{\pi_k \mathcal{N}(x_n \mid \mu_k, \Sigma_k)}{\sum_{j=1}^K \pi_j \mathcal{N}(x_n \mid \mu_j, \Sigma_j)} \\ &\quad (x_n - \mu_k)^\top \Sigma_k^{-1} \end{aligned}$$
    앞부분의 분수식은 정확히 책임도 $r_{nk}$의 정의(식 11.17)이다:
    $$\frac{\partial \mathcal{L}}{\partial \mu_k} = \sum_{n=1}^N r_{nk} (x_n - \mu_k)^\top \Sigma_k^{-1}$$
 
 5. **$0^\top$으로 놓고 $\mu_k$에 대해 풀기**:
    양변에 우측으로 $\Sigma_k$를 곱하면 역행렬이 소거된다:
-   $$\sum_{n=1}^N r_{nk} (x_n - \mu_k)^\top = \mathbf{0}^\top \iff \sum_{n=1}^N r_{nk} x_n = \sum_{n=1}^N r_{nk} \mu_k$$
+   $$\begin{gathered} \sum_{n=1}^N r_{nk} (x_n - \mu_k)^\top = \mathbf{0}^\top \\ \iff \sum_{n=1}^N r_{nk} x_n = \sum_{n=1}^N r_{nk} \mu_k \end{gathered}$$
    $\mu_k$는 합산 인덱스 $n$에 무관한 상수 벡터이므로 밖으로 뺀다:
    $$\left(\sum_{n=1}^N r_{nk}\right) \mu_k = \sum_{n=1}^N r_{nk} x_n$$
    양변을 $N_k := \sum_{n=1}^N r_{nk}$ 로 나누면:
-   $$\mu_k^{\text{new}} = \frac{\sum_{n=1}^N r_{nk} x_n}{\sum_{n=1}^N r_{nk}} = \frac{1}{N_k} \sum_{n=1}^N r_{nk} x_n \quad \blacksquare$$
+   $$\begin{aligned} \mu_k^{\text{new}} &= \frac{\sum_{n=1}^N r_{nk} x_n}{\sum_{n=1}^N r_{nk}} \\ &= \frac{1}{N_k} \sum_{n=1}^N r_{nk} x_n \quad \blacksquare \end{aligned}$$
 
 ---
 
@@ -507,22 +499,19 @@ $$\mathcal{N}(x_n \mid x_n, \sigma_k^2) = \frac{1}{\sqrt{2\pi \sigma_k^2}} \exp(
 - 공식 2: $\frac{\partial}{\partial A} (x^\top A^{-1} x) = -A^{-1} x x^\top A^{-1}$ (교재 식 5.103)
 
 **유도 단계**:
-1. 가우시안 밀도 $\mathcal{N}_n := \mathcal{N}(x_n \mid \mu_k, \Sigma_k) = (2\pi)^{-D/2} \det(\Sigma_k)^{-1/2} \exp\left(-\frac{1}{2}(x_n-\mu_k)^\top \Sigma_k^{-1} (x_n-\mu_k)\right)$의 $\Sigma_k$에 대한 편미분:
+1. 가우시안 밀도 $$\begin{aligned} &\mathcal{N}_n \\ &:= \mathcal{N}(x_n \mid \mu_k, \Sigma_k) \\ &= (2\pi)^{-D/2} \det(\Sigma_k)^{-1/2} \\ &\quad \exp\left(-\frac{1}{2}(x_n-\mu_k)^\top \Sigma_k^{-1} (x_n-\mu_k)\right) \end{aligned}$$의 $\Sigma_k$에 대한 편미분:
    곱의 미분법을 적용하면:
-   $$\begin{aligned}
-   \frac{\partial \mathcal{N}_n}{\partial \Sigma_k} &= (2\pi)^{-D/2} \left[ \left(-\frac{1}{2} \det(\Sigma_k)^{-1/2} \Sigma_k^{-1}\right) \exp(\dots) + \det(\Sigma_k)^{-1/2} \exp(\dots) \left(-\frac{1}{2} \left(-\Sigma_k^{-1}(x_n-\mu_k)(x_n-\mu_k)^\top \Sigma_k^{-1}\right)\right) \right] \\
-   &= -\frac{1}{2} \mathcal{N}_n \left[ \Sigma_k^{-1} - \Sigma_k^{-1} (x_n - \mu_k)(x_n - \mu_k)^\top \Sigma_k^{-1} \right]
-   \end{aligned}$$
+   $$\begin{aligned} \frac{\partial \mathcal{N}_n}{\partial \Sigma_k} &= (2\pi)^{-D/2} \Bigl[ \\ &\quad \left(-\frac{1}{2} \det(\Sigma_k)^{-1/2} \Sigma_k^{-1}\right) \exp(\dots) \\ &\quad + \det(\Sigma_k)^{-1/2} \exp(\dots) \\ &\quad \left(-\frac{1}{2} \left(-\Sigma_k^{-1}(x_n-\mu_k)(x_n-\mu_k)^\top \Sigma_k^{-1}\right)\right) \Bigr] \\ &= -\frac{1}{2} \mathcal{N}_n \Bigl[ \Sigma_k^{-1} \\ &\quad - \Sigma_k^{-1} (x_n - \mu_k)(x_n - \mu_k)^\top \Sigma_k^{-1} \Bigr] \end{aligned}$$
 
 2. 로그 가능도의 편미분에 대입:
-   $$\frac{\partial \mathcal{L}}{\partial \Sigma_k} = \sum_{n=1}^N \frac{1}{p(x_n \mid \theta)} \pi_k \frac{\partial \mathcal{N}_n}{\partial \Sigma_k} = -\frac{1}{2} \sum_{n=1}^N r_{nk} \left[ \Sigma_k^{-1} - \Sigma_k^{-1} (x_n - \mu_k)(x_n - \mu_k)^\top \Sigma_k^{-1} \right]$$
+   $$\begin{aligned} \frac{\partial \mathcal{L}}{\partial \Sigma_k} &= \sum_{n=1}^N \frac{1}{p(x_n \mid \theta)} \pi_k \frac{\partial \mathcal{N}_n}{\partial \Sigma_k} \\ &= -\frac{1}{2} \sum_{n=1}^N r_{nk} \Bigl[ \Sigma_k^{-1} \\ &\quad - \Sigma_k^{-1} (x_n - \mu_k)(x_n - \mu_k)^\top \Sigma_k^{-1} \Bigr] \end{aligned}$$
 
 3. 식을 정리하고 $0$으로 놓기:
-   $$-\frac{1}{2} \Sigma_k^{-1} \left( \sum_{n=1}^N r_{nk} \right) + \frac{1}{2} \Sigma_k^{-1} \left( \sum_{n=1}^N r_{nk} (x_n - \mu_k)(x_n - \mu_k)^\top \right) \Sigma_k^{-1} = \mathbf{0}$$
+   $$\begin{aligned} &-\frac{1}{2} \Sigma_k^{-1} \left( \sum_{n=1}^N r_{nk} \right) \\ &\quad + \frac{1}{2} \Sigma_k^{-1} \Bigl( \\ &\quad \sum_{n=1}^N r_{nk} (x_n - \mu_k)(x_n - \mu_k)^\top \Bigr) \Sigma_k^{-1} \\ &\quad = \mathbf{0} \end{aligned}$$
    $N_k := \sum_{n=1}^N r_{nk}$ 이므로, 양변의 좌측에 $\Sigma_k$, 우측에 $\Sigma_k$를 곱하면:
    $$N_k \Sigma_k = \sum_{n=1}^N r_{nk} (x_n - \mu_k)(x_n - \mu_k)^\top$$
    양변을 $N_k$로 나누면:
-   $$\Sigma_k^{\text{new}} = \frac{1}{N_k} \sum_{n=1}^N r_{nk} (x_n - \mu_k)(x_n - \mu_k)^\top \quad \blacksquare$$
+   $$\begin{aligned} &\Sigma_k^{\text{new}} \\ &= \frac{1}{N_k} \sum_{n=1}^N r_{nk} \\ &\quad (x_n - \mu_k)(x_n - \mu_k)^\top \quad \blacksquare \end{aligned}$$
 
 ---
 
@@ -532,17 +521,17 @@ $$\mathcal{N}(x_n \mid x_n, \sigma_k^2) = \frac{1}{\sqrt{2\pi \sigma_k^2}} \exp(
 
 1. **라그랑지안(Lagrangian) 함수 구성**:
    등식 제약조건에 대한 라그랑주 승수 $\lambda$를 도입한다 (교재 식 11.43):
-   $$\Lambda(\pi, \lambda) = \sum_{n=1}^N \log \left( \sum_{k=1}^K \pi_k \mathcal{N}(x_n \mid \mu_k, \Sigma_k) \right) + \lambda \left( \sum_{k=1}^K \pi_k - 1 \right)$$
+   $$\begin{aligned} \Lambda(\pi, \lambda) &= \sum_{n=1}^N \log \Bigl( \\ &\quad \sum_{k=1}^K \pi_k \mathcal{N}(x_n \mid \mu_k, \Sigma_k) \Bigr) \\ &\quad + \lambda \left( \sum_{k=1}^K \pi_k - 1 \right) \end{aligned}$$
 
 2. **$\pi_k$에 대한 편미분 계산**:
-   $$\frac{\partial \Lambda}{\partial \pi_k} = \sum_{n=1}^N \frac{\mathcal{N}(x_n \mid \mu_k, \Sigma_k)}{\sum_{j=1}^K \pi_j \mathcal{N}(x_n \mid \mu_j, \Sigma_j)} + \lambda = 0$$
+   $$\begin{aligned} \frac{\partial \Lambda}{\partial \pi_k} &= \sum_{n=1}^N \frac{\mathcal{N}(x_n \mid \mu_k, \Sigma_k)}{\sum_{j=1}^K \pi_j \mathcal{N}(x_n \mid \mu_j, \Sigma_j)} \\ &\quad + \lambda = 0 \end{aligned}$$
    분모와 분자에 $\pi_k$를 곱해주면 책임도 $r_{nk}$가 나타난다:
-   $$\frac{1}{\pi_k} \sum_{n=1}^N \frac{\pi_k \mathcal{N}(x_n \mid \mu_k, \Sigma_k)}{\sum_{j=1}^K \pi_j \mathcal{N}(x_n \mid \mu_j, \Sigma_j)} + \lambda = 0 \iff \frac{1}{\pi_k} \sum_{n=1}^N r_{nk} + \lambda = 0$$
+   $$\begin{gathered} \frac{1}{\pi_k} \sum_{n=1}^N \frac{\pi_k \mathcal{N}(x_n \mid \mu_k, \Sigma_k)}{\sum_{j=1}^K \pi_j \mathcal{N}(x_n \mid \mu_j, \Sigma_j)} \\ + \lambda = 0 \\ \iff \frac{1}{\pi_k} \sum_{n=1}^N r_{nk} + \lambda = 0 \end{gathered}$$
    $$\frac{N_k}{\pi_k} + \lambda = 0 \implies \pi_k = -\frac{N_k}{\lambda}$$
 
 3. **승수 $\lambda$ 소거**:
    모든 $k=1, \dots, K$에 대해 합을 취하고 제약조건 $\sum_{k=1}^K \pi_k = 1$을 적용한다:
-   $$\sum_{k=1}^K \pi_k = \sum_{k=1}^K \left(-\frac{N_k}{\lambda}\right) = -\frac{1}{\lambda} \sum_{k=1}^K N_k = 1$$
+   $$\begin{aligned} \sum_{k=1}^K \pi_k &= \sum_{k=1}^K \left(-\frac{N_k}{\lambda}\right) \\ &= -\frac{1}{\lambda} \sum_{k=1}^K N_k = 1 \end{aligned}$$
    그런데 $\sum_{k=1}^K N_k = \sum_{k=1}^K \sum_{n=1}^N r_{nk} = \sum_{n=1}^N \left(\sum_{k=1}^K r_{nk}\right) = \sum_{n=1}^N 1 = N$ 이다!
    따라서:
    $$-\frac{N}{\lambda} = 1 \implies \lambda = -N$$
@@ -621,7 +610,7 @@ $$r_1 = \frac{0.12}{0.18} = \frac{2}{3} \approx 0.6667$$
 - $n=3$: $(6 - 1.8)^2 = (4.2)^2 = 17.64$
 
 가중 합 계산:
-$$\sum_{n=1}^3 r_{nk} (x_n - \mu_k^{\text{new}})^2 = (0.5 \times 3.24) + (0.3 \times 0.04) + (0.2 \times 17.64) = 1.62 + 0.012 + 3.528 = 5.16$$
+$$\begin{aligned} \sum_{n=1}^3 r_{nk} (x_n - \mu_k^{\text{new}})^2 &= (0.5 \times 3.24) \\ &\quad + (0.3 \times 0.04) \\ &\quad + (0.2 \times 17.64) \\ &= 1.62 + 0.012 + 3.528 \\ &= 5.16 \end{aligned}$$
 $N_k = 1.0$ 이므로:
 $$(\sigma_k^2)^{\text{new}} = \frac{5.16}{1.0} = 5.16$$
 
@@ -655,7 +644,7 @@ GMM을 최대가능도(MLE)로 학습할 때 발생할 수 있는 '특이성(sin
 **[풀이]**
 어떤 가우시안 성분 $k$의 평균 $\mu_k$가 우연히 데이터셋의 특정 한 점 $x_j$와 완전히 일치하게 되고($\mu_k = x_j$), 그 성분의 공분산 $\Sigma_k = \sigma_k^2 I$의 분산이 0으로 수렴($\sigma_k^2 \to 0$)할 때 발생한다.
 이때 해당 데이터 포인트에서의 확률밀도는:
-$$\mathcal{N}(x_j \mid x_j, \sigma_k^2 I) = \frac{1}{(2\pi \sigma_k^2)^{D/2}} \exp(0) \to \infty$$
+$$\begin{aligned} \mathcal{N}(x_j \mid x_j, \sigma_k^2 I) &= \frac{1}{(2\pi \sigma_k^2)^{D/2}} \exp(0) \\ &\to \infty \end{aligned}$$
 가 되어 전체 로그 가능도가 $+\infty$로 발산해 버린다. 이는 모델이 일반적인 데이터 분포를 학습하는 대신 단 하나의 데이터 포인트에 무한대의 밀도를 부여하여 과적합되는 현상이다.
 
 ---
@@ -679,7 +668,7 @@ GMM 혼합 가중치 $\pi_k$ 유도 과정에서 목적함수 $\Lambda = \mathca
 **[풀이]**
 $\frac{\partial \Lambda}{\partial \pi_k} = \frac{N_k}{\pi_k} + \lambda = 0 \implies \pi_k = -\frac{N_k}{\lambda}$.
 제약조건 $\sum_{k=1}^K \pi_k = 1$에 대입하면:
-$$\sum_{k=1}^K \left(-\frac{N_k}{\lambda}\right) = -\frac{1}{\lambda} \sum_{k=1}^K N_k = 1 \implies \lambda = -\sum_{k=1}^K N_k$$
+$$\begin{gathered} \sum_{k=1}^K \left(-\frac{N_k}{\lambda}\right) = -\frac{1}{\lambda} \sum_{k=1}^K N_k = 1 \\ \implies \lambda = -\sum_{k=1}^K N_k \end{gathered}$$
 그런데 $\sum_{k=1}^K N_k = \sum_{k=1}^K \sum_{n=1}^N r_{nk} = \sum_{n=1}^N (\sum_{k=1}^K r_{nk}) = \sum_{n=1}^N 1 = N$ 이므로,
 $$\lambda = -N$$
 

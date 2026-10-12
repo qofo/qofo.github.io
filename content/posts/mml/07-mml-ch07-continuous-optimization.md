@@ -93,7 +93,7 @@ $$f(x_1, x_2) = x_1^2 + 2x_2^2 - 4x_1 - 4x_2$$
 
 1. **그래디언트 계산**:
    $$\frac{\partial f}{\partial x_1} = 2x_1 - 4, \quad \frac{\partial f}{\partial x_2} = 4x_2 - 4$$
-   $$\nabla f(x) = \begin{bmatrix} 2x_1 - 4 & 4x_2 - 4 \end{bmatrix}, \quad (\nabla f(x))^\top = \begin{bmatrix} 2x_1 - 4 \\ 4x_2 - 4 \end{bmatrix}$$
+   $$\begin{aligned} \nabla f(x) &= \begin{bmatrix} 2x_1 - 4 & 4x_2 - 4 \end{bmatrix}, \\ (\nabla f(x))^\top &= \begin{bmatrix} 2x_1 - 4 \\ 4x_2 - 4 \end{bmatrix} \end{aligned}$$
    (정류점은 $2x_1 - 4 = 0 \implies x_1 = 2$, $4x_2 - 4 = 0 \implies x_2 = 1$이며, 이때 $f(2, 1) = 4 + 2 - 8 - 4 = -6$입니다.)
 
 2. **초기점 설정**:
@@ -102,16 +102,16 @@ $$f(x_1, x_2) = x_1^2 + 2x_2^2 - 4x_1 - 4x_2$$
 
 3. **1번째 반복 ($t=0 \to t=1$)**:
    $$(\nabla f(x_0))^\top = \begin{bmatrix} 2(0) - 4 \\ 4(0) - 4 \end{bmatrix} = \begin{bmatrix} -4 \\ -4 \end{bmatrix}$$
-   $$x_1 = x_0 - \gamma (\nabla f(x_0))^\top = \begin{bmatrix} 0 \\ 0 \end{bmatrix} - 0.2 \begin{bmatrix} -4 \\ -4 \end{bmatrix} = \begin{bmatrix} 0.8 \\ 0.8 \end{bmatrix}$$
+   $$\begin{aligned} x_1 &= x_0 - \gamma (\nabla f(x_0))^\top \\ &= \begin{bmatrix} 0 \\ 0 \end{bmatrix} - 0.2 \begin{bmatrix} -4 \\ -4 \end{bmatrix} \\ &= \begin{bmatrix} 0.8 \\ 0.8 \end{bmatrix} \end{aligned}$$
    함수 값 계산:
-   $$f(0.8, 0.8) = (0.8)^2 + 2(0.8)^2 - 4(0.8) - 4(0.8) = 0.64 + 1.28 - 3.2 - 3.2 = -4.48 < 0$$
+   $$\begin{aligned} f(0.8, 0.8) &= (0.8)^2 + 2(0.8)^2 \\ &\quad - 4(0.8) - 4(0.8) \\ &= 0.64 + 1.28 - 3.2 - 3.2 \\ &= -4.48 < 0 \end{aligned}$$
    함수 값이 0에서 -4.48로 크게 감소했습니다!
 
 4. **2번째 반복 ($t=1 \to t=2$)**:
-   $$(\nabla f(x_1))^\top = \begin{bmatrix} 2(0.8) - 4 \\ 4(0.8) - 4 \end{bmatrix} = \begin{bmatrix} 1.6 - 4 \\ 3.2 - 4 \end{bmatrix} = \begin{bmatrix} -2.4 \\ -0.8 \end{bmatrix}$$
-   $$x_2 = x_1 - \gamma (\nabla f(x_1))^\top = \begin{bmatrix} 0.8 \\ 0.8 \end{bmatrix} - 0.2 \begin{bmatrix} -2.4 \\ -0.8 \end{bmatrix} = \begin{bmatrix} 0.8 + 0.48 \\ 0.8 + 0.16 \end{bmatrix} = \begin{bmatrix} 1.28 \\ 0.96 \end{bmatrix}$$
+   $$\begin{aligned} (\nabla f(x_1))^\top &= \begin{bmatrix} 2(0.8) - 4 \\ 4(0.8) - 4 \end{bmatrix} \\ &= \begin{bmatrix} 1.6 - 4 \\ 3.2 - 4 \end{bmatrix} \\ &= \begin{bmatrix} -2.4 \\ -0.8 \end{bmatrix} \end{aligned}$$
+   $$\begin{aligned} x_2 &= x_1 - \gamma (\nabla f(x_1))^\top \\ &= \begin{bmatrix} 0.8 \\ 0.8 \end{bmatrix} - 0.2 \begin{bmatrix} -2.4 \\ -0.8 \end{bmatrix} \\ &= \begin{bmatrix} 0.8 + 0.48 \\ 0.8 + 0.16 \end{bmatrix} \\ &= \begin{bmatrix} 1.28 \\ 0.96 \end{bmatrix} \end{aligned}$$
    함수 값 계산:
-   $$f(1.28, 0.96) = 1.28^2 + 2(0.96)^2 - 4(1.28) - 4(0.96) = 1.6384 + 1.8432 - 5.12 - 3.84 = -5.4784$$
+   $$\begin{aligned} f(1.28, 0.96) &= 1.28^2 + 2(0.96)^2 \\ &\quad - 4(1.28) - 4(0.96) \\ &= 1.6384 + 1.8432 \\ &\quad - 5.12 - 3.84 \\ &= -5.4784 \end{aligned}$$
    진정한 최솟값인 $(2, 1)$과 함수 값 $-6$을 향해 착실히 다가가고 있음을 확인할 수 있습니다.
 
 ### 헷갈리는 점 / 자주 하는 실수
@@ -150,14 +150,14 @@ $$f(x_1, x_2) = x_1^2 + 2x_2^2 - 4x_1 - 4x_2$$
 
 #### 손으로 풀어 보는 예제 (교재 예제 7.1~7.2 변형)
 다음 2차 함수를 분석해 봅시다:
-$$f(x_1, x_2) = \frac{1}{2} \begin{bmatrix} x_1 & x_2 \end{bmatrix} \begin{bmatrix} 2 & 1 \\ 1 & 20 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} - \begin{bmatrix} 5 & 3 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \end{bmatrix}$$
+$$\begin{aligned} f(x_1, x_2) &= \frac{1}{2} \begin{bmatrix} x_1 & x_2 \end{bmatrix} \begin{bmatrix} 2 & 1 \\ 1 & 20 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} \\ &\quad - \begin{bmatrix} 5 & 3 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} \end{aligned}$$
 
 1. **헤시안 행렬 $A$와 고유값 계산**:
    $$A = \begin{bmatrix} 2 & 1 \\ 1 & 20 \end{bmatrix}$$
    특성방정식:
-   $$\det(A - \lambda I) = (2 - \lambda)(20 - \lambda) - 1 = \lambda^2 - 22\lambda + 39 = 0$$
+   $$\begin{aligned} \det(A - \lambda I) &= (2 - \lambda)(20 - \lambda) - 1 \\ &= \lambda^2 - 22\lambda + 39 = 0 \end{aligned}$$
    근의 공식:
-   $$\lambda = \frac{22 \pm \sqrt{22^2 - 4(39)}}{2} = \frac{22 \pm \sqrt{484 - 156}}{2} = \frac{22 \pm \sqrt{328}}{2} \approx \frac{22 \pm 18.11}{2}$$
+   $$\begin{aligned} \lambda &= \frac{22 \pm \sqrt{22^2 - 4(39)}}{2} \\ &= \frac{22 \pm \sqrt{484 - 156}}{2} \\ &= \frac{22 \pm \sqrt{328}}{2} \\ &\approx \frac{22 \pm 18.11}{2} \end{aligned}$$
    $$\lambda_{\min} \approx 1.944, \quad \lambda_{\max} \approx 20.056$$
 
 2. **수렴 조건과 최적 학습률**:
@@ -197,13 +197,13 @@ $(\nabla f(x))^\top = \begin{bmatrix} x_1 \\ 10x_2 \end{bmatrix}$입니다.
 1. **스텝 1 ($t=0 \to t=1$)**:
    $$(\nabla f(x_0))^\top = \begin{bmatrix} 2 \\ 10 \end{bmatrix}$$
    $$\Delta x_1 = 0.5 \begin{bmatrix} 0 \\ 0 \end{bmatrix} - 0.1 \begin{bmatrix} 2 \\ 10 \end{bmatrix} = \begin{bmatrix} -0.2 \\ -1.0 \end{bmatrix}$$
-   $$x_1 = x_0 + \Delta x_1 = \begin{bmatrix} 2 \\ 1 \end{bmatrix} + \begin{bmatrix} -0.2 \\ -1.0 \end{bmatrix} = \begin{bmatrix} 1.8 \\ 0.0 \end{bmatrix}$$
+   $$\begin{aligned} x_1 &= x_0 + \Delta x_1 \\ &= \begin{bmatrix} 2 \\ 1 \end{bmatrix} + \begin{bmatrix} -0.2 \\ -1.0 \end{bmatrix} \\ &= \begin{bmatrix} 1.8 \\ 0.0 \end{bmatrix} \end{aligned}$$
    ($x_2$ 축이 가파르기 때문에 단 1스텝 만에 $x_2=0$에 도달했습니다.)
 
 2. **스텝 2 ($t=1 \to t=2$)**:
    $$(\nabla f(x_1))^\top = \begin{bmatrix} 1.8 \\ 10(0) \end{bmatrix} = \begin{bmatrix} 1.8 \\ 0.0 \end{bmatrix}$$
-   $$\Delta x_2 = 0.5 \Delta x_1 - 0.1 (\nabla f(x_1))^\top = 0.5 \begin{bmatrix} -0.2 \\ -1.0 \end{bmatrix} - 0.1 \begin{bmatrix} 1.8 \\ 0 \end{bmatrix} = \begin{bmatrix} -0.1 - 0.18 \\ -0.5 - 0 \end{bmatrix} = \begin{bmatrix} -0.28 \\ -0.50 \end{bmatrix}$$
-   $$x_2 = x_1 + \Delta x_2 = \begin{bmatrix} 1.8 \\ 0.0 \end{bmatrix} + \begin{bmatrix} -0.28 \\ -0.50 \end{bmatrix} = \begin{bmatrix} 1.52 \\ -0.50 \end{bmatrix}$$
+   $$\begin{aligned} \Delta x_2 &= 0.5 \Delta x_1 - 0.1 (\nabla f(x_1))^\top \\ &= 0.5 \begin{bmatrix} -0.2 \\ -1.0 \end{bmatrix} - 0.1 \begin{bmatrix} 1.8 \\ 0 \end{bmatrix} \\ &= \begin{bmatrix} -0.1 - 0.18 \\ -0.5 - 0 \end{bmatrix} \\ &= \begin{bmatrix} -0.28 \\ -0.50 \end{bmatrix} \end{aligned}$$
+   $$\begin{aligned} x_2 &= x_1 + \Delta x_2 \\ &= \begin{bmatrix} 1.8 \\ 0.0 \end{bmatrix} + \begin{bmatrix} -0.28 \\ -0.50 \end{bmatrix} \\ &= \begin{bmatrix} 1.52 \\ -0.50 \end{bmatrix} \end{aligned}$$
    직전 스텝의 관성($-1.0$)의 절반인 $-0.5$가 살아남아 $x_2$가 음수 쪽으로 살짝 이동했습니다. 다음 스텝에서는 양수 방향 그래디언트가 발생하여 이 관성을 브레이크 걸어주게 됩니다.
 
 #### 헷갈리는 점 / 자주 하는 실수
@@ -232,7 +232,7 @@ $(\nabla f(x))^\top = \begin{bmatrix} x_1 \\ 10x_2 \end{bmatrix}$입니다.
 
 3. **무편향 추정치 (Unbiased Estimator)**:
    확률변수 $n$에 대한 기댓값을 취하면 전체 그래디언트와 정확히 일치합니다:
-   $$\mathbb{E}_n [\nabla f_n(x)] = \sum_{n=1}^N P(n) \nabla f_n(x) = \frac{1}{N} \sum_{n=1}^N \nabla f_n(x) = \nabla f(x)$$
+   $$\begin{aligned} \mathbb{E}_n [\nabla f_n(x)] &= \sum_{n=1}^N P(n) \nabla f_n(x) \\ &= \frac{1}{N} \sum_{n=1}^N \nabla f_n(x) \\ &= \nabla f(x) \end{aligned}$$
    즉, SGD의 그래디언트는 참 그래디언트의 **무편향 추정치**입니다!
 
 4. **수렴을 위한 Robbins-Monro 조건** (교재 밖 보충. 교재는 학습률을 적절히 줄이면 수렴한다고만 설명한다):
@@ -244,7 +244,7 @@ $(\nabla f(x))^\top = \begin{bmatrix} x_1 \\ 10x_2 \end{bmatrix}$입니다.
 
 #### 손으로 풀어 보는 예제
 데이터 3개로 구성된 손실 함수 $f(w) = \frac{1}{3}(f_1(w) + f_2(w) + f_3(w))$가 있습니다:
-$$f_1(w) = (w - 1)^2, \quad f_2(w) = (w - 3)^2, \quad f_3(w) = (w - 5)^2$$
+$$\begin{aligned} f_1(w) &= (w - 1)^2, \\ f_2(w) &= (w - 3)^2, \\ f_3(w) &= (w - 5)^2 \end{aligned}$$
 현재 위치 $w_0 = 0$, 학습률 $\gamma = 0.1$입니다.
 
 1. **배치 경사하강법 (참 그래디언트)**:
@@ -292,7 +292,7 @@ $$\min_x f(x) \quad \text{subject to} \quad g(x) = 0$$
 $g(x) = 0$은 공간 상의 어떤 곡선(곡면)을 이룹니다. 최적해 $x^*$는 반드시 이 곡면 위에 있어야 합니다.
 이 곡면 위를 따라 움직이면서 $f(x)$를 최대한 줄여나가다가 마침내 최솟값에 도달했다고 합시다. 만약 그 점에서도 $g(x)=0$ 곡면을 따라 움직일 때 $f(x)$가 줄어드는 방향이 남아있다면, 거기로 더 이동했을 것입니다. 따라서 **최적점에서는 $g(x)=0$ 곡면의 접선 방향과 $f(x)$ 등고선의 접선 방향이 완전히 일치**해야 합니다!
 두 곡면의 접선이 일치한다는 것은, **두 곡면의 법선 벡터(그래디언트)가 서로 평행(parallel)**\ 해야 함을 뜻합니다:
-$$\nabla f(x^*) = -\lambda \nabla g(x^*) \iff \nabla f(x^*) + \lambda \nabla g(x^*) = 0$$
+$$\begin{aligned} &\nabla f(x^*) = -\lambda \nabla g(x^*) \\ &\iff \nabla f(x^*) + \lambda \nabla g(x^*) = 0 \end{aligned}$$
 여기서 비례 상수 $\lambda \in \mathbb{R}$를 **라그랑주 승수(Lagrange multiplier)**\ 라고 부릅니다.
 
 #### 라그랑지안 함수 (Lagrangian)
@@ -307,7 +307,7 @@ $$\mathfrak{L}(x, \lambda) = f(x) + \lambda g(x)$$
 
 ### 부등식 제약 조건과 KKT 조건 (Inequality Constraints & KKT Conditions)
 이제 제약조건이 부등식 $g(x) \le 0$인 경우를 확장합니다:
-$$\min_x f(x) \quad \text{subject to} \quad g_i(x) \le 0 \quad (i = 1, \dots, m)$$
+$$\begin{aligned} &\min_x f(x) \\ &\text{subject to} \quad g_i(x) \le 0 \quad (i = 1, \dots, m) \end{aligned}$$
 
 #### 기하학적 직관: 두 가지 시나리오
 최적점 $x^*$가 놓일 수 있는 상황은 정확히 두 가지뿐입니다:
@@ -355,12 +355,12 @@ $$\alpha_n [1 - y_n(w^\top x_n + b)] = 0$$
 
 ### 손으로 풀어 보는 예제 (KKT 조건 풀이)
 다음 제약 최적화 문제를 손으로 풀어봅시다:
-$$\min_{x_1, x_2} f(x_1, x_2) = (x_1 - 3)^2 + (x_2 - 4)^2 \quad \text{subject to} \quad x_1 + x_2 \le 5$$
+$$\begin{aligned} &\min_{x_1, x_2} f(x_1, x_2) = (x_1 - 3)^2 + (x_2 - 4)^2 \\ &\text{subject to} \quad x_1 + x_2 \le 5 \end{aligned}$$
 
 1. **제약식 표준형 변환**:
    $$g(x_1, x_2) = x_1 + x_2 - 5 \le 0$$
 2. **라그랑지안 정의**:
-   $$\mathfrak{L}(x_1, x_2, \lambda) = (x_1 - 3)^2 + (x_2 - 4)^2 + \lambda(x_1 + x_2 - 5)$$
+   $$\begin{aligned} \mathfrak{L}(x_1, x_2, \lambda) &= (x_1 - 3)^2 + (x_2 - 4)^2 \\ &\quad + \lambda(x_1 + x_2 - 5) \end{aligned}$$
 3. **KKT 조건 세우기**:
    - 정류성:
      $$\frac{\partial \mathfrak{L}}{\partial x_1} = 2(x_1 - 3) + \lambda = 0 \implies x_1 = 3 - \frac{\lambda}{2}$$
@@ -402,7 +402,7 @@ $$\theta x + (1 - \theta) y \in C, \quad \forall \theta \in [0, 1]$$
 
 #### 2. 볼록 함수 (Convex Function)
 정의역이 볼록 집합인 함수 $f$에 대해, 임의의 두 점 $x, y$ 사이에서 함수 그래프가 두 점을 잇는 현(chord, 직선 선분) 아래쪽에 놓이면 $f$를 볼록 함수라 합니다:
-$$f(\theta x + (1 - \theta) y) \le \theta f(x) + (1 - \theta) f(y), \quad \forall \theta \in [0, 1]$$
+$$\begin{aligned} &f(\theta x + (1 - \theta) y) \\ &\le \theta f(x) + (1 - \theta) f(y), \\ &\quad \forall \theta \in [0, 1] \end{aligned}$$
 
 - **1계 조건 (First-Order Condition)**: 미분 가능한 함수 $f$가 볼록 함수일 필요충분조건은 접선 초평면이 항상 원래 함수 아래에 깔리는 것입니다:
   $$f(y) \ge f(x) + \nabla f(x)(y - x), \quad \forall x, y$$
@@ -419,9 +419,9 @@ $$f(\theta x + (1 - \theta) y) \le \theta f(x) + (1 - \theta) f(y), \quad \foral
 볼록 최적화의 가장 깊고 아름다운 이론은 바로 **원 문제(Primal Problem)**\ 와 **쌍대 문제(Dual Problem)**\ 의 관계입니다.
 
 #### 원 문제 (Primal Problem)
-$$\min_{x \in \mathbb{R}^D} f(x) \quad \text{subject to} \quad g_i(x) \le 0 \; (i=1,\dots,m), \quad h_j(x) = 0 \; (j=1,\dots,p)$$
+$$\begin{aligned} &\min_{x \in \mathbb{R}^D} f(x) \\ &\text{subject to} \quad g_i(x) \le 0 \; (i=1,\dots,m), \\ &\quad h_j(x) = 0 \; (j=1,\dots,p) \end{aligned}$$
 라그랑지안:
-$$\mathfrak{L}(x, \lambda, \nu) = f(x) + \sum_{i=1}^m \lambda_i g_i(x) + \sum_{j=1}^p \nu_j h_j(x), \quad (\lambda_i \ge 0)$$
+$$\begin{aligned} \mathfrak{L}(x, \lambda, \nu) &= f(x) + \sum_{i=1}^m \lambda_i g_i(x) \\ &\quad + \sum_{j=1}^p \nu_j h_j(x), \quad (\lambda_i \ge 0) \end{aligned}$$
 여기서 놀라운 사실은, 원 문제를 라그랑지안의 최소-최대(min-max) 형태로 다시 쓸 수 있다는 점입니다:
 $$\min_x \max_{\lambda \ge 0, \nu} \mathfrak{L}(x, \lambda, \nu)$$
 - 만약 어떤 $x$가 제약을 위반하면(예: $g_i(x) > 0$), $\lambda_i \to \infty$로 보내버려 내부의 최댓값이 $+\infty$가 됩니다.
@@ -477,7 +477,7 @@ $$\min_{x \in \mathbb{R}^D} c^\top x \quad \text{subject to} \quad A x \le b$$
 
 #### 정의와 표준형
 목적함수가 2차 볼록 함수이고 제약식이 선형 부등식인 문제입니다:
-$$\min_{x \in \mathbb{R}^D} \frac{1}{2} x^\top Q x + c^\top x \quad \text{subject to} \quad A x \le b$$
+$$\begin{aligned} &\min_{x \in \mathbb{R}^D} \frac{1}{2} x^\top Q x + c^\top x \\ &\text{subject to} \quad A x \le b \end{aligned}$$
 여기서 $Q \in \mathbb{R}^{D \times D}$는 양의정부호 대칭 행렬($Q \succ 0$)입니다.
 
 #### 쌍대 2차 계획법 유도 (12장 SVM의 핵심 모체)
@@ -532,7 +532,7 @@ $$f^*(\alpha) = \sup_{y} \left( \alpha^\top y - \frac{\lambda}{2} y^\top K^{-1} 
 
 #### 펜첼 쌍대성 정리 (Fenchel Duality Theorem, 교재 예제 7.8)
 머신러닝 목적함수가 두 함수의 합 $f(Ax) + g(x)$ 형태로 주어질 때:
-$$\min_x f(Ax) + g(x) = \max_u -f^*(u) - g^*(-A^\top u)$$
+$$\begin{aligned} &\min_x f(Ax) + g(x) \\ &= \max_u -f^*(u) - g^*(-A^\top u) \end{aligned}$$
 이 정리는 복잡한 정규화 문제(예: Lasso, Ridge)를 분해하여 쌍대 공간에서 매우 효율적으로 풀 수 있게 해주는 강력한 이론적 토대입니다.
 
 ---
@@ -607,7 +607,7 @@ $$\min_x f(Ax) + g(x) = \max_u -f^*(u) - g^*(-A^\top u)$$
 ---
 
 ### 유도 4: 펜첼 쌍대성 정리 (Fenchel Duality Theorem)
-**목표**: $\min_x f(Ax) + g(x) = \max_u -f^*(u) - g^*(-A^\top u)$를 라그랑주 승수법으로 유도한다.
+**목표**: $$\begin{aligned} &\min_x f(Ax) + g(x) \\ &= \max_u -f^*(u) - g^*(-A^\top u) \end{aligned}$$를 라그랑주 승수법으로 유도한다.
 
 1. **보조 변수 도입을 통한 동치 문제 변환**:
    $$y = Ax \text{라는 등식 제약을 도입하면,}$$

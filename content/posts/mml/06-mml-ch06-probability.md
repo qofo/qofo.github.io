@@ -186,7 +186,7 @@ $$p(x, y) = p(x \mid y) p(y) = p(y \mid x) p(x)$$
 
 #### 3. 베이즈 정리 (Bayes' Theorem)
 곱의 법칙의 양변을 정리하고 분모에 합의 법칙을 적용하여 조건부 확률의 방향을 뒤집는 공식:
-$$p(x \mid y) = \frac{p(y \mid x) p(x)}{p(y)} = \frac{p(y \mid x) p(x)}{\int p(y \mid x') p(x') dx'}$$
+$$\begin{aligned} p(x \mid y) &= \frac{p(y \mid x) p(x)}{p(y)} \\ &= \frac{p(y \mid x) p(x)}{\int p(y \mid x') p(x') dx'} \end{aligned}$$
 
 ```mermaid
 flowchart LR
@@ -213,10 +213,10 @@ flowchart LR
 - 어떤 사람이 검사에서 양성($+$) 판정을 받았다. 이 사람이 **실제로 질병에 걸렸을 확률 $P(D \mid +)$**\ 를 계산하라.
 
 - **1단계 (전체 양성 판정 확률, 증거 $P(+)$ 계산 - 합의 법칙)**:
-  $$P(+) = P(+ \mid D)P(D) + P(+ \mid D^c)P(D^c)$$
-  $$P(+) = (0.95)(0.01) + (0.05)(0.99) = 0.0095 + 0.0495 = 0.0590$$
+  $$\begin{aligned} P(+) &= P(+ \mid D)P(D) \\ &\quad + P(+ \mid D^c)P(D^c) \end{aligned}$$
+  $$\begin{aligned} P(+) &= (0.95)(0.01) + (0.05)(0.99) \\ &= 0.0095 + 0.0495 = 0.0590 \end{aligned}$$
 - **2단계 (베이즈 정리 적용)**:
-  $$P(D \mid +) = \frac{P(+ \mid D)P(D)}{P(+)} = \frac{0.0095}{0.0590} = \frac{95}{590} = \frac{19}{118} \approx 0.1610$$
+  $$\begin{aligned} P(D \mid +) &= \frac{P(+ \mid D)P(D)}{P(+)} \\ &= \frac{0.0095}{0.0590} \\ &= \frac{95}{590} \\ &= \frac{19}{118} \\ &\approx 0.1610 \end{aligned}$$
 - **해석**:
   검사 정확도가 $95\%$나 되는데도, 양성 판정을 받은 사람이 실제 환자일 확률은 고작 **$16.1\%$**\ 에 불과하다!
   이유는 질병의 사전확률(기저율, $1\%$)이 너무 낮기 때문에 정상인의 $5\%$ 오진($0.0495$)이 실제 환자의 양성($0.0095$)보다 압도적으로 많기 때문이다. 베이즈 추론에서 사전확률(Prior)의 영향력이 얼마나 막강한지 보여주는 교과서적 예시다.
@@ -297,8 +297,8 @@ $N$개의 데이터 샘플 $\{\boldsymbol{x}_1, \dots, \boldsymbol{x}_N\}$이 �
 
 #### 4. 6.4.4 확률변수의 선형/아핀 변환
 확률변수 벡터 $\boldsymbol{x} \sim (\boldsymbol{\mu}, \Sigma)$에 행렬 $A$와 편향 $\boldsymbol{b}$를 곱해 변환한 $\boldsymbol{y} = A\boldsymbol{x} + \boldsymbol{b}$에 대하여:
-$$\mathbb{E}[\boldsymbol{y}] = \mathbb{E}[A\boldsymbol{x} + \boldsymbol{b}] = A\mathbb{E}[\boldsymbol{x}] + \boldsymbol{b} = A\boldsymbol{\mu} + \boldsymbol{b}$$
-$$\mathbb{V}[\boldsymbol{y}] = \mathbb{V}[A\boldsymbol{x} + \boldsymbol{b}] = A \mathbb{V}[\boldsymbol{x}] A^\top = A \Sigma A^\top$$
+$$\begin{aligned} \mathbb{E}[\boldsymbol{y}] &= \mathbb{E}[A\boldsymbol{x} + \boldsymbol{b}] \\ &= A\mathbb{E}[\boldsymbol{x}] + \boldsymbol{b} = A\boldsymbol{\mu} + \boldsymbol{b} \end{aligned}$$
+$$\begin{aligned} \mathbb{V}[\boldsymbol{y}] &= \mathbb{V}[A\boldsymbol{x} + \boldsymbol{b}] \\ &= A \mathbb{V}[\boldsymbol{x}] A^\top = A \Sigma A^\top \end{aligned}$$
 이 두 공식은 6.5절 가우시안의 선형변환과 10장 PCA에서 핵심적으로 사용된다.
 
 #### 5. 6.4.5 통계적 독립성 (Statistical Independence)
@@ -337,12 +337,14 @@ $$\mathbb{V}[\boldsymbol{y}] = \mathbb{V}[A\boldsymbol{x} + \boldsymbol{b}] = A 
 #### [예제 4-2] 2차원 아핀 변환의 평균과 공분산 계산
 $\boldsymbol{\mu} = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$, $\Sigma = \begin{bmatrix} 2 & 1 \\ 1 & 3 \end{bmatrix}$인 확률변수 $\boldsymbol{x}$에 대하여, $\boldsymbol{y} = A\boldsymbol{x} + \boldsymbol{b}$ (단, $A = \begin{bmatrix} 1 & -1 \\ 2 & 0 \end{bmatrix}$, $\boldsymbol{b} = \begin{bmatrix} 3 \\ -1 \end{bmatrix}$)의 평균 $\boldsymbol{\mu}_{\boldsymbol{y}}$와 공분산 $\Sigma_{\boldsymbol{y}}$를 구하라.
 - **1단계 (평균 $\boldsymbol{\mu}_{\boldsymbol{y}}$)**:
-  $$\boldsymbol{\mu}_{\boldsymbol{y}} = A\boldsymbol{\mu} + \boldsymbol{b} = \begin{bmatrix} 1 & -1 \\ 2 & 0 \end{bmatrix} \begin{bmatrix} 1 \\ 2 \end{bmatrix} + \begin{bmatrix} 3 \\ -1 \end{bmatrix} = \begin{bmatrix} 1(1) - 1(2) \\ 2(1) + 0(2) \end{bmatrix} + \begin{bmatrix} 3 \\ -1 \end{bmatrix} = \begin{bmatrix} -1 \\ 2 \end{bmatrix} + \begin{bmatrix} 3 \\ -1 \end{bmatrix} = \begin{bmatrix} 2 \\ 1 \end{bmatrix}$$
+  $$\begin{aligned} \boldsymbol{\mu}_{\boldsymbol{y}} &= A\boldsymbol{\mu} + \boldsymbol{b} \\ &= \begin{bmatrix} 1 & -1 \\ 2 & 0 \end{bmatrix} \begin{bmatrix} 1 \\ 2 \end{bmatrix} + \begin{bmatrix} 3 \\ -1 \end{bmatrix} \\ &= \begin{bmatrix} 1(1) - 1(2) \\ 2(1) + 0(2) \end{bmatrix} + \begin{bmatrix} 3 \\ -1 \end{bmatrix} \\ &= \begin{bmatrix} -1 \\ 2 \end{bmatrix} + \begin{bmatrix} 3 \\ -1 \end{bmatrix} \\ &= \begin{bmatrix} 2 \\ 1 \end{bmatrix} \end{aligned}$$
 - **2단계 (공분산 $\Sigma_{\boldsymbol{y}} = A \Sigma A^\top$)**:
   먼저 $A \Sigma$ 계산:
-  $$A \Sigma = \begin{bmatrix} 1 & -1 \\ 2 & 0 \end{bmatrix} \begin{bmatrix} 2 & 1 \\ 1 & 3 \end{bmatrix} = \begin{bmatrix} 1(2) - 1(1) & 1(1) - 1(3) \\ 2(2) + 0(1) & 2(1) + 0(3) \end{bmatrix} = \begin{bmatrix} 1 & -2 \\ 4 & 2 \end{bmatrix}$$
+  $$\begin{aligned} A \Sigma &= \begin{bmatrix} 1 & -1 \\ 2 & 0 \end{bmatrix} \begin{bmatrix} 2 & 1 \\ 1 & 3 \end{bmatrix} \\ &= \begin{bmatrix} 1(2) - 1(1) & 1(1) - 1(3) \\ 2(2) + 0(1) & 2(1) + 0(3) \end{bmatrix} \\ &= \begin{bmatrix} 1 & -2 \\ 4 & 2 \end{bmatrix} \end{aligned}$$
   다음으로 $(A \Sigma) A^\top$ 계산 ($A^\top = \begin{bmatrix} 1 & 2 \\ -1 & 0 \end{bmatrix}$):
-  $$\Sigma_{\boldsymbol{y}} = \begin{bmatrix} 1 & -2 \\ 4 & 2 \end{bmatrix} \begin{bmatrix} 1 & 2 \\ -1 & 0 \end{bmatrix} = \begin{bmatrix} 1(1) + (-2)(-1) & 1(2) + (-2)(0) \\ 4(1) + 2(-1) & 4(2) + 2(0) \end{bmatrix} = \begin{bmatrix} 3 & 2 \\ 2 & 8 \end{bmatrix}$$
+
+  $$\begin{aligned} \Sigma_{\boldsymbol{y}} &= \begin{bmatrix} 1 & -2 \\ 4 & 2 \end{bmatrix} \begin{bmatrix} 1 & 2 \\ -1 & 0 \end{bmatrix} \\ &= \begin{bmatrix} 1(1) + (-2)(-1) & 1(2) + (-2)(0) \\ 4(1) + 2(-1) & 4(2) + 2(0) \end{bmatrix} \\ &= \begin{bmatrix} 3 & 2 \\ 2 & 8 \end{bmatrix} \end{aligned}$$
+
   결과 $\Sigma_{\boldsymbol{y}} = \begin{bmatrix} 3 & 2 \\ 2 & 8 \end{bmatrix}$는 완벽한 대칭행렬이며 양의 정부호($\det = 24 - 4 = 20 > 0$)이다!
 
 ### 헷갈리는 점 / 자주 하는 실수
@@ -362,7 +364,7 @@ $\boldsymbol{\mu} = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$, $\Sigma = \begin{bmat
 #### 1. 다변량 가우시안 분포(Multivariate Normal Distribution)
 $D$차원 확률변수 벡터 $\boldsymbol{x} \in \mathbb{R}^D$가 평균 $\boldsymbol{\mu} \in \mathbb{R}^D$, 공분산 행렬 $\Sigma \in \mathbb{R}^{D \times D}$를 가질 때의 확률밀도함수:
 
-$$\mathcal{N}(\boldsymbol{x} \mid \boldsymbol{\mu}, \Sigma) = \frac{1}{(2\pi)^{D/2} |\Sigma|^{1/2}} \exp\left( -\frac{1}{2}(\boldsymbol{x} - \boldsymbol{\mu})^\top \Sigma^{-1} (\boldsymbol{x} - \boldsymbol{\mu}) \right)$$
+$$\begin{aligned} \mathcal{N}(\boldsymbol{x} \mid \boldsymbol{\mu}, \Sigma) &= \frac{1}{(2\pi)^{D/2} |\Sigma|^{1/2}} \\ &\quad \exp\Bigl( -\frac{1}{2}(\boldsymbol{x} - \boldsymbol{\mu})^\top \\ &\qquad\quad \Sigma^{-1} (\boldsymbol{x} - \boldsymbol{\mu}) \Bigr) \end{aligned}$$
 
 - **정규화 계수**: $\frac{1}{(2\pi)^{D/2} |\Sigma|^{1/2}}$ (전체 적분이 1이 되도록 맞춤).
 - **마할라노비스 거리(Mahalanobis Distance)**: $d_M^2 = (\boldsymbol{x} - \boldsymbol{\mu})^\top \Sigma^{-1} (\boldsymbol{x} - \boldsymbol{\mu})$ (분포의 중심으로부터의 통계적 거리).
@@ -370,12 +372,12 @@ $$\mathcal{N}(\boldsymbol{x} \mid \boldsymbol{\mu}, \Sigma) = \frac{1}{(2\pi)^{D
 
 #### 2. 6.5.1 가우시안의 주변분포와 조건부 분포 (Marginals & Conditionals)
 변수 벡터 $\boldsymbol{x}$를 두 개의 부분 벡터 $\boldsymbol{x}_a \in \mathbb{R}^P$와 $\boldsymbol{x}_b \in \mathbb{R}^Q$ ($D = P + Q$)로 분할(partition)하자:
-$$\boldsymbol{x} = \begin{bmatrix} \boldsymbol{x}_a \\ \boldsymbol{x}_b \end{bmatrix}, \quad \boldsymbol{\mu} = \begin{bmatrix} \boldsymbol{\mu}_a \\ \boldsymbol{\mu}_b \end{bmatrix}, \quad \Sigma = \begin{bmatrix} \Sigma_{aa} & \Sigma_{ab} \\ \Sigma_{ba} & \Sigma_{bb} \end{bmatrix}$$
+$$\begin{gathered} \boldsymbol{x} = \begin{bmatrix} \boldsymbol{x}_a \\ \boldsymbol{x}_b \end{bmatrix}, \quad \boldsymbol{\mu} = \begin{bmatrix} \boldsymbol{\mu}_a \\ \boldsymbol{\mu}_b \end{bmatrix}, \\ \Sigma = \begin{bmatrix} \Sigma_{aa} & \Sigma_{ab} \\ \Sigma_{ba} & \Sigma_{bb} \end{bmatrix} \end{gathered}$$
 (여기서 $\Sigma_{ba} = \Sigma_{ab}^\top$).
 
 1. **주변분포(Marginal Distribution)**:
-   $$p(\boldsymbol{x}_a) = \int p(\boldsymbol{x}_a, \boldsymbol{x}_b) d\boldsymbol{x}_b = \mathcal{N}(\boldsymbol{x}_a \mid \boldsymbol{\mu}_a, \Sigma_{aa})$$
-   $$p(\boldsymbol{x}_b) = \int p(\boldsymbol{x}_a, \boldsymbol{x}_b) d\boldsymbol{x}_a = \mathcal{N}(\boldsymbol{x}_b \mid \boldsymbol{\mu}_b, \Sigma_{bb})$$
+   $$\begin{aligned} p(\boldsymbol{x}_a) &= \int p(\boldsymbol{x}_a, \boldsymbol{x}_b) d\boldsymbol{x}_b \\ &= \mathcal{N}(\boldsymbol{x}_a \mid \boldsymbol{\mu}_a, \Sigma_{aa}) \end{aligned}$$
+   $$\begin{aligned} p(\boldsymbol{x}_b) &= \int p(\boldsymbol{x}_a, \boldsymbol{x}_b) d\boldsymbol{x}_a \\ &= \mathcal{N}(\boldsymbol{x}_b \mid \boldsymbol{\mu}_b, \Sigma_{bb}) \end{aligned}$$
    > **직관**: 관심 없는 변수 블록 $\boldsymbol{x}_b$를 주변화(적분)할 때는 복잡한 계산을 할 필요가 전혀 없다! 결합 평균 벡터와 공분산 행렬에서 **해당 블록 행과 열을 그냥 지워버리면(drop)** 남은 것이 바로 주변분포다!
 
 2. **조건부 분포(Conditional Distribution)**:
@@ -391,11 +393,11 @@ $$\boldsymbol{x} = \begin{bmatrix} \boldsymbol{x}_a \\ \boldsymbol{x}_b \end{bma
 
 #### 3. 6.5.2 가우시안 밀도의 곱 (Product of Gaussian Densities)
 두 가우시안 밀도의 곱은 정규화되지 않은 또 다른 가우시안 밀도(스케일 상수 $c$가 곱해진 형태)가 된다:
-$$\mathcal{N}(\boldsymbol{x} \mid \boldsymbol{a}, A) \mathcal{N}(\boldsymbol{x} \mid \boldsymbol{b}, B) = c \mathcal{N}(\boldsymbol{x} \mid \boldsymbol{c}_0, C)$$
+$$\begin{aligned} &\mathcal{N}(\boldsymbol{x} \mid \boldsymbol{a}, A) \mathcal{N}(\boldsymbol{x} \mid \boldsymbol{b}, B) \\ &= c \mathcal{N}(\boldsymbol{x} \mid \boldsymbol{c}_0, C) \end{aligned}$$
 여기서:
 $$C = (A^{-1} + B^{-1})^{-1}$$
 $$\boldsymbol{c}_0 = C(A^{-1}\boldsymbol{a} + B^{-1}\boldsymbol{b})$$
-$$c = \mathcal{N}(\boldsymbol{a} \mid \boldsymbol{b}, A + B) = (2\pi)^{-D/2} |A+B|^{-1/2} \exp\left( -\frac{1}{2}(\boldsymbol{a}-\boldsymbol{b})^\top (A+B)^{-1} (\boldsymbol{a}-\boldsymbol{b}) \right)$$
+$$\begin{aligned} c &= \mathcal{N}(\boldsymbol{a} \mid \boldsymbol{b}, A + B) \\ &= (2\pi)^{-D/2} |A+B|^{-1/2} \\ &\quad \exp\Bigl( -\frac{1}{2}(\boldsymbol{a}-\boldsymbol{b})^\top \\ &\qquad\quad (A+B)^{-1} (\boldsymbol{a}-\boldsymbol{b}) \Bigr) \end{aligned}$$
 - 정밀도 관점에서 보면: $C^{-1} = A^{-1} + B^{-1}$로 정밀도 행렬이 단순히 더해진다!
 - 가중 평균: 평균 $\boldsymbol{c}_0$는 각 가우시안의 정밀도 가중 평균이다.
 
@@ -506,7 +508,7 @@ $$p(\theta \mid x) = \frac{p(x \mid \theta) p(\theta)}{\int p(x \mid \theta') p(
 #### 4. 6.6.3 지수족(Exponential Family)의 일반 형태
 모수 $\boldsymbol{\theta} \in \mathbb{R}^D$를 가지는 지수족 분포의 표준 형태:
 
-$$p(x \mid \boldsymbol{\theta}) = h(x) \exp\left( \langle \boldsymbol{\theta}, \boldsymbol{\phi}(x) \rangle - A(\boldsymbol{\theta}) \right) = h(x) \exp\left( \boldsymbol{\theta}^\top \boldsymbol{\phi}(x) - A(\boldsymbol{\theta}) \right)$$
+$$\begin{aligned} p(x \mid \boldsymbol{\theta}) &= h(x) \exp\left( \langle \boldsymbol{\theta}, \boldsymbol{\phi}(x) \rangle - A(\boldsymbol{\theta}) \right) \\ &= h(x) \exp\left( \boldsymbol{\theta}^\top \boldsymbol{\phi}(x) - A(\boldsymbol{\theta}) \right) \end{aligned}$$
 
 - $\boldsymbol{\theta}$: **자연 매개변수(Natural Parameter / Canonical Parameter)**
 - $\boldsymbol{\phi}(x)$: **충분통계량 벡터(Vector of Sufficient Statistics)**
@@ -925,7 +927,7 @@ $N$번의 시행 중 성공 횟수 $x$에 대한 이항분포 $p(x \mid N, \mu) 
   - (a) 초기 상태가 가우시안이고 모든 전이와 관측이 선형 가우시안 노이즈 모델이므로 결합분포 $p(\boldsymbol{x}_0, \dots, \boldsymbol{x}_T)$는 거대한 **결합 가우시안 분포(Joint Gaussian)**\ 다.
   - (b) $p(\boldsymbol{x}_t \mid \boldsymbol{y}_{1:t}) = \mathcal{N}(\boldsymbol{\mu}_t, \Sigma_t)$ 가정 하에:
     1. 시간 갱신(예측): $p(\boldsymbol{x}_{t+1} \mid \boldsymbol{y}_{1:t}) = \mathcal{N}(A\boldsymbol{\mu}_t, A\Sigma_t A^\top + Q)$.
-    2. 결합 예측: $\begin{bmatrix} \boldsymbol{x}_{t+1} \\ \boldsymbol{y}_{t+1} \end{bmatrix} \mid \boldsymbol{y}_{1:t} \sim \mathcal{N}\left( \begin{bmatrix} \boldsymbol{\mu}_{t+1|t} \\ C\boldsymbol{\mu}_{t+1|t} \end{bmatrix}, \begin{bmatrix} \Sigma_{t+1|t} & \Sigma_{t+1|t} C^\top \\ C\Sigma_{t+1|t} & C\Sigma_{t+1|t} C^\top + R \end{bmatrix} \right)$ (단, $\boldsymbol{\mu}_{t+1|t} = A\boldsymbol{\mu}_t, \Sigma_{t+1|t} = A\Sigma_t A^\top + Q$).
+    2. 결합 예측: $$\begin{aligned} &\begin{bmatrix} \boldsymbol{x}_{t+1} \\ \boldsymbol{y}_{t+1} \end{bmatrix} \mid \boldsymbol{y}_{1:t} \sim \mathcal{N}\biggl( \begin{bmatrix} \boldsymbol{\mu}_{t+1|t} \\ C\boldsymbol{\mu}_{t+1|t} \end{bmatrix}, \\ &\quad \begin{bmatrix} \Sigma_{t+1|t} & \Sigma_{t+1|t} C^\top \\ C\Sigma_{t+1|t} & C\Sigma_{t+1|t} C^\top + R \end{bmatrix} \biggr) \end{aligned}$$ (단, $\boldsymbol{\mu}_{t+1|t} = A\boldsymbol{\mu}_t, \Sigma_{t+1|t} = A\Sigma_t A^\top + Q$).
     3. 측정치 $\boldsymbol{y}_{t+1} = \hat{\boldsymbol{y}}$ 관측 후 조건부 갱신:
        $$\boldsymbol{\mu}_{t+1} = \boldsymbol{\mu}_{t+1|t} + K_{t+1}(\hat{\boldsymbol{y}} - C\boldsymbol{\mu}_{t+1|t})$$
        $$\Sigma_{t+1} = \Sigma_{t+1|t} - K_{t+1} C \Sigma_{t+1|t}$$
@@ -941,8 +943,8 @@ $N$번의 시행 중 성공 횟수 $x$에 대한 이항분포 $p(x \mid N, \mu) 
 #### Exercise 6.7
 - **문제 요약**: 데이터 쌍별 차이 공식 $\frac{1}{2N^2} \sum_{i=1}^N \sum_{j=1}^N (x_i - x_j)^2$ (식 6.45)이 분산과 같음을 증명하라.
 - **풀이**:
-  $$\frac{1}{2N^2} \sum_{i=1}^N \sum_{j=1}^N (x_i^2 - 2x_i x_j + x_j^2) = \frac{1}{2N^2} \left[ \sum_{j=1}^N \sum_{i=1}^N x_i^2 - 2 \left(\sum_{i=1}^N x_i\right)\left(\sum_{j=1}^N x_j\right) + \sum_{i=1}^N \sum_{j=1}^N x_j^2 \right]$$
-  $$= \frac{1}{2N^2} \left[ N \sum_{i=1}^N x_i^2 - 2(N\mu)(N\mu) + N \sum_{j=1}^N x_j^2 \right] = \frac{1}{2N^2} \left[ 2N \sum_{i=1}^N x_i^2 - 2N^2 \mu^2 \right] = \frac{1}{N}\sum_{i=1}^N x_i^2 - \mu^2 = \mathbb{V}[X]$$
+  $$\begin{aligned} &\frac{1}{2N^2} \sum_{i=1}^N \sum_{j=1}^N (x_i^2 - 2x_i x_j + x_j^2) \\ &= \frac{1}{2N^2} \Bigl[ \sum_{j=1}^N \sum_{i=1}^N x_i^2 \\ &\quad - 2 \left(\sum_{i=1}^N x_i\right)\left(\sum_{j=1}^N x_j\right) \\ &\quad + \sum_{i=1}^N \sum_{j=1}^N x_j^2 \Bigr] \end{aligned}$$
+  $$\begin{aligned} &= \frac{1}{2N^2} \Bigl[ N \sum_{i=1}^N x_i^2 \\ &\quad - 2(N\mu)(N\mu) \\ &\quad + N \sum_{j=1}^N x_j^2 \Bigr] \\ &= \frac{1}{2N^2} \left[ 2N \sum_{i=1}^N x_i^2 - 2N^2 \mu^2 \right] \\ &= \frac{1}{N}\sum_{i=1}^N x_i^2 - \mu^2 \\ &= \mathbb{V}[X] \end{aligned}$$
 
 #### Exercise 6.8
 - **문제 요약**: 베르누이 분포를 지수족 자연 매개변수 형태로 나타내라.
@@ -978,7 +980,7 @@ $N$번의 시행 중 성공 횟수 $x$에 대한 이항분포 $p(x \mid N, \mu) 
   - (c) 측정 사상 $\boldsymbol{z} = C\boldsymbol{y} + \boldsymbol{v}$, $\boldsymbol{v} \sim \mathcal{N}(\mathbf{0}, R)$: $p(\boldsymbol{z} \mid \boldsymbol{y}) = \mathcal{N}(\boldsymbol{z} \mid C\boldsymbol{y}, R)$이고, (b)와 같은 방법으로 $p(\boldsymbol{z}) = \mathcal{N}(C\boldsymbol{\mu}_y, \; C\Sigma_y C^\top + R)$이다. 여기서 $\boldsymbol{\mu}_y = A\boldsymbol{\mu}_x + \boldsymbol{b}$, $\Sigma_y = A\Sigma_x A^\top + Q$.
   - (d) 아래 3~4단계: 관측값 $\hat{\boldsymbol{y}}$가 주어진 사후분포.
   3. 결합분포: 교차 공분산 $\text{Cov}[\boldsymbol{x}, \boldsymbol{y}] = \Sigma_x A^\top$.
-     $$\begin{bmatrix} \boldsymbol{x} \\ \boldsymbol{y} \end{bmatrix} \sim \mathcal{N}\left( \begin{bmatrix} \boldsymbol{\mu}_x \\ A\boldsymbol{\mu}_x + \boldsymbol{b} \end{bmatrix}, \begin{bmatrix} \Sigma_x & \Sigma_x A^\top \\ A\Sigma_x & A\Sigma_x A^\top + Q \end{bmatrix} \right)$$
+     $$\begin{aligned} &\begin{bmatrix} \boldsymbol{x} \\ \boldsymbol{y} \end{bmatrix} \sim \mathcal{N}\biggl( \begin{bmatrix} \boldsymbol{\mu}_x \\ A\boldsymbol{\mu}_x + \boldsymbol{b} \end{bmatrix}, \\ &\quad \begin{bmatrix} \Sigma_x & \Sigma_x A^\top \\ A\Sigma_x & A\Sigma_x A^\top + Q \end{bmatrix} \biggr) \end{aligned}$$
   4. 조건부 가우시안 공식 적용:
      $$\boldsymbol{\mu}_{x \mid \hat{y}} = \boldsymbol{\mu}_x + \Sigma_x A^\top (A\Sigma_x A^\top + Q)^{-1} (\hat{\boldsymbol{y}} - A\boldsymbol{\mu}_x - \boldsymbol{b})$$
      $$\Sigma_{x \mid \hat{y}} = \Sigma_x - \Sigma_x A^\top (A\Sigma_x A^\top + Q)^{-1} A\Sigma_x$$

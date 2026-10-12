@@ -88,7 +88,7 @@ $$\{x \in \mathbb{R}^D : \langle w, x \rangle + b = 0\}$$
 초평면 위에 있는 임의의 두 점 $x_a, x_b$를 잡습니다 ($f(x_a) = 0, f(x_b) = 0$).
 두 점을 잇는 방향 벡터 $x_a - x_b$와 벡터 $w$의 내적을 계산해 보면 (교재 식 12.4):
 
-$$f(x_a) - f(x_b) = (\langle w, x_a \rangle + b) - (\langle w, x_b \rangle + b) = \langle w, x_a - x_b \rangle$$
+$$\begin{aligned} f(x_a) - f(x_b) &= (\langle w, x_a \rangle + b) \\ &\quad - (\langle w, x_b \rangle + b) \\ &= \langle w, x_a - x_b \rangle \end{aligned}$$
 
 좌변이 $0 - 0 = 0$이므로:
 $$\langle w, x_a - x_b \rangle = 0$$
@@ -148,7 +148,7 @@ $$\langle w, x_a' \rangle + b = 0$$
 $$x_a = x_a' + r \frac{w}{\|w\|}$$
 
 이 식을 초평면 방정식에 대입하면:
-$$\langle w, x_a \rangle + b = \left\langle w, x_a' + r \frac{w}{\|w\|} \right\rangle + b = \underbrace{\langle w, x_a' \rangle + b}_{=0} + r \frac{\langle w, w \rangle}{\|w\|} = r \frac{\|w\|^2}{\|w\|} = r \|w\|$$
+$$\begin{aligned} \langle w, x_a \rangle + b &= \left\langle w, x_a' + r \frac{w}{\|w\|} \right\rangle + b \\ &= \underbrace{\langle w, x_a' \rangle + b}_{=0} + r \frac{\langle w, w \rangle}{\|w\|} \\ &= r \frac{\|w\|^2}{\|w\|} = r \|w\| \end{aligned}$$
 
 따라서 임의의 점 $x_a$와 초평면 사이의 기하학적 수직 거리는:
 $$r = \frac{\langle w, x_a \rangle + b}{\|w\|}$$
@@ -157,11 +157,7 @@ $$\text{dist}(x_n, \text{hyperplane}) = \frac{y_n (\langle w, x_n \rangle + b)}{
 
 **마진(Margin)**\ 은 초평면에서 가장 가까운 데이터 포인트까지의 거리입니다. 만약 법선 벡터를 단위 길이($\|w\|=1$)로 고정한다면, 모든 데이터가 초평면으로부터 최소한 거리 $r$ 이상 떨어져 있어야 하므로 다음과 같은 최적화 문제가 됩니다 (교재 식 12.10):
 
-$$\begin{aligned}
-\max_{w, b, r} \quad & r \\
-\text{subject to} \quad & y_n (\langle w, x_n \rangle + b) \ge r, \quad \forall n=1, \dots, N \\
-& \|w\| = 1, \quad r > 0
-\end{aligned}$$
+$$\begin{aligned} \max_{w, b, r} \quad & r \\ \text{subject to} \quad & y_n (\langle w, x_n \rangle + b) \ge r, \\ &\quad \forall n=1, \dots, N \\ & \|w\| = 1, \quad r > 0 \end{aligned}$$
 
 ---
 
@@ -173,7 +169,7 @@ $$\begin{aligned}
 $$\langle w, x_a \rangle + b = 1$$
 이 점 $x_a$의 직교 사영 $x_a'$는 초평면 위에 있으므로 $\langle w, x_a' \rangle + b = 0$ 입니다.
 벡터 덧셈 $x_a = x_a' + r \frac{w}{\|w\|}$를 내적에 대입하면 (교재 식 12.12, 12.13):
-$$\langle w, x_a \rangle + b - \left\langle w, r \frac{w}{\|w\|} \right\rangle = 0 \implies 1 - r \|w\| = 0$$
+$$\begin{gathered} \langle w, x_a \rangle + b - \left\langle w, r \frac{w}{\|w\|} \right\rangle = 0 \\ \implies 1 - r \|w\| = 0 \end{gathered}$$
 
 따라서 **마진 $r$은 법선 벡터의 노름의 역수**가 됩니다 (교재 식 12.14):
 
@@ -184,10 +180,7 @@ $$r = \frac{1}{\|w\|}$$
 
 계산의 편의를 위해 2차 형식과 상수 $\frac{1}{2}$을 도입하면, **하드 마진 SVM(Hard Margin SVM)**\ 의 원시 최적화 문제가 완성됩니다 (교재 식 12.18, 12.19):
 
-$$\begin{aligned}
-\min_{w, b} \quad & \frac{1}{2} \|w\|^2 \\
-\text{subject to} \quad & y_n (\langle w, x_n \rangle + b) \ge 1, \quad \forall n = 1, \dots, N
-\end{aligned}$$
+$$\begin{aligned} \min_{w, b} \quad & \frac{1}{2} \|w\|^2 \\ \text{subject to} \quad & y_n (\langle w, x_n \rangle + b) \ge 1, \\ &\quad \forall n = 1, \dots, N \end{aligned}$$
 
 ---
 
@@ -196,7 +189,7 @@ $$\begin{aligned}
 초심자들이 가장 의아해하는 질문: **"왜 마진 경계선에서의 함수값을 임의로 1이라고 놓아도 일반성을 잃지 않는가? 2나 0.5로 두면 안 되는가?"**
 
 #### 정리 12.1의 엄밀한 증명
-- 12.2.1절의 문제: $\max_{w, b, r} r^2 \quad \text{s.t.} \quad y_n \left( \left\langle \frac{w}{\|w\|}, x_n \right\rangle + b \right) \ge r, \quad r > 0$.
+- 12.2.1절의 문제: $$\begin{aligned} \max_{w, b, r} r^2 \\ \text{s.t.} \quad & y_n \left( \left\langle \frac{w}{\|w\|}, x_n \right\rangle + b \right) \ge r, \\ & r > 0 \end{aligned}$$.
 - 선형 제약조건의 양변을 $r > 0$으로 나눕니다:
   $$y_n \left( \left\langle \frac{w}{r \|w\|}, x_n \right\rangle + \frac{b}{r} \right) \ge 1$$
 - 새로운 변수를 정의합니다:
@@ -223,11 +216,7 @@ $$\begin{aligned}
 
 우리는 마진을 넓히고 싶으면서도($\frac{1}{2}\|w\|^2$ 최소화), 동시에 슬랙 변수들의 총합($\sum \xi_n$)을 최소화하여 오분류를 줄이고 싶습니다. 두 목표를 절충(trade-off)하는 매개변수 $C > 0$을 도입한 것이 **소프트 마진 SVM(Soft Margin SVM / C-SVM)**\ 입니다 (교재 식 12.26):
 
-$$\begin{aligned}
-\min_{w, b, \xi} \quad & \frac{1}{2} \|w\|^2 + C \sum_{n=1}^N \xi_n \\
-\text{subject to} \quad & y_n (\langle w, x_n \rangle + b) \ge 1 - \xi_n, \quad \forall n = 1, \dots, N \\
-& \xi_n \ge 0, \quad \forall n = 1, \dots, N
-\end{aligned}$$
+$$\begin{aligned} \min_{w, b, \xi} \quad & \frac{1}{2} \|w\|^2 + C \sum_{n=1}^N \xi_n \\ \text{subject to} \quad & y_n (\langle w, x_n \rangle + b) \ge 1 - \xi_n, \\ &\quad \forall n = 1, \dots, N \\ & \xi_n \ge 0, \quad \forall n = 1, \dots, N \end{aligned}$$
 
 - **정규화 매개변수 $C$의 역할**:
   - $C \to \infty$: 슬랙을 전혀 용납하지 않음 $\implies$ 하드 마진 SVM으로 수렴. 과적합(overfitting) 위험 증가.
@@ -238,22 +227,22 @@ $$\begin{aligned}
 ### 12.2.5 소프트 마진 SVM: 손실 함수 관점 (380~383쪽)
 
 머신러닝의 8장에서 배운 **경험적 위험 최소화(Empirical Risk Minimization, ERM)** 프레임워크를 떠올려 봅시다:
-$$\min_{\text{model}} \quad \text{규제항(Regularizer)} + C \times \text{손실함수(Loss)}$$
+$$\begin{aligned} \min_{\text{model}} \quad & \text{규제항(Regularizer)} \\ &\quad + C \times \text{손실함수(Loss)} \end{aligned}$$
 
 이진 분류에서 가장 이상적인 손실 함수는 틀린 개수를 세는 **0-1 손실(zero-one loss)** $\mathbf{1}(y \ne \text{sign}(f(x)))$ 입니다. 하지만 0-1 손실은 불연속이고 미분이 불가능하여 조합 최적화(combinatorial optimization) 문제로 귀결되므로 풀기가 매우 어렵습니다.
 
 SVM은 0-1 손실의 볼록 상한(convex upper bound)인 **힌지 손실(hinge loss)**\ 을 채택합니다 (교재 식 12.28, 그림 12.8):
 
-$$\ell_{\text{hinge}}(t) = \max\{0, 1 - t\}, \quad \text{where } t = y f(x) = y (\langle w, x \rangle + b)$$
+$$\begin{aligned} \ell_{\text{hinge}}(t) &= \max\{0, 1 - t\}, \\ \text{where } t &= y f(x) = y (\langle w, x \rangle + b) \end{aligned}$$
 
 이 힌지 손실을 전체 데이터에 대해 더하고 $\ell_2$ 규제항 $\frac{1}{2}\|w\|^2$을 더하면, 놀랍게도 아무런 제약조건이 없는 **비제약 최적화 문제(unconstrained optimization problem)**\ 가 됩니다 (교재 식 12.31):
 
-$$\min_{w, b} \quad \underbrace{\frac{1}{2} \|w\|^2}_{\text{규제항 (마진 최대화)}} + C \sum_{n=1}^N \underbrace{\max\{0, 1 - y_n (\langle w, x_n \rangle + b)\}}_{\text{힌지 손실 (오차 패널티)}}$$
+$$\begin{aligned} \min_{w, b} \quad & \underbrace{\frac{1}{2} \|w\|^2}_{\text{규제항 (마진 최대화)}} \\ &\quad + C \sum_{n=1}^N \\ &\quad \underbrace{\max\{0, 1 - y_n (\langle w, x_n \rangle + b)\}}_{\text{힌지 손실 (오차 패널티)}} \end{aligned}$$
 
 #### 기하학적 관점과 손실 함수 관점의 동치성 증명
 단일 데이터에 대해 힌지 손실의 최소화 문제 $\min_t \max\{0, 1-t\}$를 생각해 봅시다.
 보조 변수 $\xi$를 도입하여 $\xi \ge 0$ 이고 $\xi \ge 1-t$ 라는 두 제약조건을 걸면:
-$$\min \xi \quad \text{s.t.} \quad \xi \ge 0, \; \xi \ge 1 - y_n (\langle w, x_n \rangle + b)$$
+$$\begin{aligned} \min \xi \quad \text{s.t.} \quad & \xi \ge 0, \\ & \xi \ge 1 - y_n (\langle w, x_n \rangle + b) \end{aligned}$$
 와 완벽히 동치입니다 (교재 식 12.32, 12.33). 이를 모든 데이터에 적용하면 정확히 12.2.4절의 슬랙 변수 기반 소프트 마진 최적화 문제 (12.26)로 복원됩니다!
 
 ---
@@ -287,21 +276,21 @@ $$\min \xi \quad \text{s.t.} \quad \xi \ge 0, \; \xi \ge 1 - y_n (\langle w, x_n
 #### 1. 라그랑지안 함수 구성
 원시 문제 (12.26)의 부등식 제약조건에 대해 라그랑주 승수 $\alpha_n \ge 0$과 $\gamma_n \ge 0$을 도입합니다 (교재 식 12.34):
 
-$$\mathcal{L}(w, b, \xi, \alpha, \gamma) = \frac{1}{2} \|w\|^2 + C \sum_{n=1}^N \xi_n - \sum_{n=1}^N \alpha_n \left( y_n (\langle w, x_n \rangle + b) - 1 + \xi_n \right) - \sum_{n=1}^N \gamma_n \xi_n$$
+$$\begin{aligned} \mathcal{L}(w, b, \xi, \alpha, \gamma) &= \frac{1}{2} \|w\|^2 \\ &\quad + C \sum_{n=1}^N \xi_n \\ &\quad - \sum_{n=1}^N \alpha_n \Bigl( \\ &\qquad y_n (\langle w, x_n \rangle + b) - 1 + \xi_n \Bigr) \\ &\quad - \sum_{n=1}^N \gamma_n \xi_n \end{aligned}$$
 
 #### 2. 원시 변수에 대한 KKT 정지조건 (Stationarity)
 라그랑지안을 세 개의 원시 변수 $w, b, \xi_n$으로 각각 편미분하여 $0$으로 둡니다:
 
 1. **$w$에 대한 편미분** (교재 식 12.35):
-   $$\nabla_w \mathcal{L} = w - \sum_{n=1}^N \alpha_n y_n x_n = \mathbf{0} \implies w = \sum_{n=1}^N \alpha_n y_n x_n$$
+   $$\begin{aligned} \nabla_w \mathcal{L} &= w - \sum_{n=1}^N \alpha_n y_n x_n = \mathbf{0} \\ &\implies w = \sum_{n=1}^N \alpha_n y_n x_n \end{aligned}$$
    > **핵심: 표현자 정리(Representer Theorem)**!  
    > 최적의 법선 벡터 $w^*$는 임의의 다른 방향을 가질 수 없으며, **반드시 훈련 데이터 $x_n$들의 선형결합(span) 안에 존재**합니다.
 
 2. **$b$에 대한 편미분** (교재 식 12.36):
-   $$\frac{\partial \mathcal{L}}{\partial b} = -\sum_{n=1}^N \alpha_n y_n = 0 \implies \sum_{n=1}^N \alpha_n y_n = 0$$
+   $$\begin{aligned} \frac{\partial \mathcal{L}}{\partial b} &= -\sum_{n=1}^N \alpha_n y_n = 0 \\ &\implies \sum_{n=1}^N \alpha_n y_n = 0 \end{aligned}$$
 
 3. **$\xi_n$에 대한 편미분** (교재 식 12.37):
-   $$\frac{\partial \mathcal{L}}{\partial \xi_n} = C - \alpha_n - \gamma_n = 0 \implies C = \alpha_n + \gamma_n$$
+   $$\begin{aligned} \frac{\partial \mathcal{L}}{\partial \xi_n} &= C - \alpha_n - \gamma_n = 0 \\ &\implies C = \alpha_n + \gamma_n \end{aligned}$$
    라그랑주 승수의 비음수 조건 $\gamma_n \ge 0$에 의해:
    $$\alpha_n \le C$$
    원래의 $\alpha_n \ge 0$과 결합하면 다음과 같은 유명한 **박스 제약조건(Box Constraint)**\ 이 탄생합니다:
@@ -311,11 +300,7 @@ $$\mathcal{L}(w, b, \xi, \alpha, \gamma) = \frac{1}{2} \|w\|^2 + C \sum_{n=1}^N 
 위의 세 관계식을 라그랑지안에 대입하여 $w, b, \xi$를 완전히 소거합니다 (상세 유도는 본문 뒷부분의 '핵심 유도 모음' 참조).
 최종적으로 얻어지는 **쌍대 서포트 벡터 머신(Dual SVM)** 문제는 다음과 같습니다 (교재 식 12.41):
 
-$$\begin{aligned}
-\min_{\alpha} \quad & \frac{1}{2} \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j \langle x_i, x_j \rangle - \sum_{i=1}^N \alpha_i \\
-\text{subject to} \quad & \sum_{i=1}^N \alpha_i y_i = 0 \\
-& 0 \le \alpha_i \le C, \quad \forall i = 1, \dots, N
-\end{aligned}$$
+$$\begin{aligned} \min_{\alpha} \quad & \frac{1}{2} \sum_{i=1}^N \\ &\quad \sum_{j=1}^N \alpha_i \alpha_j y_i y_j \langle x_i, x_j \rangle \\ &\quad - \sum_{i=1}^N \alpha_i \\ \text{subject to} \quad & \sum_{i=1}^N \alpha_i y_i = 0 \\ & 0 \le \alpha_i \le C, \\ &\quad \forall i = 1, \dots, N \end{aligned}$$
 
 *(참고: 교재에서는 원래 쌍대 함수 $\max_\alpha \mathcal{D}(\alpha)$에 마이너스를 붙여 $\min_\alpha [-\mathcal{D}(\alpha)]$의 최소화 문제로 표준화하였습니다).*
 
@@ -334,7 +319,7 @@ KKT 조건 중 상보 여유성 조건은 다음과 같습니다:
    - 따라서 $y_n (\langle w, x_n \rangle + b) = 1$이 정확히 성립합니다!
    - **마진 경계선 바로 위에 정확히 놓여 있는 점**들입니다.
    - 편향 $b^*$를 계산할 때 바로 이 점들을 사용합니다:
-     $$b^* = y_n - \langle w^*, x_n \rangle = y_n - \sum_{j=1}^N \alpha_j^* y_j \langle x_j, x_n \rangle$$
+     $$\begin{aligned} b^* &= y_n - \langle w^*, x_n \rangle \\ &= y_n - \sum_{j=1}^N \alpha_j^* y_j \langle x_j, x_n \rangle \end{aligned}$$
 3. **$\alpha_n = C$인 점 (유계 서포트 벡터 / Bounded Support Vector)**:
    - $\gamma_n = 0 \implies \xi_n \ge 0$.
    - 마진 경계를 침범했거나($0 < \xi_n \le 1$), 반대편으로 넘어가 오분류된($\xi_n > 1$) 데이터들입니다.
@@ -347,7 +332,7 @@ SVM은 라그랑주 승수법 외에도 **계산기하학(computational geometry
 
 #### 볼록 껍질(Convex Hull)의 정의
 어떤 점들의 집합 $X$의 볼록 껍질 $\text{conv}(X)$는 점들의 모든 볼록 결합(가중치 합이 1이고 비음수)으로 둘러싸인 가장 작은 볼록 다포체(convex polytope)입니다 (교재 식 12.43):
-$$\text{conv}(X) = \left\{ \sum_{n=1}^N \alpha_n x_n \ \middle|\ \sum_{n=1}^N \alpha_n = 1, \; \alpha_n \ge 0 \right\}$$
+$$\begin{aligned} & \text{conv}(X) \\ &= \left\{ \sum_{n=1}^N \alpha_n x_n \ \middle|\ \sum_{n=1}^N \alpha_n = 1, \; \alpha_n \ge 0 \right\} \end{aligned}$$
 
 #### 두 볼록 껍질 사이의 최단 거리
 양성 클래스 데이터들의 볼록 껍질을 $\text{conv}(X^+)$, 음성 클래스 데이터들의 볼록 껍질을 $\text{conv}(X^-)$라 합시다 (교재 그림 12.9).
@@ -355,9 +340,9 @@ $$\text{conv}(X) = \left\{ \sum_{n=1}^N \alpha_n x_n \ \middle|\ \sum_{n=1}^N \a
 - 음성 껍질 안의 점: $d = \sum_{n: y_n=-1} \alpha_n^- x_n \quad (\sum \alpha_n^- = 1, \alpha_n^- \ge 0)$
 
 두 다포체 사이의 가장 가까운 두 점 $c$와 $d$를 찾는 문제는 두 점 사이의 거리 $\|c - d\|^2$를 최소화하는 것입니다 (교재 식 12.48):
-$$\min_{\alpha^+, \alpha^-} \frac{1}{2} \|c - d\|^2 = \min \frac{1}{2} \left\| \sum_{n: y_n=+1} \alpha_n^+ x_n - \sum_{n: y_n=-1} \alpha_n^- x_n \right\|^2$$
+$$\begin{aligned} \min_{\alpha^+, \alpha^-} \frac{1}{2} \|c - d\|^2 &= \min \frac{1}{2} \Biggl\| \sum_{n: y_n=+1} \alpha_n^+ x_n \\ &\quad - \sum_{n: y_n=-1} \alpha_n^- x_n \Biggr\|^2 \end{aligned}$$
 제약조건 $\sum \alpha_n^+ = 1$과 $\sum \alpha_n^- = 1$을 합치면:
-$$\sum_{n: y_n=+1} (+1)\alpha_n^+ + \sum_{n: y_n=-1} (-1)\alpha_n^- = 1 - 1 = 0 \iff \sum_{n=1}^N y_n \alpha_n = 0$$
+$$\begin{aligned} &\sum_{n: y_n=+1} (+1)\alpha_n^+ \\ &\quad + \sum_{n: y_n=-1} (-1)\alpha_n^- \\ &= 1 - 1 = 0 \\ &\iff \sum_{n=1}^N y_n \alpha_n = 0 \end{aligned}$$
 이 기하학적 최소화 문제는 **하드 마진 쌍대 SVM과 수학적으로 완벽히 동치**입니다!
 최적의 초평면은 바로 두 볼록 껍질 사이의 최단 선분 $c - d$를 수직이등분하는 평면이 됩니다.
 
@@ -383,7 +368,7 @@ $$K = \begin{bmatrix} 5 & 4 & 0 \\ 4 & 5 & 0 \\ 0 & 0 & 0 \end{bmatrix}$$
 쌍대 목적함수:
 $$\max_{\alpha_1, \alpha_2, \alpha_3} \sum_{i=1}^3 \alpha_i - \frac{1}{2} \sum_{i=1}^3 \sum_{j=1}^3 \alpha_i \alpha_j y_i y_j K_{ij}$$
 제약조건:
-$$\sum_{i=1}^3 \alpha_i y_i = \alpha_1(1) + \alpha_2(1) + \alpha_3(-1) = 0 \implies \alpha_3 = \alpha_1 + \alpha_2$$
+$$\begin{aligned} \sum_{i=1}^3 \alpha_i y_i &= \alpha_1(1) + \alpha_2(1) + \alpha_3(-1) = 0 \\ &\implies \alpha_3 = \alpha_1 + \alpha_2 \end{aligned}$$
 $\alpha_i \ge 0$.
 
 $\alpha_3 = \alpha_1 + \alpha_2$를 목적함수에 대입합니다:
@@ -391,40 +376,37 @@ $\alpha_3 = \alpha_1 + \alpha_2$를 목적함수에 대입합니다:
    $$\sum_{i=1}^3 \alpha_i = \alpha_1 + \alpha_2 + \alpha_3 = \alpha_1 + \alpha_2 + (\alpha_1 + \alpha_2) = 2(\alpha_1 + \alpha_2)$$
 2. 2차항:
    $x_3$ 관련 내적은 모두 $0$이므로 $i=3$이나 $j=3$인 항은 모두 사라집니다!
-   $$\frac{1}{2} \sum_{i=1}^3 \sum_{j=1}^3 \alpha_i \alpha_j y_i y_j K_{ij} = \frac{1}{2} \left[ \alpha_1^2 (1)(1)(5) + 2 \alpha_1 \alpha_2 (1)(1)(4) + \alpha_2^2 (1)(1)(5) \right] = \frac{1}{2} (5\alpha_1^2 + 8\alpha_1 \alpha_2 + 5\alpha_2^2)$$
+   $$\begin{aligned} &\frac{1}{2} \sum_{i=1}^3 \sum_{j=1}^3 \alpha_i \alpha_j y_i y_j K_{ij} \\ &= \frac{1}{2} \Bigl[ \alpha_1^2 (1)(1)(5) \\ &\quad + 2 \alpha_1 \alpha_2 (1)(1)(4) \\ &\quad + \alpha_2^2 (1)(1)(5) \Bigr] \\ &= \frac{1}{2} (5\alpha_1^2 + 8\alpha_1 \alpha_2 + 5\alpha_2^2) \end{aligned}$$
 
 따라서 최적화할 함수 $g(\alpha_1, \alpha_2)$는:
-$$g(\alpha_1, \alpha_2) = 2\alpha_1 + 2\alpha_2 - \frac{5}{2}\alpha_1^2 - 4\alpha_1\alpha_2 - \frac{5}{2}\alpha_2^2$$
+$$\begin{aligned} g(\alpha_1, \alpha_2) &= 2\alpha_1 + 2\alpha_2 \\ &\quad - \frac{5}{2}\alpha_1^2 - 4\alpha_1\alpha_2 - \frac{5}{2}\alpha_2^2 \end{aligned}$$
 
 #### 3단계: 극값 계산
 편미분을 0으로 두면 $\frac{\partial g}{\partial \alpha_1} = 2 - 5\alpha_1 - 4\alpha_2 = 0$, $\frac{\partial g}{\partial \alpha_2} = 2 - 4\alpha_1 - 5\alpha_2 = 0$이고, 두 식을 빼면 $\alpha_2 - \alpha_1 = 0$입니다. 그래서 $\alpha_1 = \alpha_2 = \alpha$로 둡니다:
-$$g(\alpha) = 2(\alpha + \alpha) - \left( \frac{5}{2}\alpha^2 + 4\alpha^2 + \frac{5}{2}\alpha^2 \right) = 4\alpha - 9\alpha^2$$
+$$\begin{aligned} g(\alpha) &= 2(\alpha + \alpha) \\ &\quad - \left( \frac{5}{2}\alpha^2 + 4\alpha^2 + \frac{5}{2}\alpha^2 \right) \\ &= 4\alpha - 9\alpha^2 \end{aligned}$$
 $\alpha$로 미분하여 $0$으로 놓으면:
 $$\frac{dg}{d\alpha} = 4 - 18\alpha = 0 \implies \alpha = \frac{4}{18} = \frac{2}{9}$$
 
 따라서 최적의 라그랑주 승수는:
-$$\alpha_1^* = \frac{2}{9}, \quad \alpha_2^* = \frac{2}{9}, \quad \alpha_3^* = \alpha_1^* + \alpha_2^* = \frac{4}{9}$$
+$$\begin{aligned} \alpha_1^* &= \frac{2}{9}, \\ \alpha_2^* &= \frac{2}{9}, \\ \alpha_3^* &= \alpha_1^* + \alpha_2^* = \frac{4}{9} \end{aligned}$$
 모두 $\alpha_i^* > 0$ 이므로 세 점 모두 서포트 벡터입니다!
 
 #### 4단계: 법선 벡터 $w^*$ 및 편향 $b^*$ 계산
 - **$w^*$ 계산 (표현자 정리)**:
-  $$\begin{aligned}
-  w^* &= \sum_{i=1}^3 \alpha_i^* y_i x_i = \frac{2}{9}(+1)\begin{bmatrix} 1 \\ 2 \end{bmatrix} + \frac{2}{9}(+1)\begin{bmatrix} 2 \\ 1 \end{bmatrix} + \frac{4}{9}(-1)\begin{bmatrix} 0 \\ 0 \end{bmatrix} \\
-  &= \frac{2}{9} \left( \begin{bmatrix} 1 \\ 2 \end{bmatrix} + \begin{bmatrix} 2 \\ 1 \end{bmatrix} \right) = \frac{2}{9} \begin{bmatrix} 3 \\ 3 \end{bmatrix} = \begin{bmatrix} 2/3 \\ 2/3 \end{bmatrix}
-  \end{aligned}$$
+  $$\begin{aligned} w^* &= \sum_{i=1}^3 \alpha_i^* y_i x_i = \frac{2}{9}(+1)\begin{bmatrix} 1 \\ 2 \end{bmatrix} \\ &\quad + \frac{2}{9}(+1)\begin{bmatrix} 2 \\ 1 \end{bmatrix} + \frac{4}{9}(-1)\begin{bmatrix} 0 \\ 0 \end{bmatrix} \\ &= \frac{2}{9} \left( \begin{bmatrix} 1 \\ 2 \end{bmatrix} + \begin{bmatrix} 2 \\ 1 \end{bmatrix} \right) \\ &= \frac{2}{9} \begin{bmatrix} 3 \\ 3 \end{bmatrix} = \begin{bmatrix} 2/3 \\ 2/3 \end{bmatrix} \end{aligned}$$
 
 - **$b^*$ 계산**:
   서포트 벡터 $x_1$은 마진 경계선 위에 있으므로 $y_1(\langle w^*, x_1 \rangle + b) = 1$:
-  $$(+1)\left( \begin{bmatrix} 2/3 & 2/3 \end{bmatrix} \begin{bmatrix} 1 \\ 2 \end{bmatrix} + b \right) = 1 \implies \left(\frac{2}{3} + \frac{4}{3}\right) + b = 1 \implies 2 + b = 1 \implies b^* = -1$$
+  $$\begin{aligned} & (+1)\left( \begin{bmatrix} 2/3 & 2/3 \end{bmatrix} \begin{bmatrix} 1 \\ 2 \end{bmatrix} + b \right) = 1 \\ & \implies \left(\frac{2}{3} + \frac{4}{3}\right) + b = 1 \\ & \implies 2 + b = 1 \implies b^* = -1 \end{aligned}$$
   (검산 $x_2$): $\langle w^*, x_2 \rangle + b = (4/3 + 2/3) - 1 = 2 - 1 = +1 = y_2$ (성립!)  
   (검산 $x_3$): $\langle w^*, x_3 \rangle + b = 0 - 1 = -1 = y_3$ (성립!)
 
 - **마진(Margin) $r$ 계산**:
-  $$\|w^*\| = \sqrt{\left(\frac{2}{3}\right)^2 + \left(\frac{2}{3}\right)^2} = \sqrt{\frac{8}{9}} = \frac{2\sqrt{2}}{3}$$
+  $$\begin{aligned} \|w^*\| &= \sqrt{\left(\frac{2}{3}\right)^2 + \left(\frac{2}{3}\right)^2} \\ &= \sqrt{\frac{8}{9}} = \frac{2\sqrt{2}}{3} \end{aligned}$$
   $$r = \frac{1}{\|w^*\|} = \frac{3}{2\sqrt{2}} = \frac{3\sqrt{2}}{4} \approx 1.0607$$
 
 - **초평면 방정식**:
-  $$\frac{2}{3} x_1 + \frac{2}{3} x_2 - 1 = 0 \iff x_1 + x_2 - 1.5 = 0$$
+  $$\begin{aligned} & \frac{2}{3} x_1 + \frac{2}{3} x_2 - 1 = 0 \\ & \iff x_1 + x_2 - 1.5 = 0 \end{aligned}$$
 
 - **볼록 껍질 관점과의 기하학적 일치 확인**:
   - 양성 껍질의 중점 $c = \frac{1}{2}x_1 + \frac{1}{2}x_2 = \begin{bmatrix} 1.5 \\ 1.5 \end{bmatrix}$
@@ -479,7 +461,7 @@ $$f(x_{\text{test}}) = \sum_{n=1}^N \alpha_n^* y_n k(x_n, x_{\text{test}}) + b^*
 이 커널에 대응하는 명시적 특성 매핑 $\phi(x)$를 구하시오.
 
 **풀이**:
-$$k(x_i, x_j) = (x_i x_j + 1)^2 = (x_i x_j)^2 + 2(x_i x_j) + 1 = x_i^2 x_j^2 + (\sqrt{2}x_i)(\sqrt{2}x_j) + 1 \cdot 1$$
+$$\begin{aligned} k(x_i, x_j) &= (x_i x_j + 1)^2 \\ &= (x_i x_j)^2 + 2(x_i x_j) + 1 \\ &= x_i^2 x_j^2 \\ &\quad + (\sqrt{2}x_i)(\sqrt{2}x_j) + 1 \cdot 1 \end{aligned}$$
 이는 3차원 벡터 간의 표준 내적과 일치한다:
 $$\langle \phi(x_i), \phi(x_j) \rangle = \begin{bmatrix} x_i^2 \\ \sqrt{2}x_i \\ 1 \end{bmatrix}^\top \begin{bmatrix} x_j^2 \\ \sqrt{2}x_j \\ 1 \end{bmatrix}$$
 따라서 특성 매핑은 $\phi(x) = \begin{bmatrix} x^2 \\ \sqrt{2}x \\ 1 \end{bmatrix} \in \mathbb{R}^3$ 이다. 1차원 데이터를 3차원 포물선 공간으로 매핑한 것과 동일합니다.
@@ -505,8 +487,8 @@ $$g(t) = \begin{cases} -1 & \text{if } t < 1 \\ [-1, 0] & \text{if } t = 1 \\ 0 
 #### 2. 원시 SVM의 2차 계획법(QP) 표준형 (교재 식 12.56)
 변수들을 하나의 긴 벡터 $\theta = \begin{bmatrix} w \\ b \\ \xi \end{bmatrix} \in \mathbb{R}^{D + 1 + N}$로 결합하면, 원시 SVM은 표준 QP 형태 $\min_\theta \frac{1}{2} \theta^\top P \theta + q^\top \theta \quad \text{s.t.} \quad A \theta \le h$ 로 완벽히 표현됩니다:
 
-$$\min_{w, b, \xi} \frac{1}{2} \begin{bmatrix} w \\ b \\ \xi \end{bmatrix}^\top \begin{bmatrix} I_D & \mathbf{0} & \mathbf{0} \\ \mathbf{0} & 0 & \mathbf{0} \\ \mathbf{0} & \mathbf{0} & \mathbf{0} \end{bmatrix} \begin{bmatrix} w \\ b \\ \xi \end{bmatrix} + \begin{bmatrix} \mathbf{0}_{D+1} \\ C \mathbf{1}_N \end{bmatrix}^\top \begin{bmatrix} w \\ b \\ \xi \end{bmatrix}$$
-$$\text{subject to} \quad \begin{bmatrix} -YX & -y & -I_N \\ \mathbf{0} & 0 & -I_N \end{bmatrix} \begin{bmatrix} w \\ b \\ \xi \end{bmatrix} \le \begin{bmatrix} -\mathbf{1}_N \\ \mathbf{0}_N \end{bmatrix}$$
+$$\begin{aligned} & \min_{w, b, \xi} \frac{1}{2} \begin{bmatrix} w \\ b \\ \xi \end{bmatrix}^\top \begin{bmatrix} I_D & \mathbf{0} & \mathbf{0} \\ \mathbf{0} & 0 & \mathbf{0} \\ \mathbf{0} & \mathbf{0} & \mathbf{0} \end{bmatrix} \begin{bmatrix} w \\ b \\ \xi \end{bmatrix} \\ &\quad + \begin{bmatrix} \mathbf{0}_{D+1} \\ C \mathbf{1}_N \end{bmatrix}^\top \begin{bmatrix} w \\ b \\ \xi \end{bmatrix} \end{aligned}$$
+$$\begin{aligned} \text{subject to} \quad & \begin{bmatrix} -YX & -y & -I_N \\ \mathbf{0} & 0 & -I_N \end{bmatrix} \begin{bmatrix} w \\ b \\ \xi \end{bmatrix} \\ & \le \begin{bmatrix} -\mathbf{1}_N \\ \mathbf{0}_N \end{bmatrix} \end{aligned}$$
 여기서 $Y = \text{diag}(y)$, $X \in \mathbb{R}^{N \times D}$ 입니다.
 
 #### 3. 쌍대 SVM의 2차 계획법(QP) 표준형 (교재 식 12.57)
@@ -553,7 +535,7 @@ $$\text{subject to} \quad \begin{bmatrix} y^\top \\ -y^\top \\ -I_N \\ I_N \end{
 **목표**: 원시 소프트 마진 최적화 문제로부터 라그랑주 함수를 구성하고, $w, b, \xi$를 소거하여 $\alpha$만의 쌍대 문제를 유도한다.
 
 1. **원시 문제 및 라그랑지안 구성**:
-   $$L(w, b, \xi, \alpha, \gamma) = \frac{1}{2} \|w\|^2 + C \sum_{n=1}^N \xi_n - \sum_{n=1}^N \alpha_n \left( y_n (\langle w, x_n \rangle + b) - 1 + \xi_n \right) - \sum_{n=1}^N \gamma_n \xi_n$$
+   $$\begin{aligned} L(w, b, \xi, \alpha, \gamma) &= \frac{1}{2} \|w\|^2 \\ &\quad + C \sum_{n=1}^N \xi_n \\ &\quad - \sum_{n=1}^N \alpha_n \Bigl( \\ &\qquad y_n (\langle w, x_n \rangle + b) - 1 + \xi_n \Bigr) \\ &\quad - \sum_{n=1}^N \gamma_n \xi_n \end{aligned}$$
    제약: $\alpha_n \ge 0, \gamma_n \ge 0$.
 
 2. **$w, b, \xi$에 대한 편미분을 0으로 놓기 (KKT 1차 조건)**:
@@ -563,29 +545,27 @@ $$\text{subject to} \quad \begin{bmatrix} y^\top \\ -y^\top \\ -I_N \\ I_N \end{
 
 3. **라그랑지안의 항별 분해 및 소거**:
    $L$을 각 변수별로 묶어 정리하면 (교재 식 12.39):
-   $$\begin{aligned}
-   L &= \frac{1}{2} \|w\|^2 - \left\langle w, \sum_{n=1}^N \alpha_n y_n x_n \right\rangle - b \underbrace{\left( \sum_{n=1}^N \alpha_n y_n \right)}_{=0} + \sum_{n=1}^N \alpha_n + \sum_{n=1}^N \underbrace{(C - \alpha_n - \gamma_n)}_{=0} \xi_n
-   \end{aligned}$$
+   $$\begin{aligned} L &= \frac{1}{2} \|w\|^2 - \left\langle w, \sum_{n=1}^N \alpha_n y_n x_n \right\rangle \\ &\quad - b \underbrace{\left( \sum_{n=1}^N \alpha_n y_n \right)}_{=0} + \sum_{n=1}^N \alpha_n \\ &\quad + \sum_{n=1}^N \underbrace{(C - \alpha_n - \gamma_n)}_{=0} \xi_n \end{aligned}$$
    - $b$가 곱해진 항은 $\sum \alpha_n y_n = 0$에 의해 완전히 $0$이 되어 사라진다.
    - $\xi_n$이 곱해진 항은 $C - \alpha_n - \gamma_n = 0$에 의해 완전히 $0$이 되어 사라진다.
 
 4. **$w$ 항의 대입 및 정리**:
    $w = \sum_{n=1}^N \alpha_n y_n x_n$을 대입하면:
-   $$\frac{1}{2} \|w\|^2 = \frac{1}{2} \left\langle \sum_{i=1}^N \alpha_i y_i x_i, \sum_{j=1}^N \alpha_j y_j x_j \right\rangle = \frac{1}{2} \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j \langle x_i, x_j \rangle$$
+   $$\begin{aligned} \frac{1}{2} \|w\|^2 &= \frac{1}{2} \Bigl\langle \sum_{i=1}^N \alpha_i y_i x_i, \\ &\quad \sum_{j=1}^N \alpha_j y_j x_j \Bigr\rangle \\ &= \frac{1}{2} \sum_{i=1}^N \\ &\quad \sum_{j=1}^N \alpha_i \alpha_j y_i y_j \langle x_i, x_j \rangle \end{aligned}$$
    뒤의 내적 항:
-   $$-\left\langle w, \sum_{i=1}^N \alpha_i y_i x_i \right\rangle = -\|w\|^2 = -\sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j \langle x_i, x_j \rangle$$
+   $$\begin{aligned} &-\left\langle w, \sum_{i=1}^N \alpha_i y_i x_i \right\rangle \\ &= -\|w\|^2 \\ &= -\sum_{i=1}^N \\ &\quad \sum_{j=1}^N \alpha_i \alpha_j y_i y_j \langle x_i, x_j \rangle \end{aligned}$$
    두 항을 합치면:
-   $$\frac{1}{2}\|w\|^2 - \|w\|^2 = -\frac{1}{2}\|w\|^2 = -\frac{1}{2} \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j \langle x_i, x_j \rangle$$
+   $$\begin{aligned} &\frac{1}{2}\|w\|^2 - \|w\|^2 \\ &= -\frac{1}{2}\|w\|^2 \\ &= -\frac{1}{2} \sum_{i=1}^N \\ &\quad \sum_{j=1}^N \alpha_i \alpha_j y_i y_j \langle x_i, x_j \rangle \end{aligned}$$
 
 5. **쌍대 목적함수 $\mathcal{D}(\alpha)$ 완성**:
-   $$\mathcal{D}(\alpha) = \sum_{i=1}^N \alpha_i - \frac{1}{2} \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j \langle x_i, x_j \rangle$$
+   $$\begin{aligned} \mathcal{D}(\alpha) &= \sum_{i=1}^N \alpha_i \\ &\quad - \frac{1}{2} \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j \langle x_i, x_j \rangle \end{aligned}$$
    제약조건:
    - $\sum_{i=1}^N \alpha_i y_i = 0$
    - $\alpha_i \ge 0$ 이고, $\gamma_i = C - \alpha_i \ge 0 \implies \alpha_i \le C \implies 0 \le \alpha_i \le C$.
 
 6. **최소화 문제로의 변환**:
    $\max \mathcal{D}(\alpha) \iff \min [-\mathcal{D}(\alpha)]$ 이므로:
-   $$\min_\alpha \frac{1}{2} \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j \langle x_i, x_j \rangle - \sum_{i=1}^N \alpha_i \quad \blacksquare$$
+   $$\begin{aligned} & \min_\alpha \frac{1}{2} \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j \langle x_i, x_j \rangle \\ &\quad - \sum_{i=1}^N \alpha_i \quad \blacksquare \end{aligned}$$
 
 ---
 
@@ -692,7 +672,7 @@ SVM의 최적해에서 "서포트 벡터(Support Vector)"가 무엇인지 라그
 KKT 상보 여유성 조건에 의해, **박스 제약조건의 엄격한 내부($0 < \alpha_n^* < C$)에 있는 자유 서포트 벡터(free support vector)**\ 를 선택해야 한다.
 이 점들은 슬랙 변수 $\xi_n = 0$이 엄밀히 보장되므로 마진 경계선 바로 위에 정확히 놓여 있다 ($y_n (\langle w^*, x_n \rangle + b^*) = 1$).
 양변에 $y_n$을 곱하면 ($y_n^2 = 1$이므로):
-$$b^* = y_n - \langle w^*, x_n \rangle = y_n - \sum_{j=1}^N \alpha_j^* y_j \langle x_j, x_n \rangle$$
+$$\begin{aligned} b^* &= y_n - \langle w^*, x_n \rangle \\ &= y_n - \sum_{j=1}^N \alpha_j^* y_j \langle x_j, x_n \rangle \end{aligned}$$
 로 정확하게 계산할 수 있다. (교재 식 (12.42) 뒤 비고: 마진 위에 정확히 놓인 점이 없을 수도 있으므로, 모든 서포트 벡터에서 $|y_n - \langle w^*, x_n \rangle|$를 계산해 그 **중앙값**을 쓰라고 한다. 평균을 쓰는 구현도 있다.)
 
 ---
@@ -710,13 +690,11 @@ $$b^* = y_n - \langle w^*, x_n \rangle = y_n - \sum_{j=1}^N \alpha_j^* y_j \lang
 1차원 데이터에서 가우시안 RBF 커널 $k(x, z) = \exp\left(-\frac{(x-z)^2}{2}\right)$가 어떻게 무한 차원 특성 공간의 내적으로 해석될 수 있는지 지수함수의 테일러 급수 전개를 통해 보이시오.
 
 **[풀이]**
-$$\begin{aligned}
-k(x, z) &= \exp\left(-\frac{x^2 - 2xz + z^2}{2}\right) = \exp\left(-\frac{x^2}{2}\right) \exp\left(-\frac{z^2}{2}\right) \exp(xz)
-\end{aligned}$$
+$$\begin{aligned} k(x, z) &= \exp\left(-\frac{x^2 - 2xz + z^2}{2}\right) \\ &= \exp\left(-\frac{x^2}{2}\right) \exp\left(-\frac{z^2}{2}\right) \exp(xz) \end{aligned}$$
 $\exp(xz)$를 매클로린 급수(테일러 전개)로 전개하면:
-$$\exp(xz) = \sum_{m=0}^\infty \frac{(xz)^m}{m!} = \sum_{m=0}^\infty \left( \frac{x^m}{\sqrt{m!}} \right) \left( \frac{z^m}{\sqrt{m!}} \right)$$
+$$\begin{aligned} \exp(xz) &= \sum_{m=0}^\infty \frac{(xz)^m}{m!} \\ &= \sum_{m=0}^\infty \left( \frac{x^m}{\sqrt{m!}} \right) \left( \frac{z^m}{\sqrt{m!}} \right) \end{aligned}$$
 따라서:
-$$k(x, z) = \sum_{m=0}^\infty \left[ \exp\left(-\frac{x^2}{2}\right) \frac{x^m}{\sqrt{m!}} \right] \left[ \exp\left(-\frac{z^2}{2}\right) \frac{z^m}{\sqrt{m!}} \right] = \langle \phi(x), \phi(z) \rangle_{\ell_2}$$
+$$\begin{aligned} k(x, z) &= \sum_{m=0}^\infty \left[ \exp\left(-\frac{x^2}{2}\right) \frac{x^m}{\sqrt{m!}} \right] \\ &\quad \left[ \exp\left(-\frac{z^2}{2}\right) \frac{z^m}{\sqrt{m!}} \right] \\ &= \langle \phi(x), \phi(z) \rangle_{\ell_2} \end{aligned}$$
 여기서 특성 맵 $\phi(x) = \exp(-x^2/2) \left[ 1, x, \frac{x^2}{\sqrt{2!}}, \frac{x^3}{\sqrt{3!}}, \dots \right]^\top$ 은 무한 차원 벡터가 된다.
 
 ---

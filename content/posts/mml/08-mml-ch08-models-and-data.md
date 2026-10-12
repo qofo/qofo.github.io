@@ -127,7 +127,7 @@ $$p(y \mid x, \theta)$$
 출력 $y$가 참 함수 $f(x; \theta) = x^\top \theta$에 독립적인 가우시안 노이즈 $\epsilon \sim \mathcal{N}(0, \sigma^2)$가 더해져 생성된다고 가정해 봅시다:
 $$y = x^\top \theta + \epsilon$$
 이때 입력 $x$가 주어졌을 때 $y$의 조건부 확률 밀도는 다음과 같은 가우시안 분포가 됩니다:
-$$p(y \mid x, \theta) = \mathcal{N}(y \mid x^\top \theta, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(y - x^\top \theta)^2}{2\sigma^2} \right)$$
+$$\begin{aligned} p(y \mid x, \theta) &= \mathcal{N}(y \mid x^\top \theta, \sigma^2) \\ &= \frac{1}{\sqrt{2\pi\sigma^2}} \\ &\quad \exp\left( -\frac{(y - x^\top \theta)^2}{2\sigma^2} \right) \end{aligned}$$
 - 평균 $\mathbb{E}[y \mid x] = x^\top \theta$: 모델의 예측값.
 - 분산 $\text{Var}[y \mid x] = \sigma^2$: 데이터에 내재된 불확실성(노이즈의 크기).
 
@@ -151,7 +151,7 @@ $$p(y \mid x, \theta) = \mathcal{N}(y \mid x^\top \theta, \sigma^2) = \frac{1}{\
 ### 왜 필요한가 (직관)
 머신러닝의 궁극적인 목표는 **"한 번도 본 적 없는 미래의 새로운 데이터(unseen test data)"에 대해 오차를 최소화**하는 것입니다. 이를 **일반화(Generalization)**\ 라고 부릅니다.
 수학적으로 미래 데이터 $(x, y)$가 미지의 참 분포 $p_{\text{true}}(x, y)$에서 나온다고 할 때, 우리가 진짜로 줄이고 싶은 오차는 다음과 같은 **참 위험(Expected / True Risk)**\ 입니다:
-$$R_{\text{true}}(f) = \mathbb{E}_{(x, y) \sim p_{\text{true}}} [\ell(y, f(x))] = \iint \ell(y, f(x)) p_{\text{true}}(x, y) \, dx dy$$
+$$\begin{aligned} &R_{\text{true}}(f) \\ &= \mathbb{E}_{(x, y) \sim p_{\text{true}}} [\ell(y, f(x))] \\ &= \iint \ell(y, f(x)) p_{\text{true}}(x, y) \, dx dy \end{aligned}$$
 하지만 우리는 미래의 참 분포 $p_{\text{true}}(x, y)$를 알지 못하므로 이 적분을 직접 계산할 수 없습니다!
 우리가 가진 것은 오직 현재 손에 쥐고 있는 $N$개의 훈련 샘플 $\mathcal{D} = \{(x_n, y_n)\}_{n=1}^N$뿐입니다.
 따라서 대수의 법칙(Law of Large Numbers)을 믿고, **"훈련 데이터 $N$개에 대한 평균 오차가 작아지면 참 오차도 대략 작아지겠지"**\ 라고 근사하여 최적화하는 전략이 바로 **경험적 위험 최소화(Empirical Risk Minimization, ERM)**\ 입니다!
@@ -281,9 +281,9 @@ $$p(\theta \mid \mathcal{D}) = \frac{p(\mathcal{D} \mid \theta) p(\theta)}{p(\ma
 - $p(\theta \mid \mathcal{D})$: 데이터를 관측한 후 갱신된 믿음인 **사후분포(Posterior)**.
 
 사후 확률을 최대로 만드는 단 하나의 점 $\theta_{\text{MAP}}$를 찾습니다:
-$$\theta_{\text{MAP}} = \arg\max_\theta p(\theta \mid \mathcal{D}) = \arg\max_\theta \left[ \log p(\mathcal{D} \mid \theta) + \log p(\theta) \right]$$
+$$\begin{aligned} \theta_{\text{MAP}} &= \arg\max_\theta p(\theta \mid \mathcal{D}) \\ &= \arg\max_\theta \bigl[ \log p(\mathcal{D} \mid \theta) \\ &\quad + \log p(\theta) \bigr] \end{aligned}$$
 부호를 바꾸어 최소화 문제로 쓰면:
-$$\theta_{\text{MAP}} = \arg\min_\theta \left[ \underbrace{-\sum_{n=1}^N \log p(x_n \mid \theta)}_{\text{NLL (경험적 오차)}} + \underbrace{(-\log p(\theta))}_{\text{사전분포에 의한 벌점}} \right]$$
+$$\begin{aligned} \theta_{\text{MAP}} &= \arg\min_\theta \Bigl[ \underbrace{-\sum_{n=1}^N \log p(x_n \mid \theta)}_{\text{NLL (경험적 오차)}} \\ &\quad + \underbrace{(-\log p(\theta))}_{\text{사전분포에 의한 벌점}} \Bigr] \end{aligned}$$
 
 #### 경이로운 연결: 사전분포는 정규화 항과 완벽히 동치이다!
 - **가우시안 사전분포 $\theta \sim \mathcal{N}(0, \sigma_0^2 I)$**:
@@ -334,7 +334,7 @@ $$p(\mathcal{D}) = \int p(\mathcal{D} \mid \theta) p(\theta) \, d\theta$$
 
 #### 2. 사후 예측 분포 (Posterior Predictive Distribution)
 새로운 입력 $x_*$가 들어왔을 때 타깃 $y_*$를 예측할 때, 베이지안은 단 하나의 $\theta$를 대입하지 않고 **사후분포 $p(\theta \mid \mathcal{D})$를 가중치로 삼아 가능한 모든 $\theta$의 예측을 평균(앙상블)** 냅니다:
-$$p(y_* \mid x_*, \mathcal{D}) = \int p(y_* \mid x_*, \theta) p(\theta \mid \mathcal{D}) \, d\theta$$
+$$\begin{aligned} &p(y_* \mid x_*, \mathcal{D}) \\ &= \int p(y_* \mid x_*, \theta) p(\theta \mid \mathcal{D}) \, d\theta \end{aligned}$$
 이 적분을 거치면 예측값은 더 이상 파라미터 $\theta$에 의존하지 않고 오직 데이터 $\mathcal{D}$에만 조건화되며, 예측 평균뿐만 아니라 **예측의 신뢰 구간(분산)**\ 까지 완벽하게 함께 얻을 수 있습니다!
 
 ---
@@ -426,7 +426,7 @@ $\mathcal{A}$와 $\mathcal{B}$ 사이의 **모든 가능한 경로가 차단**�
 베이지안 관점에서는 모델 자체 $M$도 하나의 확률변수로 봅니다:
 $$p(M \mid \mathcal{D}) \propto p(\mathcal{D} \mid M) p(M)$$
 여기서 모든 모델에 동일한 사전 확률 $p(M)$을 준다면, 모델의 우수성은 전적으로 **모델 증거(Model Evidence / Marginal Likelihood)** $p(\mathcal{D} \mid M)$에 의해 결정됩니다:
-$$p(\mathcal{D} \mid M) = \int p(\mathcal{D} \mid \theta_M, M) p(\theta_M \mid M) \, d\theta_M$$
+$$\begin{aligned} &p(\mathcal{D} \mid M) \\ &= \int p(\mathcal{D} \mid \theta_M, M) p(\theta_M \mid M) \, d\theta_M \end{aligned}$$
 
 #### 자동 오컴의 면도날 (Automatic Occam's Razor)의 수학적 원리
 확률 밀도의 총합은 항상 1이어야 합니다: $\int p(\mathcal{D} \mid M) d\mathcal{D} = 1$.
@@ -451,13 +451,13 @@ $$\underbrace{\frac{p(M_1 \mid \mathcal{D})}{p(M_2 \mid \mathcal{D})}}_{\text{�
 
 복잡한 베이지안 적분을 직접 계산하기 어려울 때 사용하는 대표적인 점근적 근사 공식들입니다:
 1. **AIC (Akaike Information Criterion, 아카이케 정보 기준)**:
-   $$\text{AIC} = \log p(x \mid \hat{\theta}) - M \quad (\text{교재 표기})$$
+   $$\begin{aligned} &\text{AIC} = \log p(x \mid \hat{\theta}) - M \\ &\quad (\text{교재 표기}) \end{aligned}$$
    (표준 통계학 관례로는 $-2\log L + 2M$로 정의하여 최솟값을 찾지만, MML 교재에서는 값이 클수록 좋은 형태로 정의합니다).
    - $M$: 모델의 파라미터 개수.
    - 우도 추정치의 편향을 파라미터 수 $M$만큼 보정합니다.
 
 2. **BIC (Bayesian Information Criterion, 베이지안 정보 기준)**:
-   $$\text{BIC} = \log p(x \mid \hat{\theta}) - \frac{1}{2} M \log N \quad (\text{교재 표기})$$
+   $$\begin{aligned} \text{BIC} &= \log p(x \mid \hat{\theta}) \\ &\quad - \frac{1}{2} M \log N \quad (\text{교재 표기}) \end{aligned}$$
    (표준 관례: $-2\log L + M \log N$).
    - $N$: 데이터 샘플 수.
    - **라플라스 근사(Laplace approximation)**\ 를 통해 베이지안 로그 모델 증거 $\log p(\mathcal{D} \mid M)$를 테일러 전개했을 때 유도되는 점근적 공식입니다.
@@ -569,19 +569,21 @@ $$\underbrace{\frac{p(M_1 \mid \mathcal{D})}{p(M_2 \mid \mathcal{D})}}_{\text{�
    여기서 $H = -\nabla^2 g(\hat{\theta})$는 음의 헤시안 행렬(Hessian)이다.
    *(근거: 다변수 함수의 2차 테일러 근사)*
 2. **가우스 적분 수행**:
-   $$p(\mathcal{D}) = \int \exp(g(\theta)) d\theta \approx \exp(g(\hat{\theta})) \int \exp\left( -\frac{1}{2} (\theta - \hat{\theta})^\top H (\theta - \hat{\theta}) \right) d\theta$$
+
+   $$\begin{aligned} p(\mathcal{D}) &= \int \exp(g(\theta)) d\theta \\ &\approx \exp(g(\hat{\theta})) \\ &\quad \int \exp\left( -\frac{1}{2} (\theta - \hat{\theta})^\top H (\theta - \hat{\theta}) \right) d\theta \end{aligned}$$
+
    다변수 가우스 적분 공식 $\int \exp(-\frac{1}{2}v^\top H v) dv = (2\pi)^{M/2} |H|^{-1/2}$을 적용:
    $$p(\mathcal{D}) \approx \exp(g(\hat{\theta})) (2\pi)^{M/2} |H|^{-1/2}$$
    *(근거: 양의정부호 행렬에 대한 다변수 가우스 적분 정리)*
 3. **로그 취하기**:
-   $$\log p(\mathcal{D}) \approx \log p(\mathcal{D} \mid \hat{\theta}) + \log p(\hat{\theta}) + \frac{M}{2}\log(2\pi) - \frac{1}{2}\log |H|$$
+   $$\begin{aligned} \log p(\mathcal{D}) &\approx \log p(\mathcal{D} \mid \hat{\theta}) \\ &\quad + \log p(\hat{\theta}) + \frac{M}{2}\log(2\pi) \\ &\quad - \frac{1}{2}\log |H| \end{aligned}$$
    *(근거: 자연로그 성질)*
 4. **$N \to \infty$ 점근적 분석**:
    데이터 $N$개가 쌓이면 헤시안 $H$는 각 데이터 샘플의 곡률이 누적되므로 $H \approx N \hat{H}_0$ 꼴이 된다.
    따라서 행렬식은 $|H| \approx |N \hat{H}_0| = N^M |\hat{H}_0|$가 되어:
    $$\log |H| \approx M \log N + \log |\hat{H}_0|$$
    $N \to \infty$일 때 $\log N$에 비례하여 무한히 커지는 지배적인 항들만 남기면:
-   $$\log p(\mathcal{D}) \approx \log p(\mathcal{D} \mid \hat{\theta}) - \frac{1}{2} M \log N + \mathcal{O}(1)$$
+   $$\begin{aligned} \log p(\mathcal{D}) &\approx \log p(\mathcal{D} \mid \hat{\theta}) \\ &\quad - \frac{1}{2} M \log N + \mathcal{O}(1) \end{aligned}$$
    *(근거: $N$이 커질 때 $\mathcal{O}(1)$ 상수항 무시)*
    이것이 바로 교재의 **BIC 공식 (식 (8.49))**\ 이다!
 

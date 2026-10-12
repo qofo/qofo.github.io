@@ -71,7 +71,7 @@ $$x^\top y=\sum_{i=1}^nx_iy_i.$$
 
 ### 3.2.2 일반 내적 (General Inner Products)
 **쌍선형(bilinear):** 두 입력 각각에 대해 선형인 함수 $\Omega(x,y)$:
-$$\Omega(\lambda x+\psi y,z)=\lambda\Omega(x,z)+\psi\Omega(y,z),\qquad \Omega(x,\lambda y+\psi z)=\lambda\Omega(x,y)+\psi\Omega(x,z).$$
+$$\begin{aligned} \Omega(\lambda x+\psi y,z) &= \lambda\Omega(x,z)+\psi\Omega(y,z), \\ \Omega(x,\lambda y+\psi z) &= \lambda\Omega(x,y)+\psi\Omega(x,z). \end{aligned}$$
 
 **정의 3.2–3.3:** 쌍선형 사상 $\Omega:V\times V\to\mathbb R$이
 - **대칭(symmetric):** $\Omega(x,y)=\Omega(y,x)$
@@ -248,7 +248,7 @@ $$B^\top(x-B\lambda)=0\ \Rightarrow\ \underbrace{B^\top B\lambda=B^\top x}_{\tex
 
 ### 3.8.3 그람-슈미트 직교화 (Gram–Schmidt Orthogonalization)
 일차독립인 $b_1,\dots,b_n$으로 같은 공간의 직교기저 $u_1,\dots,u_n$을 만든다. 아이디어: **각 벡터에서 "이미 만든 방향들 위로의 사영"을 빼서 새로운 방향만 남긴다.**
-$$u_1:=b_1,\qquad u_k:=b_k-\pi_{\text{span}[u_1,\dots,u_{k-1}]}(b_k)=b_k-\sum_{j=1}^{k-1}\frac{\langle b_k,u_j\rangle}{\langle u_j,u_j\rangle}u_j.$$
+$$\begin{aligned} u_1 &:= b_1, \\ u_k &:= b_k-\pi_{\text{span}[u_1,\dots,u_{k-1}]}(b_k) \\ &= b_k-\sum_{j=1}^{k-1}\frac{\langle b_k,u_j\rangle}{\langle u_j,u_j\rangle}u_j. \end{aligned}$$
 마지막에 $c_k=u_k/\|u_k\|$로 정규화하면 정규직교기저. ($u_j$들이 서로 직교하므로 span 위로의 사영이 각 방향 사영의 합으로 쪼개진다.)
 
 **손 예제:** $b_1=[1,1,0]^\top$, $b_2=[1,0,1]^\top$.
@@ -259,7 +259,7 @@ $$u_1:=b_1,\qquad u_k:=b_k-\pi_{\text{span}[u_1,\dots,u_{k-1}]}(b_k)=b_k-\sum_{j
 
 ### 3.8.4 아핀 부분공간으로의 사영
 $L=x_0+U$(2.8)로 사영하려면 **평행이동해서 부분공간 문제로 바꾸고, 다시 되돌린다:**
-$$\pi_L(x)=x_0+\pi_U(x-x_0),\qquad d(x,L)=d(x-x_0,\,U).$$
+$$\begin{aligned} \pi_L(x) &= x_0+\pi_U(x-x_0), \\ d(x,L) &= d(x-x_0,\,U). \end{aligned}$$
 **손 예제:** 직선 $L=[1,0]^\top+\text{span}[[1,1]^\top]$, $x=[2,3]^\top$.
 - $x-x_0=[1,3]^\top$. $U=\text{span}[[1,1]^\top]$로 사영: $\lambda=\frac{1+3}{2}=2$, $\pi_U=[2,2]^\top$.
 - $\pi_L(x)=[1,0]^\top+[2,2]^\top=[3,2]^\top$.

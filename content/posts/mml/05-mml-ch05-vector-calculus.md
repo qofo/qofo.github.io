@@ -67,7 +67,7 @@ $$f'(x) = \frac{df}{dx} = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}$$
 복잡한 비선형 함수 $f(x)$를 다루기는 어렵지만, 다항식(polynomial)은 미분하기도 쉽고 계산하기도 매우 편하다. 점 $x_0$ 근처에서 무한 번 미분 가능한 함수 $f(x)$를 다항식으로 근사하는 기법이 **테일러 급수**다.
 
 $n$차 **테일러 다항식(Taylor polynomial)** $T_n(x)$는 다음과 같이 정의된다:
-$$T_n(x) = \sum_{k=0}^n \frac{f^{(k)}(x_0)}{k!} (x - x_0)^k = f(x_0) + f'(x_0)(x - x_0) + \frac{f''(x_0)}{2!}(x - x_0)^2 + \cdots + \frac{f^{(n)}(x_0)}{n!}(x - x_0)^n$$
+$$\begin{aligned} T_n(x) &= \sum_{k=0}^n \frac{f^{(k)}(x_0)}{k!} (x - x_0)^k \\ &= f(x_0) + f'(x_0)(x - x_0) \\ &\quad + \frac{f''(x_0)}{2!}(x - x_0)^2 \\ &\quad + \cdots + \frac{f^{(n)}(x_0)}{n!}(x - x_0)^n \end{aligned}$$
 - $x_0$: 근사의 기준이 되는 중심점(expansion point). $x_0 = 0$일 때를 특별히 **매클로린 급수(Maclaurin series)**\ 라고 부른다.
 - $f^{(k)}(x_0)$: $f$의 $k$계 도함수를 $x_0$에서 평가한 값.
 - $k!$: $k$ 팩토리얼 ($k! = k \times (k-1) \times \cdots \times 1$).
@@ -143,7 +143,7 @@ $$\frac{\partial f}{\partial x_i} = \lim_{h \to 0} \frac{f(x_1, \dots, x_{i-1}, 
 #### 2. 기울기(Gradient)의 정의와 MML의 표기 관례
 편미분들을 가로로 늘어놓아 벡터로 만든 것을 **기울기(gradient)** 또는 **야코비안(Jacobian)**\ 이라고 부른다.
 
-$$\nabla_{\boldsymbol{x}} f = \text{grad}\, f = \frac{df}{d\boldsymbol{x}} = \begin{bmatrix} \frac{\partial f(\boldsymbol{x})}{\partial x_1} & \frac{\partial f(\boldsymbol{x})}{\partial x_2} & \cdots & \frac{\partial f(\boldsymbol{x})}{\partial x_n} \end{bmatrix} \in \mathbb{R}^{1 \times n}$$
+$$\begin{aligned} \nabla_{\boldsymbol{x}} f &= \text{grad}\, f \\ &= \frac{df}{d\boldsymbol{x}} \\ &= \begin{bmatrix} \frac{\partial f(\boldsymbol{x})}{\partial x_1} & \frac{\partial f(\boldsymbol{x})}{\partial x_2} & \cdots & \frac{\partial f(\boldsymbol{x})}{\partial x_n} \end{bmatrix} \\ &\quad \in \mathbb{R}^{1 \times n} \end{aligned}$$
 
 > **[매우 중요! MML 교재의 핵심 관례: 분자 중심 표기법(Numerator Layout)]**
 > 교재 MML에서는 입력 벡터가 $\boldsymbol{x} = [x_1, \dots, x_n]^\top \in \mathbb{R}^{n \times 1}$ (열벡터)일 때, 스칼라 함수 $f$의 기울기 $\frac{df}{d\boldsymbol{x}}$를 반드시 **$1 \times n$ 행벡터(row vector)**\ 로 정의한다!
@@ -161,7 +161,7 @@ $$\nabla_{\boldsymbol{x}} f = \text{grad}\, f = \frac{df}{d\boldsymbol{x}} = \be
 
 #### 4. 5.2.2 다변수 연쇄 법칙(Chain Rule)
 함수 $f(x_1, x_2)$가 있고, 변수 $x_1(t)$와 $x_2(t)$가 또 다른 단일 변수 $t$의 함수라고 하자. 이때 $t$의 변화가 $x_1$과 $x_2$를 동시에 거쳐 $f$에 전달되므로, 전체 변화율은 각 경로의 변화율을 모두 더한 것이 된다:
-$$\frac{df}{dt} = \frac{\partial f}{\partial x_1} \frac{dx_1}{dt} + \frac{\partial f}{\partial x_2} \frac{dx_2}{dt} = \begin{bmatrix} \frac{\partial f}{\partial x_1} & \frac{\partial f}{\partial x_2} \end{bmatrix} \begin{bmatrix} \frac{dx_1}{dt} \\ \frac{dx_2}{dt} \end{bmatrix} = \frac{df}{d\boldsymbol{x}} \frac{d\boldsymbol{x}}{dt}$$
+$$\begin{aligned} \frac{df}{dt} &= \frac{\partial f}{\partial x_1} \frac{dx_1}{dt} + \frac{\partial f}{\partial x_2} \frac{dx_2}{dt} \\ &= \begin{bmatrix} \frac{\partial f}{\partial x_1} & \frac{\partial f}{\partial x_2} \end{bmatrix} \begin{bmatrix} \frac{dx_1}{dt} \\ \frac{dx_2}{dt} \end{bmatrix} = \frac{df}{d\boldsymbol{x}} \frac{d\boldsymbol{x}}{dt} \end{aligned}$$
 행벡터 기울기와 열벡터 변화율의 행렬곱으로 정확히 표현된다!
 
 ### 손으로 풀어 보는 예제
@@ -210,12 +210,7 @@ $f(x_1, x_2) = x_1^2 + 2x_2$이고 $x_1(t) = \sin t$, $x_2(t) = \cos t$일 때, 
 #### 1. 야코비안 행렬(Jacobian)의 정의
 함수 $\boldsymbol{f}: \mathbb{R}^n \to \mathbb{R}^m$의 야코비안 행렬 $J = \frac{d\boldsymbol{f}}{d\boldsymbol{x}} \in \mathbb{R}^{m \times n}$은 모든 1계 편도함수를 모아 놓은 행렬이다:
 
-$$J = \frac{d\boldsymbol{f}(\boldsymbol{x})}{d\boldsymbol{x}} = \begin{bmatrix}
-\frac{\partial f_1}{\partial x_1} & \frac{\partial f_1}{\partial x_2} & \cdots & \frac{\partial f_1}{\partial x_n} \\
-\frac{\partial f_2}{\partial x_1} & \frac{\partial f_2}{\partial x_2} & \cdots & \frac{\partial f_2}{\partial x_n} \\
-\vdots & \vdots & \ddots & \vdots \\
-\frac{\partial f_m}{\partial x_1} & \frac{\partial f_m}{\partial x_2} & \cdots & \frac{\partial f_m}{\partial x_n}
-\end{bmatrix} \in \mathbb{R}^{m \times n}$$
+$$\begin{aligned} J &= \frac{d\boldsymbol{f}(\boldsymbol{x})}{d\boldsymbol{x}} \\ &= \begin{bmatrix} \frac{\partial f_1}{\partial x_1} & \frac{\partial f_1}{\partial x_2} & \cdots & \frac{\partial f_1}{\partial x_n} \\ \frac{\partial f_2}{\partial x_1} & \frac{\partial f_2}{\partial x_2} & \cdots & \frac{\partial f_2}{\partial x_n} \\ \vdots & \vdots & \ddots & \vdots \\ \frac{\partial f_m}{\partial x_1} & \frac{\partial f_m}{\partial x_2} & \cdots & \frac{\partial f_m}{\partial x_n} \end{bmatrix} \in \mathbb{R}^{m \times n} \end{aligned}$$
 
 - **행(Row)의 의미**: $i$번째 행은 출력의 $i$번째 성분 $f_i$에 대한 기울기 행벡터 $\nabla_{\boldsymbol{x}} f_i \in \mathbb{R}^{1 \times n}$이다.
   $$J = \begin{bmatrix} \nabla_{\boldsymbol{x}} f_1 \\ \nabla_{\boldsymbol{x}} f_2 \\ \vdots \\ \nabla_{\boldsymbol{x}} f_m \end{bmatrix}$$
@@ -239,7 +234,7 @@ $\boldsymbol{f}(\boldsymbol{x}) = A\boldsymbol{x} + \boldsymbol{b}$ (단, $A \in
   출력 벡터의 $i$번째 성분은 $f_i(\boldsymbol{x}) = \sum_{j=1}^n A_{ij} x_j + b_i$이다.
 - **2단계 (편미분 계산)**:
   이를 입력 변수 $x_k$로 편미분하면:
-  $$\frac{\partial f_i}{\partial x_k} = \frac{\partial}{\partial x_k} \left( A_{i1}x_1 + \dots + A_{ik}x_k + \dots + A_{in}x_n + b_i \right) = A_{ik}$$
+  $$\begin{aligned} \frac{\partial f_i}{\partial x_k} &= \frac{\partial}{\partial x_k} \bigl( A_{i1}x_1 + \dots + A_{ik}x_k \\ &\quad + \dots + A_{in}x_n + b_i \bigr) = A_{ik} \end{aligned}$$
 - **3단계 (행렬 구성)**:
   야코비안의 $(i, k)$ 성분이 정확히 행렬 $A$의 $(i, k)$ 성분 $A_{ik}$와 같다!
   따라서:
@@ -391,7 +386,7 @@ $A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}$, $X = \begin{bmatrix} x_{11} 
 $K$개의 층을 가진 인공신경망의 순전파는 다단계 함수 합성이다:
 $$\boldsymbol{y} = (\boldsymbol{f}_K \circ \boldsymbol{f}_{K-1} \circ \cdots \circ \boldsymbol{f}_1)(\boldsymbol{x})$$
 각 층의 연산은 선형 변환 후 활성화 함수 $\sigma$ 적용이다:
-$$\boldsymbol{f}_0 := \boldsymbol{x}, \quad \boldsymbol{f}_i := \sigma_i(A_{i-1}\boldsymbol{f}_{i-1} + \boldsymbol{b}_{i-1}), \quad i = 1, \dots, K$$
+$$\begin{gathered} \boldsymbol{f}_0 := \boldsymbol{x}, \\ \boldsymbol{f}_i := \sigma_i(A_{i-1}\boldsymbol{f}_{i-1} + \boldsymbol{b}_{i-1}), \\ i = 1, \dots, K \end{gathered}$$
 제곱 오차 손실 $L = \|\boldsymbol{y} - \boldsymbol{f}_K\|^2$에 대해 $i$번째 층의 매개변수 $\theta_i = \{A_i, \boldsymbol{b}_i\}$에 대한 편미분은 연쇄법칙에 의해:
 $$\frac{\partial L}{\partial \theta_i} = \underbrace{\frac{\partial L}{\partial \boldsymbol{f}_K} \frac{\partial \boldsymbol{f}_K}{\partial \boldsymbol{f}_{K-1}} \cdots \frac{\partial \boldsymbol{f}_{i+2}}{\partial \boldsymbol{f}_{i+1}}}_{\text{이미 계산된 오차 전달 항}} \frac{\partial \boldsymbol{f}_{i+1}}{\partial \theta_i}$$
 만약 우리가 바로 앞 층인 $\frac{\partial L}{\partial \theta_{i+1}}$를 이미 계산해 두었다면, 붉은색 괄호 친 앞부분의 행렬곱은 새로 계산할 필요 없이 **그대로 재사용(Dynamic Programming / 메모이제이션)**\ 할 수 있다!
@@ -462,12 +457,7 @@ flowchart LR
 #### 1. 헤시안 행렬(Hessian Matrix)의 정의
 2번 미분 가능한 다변수 스칼라 함수 $f: \mathbb{R}^n \to \mathbb{R}$에 대하여, 모든 2계 편도함수를 모은 $n \times n$ 정방행렬을 **헤시안 행렬(Hessian Matrix)**\ 이라고 부른다:
 
-$$H = \nabla_{\boldsymbol{x}}^2 f = \begin{bmatrix}
-\frac{\partial^2 f}{\partial x_1^2} & \frac{\partial^2 f}{\partial x_1 \partial x_2} & \cdots & \frac{\partial^2 f}{\partial x_1 \partial x_n} \\
-\frac{\partial^2 f}{\partial x_2 \partial x_1} & \frac{\partial^2 f}{\partial x_2^2} & \cdots & \frac{\partial^2 f}{\partial x_2 \partial x_n} \\
-\vdots & \vdots & \ddots & \vdots \\
-\frac{\partial^2 f}{\partial x_n \partial x_1} & \frac{\partial^2 f}{\partial x_n \partial x_2} & \cdots & \frac{\partial^2 f}{\partial x_n^2}
-\end{bmatrix} \in \mathbb{R}^{n \times n}$$
+$$\begin{aligned} H &= \nabla_{\boldsymbol{x}}^2 f \\ &= \begin{bmatrix} \frac{\partial^2 f}{\partial x_1^2} & \frac{\partial^2 f}{\partial x_1 \partial x_2} & \cdots & \frac{\partial^2 f}{\partial x_1 \partial x_n} \\ \frac{\partial^2 f}{\partial x_2 \partial x_1} & \frac{\partial^2 f}{\partial x_2^2} & \cdots & \frac{\partial^2 f}{\partial x_2 \partial x_n} \\ \vdots & \vdots & \ddots & \vdots \\ \frac{\partial^2 f}{\partial x_n \partial x_1} & \frac{\partial^2 f}{\partial x_n \partial x_2} & \cdots & \frac{\partial^2 f}{\partial x_n^2} \end{bmatrix} \in \mathbb{R}^{n \times n} \end{aligned}$$
 
 #### 2. 슈와르츠 정리(Schwarz's Theorem / Clairaut's Theorem)
 함수 $f$가 2계 연속 미분 가능(twice continuously differentiable)하다면, 편미분을 수행하는 순서는 결과에 영향을 주지 않는다:
@@ -526,9 +516,9 @@ $$f(\boldsymbol{x}) \approx f(\boldsymbol{x}_0) + \nabla_{\boldsymbol{x}} f(\bol
 
 #### 2. 다변수 2차 테일러 급수(Multivariate 2nd-order Taylor Series)
 곡률까지 반영하는 2차 근사는 헤시안 행렬을 포함한다:
-$$f(\boldsymbol{x}) \approx f(\boldsymbol{x}_0) + \nabla_{\boldsymbol{x}} f(\boldsymbol{x}_0) (\boldsymbol{x} - \boldsymbol{x}_0) + \frac{1}{2} (\boldsymbol{x} - \boldsymbol{x}_0)^\top H(\boldsymbol{x}_0) (\boldsymbol{x} - \boldsymbol{x}_0)$$
+$$\begin{aligned} f(\boldsymbol{x}) &\approx f(\boldsymbol{x}_0) + \nabla_{\boldsymbol{x}} f(\boldsymbol{x}_0) (\boldsymbol{x} - \boldsymbol{x}_0) \\ &\quad + \frac{1}{2} (\boldsymbol{x} - \boldsymbol{x}_0)^\top H(\boldsymbol{x}_0) (\boldsymbol{x} - \boldsymbol{x}_0) \end{aligned}$$
 변위 벡터를 $\boldsymbol{\delta} := \boldsymbol{x} - \boldsymbol{x}_0$로 두면:
-$$f(\boldsymbol{x}_0 + \boldsymbol{\delta}) \approx f(\boldsymbol{x}_0) + \nabla f(\boldsymbol{x}_0) \boldsymbol{\delta} + \frac{1}{2} \boldsymbol{\delta}^\top H(\boldsymbol{x}_0) \boldsymbol{\delta}$$
+$$\begin{aligned} f(\boldsymbol{x}_0 + \boldsymbol{\delta}) &\approx f(\boldsymbol{x}_0) + \nabla f(\boldsymbol{x}_0) \boldsymbol{\delta} \\ &\quad + \frac{1}{2} \boldsymbol{\delta}^\top H(\boldsymbol{x}_0) \boldsymbol{\delta} \end{aligned}$$
 - 상수 항: $f(\boldsymbol{x}_0)$ (0차)
 - 선형 항: $\nabla f(\boldsymbol{x}_0) \boldsymbol{\delta} = \sum_{i=1}^D \frac{\partial f}{\partial x_i} \delta_i$ (1차)
 - 2차 곡률 항: $\frac{1}{2} \boldsymbol{\delta}^\top H \boldsymbol{\delta} = \frac{1}{2} \sum_{i=1}^D \sum_{j=1}^D H_{ij} \delta_i \delta_j$ (2차 형식)
@@ -579,7 +569,7 @@ $$f(\boldsymbol{x}_0 + \boldsymbol{\delta}) \approx f(\boldsymbol{x}_0) + \nabla
    *(이유: 행렬-벡터 곱의 정의)*
 2. **임의의 $k$번째 성분 $x_k$로 편미분**:
    변수 $x_k$는 인덱스 $i=k$일 때와 $j=k$일 때 두 번 등장한다:
-   $$\frac{\partial}{\partial x_k} \left( \sum_{i=1}^n \sum_{j=1}^n x_i A_{ij} x_j \right) = \frac{\partial}{\partial x_k} \left( x_k A_{kk} x_k + \sum_{j \neq k} x_k A_{kj} x_j + \sum_{i \neq k} x_i A_{ik} x_k + \sum_{i \neq k} \sum_{j \neq k} x_i A_{ij} x_j \right)$$
+   $$\begin{aligned} &\frac{\partial}{\partial x_k} \left( \sum_{i=1}^n \sum_{j=1}^n x_i A_{ij} x_j \right) \\ &= \frac{\partial}{\partial x_k} \Bigl( x_k A_{kk} x_k + \sum_{j \neq k} x_k A_{kj} x_j \\ &\quad + \sum_{i \neq k} x_i A_{ik} x_k + \sum_{i \neq k} \sum_{j \neq k} x_i A_{ij} x_j \Bigr) \end{aligned}$$
    *(이유: $x_k$가 포함된 항들을 분리)*
 3. **각 항을 미분**:
    - $x_k^2 A_{kk}$ 미분 $\implies 2 A_{kk} x_k$

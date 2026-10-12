@@ -75,7 +75,7 @@ $$\det A=\sum_{k=1}^n(-1)^{k+j}a_{kj}\det(A_{k,j}),$$
 - 닮은 행렬의 대각합은 같다: $\text{tr}(S^{-1}AS)=\text{tr}(ASS^{-1})=\text{tr}(A)$. 그래서 선형사상의 대각합도 기저와 무관하다.
 
 ### 특성다항식 (Characteristic Polynomial, 정의 4.5)
-$$p_A(\lambda)=\det(A-\lambda I)=c_0+c_1\lambda+\cdots+c_{n-1}\lambda^{n-1}+(-1)^n\lambda^n,$$
+$$\begin{aligned} p_A(\lambda) &= \det(A-\lambda I) \\ &= c_0+c_1\lambda+\cdots \\ &\quad + c_{n-1}\lambda^{n-1}+(-1)^n\lambda^n, \end{aligned}$$
 여기서 $c_0=\det A$, $c_{n-1}=(-1)^{n-1}\text{tr}(A)$. $2\times2$이면 $p_A(\lambda)=\lambda^2-\text{tr}(A)\lambda+\det(A)$.
 
 ### 손으로 풀어 보는 예제
@@ -85,7 +85,7 @@ $$p_A(\lambda)=\det(A-\lambda I)=c_0+c_1\lambda+\cdots+c_{n-1}\lambda^{n-1}+(-1)
 - $\det A=12-4=8$.
 
 **(2) 라플라스(1행 전개):** 같은 $A$.
-$$\det A=2\det\begin{bmatrix}3&1\\1&2\end{bmatrix}-1\det\begin{bmatrix}1&1\\0&2\end{bmatrix}+0=2(6-1)-1(2-0)=10-2=8.$$
+$$\begin{aligned} \det A &= 2\det\begin{bmatrix}3&1\\1&2\end{bmatrix} \\ &\quad - 1\det\begin{bmatrix}1&1\\0&2\end{bmatrix}+0 \\ &= 2(6-1)-1(2-0) \\ &= 10-2=8. \end{aligned}$$
 
 **(3) 교재 연습문제 4.1:** $A=\begin{bmatrix}1&3&5\\2&4&6\\0&2&4\end{bmatrix}$.
 - 라플라스(1행): $1(16-12)-3(8-0)+5(4-0)=4-24+20=0$.
@@ -236,7 +236,7 @@ $x\mapsto Ax=U\Sigma V^\top x$는 세 단계다:
 
 ### 4.5.2 SVD 만드는 법 (구성 절차)
 핵심 관찰: $A=U\Sigma V^\top$이면
-$$A^\top A=V\Sigma^\top U^\top U\Sigma V^\top=V(\Sigma^\top\Sigma)V^\top,\qquad AA^\top=U(\Sigma\Sigma^\top)U^\top.$$
+$$\begin{aligned} A^\top A &= V\Sigma^\top U^\top U\Sigma V^\top \\ &= V(\Sigma^\top\Sigma)V^\top, \\ AA^\top &= U(\Sigma\Sigma^\top)U^\top. \end{aligned}$$
 둘 다 대칭 양의 준정부호라 스펙트럼 정리로 직교 대각화된다. 그래서
 1. **$A^\top A$를 고유분해** → 고유벡터가 $V$의 열, 고유값 $\lambda_i$에서 $\sigma_i=\sqrt{\lambda_i}$.
 2. **왼쪽 특이벡터:** $\sigma_i\ne0$인 $i$에 대해 $u_i=\frac{1}{\sigma_i}Av_i$. (그러면 $u_i$들은 자동으로 정규직교다.) $m>r$이면 나머지 $u$는 이들과 직교하는 단위벡터로 채운다(그람-슈미트나 $\ker A^\top$ 이용).
@@ -255,7 +255,7 @@ $A=\begin{bmatrix}3&0\\4&5\end{bmatrix}$.
    - $\sigma_1=\sqrt{45}=3\sqrt5$, $\sigma_2=\sqrt5$.
 3. $u_1=\frac{Av_1}{\sigma_1}=\frac{1}{3\sqrt5}\cdot\frac{1}{\sqrt2}[3,9]^\top=\frac{1}{\sqrt{10}}[1,3]^\top$, $u_2=\frac{Av_2}{\sigma_2}=\frac{1}{\sqrt5}\cdot\frac1{\sqrt2}[3,-1]^\top=\frac1{\sqrt{10}}[3,-1]^\top$.
    검산: $u_1^\top u_2=\frac{3-3}{10}=0$.
-4. $A=\underbrace{\frac1{\sqrt{10}}\begin{bmatrix}1&3\\3&-1\end{bmatrix}}_{U}\underbrace{\begin{bmatrix}3\sqrt5&0\\0&\sqrt5\end{bmatrix}}_{\Sigma}\underbrace{\frac1{\sqrt2}\begin{bmatrix}1&1\\1&-1\end{bmatrix}}_{V^\top}$.
+4. $$\begin{aligned} A &= \underbrace{\frac1{\sqrt{10}}\begin{bmatrix}1&3\\3&-1\end{bmatrix}}_{U} \\ &\quad \underbrace{\begin{bmatrix}3\sqrt5&0\\0&\sqrt5\end{bmatrix}}_{\Sigma} \\ &\quad \underbrace{\frac1{\sqrt2}\begin{bmatrix}1&1\\1&-1\end{bmatrix}}_{V^\top} \end{aligned}$$.
    ($\det A=15=\sigma_1\sigma_2=3\sqrt5\cdot\sqrt5$로도 확인된다. 절댓값 기준.)
 
 ### 고유분해 vs SVD (교재 4.5.2 끝 비교, 시험 단골)
@@ -275,7 +275,7 @@ $A=\begin{bmatrix}3&0\\4&5\end{bmatrix}$.
 
 ### 아이디어
 SVD를 펼치면 $A$는 **랭크 1 행렬들의 가중합**이다:
-$$A=\sum_{i=1}^r\sigma_iu_iv_i^\top\qquad(u_iv_i^\top\text{는 외적, 랭크 1}).$$
+$$\begin{gathered} A=\sum_{i=1}^r\sigma_iu_iv_i^\top \\ (u_iv_i^\top\text{는 외적, 랭크 1}). \end{gathered}$$
 특이값이 큰 것부터 $k$개만 남기면 **랭크 $k$ 근사**
 $$\hat A(k)=\sum_{i=1}^k\sigma_iu_iv_i^\top$$
 가 된다. 이미지 압축이면 $m\times n$개 숫자 대신 $k(m+n+1)$개만 저장하면 된다.
@@ -286,7 +286,7 @@ $$\|A\|_2:=\max_{x\ne0}\frac{\|Ax\|_2}{\|x\|_2}=\sigma_1.$$
 
 ### Eckart–Young 정리 (정리 4.25)
 랭크 $r$인 $A$와 $k\le r$에 대해
-$$\hat A(k)=\arg\min_{\text{rk}(B)=k}\|A-B\|_2,\qquad\|A-\hat A(k)\|_2=\sigma_{k+1}.$$
+$$\begin{aligned} \hat A(k) &= \arg\min_{\text{rk}(B)=k}\|A-B\|_2, \\ \|A-\hat A(k)\|_2 &= \sigma_{k+1}. \end{aligned}$$
 **말로 하면:** 랭크 $k$ 행렬 중에서 $A$에 가장 가까운 것(스펙트럼 노름 기준)은 SVD를 $k$항에서 자른 것이고, 그때 오차는 버린 것 중 가장 큰 특이값 $\sigma_{k+1}$이다. 왜 $\sigma_{k+1}$인가: $A-\hat A(k)=\sum_{i=k+1}^r\sigma_iu_iv_i^\top$의 가장 큰 특이값이 $\sigma_{k+1}$이기 때문(정리 4.24).
 
 (교재 밖 보충: 프로베니우스 노름 $\|A\|_F=\sqrt{\sum_{ij}a_{ij}^2}$에서도 같은 $\hat A(k)$가 최적이고 오차는 $\sqrt{\sigma_{k+1}^2+\cdots+\sigma_r^2}$이다. Eckart–Young–Mirsky 정리라 부른다. 교재 정리 4.25는 스펙트럼 노름으로만 서술한다.)
@@ -295,7 +295,7 @@ $$\hat A(k)=\arg\min_{\text{rk}(B)=k}\|A-B\|_2,\qquad\|A-\hat A(k)\|_2=\sigma_{k
 
 ### 손으로 풀어 보는 예제
 4.5의 $A=\begin{bmatrix}3&0\\4&5\end{bmatrix}$, 랭크 1 근사:
-$$\hat A(1)=\sigma_1u_1v_1^\top=3\sqrt5\cdot\frac{1}{\sqrt{10}}\begin{bmatrix}1\\3\end{bmatrix}\cdot\frac{1}{\sqrt2}\begin{bmatrix}1&1\end{bmatrix}=\frac{3\sqrt5}{\sqrt{20}}\begin{bmatrix}1&1\\3&3\end{bmatrix}=\frac32\begin{bmatrix}1&1\\3&3\end{bmatrix}=\begin{bmatrix}1.5&1.5\\4.5&4.5\end{bmatrix}.$$
+$$\begin{aligned} \hat A(1) &= \sigma_1u_1v_1^\top \\ &= 3\sqrt5\cdot\frac{1}{\sqrt{10}}\begin{bmatrix}1\\3\end{bmatrix}\cdot\frac{1}{\sqrt2}\begin{bmatrix}1&1\end{bmatrix} \\ &= \frac{3\sqrt5}{\sqrt{20}}\begin{bmatrix}1&1\\3&3\end{bmatrix} \\ &= \frac32\begin{bmatrix}1&1\\3&3\end{bmatrix}=\begin{bmatrix}1.5&1.5\\4.5&4.5\end{bmatrix}. \end{aligned}$$
 - 오차 $A-\hat A(1)=\begin{bmatrix}1.5&-1.5\\-0.5&0.5\end{bmatrix}$, 이것은 $\sigma_2u_2v_2^\top$와 같다.
 - 스펙트럼 노름 오차 $=\sigma_2=\sqrt5\approx2.24$ (Eckart–Young).
 

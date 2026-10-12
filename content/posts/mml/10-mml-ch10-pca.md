@@ -149,14 +149,14 @@ $$\max_{b_1} b_1^\top S b_1 \quad \text{subject to } b_1^\top b_1 = 1$$
 $$\mathfrak{L}(b_1, \lambda_1) = b_1^\top S b_1 - \lambda_1 (b_1^\top b_1 - 1)$$
 
 $b_1$에 대해 편미분하고 0으로 둡니다:
-$$\nabla_{b_1} \mathfrak{L} = 2 S b_1 - 2 \lambda_1 b_1 = 0 \iff S b_1 = \lambda_1 b_1$$
+$$\begin{gathered} \nabla_{b_1} \mathfrak{L} = 2 S b_1 - 2 \lambda_1 b_1 = 0 \\ \iff S b_1 = \lambda_1 b_1 \end{gathered}$$
 
 이것은 정확히 **공분산 행렬 $S$의 고유값 방정식(Eigenvalue Equation)**\ 입니다!
 - $b_1$은 공분산 행렬 $S$의 **고유벡터(Eigenvector)**\ 이어야 합니다.
 - $\lambda_1$은 이에 대응하는 **고유값(Eigenvalue)**\ 입니다.
 
 이때 사영된 데이터의 분산 값을 계산해 보면:
-$$V_1 = b_1^\top S b_1 = b_1^\top (\lambda_1 b_1) = \lambda_1 (b_1^\top b_1) = \lambda_1$$
+$$\begin{aligned} V_1 &= b_1^\top S b_1 = b_1^\top (\lambda_1 b_1) \\ &= \lambda_1 (b_1^\top b_1) = \lambda_1 \end{aligned}$$
 분산 $V_1$이 다름 아닌 **고유값 $\lambda_1$ 그 자체**가 됩니다!
 따라서 분산 $V_1$을 최대로 만들려면, 수많은 고유값들 중에서 **가장 큰 고유값(최대 고유값) $\lambda_1$에 대응하는 고유벡터 $b_1$**\ 을 선택해야 합니다. 이것이 바로 **제1 주성분(First Principal Component)**\ 입니다.
 
@@ -166,10 +166,10 @@ $$V_1 = b_1^\top S b_1 = b_1^\top (\lambda_1 b_1) = \lambda_1 (b_1^\top b_1) = \
 
 #### 제2 주성분 $b_2$의 유도
 제1 주성분 $b_1$과 겹치지 않는 새로운 정보를 포착하기 위해, $b_2$는 $b_1$과 서로 직교($b_2^\top b_1 = 0$)하면서 단위 길이($b_2^\top b_2 = 1$)를 만족해야 합니다:
-$$\max_{b_2} b_2^\top S b_2 \quad \text{subject to } b_2^\top b_2 = 1, \; b_2^\top b_1 = 0$$
+$$\begin{gathered} \max_{b_2} b_2^\top S b_2 \\ \text{subject to } b_2^\top b_2 = 1, \; b_2^\top b_1 = 0 \end{gathered}$$
 
 두 개의 제약 조건을 라그랑지안에 넣습니다:
-$$\mathfrak{L}(b_2, \lambda_2, \eta) = b_2^\top S b_2 - \lambda_2 (b_2^\top b_2 - 1) - \eta (b_2^\top b_1)$$
+$$\begin{aligned} \mathfrak{L}(b_2, \lambda_2, \eta) &= b_2^\top S b_2 - \lambda_2 (b_2^\top b_2 - 1) \\ &\quad - \eta (b_2^\top b_1) \end{aligned}$$
 $b_2$로 미분:
 $$\nabla_{b_2} \mathfrak{L} = 2 S b_2 - 2 \lambda_2 b_2 - \eta b_1 = 0$$
 양변 왼쪽에 $b_1^\top$을 곱합니다:
@@ -226,7 +226,7 @@ $$\tilde{x}_n = b + \sum_{m=1}^M z_{nm} b_m = b + B z_n$$
 
 #### 목적함수: 평균 제곱 재구성 오차 (Average Squared Reconstruction Error)
 우리의 목표는 원본 데이터와 복원 벡터 간의 유클리드 거리 제곱의 평균 $J$를 최소화하는 $b, B, \{z_n\}_{n=1}^N$을 찾는 것입니다:
-$$J(b, B, z_1, \dots, z_N) = \frac{1}{N} \sum_{n=1}^N \|x_n - \tilde{x}_n\|^2 = \frac{1}{N} \sum_{n=1}^N \left\| x_n - \left( b + B z_n \right) \right\|^2$$
+$$\begin{aligned} &J(b, B, z_1, \dots, z_N) \\ &= \frac{1}{N} \sum_{n=1}^N \|x_n - \tilde{x}_n\|^2 \\ &= \frac{1}{N} \sum_{n=1}^N \left\| x_n - \left( b + B z_n \right) \right\|^2 \end{aligned}$$
 
 ---
 
@@ -254,7 +254,7 @@ $$\frac{1}{N} \sum_{n=1}^N x_n - b - B \left( \frac{1}{N} \sum_{n=1}^N z_n \righ
 $$\mu - b - B \bar{z} = 0$$
 
 앞서 구한 최적 좌표 공식의 평균을 취하면 $\bar{z} = B^\top (\mu - b)$이므로 대입합니다:
-$$\mu - b - B B^\top (\mu - b) = 0 \iff (I - B B^\top)(\mu - b) = 0$$
+$$\begin{gathered} \mu - b - B B^\top (\mu - b) = 0 \\ \iff (I - B B^\top)(\mu - b) = 0 \end{gathered}$$
 이 식은 $\mu - b$가 부분공간 방향($B$의 열공간) 안에 있기만 하면 성립한다. 즉 $b = \mu + Bw$ 꼴이면 모두 최적인데, 어느 것을 골라도 같은 아핀 부분공간이 되므로 가장 간단한 것을 고른다:
 $$b = \mu = \frac{1}{N} \sum_{n=1}^N x_n$$
 즉, **아핀 부분공간의 최적 원점(오프셋)은 데이터 전체의 표본 평균(중심)**\ 이어야 합니다!
@@ -273,19 +273,19 @@ $D$차원 전체 공간 $\mathbb{R}^D$를 포괄하는 완전한 정규직교 �
 - 뒤쪽 $D-M$개: 우리가 차원을 축소하면서 버릴 직교 여공간 기저
 
 중심화된 데이터 벡터 $(x_n - \mu)$를 완전 정규직교 기저로 전개하면:
-$$x_n - \mu = \sum_{d=1}^D \beta_{nd} b_d, \quad \text{여기서 } \beta_{nd} = b_d^\top (x_n - \mu)$$
+$$\begin{gathered} x_n - \mu = \sum_{d=1}^D \beta_{nd} b_d, \\ \text{여기서 } \beta_{nd} = b_d^\top (x_n - \mu) \end{gathered}$$
 
 복원된 벡터 $\tilde{x}_n - \mu$는 앞쪽 $M$개의 기저 성분만 취한 것입니다:
 $$\tilde{x}_n - \mu = \sum_{m=1}^M \beta_{nm} b_m$$
 
 따라서 원본 벡터와 복원 벡터의 차이(오차 벡터)는 정확히 **버려진 뒤쪽 $D-M$개의 기저 성분의 합**입니다:
-$$x_n - \tilde{x}_n = (x_n - \mu) - (\tilde{x}_n - \mu) = \sum_{j=M+1}^D \beta_{nj} b_j$$
+$$\begin{aligned} x_n - \tilde{x}_n &= (x_n - \mu) - (\tilde{x}_n - \mu) \\ &= \sum_{j=M+1}^D \beta_{nj} b_j \end{aligned}$$
 
 기저들이 정규직교이므로 오차 벡터의 노름 제곱은 계수 제곱의 합과 같습니다:
-$$\|x_n - \tilde{x}_n\|^2 = \sum_{j=M+1}^D \beta_{nj}^2 = \sum_{j=M+1}^D \left( b_j^\top (x_n - \mu) \right)^2$$
+$$\begin{aligned} \|x_n - \tilde{x}_n\|^2 &= \sum_{j=M+1}^D \beta_{nj}^2 \\ &= \sum_{j=M+1}^D \left( b_j^\top (x_n - \mu) \right)^2 \end{aligned}$$
 
 이제 전체 데이터에 대해 평균 재구성 오차 $J_M$을 계산합니다:
-$$J_M = \frac{1}{N} \sum_{n=1}^N \sum_{j=M+1}^D b_j^\top (x_n - \mu)(x_n - \mu)^\top b_j = \sum_{j=M+1}^D b_j^\top \left( \frac{1}{N} \sum_{n=1}^N (x_n - \mu)(x_n - \mu)^\top \right) b_j$$
+$$\begin{aligned} J_M &= \frac{1}{N} \sum_{n=1}^N \sum_{j=M+1}^D b_j^\top \\ &\quad (x_n - \mu)(x_n - \mu)^\top b_j \\ &= \sum_{j=M+1}^D b_j^\top \\ &\quad \left( \frac{1}{N} \sum_{n=1}^N (x_n - \mu)(x_n - \mu)^\top \right) b_j \end{aligned}$$
 괄호 안이 정확히 표본 공분산 행렬 $S$입니다!
 $$J_M = \sum_{j=M+1}^D b_j^\top S b_j$$
 
@@ -305,13 +305,13 @@ $$J_M = \sum_{j=M+1}^D \lambda_j$$
 
 #### 문제 설정
 4개의 2차원 데이터 포인트가 주어졌습니다:
-$$x_1 = \begin{bmatrix} 1 \\ 1 \end{bmatrix}, \quad x_2 = \begin{bmatrix} 2 \\ 3 \end{bmatrix}, \quad x_3 = \begin{bmatrix} 3 \\ 2 \end{bmatrix}, \quad x_4 = \begin{bmatrix} 4 \\ 4 \end{bmatrix}$$
+$$\begin{gathered} x_1 = \begin{bmatrix} 1 \\ 1 \end{bmatrix}, \quad x_2 = \begin{bmatrix} 2 \\ 3 \end{bmatrix}, \\ x_3 = \begin{bmatrix} 3 \\ 2 \end{bmatrix}, \quad x_4 = \begin{bmatrix} 4 \\ 4 \end{bmatrix} \end{gathered}$$
 이 데이터를 PCA를 통해 1차원($M=1$)으로 차원 축소하시오.
 
 ---
 
 #### [1단계] 표본 평균 $\mu$ 및 중심화 데이터 $X_c$ 계산
-$$\mu = \frac{1}{4} \left( \begin{bmatrix} 1 \\ 1 \end{bmatrix} + \begin{bmatrix} 2 \\ 3 \end{bmatrix} + \begin{bmatrix} 3 \\ 2 \end{bmatrix} + \begin{bmatrix} 4 \\ 4 \end{bmatrix} \right) = \frac{1}{4} \begin{bmatrix} 1+2+3+4 \\ 1+3+2+4 \end{bmatrix} = \frac{1}{4} \begin{bmatrix} 10 \\ 10 \end{bmatrix} = \begin{bmatrix} 2.5 \\ 2.5 \end{bmatrix}$$
+$$\begin{aligned} \mu &= \frac{1}{4} \biggl( \begin{bmatrix} 1 \\ 1 \end{bmatrix} + \begin{bmatrix} 2 \\ 3 \end{bmatrix} \\ &\quad + \begin{bmatrix} 3 \\ 2 \end{bmatrix} + \begin{bmatrix} 4 \\ 4 \end{bmatrix} \biggr) \\ &= \frac{1}{4} \begin{bmatrix} 1+2+3+4 \\ 1+3+2+4 \end{bmatrix} \\ &= \frac{1}{4} \begin{bmatrix} 10 \\ 10 \end{bmatrix} \\ &= \begin{bmatrix} 2.5 \\ 2.5 \end{bmatrix} \end{aligned}$$
 
 각 데이터에서 평균 $\mu$를 뺍니다:
 - $x_1 - \mu = \begin{bmatrix} 1 - 2.5 \\ 1 - 2.5 \end{bmatrix} = \begin{bmatrix} -1.5 \\ -1.5 \end{bmatrix} = \begin{bmatrix} -3/2 \\ -3/2 \end{bmatrix}$
@@ -330,7 +330,7 @@ $$X_c = \begin{bmatrix} -1.5 & -0.5 & 0.5 & 1.5 \\ -1.5 & 0.5 & -0.5 & 1.5 \end{
 - (2,2) 원소 (두 번째 좌표의 분산):
   $$S_{22} = \frac{1}{4} \left( (-1.5)^2 + 0.5^2 + (-0.5)^2 + 1.5^2 \right) = \frac{1}{4} (2.25 + 0.25 + 0.25 + 2.25) = 1.25 = \frac{5}{4}$$
 - (1,2) 및 (2,1) 원소 (공분산):
-  $$S_{12} = S_{21} = \frac{1}{4} \left( (-1.5)(-1.5) + (-0.5)(0.5) + (0.5)(-0.5) + (1.5)(1.5) \right)$$
+  $$\begin{aligned} S_{12} &= S_{21} \\ &= \frac{1}{4} \bigl( (-1.5)(-1.5) + (-0.5)(0.5) \\ &\quad + (0.5)(-0.5) + (1.5)(1.5) \bigr) \end{aligned}$$
   $$= \frac{1}{4} (2.25 - 0.25 - 0.25 + 2.25) = \frac{1}{4}(4.0) = 1.0 = 1$$
 
 따라서 공분산 행렬은 다음과 같습니다:
@@ -340,24 +340,24 @@ $$S = \begin{bmatrix} 5/4 & 1 \\ 1 & 5/4 \end{bmatrix} = \begin{bmatrix} 1.25 & 
 
 #### [3단계] 고유값 및 고유벡터 계산
 특성방정식(Characteristic Equation): $\det(S - \lambda I) = 0$
-$$\det \begin{bmatrix} \frac{5}{4} - \lambda & 1 \\ 1 & \frac{5}{4} - \lambda \end{bmatrix} = \left( \frac{5}{4} - \lambda \right)^2 - (1)(1) = 0$$
+$$\begin{aligned} &\det \begin{bmatrix} \frac{5}{4} - \lambda & 1 \\ 1 & \frac{5}{4} - \lambda \end{bmatrix} \\ &= \left( \frac{5}{4} - \lambda \right)^2 - (1)(1) \\ &= 0 \end{aligned}$$
 $$\left( \frac{5}{4} - \lambda \right)^2 = 1 \iff \frac{5}{4} - \lambda = \pm 1$$
 - $\lambda_1 = \frac{5}{4} + 1 = \frac{9}{4} = 2.25$ (최대 고유값)
 - $\lambda_2 = \frac{5}{4} - 1 = \frac{1}{4} = 0.25$ (최소 고유값)
 
 총 분산 확인:
-$$\text{Tr}(S) = \frac{5}{4} + \frac{5}{4} = \frac{10}{4} = 2.50 = \lambda_1 + \lambda_2 = 2.25 + 0.25 \quad (\text{일치!})$$
+$$\begin{aligned} \text{Tr}(S) &= \frac{5}{4} + \frac{5}{4} \\ &= \frac{10}{4} = 2.50 \\ &= \lambda_1 + \lambda_2 \\ &= 2.25 + 0.25 \quad (\text{일치!}) \end{aligned}$$
 제1 주성분이 설명하는 분산 비율(Explained Variance Ratio):
 $$\frac{\lambda_1}{\lambda_1 + \lambda_2} = \frac{2.25}{2.50} = \frac{9}{10} = 90\%$$
 
 **고유벡터 $b_1$ 구하기 ($\lambda_1 = 9/4$):**
-$$(S - \lambda_1 I) v = \begin{bmatrix} 5/4 - 9/4 & 1 \\ 1 & 5/4 - 9/4 \end{bmatrix} \begin{bmatrix} v_1 \\ v_2 \end{bmatrix} = \begin{bmatrix} -1 & 1 \\ 1 & -1 \end{bmatrix} \begin{bmatrix} v_1 \\ v_2 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \end{bmatrix}$$
+$$\begin{aligned} &(S - \lambda_1 I) v \\ &= \begin{bmatrix} 5/4 - 9/4 & 1 \\ 1 & 5/4 - 9/4 \end{bmatrix} \begin{bmatrix} v_1 \\ v_2 \end{bmatrix} \\ &= \begin{bmatrix} -1 & 1 \\ 1 & -1 \end{bmatrix} \begin{bmatrix} v_1 \\ v_2 \end{bmatrix} \\ &= \begin{bmatrix} 0 \\ 0 \end{bmatrix} \end{aligned}$$
 $$-v_1 + v_2 = 0 \implies v_1 = v_2$$
 단위 벡터로 정규화: $\|b_1\|^2 = v_1^2 + v_2^2 = 2 v_1^2 = 1 \implies v_1 = \frac{1}{\sqrt{2}}$
 $$b_1 = \frac{1}{\sqrt{2}} \begin{bmatrix} 1 \\ 1 \end{bmatrix}$$
 
 **고유벡터 $b_2$ 구하기 ($\lambda_2 = 1/4$):**
-$$(S - \lambda_2 I) v = \begin{bmatrix} 5/4 - 1/4 & 1 \\ 1 & 5/4 - 1/4 \end{bmatrix} \begin{bmatrix} v_1 \\ v_2 \end{bmatrix} = \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix} \begin{bmatrix} v_1 \\ v_2 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \end{bmatrix}$$
+$$\begin{aligned} (S - \lambda_2 I) v &= \begin{bmatrix} 5/4 - 1/4 & 1 \\ 1 & 5/4 - 1/4 \end{bmatrix} \begin{bmatrix} v_1 \\ v_2 \end{bmatrix} \\ &= \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix} \begin{bmatrix} v_1 \\ v_2 \end{bmatrix} \\ &= \begin{bmatrix} 0 \\ 0 \end{bmatrix} \end{aligned}$$
 $$v_1 + v_2 = 0 \implies v_2 = -v_1$$
 단위 벡터로 정규화:
 $$b_2 = \frac{1}{\sqrt{2}} \begin{bmatrix} -1 \\ 1 \end{bmatrix}$$
@@ -373,7 +373,7 @@ $M=1$이므로 기저 행렬은 $B = b_1 = \frac{1}{\sqrt{2}} \begin{bmatrix} 1 
 - $n=4$: $z_4 = \frac{1}{\sqrt{2}} [1, 1] \begin{bmatrix} 1.5 \\ 1.5 \end{bmatrix} = \frac{1.5 + 1.5}{\sqrt{2}} = \frac{3}{\sqrt{2}} = \frac{3\sqrt{2}}{2} \approx 2.121$
 
 **사영된 데이터의 표본 분산 검산:**
-$$\frac{1}{4} \sum_{n=1}^4 z_n^2 = \frac{1}{4} \left( \left(-\frac{3}{\sqrt{2}}\right)^2 + 0^2 + 0^2 + \left(\frac{3}{\sqrt{2}}\right)^2 \right) = \frac{1}{4} \left( \frac{9}{2} + 0 + 0 + \frac{9}{2} \right) = \frac{1}{4} (9) = \frac{9}{4} = 2.25$$
+$$\begin{aligned} \frac{1}{4} \sum_{n=1}^4 z_n^2 &= \frac{1}{4} \Bigl( \left(-\frac{3}{\sqrt{2}}\right)^2 + 0^2 \\ &\quad + 0^2 + \left(\frac{3}{\sqrt{2}}\right)^2 \Bigr) \\ &= \frac{1}{4} \left( \frac{9}{2} + 0 + 0 + \frac{9}{2} \right) \\ &= \frac{1}{4} (9) = \frac{9}{4} = 2.25 \end{aligned}$$
 사영된 좌표의 분산이 정확히 최대 고유값 $\lambda_1 = 2.25$와 완벽하게 일치합니다!
 
 ---
@@ -401,7 +401,7 @@ $$\frac{1}{4} \sum_{n=1}^4 z_n^2 = \frac{1}{4} \left( \left(-\frac{3}{\sqrt{2}}\
 - $\|x_4 - \tilde{x}_4\|^2 = \left\| \begin{bmatrix} 4 \\ 4 \end{bmatrix} - \begin{bmatrix} 4 \\ 4 \end{bmatrix} \right\|^2 = 0$
 
 평균 제곱 재구성 오차:
-$$J_1 = \frac{1}{4} \sum_{n=1}^4 \|x_n - \tilde{x}_n\|^2 = \frac{1}{4} (0 + 0.5 + 0.5 + 0) = \frac{1.0}{4} = 0.25$$
+$$\begin{aligned} J_1 &= \frac{1}{4} \sum_{n=1}^4 \|x_n - \tilde{x}_n\|^2 \\ &= \frac{1}{4} (0 + 0.5 + 0.5 + 0) \\ &= \frac{1.0}{4} = 0.25 \end{aligned}$$
 
 버려진 두 번째 고유값:
 $$\lambda_2 = 0.25$$
@@ -430,7 +430,7 @@ $$X = U \Sigma V^\top$$
 
 #### 2. 공분산 행렬 $S$와 SVD의 직접 연결
 표본 공분산 행렬 $S$에 SVD 식을 대입합니다:
-$$S = \frac{1}{N} X X^\top = \frac{1}{N} (U \Sigma V^\top) (U \Sigma V^\top)^\top = \frac{1}{N} U \Sigma V^\top V \Sigma^\top U^\top$$
+$$\begin{aligned} S &= \frac{1}{N} X X^\top = \frac{1}{N} (U \Sigma V^\top) (U \Sigma V^\top)^\top \\ &= \frac{1}{N} U \Sigma V^\top V \Sigma^\top U^\top \end{aligned}$$
 $V$는 직교 행렬이므로 $V^\top V = I_N$으로 소거됩니다:
 $$S = \frac{1}{N} U (\Sigma \Sigma^\top) U^\top = U \left( \frac{1}{N} \Sigma \Sigma^\top \right) U^\top$$
 
@@ -445,11 +445,11 @@ $$\frac{1}{N} \Sigma \Sigma^\top = \text{diag}\left( \frac{\sigma_1^2}{N}, \; \f
 
 #### 3. Eckart-Young-Mirsky 정리와의 일치
 선형대수학의 유명한 **에카르트-영 정리(Eckart-Young Theorem)**\ 에 따르면, 임의의 행렬 $X$에 대해 계수(rank)가 $M$ 이하인 행렬들 중 스펙트럼 노름 $\|X - A\|_2$(교재 식 (10.50), 정리 4.25)를 최소화하는 최적의 계수 $M$ 근사 행렬 $\tilde{X}_M$은 상위 $M$개의 특이값만 남긴 **절단 SVD(Truncated SVD)**\ 입니다:
-$$\tilde{X}_M = \arg\min_{\text{rank}(A) \le M} \|X - A\|_2 = U_M \Sigma_M V_M^\top$$
+$$\begin{aligned} \tilde{X}_M &= \arg\min_{\text{rank}(A) \le M} \|X - A\|_2 \\ &= U_M \Sigma_M V_M^\top \end{aligned}$$
 > 교재 밖 보충: 같은 결론이 프로베니우스 노름 $\|X - A\|_F$에서도 성립한다(Eckart–Young–Mirsky). 재구성 오차 $J_M$은 프로베니우스 노름 쪽과 직접 연결된다: $\frac{1}{N}\|X - \tilde{X}_M\|_F^2 = \frac{1}{N}\sum_{j>M}\sigma_j^2 = \sum_{j>M}\lambda_j$.
 
 한편, PCA에서 데이터를 상위 $M$개 주성분으로 사영했다가 복원한 행렬 $\tilde{X}$는:
-$$\tilde{X} = B B^\top X = U_M U_M^\top (U \Sigma V^\top) = U_M (U_M^\top U) \Sigma V^\top = U_M \Sigma_M V_M^\top$$
+$$\begin{aligned} \tilde{X} &= B B^\top X = U_M U_M^\top (U \Sigma V^\top) \\ &= U_M (U_M^\top U) \Sigma V^\top = U_M \Sigma_M V_M^\top \end{aligned}$$
 정확히 에카르트-영 정리의 최적 저계수 근사 행렬 $\tilde{X}_M$과 **수학적으로 완전히 일치**합니다!
 즉, PCA는 통계학적으로는 "분산 최대화"이지만, 행렬 대수학적으로는 **"데이터 행렬의 최적 저계수 근사(Optimal Low-Rank Approximation)"**\ 입니다.
 
@@ -488,7 +488,7 @@ $$\tilde{X} = B B^\top X = U_M U_M^\top (U \Sigma V^\top) = U_M (U_M^\top U) \Si
   $$S b_m = \lambda_m b_m \iff \frac{1}{N} X X^\top b_m = \lambda_m b_m \quad (m = 1, \dots, M)$$
 
 여기서 순서를 뒤집어 **$N \times N$ 그람 행렬(Gram Matrix)** $K := \frac{1}{N} X^\top X \in \mathbb{R}^{N \times N}$를 정의하고, 이 작은 행렬의 고유값 문제를 풉니다:
-$$\frac{1}{N} X^\top X c_m = \lambda_m c_m \quad (c_m \in \mathbb{R}^N, \; \|c_m\| = 1)$$
+$$\begin{gathered} \frac{1}{N} X^\top X c_m = \lambda_m c_m \\ (c_m \in \mathbb{R}^N, \; \|c_m\| = 1) \end{gathered}$$
 
 이제 이 식의 양변 왼쪽에 행렬 $X$를 곱해줍니다:
 $$X \left( \frac{1}{N} X^\top X c_m \right) = X (\lambda_m c_m)$$
@@ -502,9 +502,9 @@ $$\therefore S (X c_m) = \lambda_m (X c_m)$$
 
 #### 정규화 상수 도출
 고유벡터 $b_m = \alpha_m X c_m$이 단위 길이($\|b_m\|^2 = 1$)를 갖도록 스케일링 계수 $\alpha_m$을 결정합니다:
-$$b_m^\top b_m = (\alpha_m X c_m)^\top (\alpha_m X c_m) = \alpha_m^2 c_m^\top X^\top X c_m = 1$$
+$$\begin{aligned} b_m^\top b_m &= (\alpha_m X c_m)^\top (\alpha_m X c_m) \\ &= \alpha_m^2 c_m^\top X^\top X c_m = 1 \end{aligned}$$
 앞서 $\frac{1}{N}X^\top X c_m = \lambda_m c_m$이므로 $X^\top X c_m = N \lambda_m c_m$입니다. 이를 대입하면:
-$$\alpha_m^2 c_m^\top (N \lambda_m c_m) = \alpha_m^2 N \lambda_m (c_m^\top c_m) = \alpha_m^2 N \lambda_m (1) = 1$$
+$$\begin{aligned} \alpha_m^2 c_m^\top (N \lambda_m c_m) &= \alpha_m^2 N \lambda_m (c_m^\top c_m) \\ &= \alpha_m^2 N \lambda_m (1) = 1 \end{aligned}$$
 $$\therefore \alpha_m = \frac{1}{\sqrt{N \lambda_m}}$$
 
 따라서 최종 고유벡터는 다음과 같이 계산됩니다:
@@ -526,16 +526,16 @@ $N=2$이므로, $3 \times 3$ 행렬 $S$ 대신 $2 \times 2$ 행렬 $K = \frac{1}
 
 **[1단계: $2 \times 2$ 그람 행렬 $K$ 계산]**
 $$X_c^\top = \begin{bmatrix} -1 & -1 & 1 \\ 1 & 1 & -1 \end{bmatrix}$$
-$$X_c^\top X_c = \begin{bmatrix} -1 & -1 & 1 \\ 1 & 1 & -1 \end{bmatrix} \begin{bmatrix} -1 & 1 \\ -1 & 1 \\ 1 & -1 \end{bmatrix} = \begin{bmatrix} 1+1+1 & -1-1-1 \\ -1-1-1 & 1+1+1 \end{bmatrix} = \begin{bmatrix} 3 & -3 \\ -3 & 3 \end{bmatrix}$$
+$$\begin{aligned} X_c^\top X_c &= \begin{bmatrix} -1 & -1 & 1 \\ 1 & 1 & -1 \end{bmatrix} \begin{bmatrix} -1 & 1 \\ -1 & 1 \\ 1 & -1 \end{bmatrix} \\ &= \begin{bmatrix} 1+1+1 & -1-1-1 \\ -1-1-1 & 1+1+1 \end{bmatrix} \\ &= \begin{bmatrix} 3 & -3 \\ -3 & 3 \end{bmatrix} \end{aligned}$$
 $$K = \frac{1}{2} X_c^\top X_c = \begin{bmatrix} 1.5 & -1.5 \\ -1.5 & 1.5 \end{bmatrix}$$
 
 **[2단계: $K$의 고유값 및 고유벡터 계산]**
-$$\det(K - \lambda I) = (1.5 - \lambda)^2 - (-1.5)^2 = (1.5 - \lambda)^2 - 2.25 = 0$$
+$$\begin{aligned} \det(K - \lambda I) &= (1.5 - \lambda)^2 - (-1.5)^2 \\ &= (1.5 - \lambda)^2 - 2.25 = 0 \end{aligned}$$
 $$\lambda^2 - 3\lambda = 0 \implies \lambda(\lambda - 3) = 0$$
 따라서 0이 아닌 유일한 최대 고유값은 $\lambda_1 = 3$ 입니다.
 
 $\lambda_1 = 3$에 대한 고유벡터 $c_1$:
-$$(K - 3I) c_1 = \begin{bmatrix} 1.5 - 3 & -1.5 \\ -1.5 & 1.5 - 3 \end{bmatrix} \begin{bmatrix} c_{11} \\ c_{12} \end{bmatrix} = \begin{bmatrix} -1.5 & -1.5 \\ -1.5 & -1.5 \end{bmatrix} \begin{bmatrix} c_{11} \\ c_{12} \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \end{bmatrix}$$
+$$\begin{aligned} (K - 3I) c_1 &= \begin{bmatrix} 1.5 - 3 & -1.5 \\ -1.5 & 1.5 - 3 \end{bmatrix} \begin{bmatrix} c_{11} \\ c_{12} \end{bmatrix} \\ &= \begin{bmatrix} -1.5 & -1.5 \\ -1.5 & -1.5 \end{bmatrix} \begin{bmatrix} c_{11} \\ c_{12} \end{bmatrix} \\ &= \begin{bmatrix} 0 \\ 0 \end{bmatrix} \end{aligned}$$
 $$c_{11} + c_{12} = 0 \implies c_{12} = -c_{11}$$
 단위 정규화: $c_1 = \frac{1}{\sqrt{2}} \begin{bmatrix} -1 \\ 1 \end{bmatrix}$
 
@@ -547,8 +547,8 @@ $$c_{11} + c_{12} = 0 \implies c_{12} = -c_{11}$$
   $$b_1 = \frac{1}{\sqrt{6}} \begin{bmatrix} \sqrt{2} \\ \sqrt{2} \\ -\sqrt{2} \end{bmatrix} = \frac{\sqrt{2}}{\sqrt{6}} \begin{bmatrix} 1 \\ 1 \\ -1 \end{bmatrix} = \frac{1}{\sqrt{3}} \begin{bmatrix} 1 \\ 1 \\ -1 \end{bmatrix}$$
 
 **[4단계: 원래의 $3 \times 3$ 공분산 행렬 $S$로 검산]**
-$$S = \frac{1}{2} X_c X_c^\top = \frac{1}{2} \begin{bmatrix} -1 & 1 \\ -1 & 1 \\ 1 & -1 \end{bmatrix} \begin{bmatrix} -1 & -1 & 1 \\ 1 & 1 & -1 \end{bmatrix} = \frac{1}{2} \begin{bmatrix} 2 & 2 & -2 \\ 2 & 2 & -2 \\ -2 & -2 & 2 \end{bmatrix} = \begin{bmatrix} 1 & 1 & -1 \\ 1 & 1 & -1 \\ -1 & -1 & 1 \end{bmatrix}$$
-$$S b_1 = \begin{bmatrix} 1 & 1 & -1 \\ 1 & 1 & -1 \\ -1 & -1 & 1 \end{bmatrix} \left( \frac{1}{\sqrt{3}} \begin{bmatrix} 1 \\ 1 \\ -1 \end{bmatrix} \right) = \frac{1}{\sqrt{3}} \begin{bmatrix} 1 + 1 + 1 \\ 1 + 1 + 1 \\ -1 - 1 - 1 \end{bmatrix} = \frac{1}{\sqrt{3}} \begin{bmatrix} 3 \\ 3 \\ -3 \end{bmatrix} = 3 \left( \frac{1}{\sqrt{3}} \begin{bmatrix} 1 \\ 1 \\ -1 \end{bmatrix} \right) = 3 b_1$$
+$$\begin{aligned} S &= \frac{1}{2} X_c X_c^\top \\ &= \frac{1}{2} \begin{bmatrix} -1 & 1 \\ -1 & 1 \\ 1 & -1 \end{bmatrix} \begin{bmatrix} -1 & -1 & 1 \\ 1 & 1 & -1 \end{bmatrix} \\ &= \frac{1}{2} \begin{bmatrix} 2 & 2 & -2 \\ 2 & 2 & -2 \\ -2 & -2 & 2 \end{bmatrix} \\ &= \begin{bmatrix} 1 & 1 & -1 \\ 1 & 1 & -1 \\ -1 & -1 & 1 \end{bmatrix} \end{aligned}$$
+$$\begin{aligned} S b_1 &= \begin{bmatrix} 1 & 1 & -1 \\ 1 & 1 & -1 \\ -1 & -1 & 1 \end{bmatrix} \left( \frac{1}{\sqrt{3}} \begin{bmatrix} 1 \\ 1 \\ -1 \end{bmatrix} \right) \\ &= \frac{1}{\sqrt{3}} \begin{bmatrix} 1 + 1 + 1 \\ 1 + 1 + 1 \\ -1 - 1 - 1 \end{bmatrix} = \frac{1}{\sqrt{3}} \begin{bmatrix} 3 \\ 3 \\ -3 \end{bmatrix} \\ &= 3 \left( \frac{1}{\sqrt{3}} \begin{bmatrix} 1 \\ 1 \\ -1 \end{bmatrix} \right) = 3 b_1 \end{aligned}$$
 고유값 3, 고유벡터 $b_1$이 한 치의 오차도 없이 정확히 증명되었습니다!
 
 ---
@@ -623,7 +623,7 @@ $$x = B z + \mu + \epsilon \in \mathbb{R}^D$$
 - $\epsilon \sim \mathcal{N}(0, \sigma^2 I_D)$: $z$와 독립인 관측 노이즈 ($\sigma^2$: 노이즈 분산)
 
 따라서 $z$가 주어졌을 때 $x$의 조건부 확률분포(우도)는 다음과 같습니다:
-$$p(x \mid z, B, \mu, \sigma^2) = \mathcal{N}(x \mid B z + \mu, \sigma^2 I_D)$$
+$$\begin{gathered} p(x \mid z, B, \mu, \sigma^2) \\ = \mathcal{N}(x \mid B z + \mu, \sigma^2 I_D) \end{gathered}$$
 
 ---
 
@@ -631,7 +631,7 @@ $$p(x \mid z, B, \mu, \sigma^2) = \mathcal{N}(x \mid B z + \mu, \sigma^2 I_D)$$
 
 #### 1. 데이터의 주변 분포 (Marginal Distribution / Evidence)
 잠재 변수 $z$를 적분 소거하여 관측 데이터 $x$ 자체의 주변 확률분포를 구합니다:
-$$p(x \mid B, \mu, \sigma^2) = \int p(x \mid z, B, \mu, \sigma^2) p(z) \, dz$$
+$$\begin{gathered} p(x \mid B, \mu, \sigma^2) \\ = \int p(x \mid z, B, \mu, \sigma^2) p(z) \, dz \end{gathered}$$
 
 이 적분은 6장의 선형 가우시안 시스템 공식에 의해 적분 기호 없이 즉시 풀립니다:
 - **기댓값**:
@@ -640,10 +640,10 @@ $$p(x \mid B, \mu, \sigma^2) = \int p(x \mid z, B, \mu, \sigma^2) p(z) \, dz$$
   $$\text{Cov}[x] = \text{Cov}[B z + \mu + \epsilon] = \text{Cov}[B z] + \text{Cov}[\epsilon] = B \text{Cov}[z] B^\top + \sigma^2 I_D = B B^\top + \sigma^2 I_D$$
 
 따라서 주변 분포는 다음과 같습니다:
-$$p(x \mid B, \mu, \sigma^2) = \mathcal{N}(x \mid \mu, C), \quad \text{여기서 } C = B B^\top + \sigma^2 I_D \in \mathbb{R}^{D \times D}$$
+$$\begin{gathered} p(x \mid B, \mu, \sigma^2) = \mathcal{N}(x \mid \mu, C), \\ \text{여기서 } C = B B^\top + \sigma^2 I_D \in \mathbb{R}^{D \times D} \end{gathered}$$
 
 #### 2. $x$와 $z$의 결합 분포 (Joint Distribution)
-$$p\left( \begin{bmatrix} x \\ z \end{bmatrix} \right) = \mathcal{N}\left( \begin{bmatrix} \mu \\ 0 \end{bmatrix}, \; \begin{bmatrix} B B^\top + \sigma^2 I_D & B \\ B^\top & I_M \end{bmatrix} \right)$$
+$$\begin{gathered} p\left( \begin{bmatrix} x \\ z \end{bmatrix} \right) \\ = \mathcal{N}\left( \begin{bmatrix} \mu \\ 0 \end{bmatrix}, \; \begin{bmatrix} B B^\top + \sigma^2 I_D & B \\ B^\top & I_M \end{bmatrix} \right) \end{gathered}$$
 - 상호 공분산: $\text{Cov}[x, z] = \mathbb{E}[(x-\mu) z^\top] = \mathbb{E}[(Bz+\epsilon)z^\top] = B \mathbb{E}[zz^\top] = B I_M = B$
 
 ---
@@ -661,7 +661,7 @@ $$p(z \mid x) = \mathcal{N}(z \mid m, C_z)$$
 #### 2. 우드베리(Woodbury) 항등식을 통한 $M \times M$ 역행렬 변환
 위 식에서 $(B B^\top + \sigma^2 I_D)^{-1}$는 거대한 $D \times D$ 행렬의 역행렬을 요구합니다.
 행렬 역행렬 보조정리(Woodbury / Push-through Identity)를 적용하면 다음과 같이 아름답게 바뀝니다:
-$$B^\top (B B^\top + \sigma^2 I_D)^{-1} = (B^\top B + \sigma^2 I_M)^{-1} B^\top$$
+$$\begin{gathered} B^\top (B B^\top + \sigma^2 I_D)^{-1} \\ = (B^\top B + \sigma^2 I_M)^{-1} B^\top \end{gathered}$$
 이를 대입하면:
 $$m = (B^\top B + \sigma^2 I_M)^{-1} B^\top (x - \mu)$$
 $$C_z = \sigma^2 (B^\top B + \sigma^2 I_M)^{-1}$$
@@ -729,7 +729,7 @@ PCA의 선형적 한계를 극복하고 현대 생성 모델로 나아가는 주
 | **7** | $\nabla_{b_1} (\lambda_1 b_1^\top b_1) = 2 \lambda_1 b_1$ | 2차 형식 벡터 미분 공식 ($A = I$) |
 | **8** | $\nabla_{b_1} \mathfrak{L} = 2 S b_1 - 2 \lambda_1 b_1 = 0$ | 극대점에서의 1계 최적성 조건 (정류점) |
 | **9** | $S b_1 = \lambda_1 b_1$ | 양변을 2로 나누어 정리 (고유값 방정식 도출) |
-| **10** | $V_1 = b_1^\top S b_1 = b_1^\top (\lambda_1 b_1) = \lambda_1 (b_1^\top b_1) = \lambda_1$ | 분산이 고유값과 같으므로 분산 최대화를 위해 최대 고유값 선택 $\blacksquare$ |
+| **10** | $$\begin{aligned} V_1 &= b_1^\top S b_1 = b_1^\top (\lambda_1 b_1) \\ &= \lambda_1 (b_1^\top b_1) = \lambda_1 \end{aligned}$$ | 분산이 고유값과 같으므로 분산 최대화를 위해 최대 고유값 선택 $\blacksquare$ |
 
 ---
 
@@ -748,7 +748,7 @@ PCA의 선형적 한계를 극복하고 현대 생성 모델로 나아가는 주
 | **6** | $\frac{\partial J}{\partial b} = -\frac{2}{N} \sum_{n=1}^N (x_n - b - B z_n) = 0$ | 목적함수를 오프셋 $b$에 대해 편미분 |
 | **7** | $\frac{1}{N}\sum_{n=1}^N x_n - b - B \left( \frac{1}{N}\sum_{n=1}^N z_n \right) = 0$ | 합 기호 분배 및 표본 평균 $\mu = \frac{1}{N}\sum x_n, \bar{z} = \frac{1}{N}\sum z_n$ 정의 |
 | **8** | $\bar{z} = \frac{1}{N}\sum_{n=1}^N B^\top(x_n - b) = B^\top(\mu - b)$ | 최적 좌표 공식의 표본 평균 대입 |
-| **9** | $\mu - b - B B^\top (\mu - b) = 0 \iff (I - B B^\top)(\mu - b) = 0$ | 7단계 식에 $\bar{z}$ 대입 후 인수분해 |
+| **9** | $$\begin{gathered} \mu - b - B B^\top (\mu - b) = 0 \\ \iff (I - B B^\top)(\mu - b) = 0 \end{gathered}$$ | 7단계 식에 $\bar{z}$ 대입 후 인수분해 |
 | **10** | $b = \mu = \frac{1}{N} \sum_{n=1}^N x_n$ | 모든 기저 선택에 대해 항상 성립하는 자명한 최적 오프셋 확정 $\blacksquare$ |
 
 ---
@@ -806,7 +806,7 @@ $N \times N$ 행렬 $\frac{1}{N}X^\top X c_m = \lambda_m c_m$으로부터 $S$의
 | **4** | $S (X c_m) = \lambda_m (X c_m)$ | $D \times D$ 공분산 행렬 $S = \frac{1}{N}XX^\top$의 정의 대입 |
 | **5** | $b_m \propto X c_m$ | $X c_m$이 행렬 $S$의 고유값 $\lambda_m$에 대응하는 고유벡터임이 증명됨 |
 | **6** | $b_m = \alpha_m X c_m$ | 단위 벡터로 만들기 위한 스케일링 상수 $\alpha_m$ 설정 |
-| **7** | $b_m^\top b_m = (\alpha_m X c_m)^\top (\alpha_m X c_m) = \alpha_m^2 c_m^\top X^\top X c_m = 1$ | 단위 노름 제약 조건 $\|b_m\|^2 = 1$ 적용 |
+| **7** | $$\begin{aligned} b_m^\top b_m &= (\alpha_m X c_m)^\top (\alpha_m X c_m) \\ &= \alpha_m^2 c_m^\top X^\top X c_m = 1 \end{aligned}$$ | 단위 노름 제약 조건 $\|b_m\|^2 = 1$ 적용 |
 | **8** | $X^\top X c_m = N \lambda_m c_m$ | 1단계의 고유값 식에 양변 $N$을 곱한 결과 |
 | **9** | $\alpha_m^2 c_m^\top (N \lambda_m c_m) = \alpha_m^2 N \lambda_m (c_m^\top c_m) = \alpha_m^2 N \lambda_m = 1$ | $c_m$의 정규직교성 ($c_m^\top c_m = 1$) 대입 |
 | **10** | $\alpha_m = \frac{1}{\sqrt{N\lambda_m}} \implies b_m = \frac{1}{\sqrt{N\lambda_m}} X c_m$ | 최종 정규화된 고유벡터 공식 확정 $\blacksquare$ |

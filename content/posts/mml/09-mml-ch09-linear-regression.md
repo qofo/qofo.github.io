@@ -113,7 +113,7 @@ $N$개의 훈련 데이터를 수식으로 다루기 위해 행렬로 묶습니�
 ### 손으로 풀어 보는 예제
 
 **[문제]** 1차원 입력 데이터 3개 ($N=3$)가 주어졌습니다:
-$$(x_1, y_1) = (0, 1), \quad (x_2, y_2) = (1, 3), \quad (x_3, y_3) = (2, 4)$$
+$$\begin{aligned} (x_1, y_1) &= (0, 1), \\ (x_2, y_2) &= (1, 3), \\ (x_3, y_3) &= (2, 4) \end{aligned}$$
 절편(bias)을 포함하는 1차 직선 모델 $f(x) = \theta_0 + \theta_1 x$를 세우고자 합니다.
 1. 특징 함수 벡터 $\phi(x)$를 정의하시오.
 2. 설계 행렬 $\Phi$와 타깃 벡터 $y$를 숫자로 구체적으로 구성하시오.
@@ -129,7 +129,7 @@ $$(x_1, y_1) = (0, 1), \quad (x_2, y_2) = (1, 3), \quad (x_3, y_3) = (2, 4)$$
    - $n=3$: $\phi(x_3)^\top = [1, 2]$
 
    따라서 설계 행렬 $\Phi$와 타깃 벡터 $y$는 다음과 같습니다:
-   $$\Phi = \begin{bmatrix} 1 & 0 \\ 1 & 1 \\ 1 & 2 \end{bmatrix} \in \mathbb{R}^{3 \times 2}, \quad y = \begin{bmatrix} 1 \\ 3 \\ 4 \end{bmatrix} \in \mathbb{R}^3$$
+   $$\begin{aligned} \Phi &= \begin{bmatrix} 1 & 0 \\ 1 & 1 \\ 1 & 2 \end{bmatrix} \in \mathbb{R}^{3 \times 2}, \\ y &= \begin{bmatrix} 1 \\ 3 \\ 4 \end{bmatrix} \in \mathbb{R}^3 \end{aligned}$$
 
 ---
 
@@ -168,7 +168,7 @@ $$(x_1, y_1) = (0, 1), \quad (x_2, y_2) = (1, 3), \quad (x_3, y_3) = (2, 4)$$
 
 ##### 1. 가능도 함수 (Likelihood Function)
 모든 데이터 포인트 $(x_n, y_n)$가 독립적으로 생성되었다고 가정(i.i.d.)하면, 전체 데이터셋 $Y = [y_1, \dots, y_N]^\top$의 결합 우도는 각 점 우도의 곱입니다:
-$$p(Y \mid X, \theta) = \prod_{n=1}^N p(y_n \mid x_n, \theta) = \prod_{n=1}^N \mathcal{N}(y_n \mid \phi(x_n)^\top \theta, \sigma^2)$$
+$$\begin{aligned} p(Y \mid X, \theta) &= \prod_{n=1}^N p(y_n \mid x_n, \theta) \\ &= \prod_{n=1}^N \mathcal{N}(y_n \mid \phi(x_n)^\top \theta, \sigma^2) \end{aligned}$$
 
 이를 $N$차원 다변량 정규분포로 한 번에 표현하면:
 $$p(Y \mid X, \theta) = \mathcal{N}(y \mid \Phi \theta, \sigma^2 I_N)$$
@@ -177,15 +177,15 @@ $$p(Y \mid X, \theta) = \mathcal{N}(y \mid \Phi \theta, \sigma^2 I_N)$$
 
 ##### 2. 음의 로그 가능도 (Negative Log-Likelihood, NLL)
 곱셈으로 이루어진 가능도 함수를 미분하기 편하게 만들기 위해 자연로그를 취하고 부호를 바꿉니다(로그는 단조 증가 함수이므로 최적화 위치는 변하지 않습니다):
-$$\mathcal{L}(\theta) = -\log p(Y \mid X, \theta) = -\log \left( (2\pi \sigma^2)^{-\frac{N}{2}} \exp\left( -\frac{1}{2\sigma^2} (y - \Phi\theta)^\top (y - \Phi\theta) \right) \right)$$
+$$\begin{aligned} \mathcal{L}(\theta) &= -\log p(Y \mid X, \theta) \\ &= -\log \Bigl( (2\pi \sigma^2)^{-\frac{N}{2}} \\ &\quad \exp\Bigl( -\frac{1}{2\sigma^2} (y - \Phi\theta)^\top \\ &\qquad\quad (y - \Phi\theta) \Bigr) \Bigr) \end{aligned}$$
 $$= \frac{N}{2} \log(2\pi\sigma^2) + \frac{1}{2\sigma^2} \|y - \Phi\theta\|^2$$
 
 여기서 $\theta$에 무관한 상수항과 양수 계수 $\frac{1}{2\sigma^2}$을 제외하면, 최대가능도 추정은 오차의 $L_2$ 노름 제곱을 최소화하는 최소제곱 문제로 귀결됩니다:
-$$\theta_{ML} = \arg\min_\theta \|y - \Phi\theta\|^2 = \arg\min_\theta (y - \Phi\theta)^\top (y - \Phi\theta)$$
+$$\begin{aligned} \theta_{ML} &= \arg\min_\theta \|y - \Phi\theta\|^2 \\ &= \arg\min_\theta (y - \Phi\theta)^\top (y - \Phi\theta) \end{aligned}$$
 
 ##### 3. 경사도(Gradient)와 정규방정식 (Normal Equation)
 목적함수를 $\theta$에 대해 행렬 미분합니다:
-$$\mathcal{L}(\theta) = \frac{1}{2\sigma^2} \left( y^\top y - 2 y^\top \Phi \theta + \theta^\top \Phi^\top \Phi \theta \right) + \text{상수}$$
+$$\begin{aligned} \mathcal{L}(\theta) &= \frac{1}{2\sigma^2} \bigl( y^\top y - 2 y^\top \Phi \theta \\ &\quad + \theta^\top \Phi^\top \Phi \theta \bigr) + \text{상수} \end{aligned}$$
 $$\nabla_\theta \mathcal{L}(\theta) = \frac{1}{\sigma^2} \left( \Phi^\top \Phi \theta - \Phi^\top y \right)$$
 
 최적점에서는 경사도가 영벡터($0$)가 되어야 하므로:
@@ -198,7 +198,7 @@ $$\theta_{ML} = (\Phi^\top \Phi)^{-1} \Phi^\top y$$
 ##### 4. 노이즈 분산 $\sigma^2$의 최대가능도 추정
 NLL을 $\sigma^2$에 대해 편미분하여 0으로 두면:
 $$\frac{\partial \mathcal{L}}{\partial \sigma^2} = \frac{N}{2\sigma^2} - \frac{1}{2(\sigma^2)^2} \|y - \Phi\theta\|^2 = 0$$
-$$\sigma_{ML}^2 = \frac{1}{N} \|y - \Phi\theta_{ML}\|^2 = \frac{1}{N} \sum_{n=1}^N (y_n - \phi(x_n)^\top \theta_{ML})^2$$
+$$\begin{aligned} \sigma_{ML}^2 &= \frac{1}{N} \|y - \Phi\theta_{ML}\|^2 \\ &= \frac{1}{N} \sum_{n=1}^N (y_n - \phi(x_n)^\top \theta_{ML})^2 \end{aligned}$$
 즉, 최적 모델의 잔차 제곱 평균(MSE)이 곧 노이즈 분산의 MLE 추정량입니다.
 
 ---
@@ -210,26 +210,26 @@ $$\Phi = \begin{bmatrix} 1 & 0 \\ 1 & 1 \\ 1 & 2 \end{bmatrix}, \quad y = \begin
 
 **[1단계: $\Phi^\top \Phi$ 계산]**
 $$\Phi^\top = \begin{bmatrix} 1 & 1 & 1 \\ 0 & 1 & 2 \end{bmatrix}$$
-$$\Phi^\top \Phi = \begin{bmatrix} 1 & 1 & 1 \\ 0 & 1 & 2 \end{bmatrix} \begin{bmatrix} 1 & 0 \\ 1 & 1 \\ 1 & 2 \end{bmatrix} = \begin{bmatrix} 1+1+1 & 0+1+2 \\ 0+1+2 & 0+1+4 \end{bmatrix} = \begin{bmatrix} 3 & 3 \\ 3 & 5 \end{bmatrix}$$
+$$\begin{aligned} \Phi^\top \Phi &= \begin{bmatrix} 1 & 1 & 1 \\ 0 & 1 & 2 \end{bmatrix} \begin{bmatrix} 1 & 0 \\ 1 & 1 \\ 1 & 2 \end{bmatrix} \\ &= \begin{bmatrix} 1+1+1 & 0+1+2 \\ 0+1+2 & 0+1+4 \end{bmatrix} \\ &= \begin{bmatrix} 3 & 3 \\ 3 & 5 \end{bmatrix} \end{aligned}$$
 
 **[2단계: 역행렬 $(\Phi^\top \Phi)^{-1}$ 계산]**
 행렬식(determinant): $\det(\Phi^\top \Phi) = (3)(5) - (3)(3) = 15 - 9 = 6 \neq 0$ (역행렬 존재)
 $$(\Phi^\top \Phi)^{-1} = \frac{1}{6} \begin{bmatrix} 5 & -3 \\ -3 & 3 \end{bmatrix}$$
 
 **[3단계: $\Phi^\top y$ 계산]**
-$$\Phi^\top y = \begin{bmatrix} 1 & 1 & 1 \\ 0 & 1 & 2 \end{bmatrix} \begin{bmatrix} 1 \\ 3 \\ 4 \end{bmatrix} = \begin{bmatrix} 1 + 3 + 4 \\ 0 + 3 + 8 \end{bmatrix} = \begin{bmatrix} 8 \\ 11 \end{bmatrix}$$
+$$\begin{aligned} \Phi^\top y &= \begin{bmatrix} 1 & 1 & 1 \\ 0 & 1 & 2 \end{bmatrix} \begin{bmatrix} 1 \\ 3 \\ 4 \end{bmatrix} \\ &= \begin{bmatrix} 1 + 3 + 4 \\ 0 + 3 + 8 \end{bmatrix} \\ &= \begin{bmatrix} 8 \\ 11 \end{bmatrix} \end{aligned}$$
 
 **[4단계: $\theta_{ML}$ 곱셈 계산]**
-$$\theta_{ML} = (\Phi^\top \Phi)^{-1} \Phi^\top y = \frac{1}{6} \begin{bmatrix} 5 & -3 \\ -3 & 3 \end{bmatrix} \begin{bmatrix} 8 \\ 11 \end{bmatrix} = \frac{1}{6} \begin{bmatrix} (5)(8) + (-3)(11) \\ (-3)(8) + (3)(11) \end{bmatrix} = \frac{1}{6} \begin{bmatrix} 40 - 33 \\ -24 + 33 \end{bmatrix} = \frac{1}{6} \begin{bmatrix} 7 \\ 9 \end{bmatrix} = \begin{bmatrix} 7/6 \\ 3/2 \end{bmatrix}$$
+$$\begin{aligned} \theta_{ML} &= (\Phi^\top \Phi)^{-1} \Phi^\top y \\ &= \frac{1}{6} \begin{bmatrix} 5 & -3 \\ -3 & 3 \end{bmatrix} \begin{bmatrix} 8 \\ 11 \end{bmatrix} \\ &= \frac{1}{6} \begin{bmatrix} (5)(8) + (-3)(11) \\ (-3)(8) + (3)(11) \end{bmatrix} \\ &= \frac{1}{6} \begin{bmatrix} 40 - 33 \\ -24 + 33 \end{bmatrix} \\ &= \frac{1}{6} \begin{bmatrix} 7 \\ 9 \end{bmatrix} \\ &= \begin{bmatrix} 7/6 \\ 3/2 \end{bmatrix} \end{aligned}$$
 따라서 최적의 선형 함수는 $f(x) = \frac{7}{6} + \frac{3}{2}x$ ($y \approx 1.167 + 1.5x$) 입니다.
 
 **[5단계: 예측값 $\hat{y}$, 잔차 $e$, 노이즈 분산 $\sigma_{ML}^2$ 계산]**
 $$\hat{y} = \Phi \theta_{ML} = \begin{bmatrix} 1 & 0 \\ 1 & 1 \\ 1 & 2 \end{bmatrix} \begin{bmatrix} 7/6 \\ 9/6 \end{bmatrix} = \begin{bmatrix} 7/6 \\ 16/6 \\ 25/6 \end{bmatrix}$$
 잔차 벡터 $e = y - \hat{y}$:
-$$e = \begin{bmatrix} 1 \\ 3 \\ 4 \end{bmatrix} - \begin{bmatrix} 7/6 \\ 16/6 \\ 25/6 \end{bmatrix} = \begin{bmatrix} 6/6 - 7/6 \\ 18/6 - 16/6 \\ 24/6 - 25/6 \end{bmatrix} = \begin{bmatrix} -1/6 \\ 2/6 \\ -1/6 \end{bmatrix} = \frac{1}{6} \begin{bmatrix} -1 \\ 2 \\ -1 \end{bmatrix}$$
+$$\begin{aligned} e &= \begin{bmatrix} 1 \\ 3 \\ 4 \end{bmatrix} - \begin{bmatrix} 7/6 \\ 16/6 \\ 25/6 \end{bmatrix} \\ &= \begin{bmatrix} 6/6 - 7/6 \\ 18/6 - 16/6 \\ 24/6 - 25/6 \end{bmatrix} \\ &= \begin{bmatrix} -1/6 \\ 2/6 \\ -1/6 \end{bmatrix} \\ &= \frac{1}{6} \begin{bmatrix} -1 \\ 2 \\ -1 \end{bmatrix} \end{aligned}$$
 
 노이즈 분산 추정량:
-$$\sigma_{ML}^2 = \frac{1}{3} \|e\|^2 = \frac{1}{3} \cdot \frac{1}{36} \left( (-1)^2 + 2^2 + (-1)^2 \right) = \frac{1}{3} \cdot \frac{6}{36} = \frac{1}{18} \approx 0.0556$$
+$$\begin{aligned} \sigma_{ML}^2 &= \frac{1}{3} \|e\|^2 \\ &= \frac{1}{3} \cdot \frac{1}{36} \left( (-1)^2 + 2^2 + (-1)^2 \right) \\ &= \frac{1}{3} \cdot \frac{6}{36} \\ &= \frac{1}{18} \\ &\approx 0.0556 \end{aligned}$$
 
 ---
 
@@ -279,14 +279,14 @@ MLE는 데이터에만 전적으로 의존하기 때문에 데이터가 적거�
 
 ##### 1. 베이즈 정리와 사후확률 (Posterior)
 모수 $\theta$의 사후확률분포 $p(\theta \mid X, Y)$는 가능도와 사전분포의 곱에 비례합니다:
-$$p(\theta \mid X, Y) = \frac{p(Y \mid X, \theta) p(\theta)}{p(Y \mid X)} \propto p(Y \mid X, \theta) p(\theta)$$
+$$\begin{aligned} p(\theta \mid X, Y) &= \frac{p(Y \mid X, \theta) p(\theta)}{p(Y \mid X)} \\ &\propto p(Y \mid X, \theta) p(\theta) \end{aligned}$$
 - **사전분포 $p(\theta)$**: 데이터를 관측하기 전에 모수에 대해 갖는 믿음. 교재에서는 평균 0, 분산 $b^2$을 갖는 등방성(isotropic) 가우시안 사전분포를 채택합니다:
   $$p(\theta) = \mathcal{N}(\theta \mid 0, b^2 I) = (2\pi b^2)^{-\frac{K}{2}} \exp\left( -\frac{1}{2b^2} \theta^\top \theta \right)$$
 - **MAP 추정량의 정의**: 사후확률 밀도를 최대화(음의 로그 사후확률을 최소화)하는 모수:
   $$\theta_{MAP} = \arg\max_\theta p(\theta \mid X, Y) = \arg\min_\theta \left\{ -\log p(Y \mid X, \theta) - \log p(\theta) \right\}$$
 
 ##### 2. 음의 로그 사후확률의 최소화
-$$-\log p(\theta \mid X, Y) = \frac{1}{2\sigma^2} (y - \Phi\theta)^\top (y - \Phi\theta) + \frac{1}{2b^2} \theta^\top \theta + \text{상수}$$
+$$\begin{aligned} &-\log p(\theta \mid X, Y) \\ &= \frac{1}{2\sigma^2} (y - \Phi\theta)^\top (y - \Phi\theta) \\ &\quad + \frac{1}{2b^2} \theta^\top \theta + \text{상수} \end{aligned}$$
 양변에 $\sigma^2$을 곱해 정리하면 다음과 같은 목적함수를 최소화하는 것과 같습니다:
 $$J_{MAP}(\theta) = \frac{1}{2} \|y - \Phi\theta\|^2 + \frac{\sigma^2}{2b^2} \|\theta\|^2$$
 
@@ -330,7 +330,7 @@ $$\lambda = \frac{\sigma^2}{b^2} = \frac{\text{관측 노이즈 분산}}{\text{�
 정규화 항을 $L_2$ 노름 대신 $L_1$ 노름 $\|\theta\|_1 = \sum |\theta_k|$로 바꾸면 **라쏘(LASSO)**\ 가 됩니다:
 $$J_{LASSO}(\theta) = \frac{1}{2} \|y - \Phi\theta\|^2 + \lambda \|\theta\|_1$$
 확률론적으로 이는 모수의 사전분포를 가우시안 대신 **라플라스 분포(Laplace Distribution)**\ 로 설정한 MAP 추정과 완전히 동치입니다:
-$$p(\theta) = \prod_{k=1}^K \frac{1}{2b} \exp\left( -\frac{|\theta_k|}{b} \right) \implies -\log p(\theta) = \frac{1}{b} \|\theta\|_1 + \text{상수}$$
+$$\begin{aligned} p(\theta) &= \prod_{k=1}^K \frac{1}{2b} \exp\left( -\frac{|\theta_k|}{b} \right) \\ &\implies -\log p(\theta) = \frac{1}{b} \|\theta\|_1 + \text{상수} \end{aligned}$$
 라플라스 분포는 0 지점에서 뾰족한 첨점(모서리)을 가지므로, 최적화 과정에서 불필요한 가중치를 정확히 $0$으로 만들어 **희소성(Sparsity)**\ 과 **자동 변수 선택(Variable Selection)** 효과를 낳습니다.
 
 ---
@@ -340,14 +340,14 @@ $$p(\theta) = \prod_{k=1}^K \frac{1}{2b} \exp\left( -\frac{|\theta_k|}{b} \right
 앞선 예제 ($\Phi^\top \Phi = \begin{bmatrix} 3 & 3 \\ 3 & 5 \end{bmatrix}, \Phi^\top y = \begin{bmatrix} 8 \\ 11 \end{bmatrix}$)에서, 노이즈 분산 $\sigma^2 = 1$, 사전분포 분산 $b^2 = 1$ ($\lambda = \sigma^2/b^2 = 1$)로 설정하고 $\theta_{MAP}$을 손으로 계산해 봅시다.
 
 **[1단계: $(\Phi^\top \Phi + \lambda I)$ 계산]**
-$$\Phi^\top \Phi + \lambda I = \begin{bmatrix} 3 & 3 \\ 3 & 5 \end{bmatrix} + \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} = \begin{bmatrix} 4 & 3 \\ 3 & 6 \end{bmatrix}$$
+$$\begin{aligned} \Phi^\top \Phi + \lambda I &= \begin{bmatrix} 3 & 3 \\ 3 & 5 \end{bmatrix} + \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} \\ &= \begin{bmatrix} 4 & 3 \\ 3 & 6 \end{bmatrix} \end{aligned}$$
 
 **[2단계: 역행렬 계산]**
 $$\det = (4)(6) - (3)(3) = 24 - 9 = 15$$
 $$(\Phi^\top \Phi + I)^{-1} = \frac{1}{15} \begin{bmatrix} 6 & -3 \\ -3 & 4 \end{bmatrix}$$
 
 **[3단계: $\theta_{MAP}$ 계산]**
-$$\theta_{MAP} = \frac{1}{15} \begin{bmatrix} 6 & -3 \\ -3 & 4 \end{bmatrix} \begin{bmatrix} 8 \\ 11 \end{bmatrix} = \frac{1}{15} \begin{bmatrix} (6)(8) + (-3)(11) \\ (-3)(8) + (4)(11) \end{bmatrix} = \frac{1}{15} \begin{bmatrix} 48 - 33 \\ -24 + 44 \end{bmatrix} = \frac{1}{15} \begin{bmatrix} 15 \\ 20 \end{bmatrix} = \begin{bmatrix} 1 \\ 4/3 \end{bmatrix} \approx \begin{bmatrix} 1.000 \\ 1.333 \end{bmatrix}$$
+$$\begin{aligned} \theta_{MAP} &= \frac{1}{15} \begin{bmatrix} 6 & -3 \\ -3 & 4 \end{bmatrix} \begin{bmatrix} 8 \\ 11 \end{bmatrix} \\ &= \frac{1}{15} \begin{bmatrix} (6)(8) + (-3)(11) \\ (-3)(8) + (4)(11) \end{bmatrix} \\ &= \frac{1}{15} \begin{bmatrix} 48 - 33 \\ -24 + 44 \end{bmatrix} \\ &= \frac{1}{15} \begin{bmatrix} 15 \\ 20 \end{bmatrix} \\ &= \begin{bmatrix} 1 \\ 4/3 \end{bmatrix} \\ &\approx \begin{bmatrix} 1.000 \\ 1.333 \end{bmatrix} \end{aligned}$$
 
 **[비교 및 분석]**
 - 최대가능도 추정량: $\theta_{ML} = \begin{bmatrix} 7/6 \\ 3/2 \end{bmatrix} \approx \begin{bmatrix} 1.167 \\ 1.500 \end{bmatrix}$
@@ -392,7 +392,7 @@ MLE와 MAP는 최적의 모수 $\theta$를 단 하나의 점(point estimate)으�
 
 #### 정의와 유도
 새로운 입력 위치 $x_*$에서의 타깃 값 $y_*$의 사전 예측 분포는 모수 $\theta$에 대해 적분 소거(marginalize out)하여 구합니다:
-$$p(y_* \mid x_*) = \int p(y_* \mid x_*, \theta) p(\theta) \, d\theta = \mathbb{E}_\theta \left[ p(y_* \mid x_*, \theta) \right]$$
+$$\begin{aligned} p(y_* \mid x_*) &= \int p(y_* \mid x_*, \theta) p(\theta) \, d\theta \\ &= \mathbb{E}_\theta \left[ p(y_* \mid x_*, \theta) \right] \end{aligned}$$
 
 이 적분은 가우시안 분포의 선형 변환 규칙을 사용하면 복잡한 적분 계산 없이 즉시 풀립니다:
 - $y_* = \phi(x_*)^\top \theta + \epsilon$, 여기서 $\theta \sim \mathcal{N}(m_0, S_0)$이고 $\epsilon \sim \mathcal{N}(0, \sigma^2)$ (독립)
@@ -402,10 +402,10 @@ $$p(y_* \mid x_*) = \int p(y_* \mid x_*, \theta) p(\theta) \, d\theta = \mathbb{
   $$\mathbb{V}[y_* \mid x_*] = \mathbb{V}_\theta [\phi(x_*)^\top \theta] + \mathbb{V}[\epsilon] = \phi(x_*)^\top S_0 \phi(x_*) + \sigma^2$$
 
 따라서 사전 예측 분포는 다음과 같은 단변량 가우시안 분포가 됩니다:
-$$p(y_* \mid x_*) = \mathcal{N}\left( y_* \;\middle|\; \phi(x_*)^\top m_0, \; \phi(x_*)^\top S_0 \phi(x_*) + \sigma^2 \right)$$
+$$\begin{aligned} p(y_* \mid x_*) &= \mathcal{N}\Bigl( y_* \Bigm| \phi(x_*)^\top m_0, \\ &\quad \phi(x_*)^\top S_0 \phi(x_*) + \sigma^2 \Bigr) \end{aligned}$$
 
 관측 노이즈 $\epsilon$을 제외한 순수 잠재 함수 값 $f(x_*) = \phi(x_*)^\top \theta$의 사전 분포는 단순히 노이즈 분산 $\sigma^2$만 빠진 형태입니다:
-$$p(f(x_*)) = \mathcal{N}\left( f(x_*) \;\middle|\; \phi(x_*)^\top m_0, \; \phi(x_*)^\top S_0 \phi(x_*) \right)$$
+$$\begin{aligned} p(f(x_*)) &= \mathcal{N}\Bigl( f(x_*) \Bigm| \phi(x_*)^\top m_0, \\ &\quad \phi(x_*)^\top S_0 \phi(x_*) \Bigr) \end{aligned}$$
 
 ---
 
@@ -413,7 +413,7 @@ $$p(f(x_*)) = \mathcal{N}\left( f(x_*) \;\middle|\; \phi(x_*)^\top m_0, \; \phi(
 
 데이터셋 $\mathcal{D} = (X, Y)$를 관측한 후, 모수 $\theta$의 사후 확률분포 $p(\theta \mid X, Y)$를 베이즈 정리로 계산합니다.
 
-$$\text{Posterior} = \frac{\text{Likelihood} \times \text{Prior}}{\text{Marginal Likelihood}} \iff p(\theta \mid X, Y) = \frac{p(Y \mid X, \theta) p(\theta)}{p(Y \mid X)}$$
+$$\begin{aligned} \text{Posterior} &= \frac{\text{Likelihood} \times \text{Prior}}{\text{Marginal Likelihood}} \\ &\iff p(\theta \mid X, Y) \\ &\quad = \frac{p(Y \mid X, \theta) p(\theta)}{p(Y \mid X)} \end{aligned}$$
 
 가우시안 우도와 가우시안 사전분포는 서로 **켤레(Conjugate)** 관계에 있으므로, 사후분포 역시 **다변량 가우시안 분포**가 됩니다.
 
@@ -421,17 +421,17 @@ $$\text{Posterior} = \frac{\text{Likelihood} \times \text{Prior}}{\text{Marginal
 > 선형 회귀 모델에서 사전분포 $p(\theta) = \mathcal{N}(m_0, S_0)$와 우도 $p(Y \mid X, \theta) = \mathcal{N}(y \mid \Phi\theta, \sigma^2 I)$가 주어졌을 때, 모수의 사후분포는 닫힌 형태의 가우시안 분포로 계산된다:
 > $$p(\theta \mid X, Y) = \mathcal{N}(\theta \mid m_N, S_N)$$
 > 여기서 사후 공분산 행렬 $S_N$과 사후 평균 벡터 $m_N$은 다음과 같다:
-> $$S_N^{-1} = S_0^{-1} + \sigma^{-2} \Phi^\top \Phi \iff S_N = \left( S_0^{-1} + \sigma^{-2} \Phi^\top \Phi \right)^{-1}$$
+> $$\begin{aligned} S_N^{-1} &= S_0^{-1} + \sigma^{-2} \Phi^\top \Phi \\ &\iff S_N = \left( S_0^{-1} + \sigma^{-2} \Phi^\top \Phi \right)^{-1} \end{aligned}$$
 > $$m_N = S_N \left( S_0^{-1} m_0 + \sigma^{-2} \Phi^\top y \right)$$
 
 #### 제곱 완성법(Completing the Square)에 의한 증명 스케치
 지수 함수 내부의 $\theta$에 대한 2차식들을 모읍니다:
-$$\log p(\theta \mid X, Y) = -\frac{1}{2} \left[ \sigma^{-2} (y - \Phi\theta)^\top (y - \Phi\theta) + (\theta - m_0)^\top S_0^{-1} (\theta - m_0) \right] + \text{상수}$$
+$$\begin{aligned} &\log p(\theta \mid X, Y) \\ &= -\frac{1}{2} \bigl[ \sigma^{-2} (y - \Phi\theta)^\top (y - \Phi\theta) \\ &\quad + (\theta - m_0)^\top S_0^{-1} (\theta - m_0) \bigr] + \text{상수} \end{aligned}$$
 괄호 안을 전개하여 $\theta$에 대한 2차항과 1차항으로 정리합니다:
-$$= -\frac{1}{2} \left[ \theta^\top \left( \sigma^{-2} \Phi^\top \Phi + S_0^{-1} \right) \theta - 2 \theta^\top \left( \sigma^{-2} \Phi^\top y + S_0^{-1} m_0 \right) \right] + \text{상수}$$
+$$\begin{aligned} &= -\frac{1}{2} \bigl[ \theta^\top \left( \sigma^{-2} \Phi^\top \Phi + S_0^{-1} \right) \theta \\ &\quad - 2 \theta^\top \left( \sigma^{-2} \Phi^\top y + S_0^{-1} m_0 \right) \bigr] + \text{상수} \end{aligned}$$
 
 일반적인 다변량 가우시안 $\mathcal{N}(\theta \mid m_N, S_N)$의 로그 확률밀도는 다음과 같습니다:
-$$\log \mathcal{N}(\theta \mid m_N, S_N) = -\frac{1}{2} \left[ \theta^\top S_N^{-1} \theta - 2 \theta^\top S_N^{-1} m_N + m_N^\top S_N^{-1} m_N \right] + \text{상수}$$
+$$\begin{aligned} &\log \mathcal{N}(\theta \mid m_N, S_N) \\ &= -\frac{1}{2} \bigl[ \theta^\top S_N^{-1} \theta \\ &\quad - 2 \theta^\top S_N^{-1} m_N \\ &\quad + m_N^\top S_N^{-1} m_N \bigr] + \text{상수} \end{aligned}$$
 
 두 식의 2차 계수와 1차 계수를 항등식으로 직접 비교(matching coefficients)하면:
 - **2차항 계수 매칭**: $S_N^{-1} = S_0^{-1} + \sigma^{-2} \Phi^\top \Phi$
@@ -452,7 +452,7 @@ $$\log \mathcal{N}(\theta \mid m_N, S_N) = -\frac{1}{2} \left[ \theta^\top S_N^{
 새로운 테스트 입력 $x_*$가 주어졌을 때, 갱신된 모수 사후분포 $p(\theta \mid X, Y)$를 바탕으로 $y_*$의 분포를 예측합니다.
 
 #### 정의와 성질
-$$p(y_* \mid X, Y, x_*) = \int p(y_* \mid x_*, \theta) \, p(\theta \mid X, Y) \, d\theta$$
+$$\begin{aligned} &p(y_* \mid X, Y, x_*) \\ &= \int p(y_* \mid x_*, \theta) \, p(\theta \mid X, Y) \, d\theta \end{aligned}$$
 
 이 역시 두 가우시안 분포의 선형 결합이므로 즉시 닫힌 형태가 됩니다:
 - $y_* = \phi(x_*)^\top \theta + \epsilon$, 여기서 $\theta \sim \mathcal{N}(m_N, S_N)$, $\epsilon \sim \mathcal{N}(0, \sigma^2)$
@@ -462,7 +462,7 @@ $$p(y_* \mid X, Y, x_*) = \int p(y_* \mid x_*, \theta) \, p(\theta \mid X, Y) \,
   $$\sigma_N^2(x_*) = \mathbb{V}[y_* \mid X, Y, x_*] = \underbrace{\phi(x_*)^\top S_N \phi(x_*)}_{\text{인식론적 불확실성 (Epistemic)}} + \underbrace{\sigma^2}_{\text{우연적 불확실성 (Aleatoric)}}$$
 
 따라서 사후 예측 분포는:
-$$p(y_* \mid X, Y, x_*) = \mathcal{N}\left( y_* \;\middle|\; \phi(x_*)^\top m_N, \; \phi(x_*)^\top S_N \phi(x_*) + \sigma^2 \right)$$
+$$\begin{aligned} &p(y_* \mid X, Y, x_*) \\ &= \mathcal{N}\Bigl( y_* \Bigm| \phi(x_*)^\top m_N, \\ &\quad \phi(x_*)^\top S_N \phi(x_*) + \sigma^2 \Bigr) \end{aligned}$$
 
 ```
                          예측 분산 σ_N²(x_*)의 구성
@@ -497,7 +497,7 @@ $$p(Y \mid X) = \int p(Y \mid X, \theta) p(\theta) \, d\theta$$
 $$p(Y \mid X) = \mathcal{N}(y \mid \Phi m_0, \; \Phi S_0 \Phi^\top + \sigma^2 I)$$
 
 로그 주변 가능도를 전개하면 3개의 직관적인 항으로 분해됩니다:
-$$\log p(Y \mid X) = -\frac{1}{2} (y - \Phi m_0)^\top (\Phi S_0 \Phi^\top + \sigma^2 I)^{-1} (y - \Phi m_0) - \frac{1}{2} \log \det(\Phi S_0 \Phi^\top + \sigma^2 I) - \frac{N}{2} \log(2\pi)$$
+$$\begin{aligned} &\log p(Y \mid X) \\ &= -\frac{1}{2} (y - \Phi m_0)^\top \\ &\quad (\Phi S_0 \Phi^\top + \sigma^2 I)^{-1} (y - \Phi m_0) \\ &\quad - \frac{1}{2} \log \det(\Phi S_0 \Phi^\top + \sigma^2 I) \\ &\quad - \frac{N}{2} \log(2\pi) \end{aligned}$$
 1. **데이터 적합도 (Data Fit)**: 첫 번째 2차 형식 항. 모델이 데이터를 잘 설명할수록 값이 커집니다.
 2. **복잡도 페널티 (Complexity Penalty / Occam's Factor)**: 두 번째 행렬식 로그 항. 모델이 복잡해질수록(특징 차원이 많아질수록) $\Phi S_0 \Phi^\top$이 확장되어 행렬식이 커지고, 마이너스 부호 때문에 주변 가능도를 크게 깎아내립니다.
 3. **정규화 상수**: 데이터 차원 $N$에 비례하는 상수.
@@ -513,14 +513,14 @@ $$\log p(Y \mid X) = -\frac{1}{2} (y - \Phi m_0)^\top (\Phi S_0 \Phi^\top + \sig
 2. $x_* = 1$ (데이터가 있는 지점)과 $x_* = 3$ (데이터 범위를 벗어난 외삽 지점)에서의 사후 예측 분포를 각각 구하고 분산을 비교하시오.
 
 **[1단계: 사후 공분산 $S_N$ 계산]**
-$$S_N^{-1} = S_0^{-1} + \sigma^{-2} \Phi^\top \Phi = I + \begin{bmatrix} 3 & 3 \\ 3 & 5 \end{bmatrix} = \begin{bmatrix} 4 & 3 \\ 3 & 6 \end{bmatrix}$$
+$$\begin{aligned} S_N^{-1} &= S_0^{-1} + \sigma^{-2} \Phi^\top \Phi \\ &= I + \begin{bmatrix} 3 & 3 \\ 3 & 5 \end{bmatrix} \\ &= \begin{bmatrix} 4 & 3 \\ 3 & 6 \end{bmatrix} \end{aligned}$$
 $$\det(S_N^{-1}) = 24 - 9 = 15$$
 $$S_N = \frac{1}{15} \begin{bmatrix} 6 & -3 \\ -3 & 4 \end{bmatrix}$$
 
 **[2단계: 사후 평균 $m_N$ 계산]**
-$$m_N = S_N \left( S_0^{-1} m_0 + \sigma^{-2} \Phi^\top y \right) = S_N \left( 0 + \begin{bmatrix} 8 \\ 11 \end{bmatrix} \right) = \frac{1}{15} \begin{bmatrix} 6 & -3 \\ -3 & 4 \end{bmatrix} \begin{bmatrix} 8 \\ 11 \end{bmatrix} = \begin{bmatrix} 1 \\ 4/3 \end{bmatrix}$$
+$$\begin{aligned} m_N &= S_N \left( S_0^{-1} m_0 + \sigma^{-2} \Phi^\top y \right) \\ &= S_N \left( 0 + \begin{bmatrix} 8 \\ 11 \end{bmatrix} \right) \\ &= \frac{1}{15} \begin{bmatrix} 6 & -3 \\ -3 & 4 \end{bmatrix} \begin{bmatrix} 8 \\ 11 \end{bmatrix} \\ &= \begin{bmatrix} 1 \\ 4/3 \end{bmatrix} \end{aligned}$$
 따라서 사후분포는:
-$$p(\theta \mid X, Y) = \mathcal{N}\left( \begin{bmatrix} 1 \\ 4/3 \end{bmatrix}, \; \frac{1}{15} \begin{bmatrix} 6 & -3 \\ -3 & 4 \end{bmatrix} \right)$$
+$$\begin{aligned} p(\theta \mid X, Y) &= \mathcal{N}\biggl( \begin{bmatrix} 1 \\ 4/3 \end{bmatrix}, \\ &\quad \frac{1}{15} \begin{bmatrix} 6 & -3 \\ -3 & 4 \end{bmatrix} \biggr) \end{aligned}$$
 
 **[3단계: $x_* = 1$에서의 사후 예측 분포]**
 특징 벡터: $\phi(x_*) = \begin{bmatrix} 1 \\ 1 \end{bmatrix}$
@@ -582,9 +582,9 @@ $$\min_\theta \|y - \Phi\theta\|^2 = \min_{\hat{y} \in \text{col}(\Phi)} \|y - \
 
 #### 3. 직교 조건과 정규방정식의 탄생
 사영이 수직(직교)이라는 말은, 오차(잔차) 벡터 $e = y - \hat{y} = y - \Phi\theta$가 부분공간을 이루는 모든 기저 벡터 $\phi_1, \dots, \phi_K$와 수직이어야 함을 의미합니다:
-$$\langle \phi_k, \; y - \Phi\theta \rangle = \phi_k^\top (y - \Phi\theta) = 0 \quad (\forall k = 1, \dots, K)$$
+$$\begin{aligned} \langle \phi_k, \; y - \Phi\theta \rangle &= \phi_k^\top (y - \Phi\theta) \\ &= 0 \quad (\forall k = 1, \dots, K) \end{aligned}$$
 이를 $K$개의 행으로 쌓아서 하나의 행렬식으로 표현하면:
-$$\begin{bmatrix} \phi_1^\top \\ \phi_2^\top \\ \vdots \\ \phi_K^\top \end{bmatrix} (y - \Phi\theta) = 0 \iff \Phi^\top (y - \Phi\theta) = 0$$
+$$\begin{aligned} \begin{bmatrix} \phi_1^\top \\ \phi_2^\top \\ \vdots \\ \phi_K^\top \end{bmatrix} (y - \Phi\theta) &= 0 \\ &\iff \Phi^\top (y - \Phi\theta) = 0 \end{aligned}$$
 $$\Phi^\top \Phi \theta = \Phi^\top y$$
 미분을 단 한 번도 쓰지 않고, 순수한 기하학적 직교 조건만으로 **정규방정식이 완벽하게 유도**되었습니다!
 
@@ -617,22 +617,22 @@ $$P = \Phi (\Phi^\top \Phi)^{-1} \Phi^\top$$
 
 **[1단계: 사영 행렬 $P$ 계산]**
 앞서 $(\Phi^\top \Phi)^{-1} = \frac{1}{6} \begin{bmatrix} 5 & -3 \\ -3 & 3 \end{bmatrix}$을 구했습니다.
-$$P = \Phi (\Phi^\top \Phi)^{-1} \Phi^\top = \begin{bmatrix} 1 & 0 \\ 1 & 1 \\ 1 & 2 \end{bmatrix} \left( \frac{1}{6} \begin{bmatrix} 5 & -3 \\ -3 & 3 \end{bmatrix} \right) \begin{bmatrix} 1 & 1 & 1 \\ 0 & 1 & 2 \end{bmatrix}$$
+$$\begin{aligned} P &= \Phi (\Phi^\top \Phi)^{-1} \Phi^\top \\ &= \begin{bmatrix} 1 & 0 \\ 1 & 1 \\ 1 & 2 \end{bmatrix} \\ &\quad \left( \frac{1}{6} \begin{bmatrix} 5 & -3 \\ -3 & 3 \end{bmatrix} \right) \\ &\quad \begin{bmatrix} 1 & 1 & 1 \\ 0 & 1 & 2 \end{bmatrix} \end{aligned}$$
 먼저 앞의 두 행렬을 곱합니다:
-$$\Phi (\Phi^\top \Phi)^{-1} = \frac{1}{6} \begin{bmatrix} 1 & 0 \\ 1 & 1 \\ 1 & 2 \end{bmatrix} \begin{bmatrix} 5 & -3 \\ -3 & 3 \end{bmatrix} = \frac{1}{6} \begin{bmatrix} 5 & -3 \\ 2 & 0 \\ -1 & 3 \end{bmatrix}$$
+$$\begin{aligned} \Phi (\Phi^\top \Phi)^{-1} &= \frac{1}{6} \begin{bmatrix} 1 & 0 \\ 1 & 1 \\ 1 & 2 \end{bmatrix} \begin{bmatrix} 5 & -3 \\ -3 & 3 \end{bmatrix} \\ &= \frac{1}{6} \begin{bmatrix} 5 & -3 \\ 2 & 0 \\ -1 & 3 \end{bmatrix} \end{aligned}$$
 이제 $\Phi^\top$을 곱합니다:
-$$P = \frac{1}{6} \begin{bmatrix} 5 & -3 \\ 2 & 0 \\ -1 & 3 \end{bmatrix} \begin{bmatrix} 1 & 1 & 1 \\ 0 & 1 & 2 \end{bmatrix} = \frac{1}{6} \begin{bmatrix} 5 & 5-3 & 5-6 \\ 2 & 2+0 & 2+0 \\ -1 & -1+3 & -1+6 \end{bmatrix} = \frac{1}{6} \begin{bmatrix} 5 & 2 & -1 \\ 2 & 2 & 2 \\ -1 & 2 & 5 \end{bmatrix}$$
+$$\begin{aligned} P &= \frac{1}{6} \begin{bmatrix} 5 & -3 \\ 2 & 0 \\ -1 & 3 \end{bmatrix} \begin{bmatrix} 1 & 1 & 1 \\ 0 & 1 & 2 \end{bmatrix} \\ &= \frac{1}{6} \begin{bmatrix} 5 & 5-3 & 5-6 \\ 2 & 2+0 & 2+0 \\ -1 & -1+3 & -1+6 \end{bmatrix} \\ &= \frac{1}{6} \begin{bmatrix} 5 & 2 & -1 \\ 2 & 2 & 2 \\ -1 & 2 & 5 \end{bmatrix} \end{aligned}$$
 
 - **대칭성 확인**: $P = P^\top$ 완벽 성립.
 - **대각합 확인**: $\text{Tr}(P) = \frac{1}{6}(5 + 2 + 5) = \frac{12}{6} = 2 = K$ 완벽 성립!
 
 **[2단계: 사영 계산 및 직교성 검증]**
-$$\hat{y} = Py = \frac{1}{6} \begin{bmatrix} 5 & 2 & -1 \\ 2 & 2 & 2 \\ -1 & 2 & 5 \end{bmatrix} \begin{bmatrix} 1 \\ 3 \\ 4 \end{bmatrix} = \frac{1}{6} \begin{bmatrix} 5 + 6 - 4 \\ 2 + 6 + 8 \\ -1 + 6 + 20 \end{bmatrix} = \frac{1}{6} \begin{bmatrix} 7 \\ 16 \\ 25 \end{bmatrix}$$
+$$\begin{aligned} \hat{y} &= Py = \frac{1}{6} \begin{bmatrix} 5 & 2 & -1 \\ 2 & 2 & 2 \\ -1 & 2 & 5 \end{bmatrix} \begin{bmatrix} 1 \\ 3 \\ 4 \end{bmatrix} \\ &= \frac{1}{6} \begin{bmatrix} 5 + 6 - 4 \\ 2 + 6 + 8 \\ -1 + 6 + 20 \end{bmatrix} = \frac{1}{6} \begin{bmatrix} 7 \\ 16 \\ 25 \end{bmatrix} \end{aligned}$$
 잔차 벡터:
-$$e = y - \hat{y} = \begin{bmatrix} 1 \\ 3 \\ 4 \end{bmatrix} - \frac{1}{6} \begin{bmatrix} 7 \\ 16 \\ 25 \end{bmatrix} = \frac{1}{6} \begin{bmatrix} 6-7 \\ 18-16 \\ 24-25 \end{bmatrix} = \frac{1}{6} \begin{bmatrix} -1 \\ 2 \\ -1 \end{bmatrix}$$
+$$\begin{aligned} e &= y - \hat{y} = \begin{bmatrix} 1 \\ 3 \\ 4 \end{bmatrix} - \frac{1}{6} \begin{bmatrix} 7 \\ 16 \\ 25 \end{bmatrix} \\ &= \frac{1}{6} \begin{bmatrix} 6-7 \\ 18-16 \\ 24-25 \end{bmatrix} = \frac{1}{6} \begin{bmatrix} -1 \\ 2 \\ -1 \end{bmatrix} \end{aligned}$$
 
 이제 설계행렬 $\Phi$와의 직교성을 검산합니다:
-$$\Phi^\top e = \begin{bmatrix} 1 & 1 & 1 \\ 0 & 1 & 2 \end{bmatrix} \left( \frac{1}{6} \begin{bmatrix} -1 \\ 2 \\ -1 \end{bmatrix} \right) = \frac{1}{6} \begin{bmatrix} -1 + 2 - 1 \\ 0 + 2 - 2 \end{bmatrix} = \frac{1}{6} \begin{bmatrix} 0 \\ 0 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \end{bmatrix}$$
+$$\begin{aligned} \Phi^\top e &= \begin{bmatrix} 1 & 1 & 1 \\ 0 & 1 & 2 \end{bmatrix} \left( \frac{1}{6} \begin{bmatrix} -1 \\ 2 \\ -1 \end{bmatrix} \right) \\ &= \frac{1}{6} \begin{bmatrix} -1 + 2 - 1 \\ 0 + 2 - 2 \end{bmatrix} = \frac{1}{6} \begin{bmatrix} 0 \\ 0 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \end{bmatrix} \end{aligned}$$
 오차 벡터 $e$가 $\Phi$의 모든 기저에 대해 수직임이 명백하게 증명되었습니다!
 
 ---
@@ -699,7 +699,7 @@ $$\Phi^\top e = \begin{bmatrix} 1 & 1 & 1 \\ 0 & 1 & 2 \end{bmatrix} \left( \fra
 | **5** | $\frac{\partial \mathcal{L}}{\partial s} = \frac{N}{2s} - \frac{1}{2s^2} \|y - \Phi\theta_{ML}\|^2 = 0$ | 극값 조건: 1계 도함수를 0으로 설정 |
 | **6** | $\frac{N}{2s} = \frac{1}{2s^2} \|y - \Phi\theta_{ML}\|^2$ | 양변의 음수 항을 이항 |
 | **7** | $N = \frac{1}{s} \|y - \Phi\theta_{ML}\|^2 \iff s = \frac{1}{N} \|y - \Phi\theta_{ML}\|^2$ | $s > 0$이므로 양변에 $2s$를 곱하고 $s$에 대해 정리 |
-| **8** | $\sigma_{ML}^2 = \frac{1}{N} \|y - \Phi\theta_{ML}\|^2 = \frac{1}{N} \sum_{n=1}^N (y_n - \phi(x_n)^\top \theta_{ML})^2$ | 치환 복원: 최적 모델 잔차의 표본 평균과 일치 $\blacksquare$ |
+| **8** | $$\begin{aligned} \sigma_{ML}^2 &= \frac{1}{N} \|y - \Phi\theta_{ML}\|^2 \\ &= \frac{1}{N} \sum_{n=1}^N (y_n - \phi(x_n)^\top \theta_{ML})^2 \end{aligned}$$ | 치환 복원: 최적 모델 잔차의 표본 평균과 일치 $\blacksquare$ |
 
 ---
 
@@ -835,7 +835,7 @@ $p(Y \mid X) = \int p(Y \mid X, \theta) p(\theta) d\theta$가 $\mathcal{N}(y \mi
 
 #### [문제 1] (계산형) 1차 단순 선형 회귀의 MLE 및 잔차 벡터 계산
 다음과 같은 3개의 2차원 관측 데이터가 주어졌습니다:
-$$(x_1, y_1) = (0, 1), \quad (x_2, y_2) = (1, 3), \quad (x_3, y_3) = (2, 4)$$
+$$\begin{aligned} (x_1, y_1) &= (0, 1), \\ (x_2, y_2) &= (1, 3), \\ (x_3, y_3) &= (2, 4) \end{aligned}$$
 모델을 $f(x) = \theta_0 + \theta_1 x$로 설정할 때:
 1. 설계 행렬 $\Phi$와 정규방정식 $(\Phi^\top \Phi)\theta = \Phi^\top y$를 명시적으로 세우시오.
 2. $\theta_{ML}$의 최적값을 분수 형태로 정확히 구하시오.
@@ -908,10 +908,10 @@ $$(x_1, y_1) = (0, 1), \quad (x_2, y_2) = (1, 3), \quad (x_3, y_3) = (2, 4)$$
 
 **[정답 및 풀이]**
 1. $m_0 = [0, 0]^\top, S_0 = I, \sigma^2 = 1$이므로:
-   $$S_N^{-1} = S_0^{-1} + \sigma^{-2} \Phi^\top \Phi = I + \begin{bmatrix} 3 & 3 \\ 3 & 5 \end{bmatrix} = \begin{bmatrix} 4 & 3 \\ 3 & 6 \end{bmatrix}$$
+   $$\begin{aligned} S_N^{-1} &= S_0^{-1} + \sigma^{-2} \Phi^\top \Phi \\ &= I + \begin{bmatrix} 3 & 3 \\ 3 & 5 \end{bmatrix} \\ &= \begin{bmatrix} 4 & 3 \\ 3 & 6 \end{bmatrix} \end{aligned}$$
    $$S_N = \left( S_N^{-1} \right)^{-1} = \frac{1}{15} \begin{bmatrix} 6 & -3 \\ -3 & 4 \end{bmatrix}$$
 2. $m_N = S_N (S_0^{-1} m_0 + \sigma^{-2} \Phi^\top y) = S_N (0 + \Phi^\top y) = \frac{1}{15} \begin{bmatrix} 6 & -3 \\ -3 & 4 \end{bmatrix} \begin{bmatrix} 8 \\ 11 \end{bmatrix} = \begin{bmatrix} 1 \\ 4/3 \end{bmatrix}$
-   따라서 사후분포는 $p(\theta \mid X, Y) = \mathcal{N}\left( \begin{bmatrix} 1 \\ 4/3 \end{bmatrix}, \; \frac{1}{15} \begin{bmatrix} 6 & -3 \\ -3 & 4 \end{bmatrix} \right)$ 입니다.
+   따라서 사후분포는 $$\begin{aligned} p(\theta \mid X, Y) &= \mathcal{N}\biggl( \begin{bmatrix} 1 \\ 4/3 \end{bmatrix}, \\ &\quad \frac{1}{15} \begin{bmatrix} 6 & -3 \\ -3 & 4 \end{bmatrix} \biggr) \end{aligned}$$ 입니다.
 
 ---
 

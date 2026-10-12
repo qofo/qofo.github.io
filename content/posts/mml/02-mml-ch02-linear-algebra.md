@@ -40,7 +40,7 @@ UseHugoToc: true
 
 ### 정의와 성질
 일반형은
-$$a_{11}x_1+\cdots+a_{1n}x_n=b_1,\ \ \dots,\ \ a_{m1}x_1+\cdots+a_{mn}x_n=b_m$$
+$$\begin{gathered} a_{11}x_1+\cdots+a_{1n}x_n=b_1, \\ \dots, \\ a_{m1}x_1+\cdots+a_{mn}x_n=b_m \end{gathered}$$
 이다. $x_1,\dots,x_n$이 미지수(unknowns), $a_{ij}$가 계수, $b_i$가 우변이다. 이를 만족하는 $(x_1,\dots,x_n)$이 해(solution)다.
 
 해의 개수는 **딱 세 가지 경우뿐**이다: 해가 없음, 해가 정확히 하나, 해가 무한히 많음. "해가 두 개"인 경우는 없다. 해가 두 개 $x, y$ 있으면 그 사이 직선 위의 점 $x + t(y-x)$도 전부 해가 되기 때문이다.
@@ -76,7 +76,7 @@ $$Ax = x_1a_1 + x_2a_2 + \cdots + x_na_n .$$
 - $A\in\mathbb R^{m\times n}$: 행 $m$개, 열 $n$개. $a_{ij}$는 $i$행 $j$열 원소. 열이 하나인 $\mathbb R^{n\times1}$을 열벡터, 행이 하나인 $\mathbb R^{1\times n}$을 행벡터라 한다. **이 책의 벡터는 기본이 열벡터**다.
 - **덧셈:** 같은 크기끼리 원소별로 더한다.
 - **곱셈:** $A\in\mathbb R^{m\times n}$, $B\in\mathbb R^{n\times k}$이면 $C=AB\in\mathbb R^{m\times k}$이고
-$$c_{ij}=\sum_{l=1}^{n}a_{il}b_{lj}\quad(A\text{의 } i\text{행과 } B\text{의 } j\text{열의 내적}).$$
+$$\begin{gathered} c_{ij}=\sum_{l=1}^{n}a_{il}b_{lj} \\ (A\text{의 } i\text{행과 } B\text{의 } j\text{열의 내적}). \end{gathered}$$
   **크기 규칙:** $(m\times \underline{n})(\underline{n}\times k)=(m\times k)$. 안쪽 숫자가 같아야 곱할 수 있다.
 - 곱셈은 결합법칙 $(AB)C=A(BC)$, 분배법칙 $(A+B)C=AC+BC$가 성립하지만 **교환법칙은 일반적으로 성립하지 않는다** ($AB\ne BA$).
 - 원소별 곱(아다마르 곱, Hadamard product)은 행렬곱이 아니다. 교재는 이를 구분해서 언급한다.
@@ -158,7 +158,7 @@ $$\left[\begin{array}{cccc|c}1&2&0&2&3\\0&0&1&-1&1\end{array}\right]\quad(\text{
 - $x_2=0,x_4=1$: 1행에서 $x_1+2=0\Rightarrow x_1=-2$, 2행에서 $x_3-1=0\Rightarrow x_3=1$. → $[-2,0,1,1]^\top$
 
 **6단계: 일반해**
-$$x=\begin{bmatrix}3\\0\\1\\0\end{bmatrix}+\lambda_1\begin{bmatrix}-2\\1\\0\\0\end{bmatrix}+\lambda_2\begin{bmatrix}-2\\0\\1\\1\end{bmatrix},\quad\lambda_1,\lambda_2\in\mathbb R.$$
+$$\begin{aligned} x &= \begin{bmatrix}3\\0\\1\\0\end{bmatrix}+\lambda_1\begin{bmatrix}-2\\1\\0\\0\end{bmatrix} \\ &\quad +\lambda_2\begin{bmatrix}-2\\0\\1\\1\end{bmatrix},\quad\lambda_1,\lambda_2\in\mathbb R. \end{aligned}$$
 검산: $[-2,0,1,1]^\top$을 원래 식에 넣으면 1식 $-2+0+1+1=0$, 2식 $-4+0+3+1=0$. 맞다.
 
 **해가 없는 경우 판별:** 소거 끝에 $[0\ 0\ \cdots\ 0\,|\,c]$ ($c\ne0$) 같은 행이 나오면 "$0=c$"라는 모순이라 해가 없다. 교재 예제 2.6은 우변에 매개변수 $a$가 있는데, 소거하면 마지막 행이 이런 꼴이 되어 **$a=-1$일 때만** 해가 있다.
@@ -174,15 +174,8 @@ $-1$이 대각에 있는 2열 $[2,-1,0,0]^\top$과 4열 $[2,0,-1,-1]^\top$이 �
 $[A\,|\,I]$를 행 연산으로 $[I\,|\,A^{-1}]$로 만든다. 같은 행 연산 묶음이 $A$를 $I$로 바꾼다면, 그 연산 묶음은 $A^{-1}$을 곱하는 것과 같기 때문이다.
 
 $A=\begin{bmatrix}2&1\\5&3\end{bmatrix}$:
-$$\left[\begin{array}{cc|cc}2&1&1&0\\5&3&0&1\end{array}\right]
-\xrightarrow{R_1\times\frac12}
-\left[\begin{array}{cc|cc}1&\frac12&\frac12&0\\5&3&0&1\end{array}\right]
-\xrightarrow{R_2-5R_1}
-\left[\begin{array}{cc|cc}1&\frac12&\frac12&0\\0&\frac12&-\frac52&1\end{array}\right]$$
-$$\xrightarrow{R_2\times2}
-\left[\begin{array}{cc|cc}1&\frac12&\frac12&0\\0&1&-5&2\end{array}\right]
-\xrightarrow{R_1-\frac12R_2}
-\left[\begin{array}{cc|cc}1&0&3&-1\\0&1&-5&2\end{array}\right]$$
+$$\begin{aligned} &\left[\begin{array}{cc|cc}2&1&1&0\\5&3&0&1\end{array}\right] \\ &\xrightarrow{R_1\times\frac12} \left[\begin{array}{cc|cc}1&\frac12&\frac12&0\\5&3&0&1\end{array}\right] \\ &\xrightarrow{R_2-5R_1} \left[\begin{array}{cc|cc}1&\frac12&\frac12&0\\0&\frac12&-\frac52&1\end{array}\right] \end{aligned}$$
+$$\begin{aligned} &\xrightarrow{R_2\times2} \left[\begin{array}{cc|cc}1&\frac12&\frac12&0\\0&1&-5&2\end{array}\right] \\ &\xrightarrow{R_1-\frac12R_2} \left[\begin{array}{cc|cc}1&0&3&-1\\0&1&-5&2\end{array}\right] \end{aligned}$$
 그래서 $A^{-1}=\begin{bmatrix}3&-1\\-5&2\end{bmatrix}$. 2×2 공식($ad-bc=1$)으로도 같은 답이 나온다.
 
 ### 2.3.4 연립방정식을 푸는 알고리즘
@@ -283,11 +276,7 @@ $U\subseteq V$가 같은 연산으로 다시 벡터공간이면 부분공간이�
 
 ### 손으로 풀어 보는 예제
 $v_1=[1,2,3]^\top$, $v_2=[0,1,1]^\top$, $v_3=[1,3,4]^\top$.
-$$\begin{bmatrix}1&0&1\\2&1&3\\3&1&4\end{bmatrix}
-\xrightarrow{R_2-2R_1,\ R_3-3R_1}
-\begin{bmatrix}1&0&1\\0&1&1\\0&1&1\end{bmatrix}
-\xrightarrow{R_3-R_2}
-\begin{bmatrix}1&0&1\\0&1&1\\0&0&0\end{bmatrix}$$
+$$\begin{aligned} &\begin{bmatrix}1&0&1\\2&1&3\\3&1&4\end{bmatrix} \\ &\xrightarrow{R_2-2R_1,\ R_3-3R_1} \begin{bmatrix}1&0&1\\0&1&1\\0&1&1\end{bmatrix} \\ &\xrightarrow{R_3-R_2} \begin{bmatrix}1&0&1\\0&1&1\\0&0&0\end{bmatrix} \end{aligned}$$
 피벗은 1, 2열뿐이라 3열에는 피벗이 없다. 그래서 **종속**이고, 실제로 $v_3=v_1+v_2$다(REF의 3열 $[1,1,0]^\top$이 "1열 1개 + 2열 1개"를 뜻한다).
 
 ### 헷갈리는 점
@@ -415,7 +404,7 @@ $$L=x_0+U=\{x_0+u:u\in U\}.$$
 
 ### 2.8.2 아핀사상
 $\Phi:V\to W$가 선형이고 $a\in W$일 때
-$$\phi(x)=a+\Phi(x)\qquad(\text{행렬로는 }x\mapsto Ax+a)$$
+$$\begin{gathered} \phi(x)=a+\Phi(x) \\ (\text{행렬로는 }x\mapsto Ax+a) \end{gathered}$$
 를 아핀사상(affine mapping)이라 한다. $a$를 평행이동 벡터(translation vector)라 한다. 아핀사상은 "선형사상 다음에 평행이동"이고, 아핀사상끼리의 합성도 아핀사상이다. 차원과 평행성 같은 기하 구조를 유지한다. 신경망의 한 층 $Wx+b$(활성화 전)가 아핀사상이다.
 
 ---
