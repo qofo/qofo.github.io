@@ -18,7 +18,7 @@ UseHugoToc: true
 
 ## 0. 이 장 지도
 
-이 장은 머신러닝의 3대 기둥(회귀 9장, 차원 축소 10장, 밀도 추정 11장) 중 마지막 기둥인 **밀도 추정(Density Estimation)**을 다룹니다. 현실 세계의 데이터는 단일 정규분포처럼 봉우리가 하나인 단봉(unimodal) 형태가 아니라, 여러 집단이 섞여 있는 다봉(multimodal) 형태를 띱니다. 이를 수학적으로 정교하게 모델링하기 위해 도입하는 도구가 바로 **가우시안 혼합 모델(Gaussian Mixture Model, GMM)**과 이를 학습시키는 **기댓값 최대화(Expectation-Maximization, EM) 알고리즘**입니다.
+이 장은 머신러닝의 3대 기둥(회귀 9장, 차원 축소 10장, 밀도 추정 11장) 중 마지막 기둥인 **밀도 추정(Density Estimation)**\ 을 다룹니다. 현실 세계의 데이터는 단일 정규분포처럼 봉우리가 하나인 단봉(unimodal) 형태가 아니라, 여러 집단이 섞여 있는 다봉(multimodal) 형태를 띱니다. 이를 수학적으로 정교하게 모델링하기 위해 도입하는 도구가 바로 **가우시안 혼합 모델(Gaussian Mixture Model, GMM)**\ 과 이를 학습시키는 **기댓값 최대화(Expectation-Maximization, EM) 알고리즘**입니다.
 
 ### [절 목록 및 핵심 요약]
 - **11.1 가우시안 혼합 모델(Gaussian Mixture Model, 349~350쪽) [중요도: ★★★]**: 여러 개의 가우시안 확률밀도를 볼록 결합(convex combination)하여 복잡한 다봉 밀도를 표현하는 기본 모형 정의.
@@ -64,17 +64,17 @@ UseHugoToc: true
 ## 11.1 가우시안 혼합 모델(Gaussian Mixture Model, 349~350쪽)
 
 ### 왜 필요한가 (직관)
-우리가 6장과 8장에서 배웠던 단일 가우시안 분포(단일 정규분포, Single Gaussian Distribution)는 매우 편리한 수학적 성질을 가지고 있습니다. 하지만 치명적인 한계가 있습니다. 바로 봉우리가 언제나 단 하나인 **단봉 분포(unimodal distribution)**라는 점입니다.
+우리가 6장과 8장에서 배웠던 단일 가우시안 분포(단일 정규분포, Single Gaussian Distribution)는 매우 편리한 수학적 성질을 가지고 있습니다. 하지만 치명적인 한계가 있습니다. 바로 봉우리가 언제나 단 하나인 **단봉 분포(unimodal distribution)**\ 라는 점입니다.
 
 현실의 데이터를 생각해 봅시다. 예를 들어 사람들의 키를 측정하면 남성 집단(평균 약 175cm)과 여성 집단(평균 약 162cm)의 두 봉우리가 겹쳐서 나타납니다. 만약 이 데이터를 단 하나의 정규분포로 표현하려고 하면, 평균은 엉뚱하게 168cm 근처에 놓이고 분산은 비정상적으로 커져서 데이터의 실제 특성을 심각하게 왜곡합니다. 
 교재 그림 11.1처럼 2차원 평면에서 데이터가 여러 개의 뚜렷한 군집(cluster)으로 나뉘어 있을 때도 마찬가지입니다. 
 
-따라서 우리는 여러 개의 간단한 기본 분포(base distribution)들을 부드럽게 섞어서 임의의 복잡한 형태와 여러 개의 봉우리를 가진 다봉 분포(multimodal distribution)를 표현할 수 있는 모델이 필요합니다. 이것이 바로 **혼합 모델(Mixture Model)**이며, 기본 분포로 가우시안 분포를 채택한 것이 **가우시안 혼합 모델(GMM)**입니다.
+따라서 우리는 여러 개의 간단한 기본 분포(base distribution)들을 부드럽게 섞어서 임의의 복잡한 형태와 여러 개의 봉우리를 가진 다봉 분포(multimodal distribution)를 표현할 수 있는 모델이 필요합니다. 이것이 바로 **혼합 모델(Mixture Model)**\ 이며, 기본 분포로 가우시안 분포를 채택한 것이 **가우시안 혼합 모델(GMM)**\ 입니다.
 
 ### 정의와 성질
 
 #### 1. 일반적인 혼합 모델 (Mixture Model)
-$K$개의 기본 확률밀도 함수 $p_1(x), p_2(x), \dots, p_K(x)$가 주어졌을 때, 전체 확률밀도 $p(x)$를 이들의 **볼록 결합(convex combination)**으로 정의합니다 (교재 식 11.1, 11.2):
+$K$개의 기본 확률밀도 함수 $p_1(x), p_2(x), \dots, p_K(x)$가 주어졌을 때, 전체 확률밀도 $p(x)$를 이들의 **볼록 결합(convex combination)**\ 으로 정의합니다 (교재 식 11.1, 11.2):
 
 $$p(x) = \sum_{k=1}^K \pi_k p_k(x)$$
 
@@ -119,9 +119,9 @@ $$p(x \mid \theta) = 0.5 \mathcal{N}(x \mid -2, 0.5) + 0.2 \mathcal{N}(x \mid 1,
    $$p(x=1.0 \mid \theta) = 0.5(0.00007) + 0.2(0.2821) + 0.3(0.0044) = 0.000035 + 0.05642 + 0.00132 = 0.057775 \approx 0.0578$$
 
 ### 헷갈리는 점 / 자주 하는 실수
-- **혼합 가중치의 의미**: $\pi_k$는 단순히 가우시안 곡선의 높이를 조절하는 상수가 아니라, 전체 데이터 공간에서 임의의 한 점을 뽑았을 때 그 점이 $k$번째 가우시안에서 발생했을 **사전확률(prior probability)**입니다.
+- **혼합 가중치의 의미**: $\pi_k$는 단순히 가우시안 곡선의 높이를 조절하는 상수가 아니라, 전체 데이터 공간에서 임의의 한 점을 뽑았을 때 그 점이 $k$번째 가우시안에서 발생했을 **사전확률(prior probability)**\ 입니다.
 - **분포의 합 vs 확률변수의 합**: 
-  - $X \sim \sum \pi_k \mathcal{N}(\mu_k, \Sigma_k)$는 **확률밀도 함수의 혼합(mixture)**입니다.
+  - $X \sim \sum \pi_k \mathcal{N}(\mu_k, \Sigma_k)$는 **확률밀도 함수의 혼합(mixture)**\ 입니다.
   - 두 독립 정규 확률변수의 합 $Y = X_1 + X_2$는 여전히 **단일 정규분포** $\mathcal{N}(\mu_1+\mu_2, \Sigma_1+\Sigma_2)$가 됩니다. 초심자가 가장 많이 혼동하는 대목이므로, "확률변수의 선형결합"과 "확률밀도의 볼록결합"을 엄격히 구분해야 합니다.
 
 ---
@@ -130,7 +130,7 @@ $$p(x \mid \theta) = 0.5 \mathcal{N}(x \mid -2, 0.5) + 0.2 \mathcal{N}(x \mid 1,
 
 ### 왜 필요한가 (직관)
 우리가 가진 관측 데이터셋 $\mathcal{X} = \{x_1, x_2, \dots, x_N\}$이 주어졌을 때, 이 데이터들을 가장 잘 설명하는 모수 $\theta = \{\pi_k, \mu_k, \Sigma_k\}_{k=1}^K$를 찾아야 합니다.
-통계학에서 가장 보편적인 방법은 **최대가능도 추정법(Maximum Likelihood Estimation, MLE)**입니다.
+통계학에서 가장 보편적인 방법은 **최대가능도 추정법(Maximum Likelihood Estimation, MLE)**\ 입니다.
 
 단일 가우시안 분포의 경우, 로그를 취하면 지수함수($\exp$)와 로그($\log$)가 상쇄되어 2차 다항식만 남으므로, 미분해서 0으로 두면 표본 평균과 표본 공분산이라는 깔끔한 닫힌 형태의 공식(closed-form formula)이 바로 튀어나왔습니다 (8장).
 그러나 GMM에서는 **"로그 안에 합이 들어있는 구조(log of summation)"** 때문에 이 방법이 완전히 막히게 됩니다.
@@ -179,7 +179,7 @@ $$r_{nk} := \frac{\pi_k \mathcal{N}(x_n \mid \mu_k, \Sigma_k)}{\sum_{j=1}^K \pi_
 3. **소프트 할당(Soft Assignment)**: K-평균 군집화처럼 데이터를 어느 한 클러스터에 100% 귀속시키는 '하드 할당(hard assignment)'과 달리, GMM은 "성분 1에 80%, 성분 2에 20%"와 같이 지분을 유연하게 나누어 갖습니다.
 4. **유효 데이터 개수 $N_k$**:
    $$N_k := \sum_{n=1}^N r_{nk}$$
-   $N_k$는 $k$번째 성분이 전체 데이터셋에 대해 지고 있는 총 책임도의 합이며, 사실상 **"$k$번째 가우시안 클러스터에 배정된 유효 데이터 개수(effective number of points)"**를 뜻합니다. $\sum_{k=1}^K N_k = N$이 성립합니다.
+   $N_k$는 $k$번째 성분이 전체 데이터셋에 대해 지고 있는 총 책임도의 합이며, 사실상 **"$k$번째 가우시안 클러스터에 배정된 유효 데이터 개수(effective number of points)"**\ 를 뜻합니다. $\sum_{k=1}^K N_k = N$이 성립합니다.
 
 ---
 
@@ -191,7 +191,7 @@ $$r_{nk} := \frac{\pi_k \mathcal{N}(x_n \mid \mu_k, \Sigma_k)}{\sum_{j=1}^K \pi_
 $$\mu_k^{\text{new}} = \frac{\sum_{n=1}^N r_{nk} x_n}{\sum_{n=1}^N r_{nk}} = \frac{1}{N_k} \sum_{n=1}^N r_{nk} x_n$$
 
 #### 직관적 의미
-이 식은 단순 산술평균이 아니라, 각 데이터 포인트 $x_n$에 책임도 $r_{nk}$를 가중치로 부여한 **가중 표본 평균(weighted sample mean)**입니다!
+이 식은 단순 산술평균이 아니라, 각 데이터 포인트 $x_n$에 책임도 $r_{nk}$를 가중치로 부여한 **가중 표본 평균(weighted sample mean)**\ 입니다!
 즉, $k$번째 가우시안은 자신과 가까워서 책임도 $r_{nk}$가 큰 데이터들을 강하게 끌어당겨 자신의 새로운 중심 $\mu_k$로 삼습니다 (교재 그림 11.4).
 
 ---
@@ -204,7 +204,7 @@ $$\mu_k^{\text{new}} = \frac{\sum_{n=1}^N r_{nk} x_n}{\sum_{n=1}^N r_{nk}} = \fr
 $$\Sigma_k^{\text{new}} = \frac{1}{N_k} \sum_{n=1}^N r_{nk} (x_n - \mu_k)(x_n - \mu_k)^\top$$
 
 #### 직관적 의미
-중심 $\mu_k$를 기준으로 흩어진 정도를 나타내는 외적 행렬 $(x_n - \mu_k)(x_n - \mu_k)^\top$에 책임도 $r_{nk}$를 가중치로 곱하여 평균을 낸 **가중 표본 공분산(weighted sample covariance)**입니다.
+중심 $\mu_k$를 기준으로 흩어진 정도를 나타내는 외적 행렬 $(x_n - \mu_k)(x_n - \mu_k)^\top$에 책임도 $r_{nk}$를 가중치로 곱하여 평균을 낸 **가중 표본 공분산(weighted sample covariance)**\ 입니다.
 
 ---
 
@@ -216,7 +216,7 @@ $$\Sigma_k^{\text{new}} = \frac{1}{N_k} \sum_{n=1}^N r_{nk} (x_n - \mu_k)(x_n - 
 $$\pi_k^{\text{new}} = \frac{N_k}{N} = \frac{1}{N} \sum_{n=1}^N r_{nk}$$
 
 #### 직관적 의미
-전체 데이터 개수 $N$ 중에서 $k$번째 클러스터가 책임지고 있는 유효 데이터 개수 $N_k$의 비율입니다. 즉, $k$번째 가우시안 성분의 **상대적 중요도(relative importance)**를 나타냅니다.
+전체 데이터 개수 $N$ 중에서 $k$번째 클러스터가 책임지고 있는 유효 데이터 개수 $N_k$의 비율입니다. 즉, $k$번째 가우시안 성분의 **상대적 중요도(relative importance)**\ 를 나타냅니다.
 
 ---
 
@@ -319,7 +319,7 @@ $\sigma = 1.0$이므로 $\frac{1}{\sqrt{2\pi}} \approx 0.39894$ 입니다.
 - 책임도 $r_{nk}$를 알면 $\implies$ 갱신 공식(정리 11.1~11.3)을 통해 모수를 완벽히 계산할 수 있다.
 - **하지만 우리는 둘 다 모른다!**
 
-닭이 먼저냐 달걀이 먼저냐 하는 이 문제를 푸는 가장 우아한 방법이 바로 **교대 최적화(coordinate ascent / alternating optimization)**입니다. 한쪽을 고정하고 다른 쪽을 구한 뒤, 구한 값으로 다시 첫 번째 것을 갱신하는 과정을 반복하면, 로그 가능도가 매 단계마다 반드시 증가(또는 유지)하며 국소 최적해(local optimum)로 수렴한다는 것이 증명되어 있습니다 (Dempster et al., 1977; Neal and Hinton, 1999).
+닭이 먼저냐 달걀이 먼저냐 하는 이 문제를 푸는 가장 우아한 방법이 바로 **교대 최적화(coordinate ascent / alternating optimization)**\ 입니다. 한쪽을 고정하고 다른 쪽을 구한 뒤, 구한 값으로 다시 첫 번째 것을 갱신하는 과정을 반복하면, 로그 가능도가 매 단계마다 반드시 증가(또는 유지)하며 국소 최적해(local optimum)로 수렴한다는 것이 증명되어 있습니다 (Dempster et al., 1977; Neal and Hinton, 1999).
 
 ### 정의와 성질
 
@@ -367,9 +367,9 @@ $\sigma = 1.0$이므로 $\frac{1}{\sqrt{2\pi}} \approx 0.39894$ 입니다.
 앞선 11.2절과 11.3절의 유도는 다소 직관적이고 임의적인(ad-hoc) 면이 있었습니다. "분모와 분자의 비를 책임도라고 이름 붙이고, 마치 가중치처럼 취급해서 교대로 풀자"는 방식이었기 때문입니다.
 11.4절에서는 이를 매우 엄밀한 확률론의 틀로 끌어올립니다. 
 
-우리가 관측한 데이터 $x_n$ 뒤에는 **"이 데이터가 과연 몇 번째 가우시안에서 태어났는가?"**를 가리키는 숨겨진 변수, 즉 **잠재변수(latent variable)** $z_n$이 존재한다고 생각하는 것입니다.
+우리가 관측한 데이터 $x_n$ 뒤에는 **"이 데이터가 과연 몇 번째 가우시안에서 태어났는가?"**\ 를 가리키는 숨겨진 변수, 즉 **잠재변수(latent variable)** $z_n$이 존재한다고 생각하는 것입니다.
 이 관점을 취하면:
-1. 책임도 $r_{nk}$가 다름 아닌 잠재변수의 **사후확률 $p(z_{nk}=1 \mid x_n)$**임이 증명됩니다.
+1. 책임도 $r_{nk}$가 다름 아닌 잠재변수의 **사후확률 $p(z_{nk}=1 \mid x_n)$**\ 임이 증명됩니다.
 2. GMM뿐만 아니라 결측치가 있는 모든 확률 모델에 적용 가능한 일반적인 EM 알고리즘 이론($Q$-함수)이 자연스럽게 유도됩니다.
 
 ### 정의와 성질
@@ -434,7 +434,7 @@ GMM과 EM 알고리즘을 배웠다면, 머신러닝의 다른 핵심 알고리�
 ### 정의와 핵심 성질
 
 #### 1. 조상 표집 (Ancestral Sampling)
-GMM은 데이터의 밀도를 추정할 뿐만 아니라, 새로운 가상의 데이터를 무한히 생성할 수 있는 **생성 모델(Generative Model)**입니다.
+GMM은 데이터의 밀도를 추정할 뿐만 아니라, 새로운 가상의 데이터를 무한히 생성할 수 있는 **생성 모델(Generative Model)**\ 입니다.
 - 1단계: 혼합 가중치 확률벡터 $[\pi_1, \dots, \pi_K]^\top$에 따라 성분 인덱스 $k \sim \text{Cat}(\pi)$를 하나 뽑습니다.
 - 2단계: 선택된 가우시안 분포 $\mathcal{N}(\mu_k, \Sigma_k)$에서 데이터 $x_{\text{new}}$를 뽑습니다.
 - 이 과정을 $N$번 반복하면 GMM으로부터 완벽한 표본 데이터셋을 얻을 수 있습니다.
@@ -444,14 +444,14 @@ GMM은 데이터의 밀도를 추정할 뿐만 아니라, 새로운 가상의 �
 
 **(교재 밖 보충) 극한으로 보는 방법:** 모든 공분산을 $\Sigma_k = \sigma^2 I$로 두고 $\sigma^2 \to 0$ 극한을 취하면, 가장 가까운 중심의 책임도는 1, 나머지는 0이 된다:
 $$r_{nk} \to \begin{cases} 1 & \text{if } k = \arg\min_j \|x_n - \mu_j\|^2 \\ 0 & \text{otherwise} \end{cases}$$
-이것이 K-평균의 **하드 할당(hard assignment)**과 같다(Bishop 교재 등에서 쓰는 설명이다).
+이것이 K-평균의 **하드 할당(hard assignment)**\ 과 같다(Bishop 교재 등에서 쓰는 설명이다).
 
 #### 3. 최대가능도의 치명적 한계: 특이성(Singularity / Covariance Collapsing)
 GMM을 MLE로 학습할 때 매우 위험한 현상이 발생할 수 있습니다.
 만약 어떤 가우시안 성분 $k$의 중심 $\mu_k$가 우연히 데이터 포인트 중 하나인 $x_n$과 정확히 일치하게 되고($\mu_k = x_n$), 그 성분의 분산 $\sigma_k^2 \to 0$으로 수렴하면:
 $$\mathcal{N}(x_n \mid x_n, \sigma_k^2) = \frac{1}{\sqrt{2\pi \sigma_k^2}} \exp(0) \to \infty$$
 전체 로그 가능도가 $+\infty$로 발산해 버립니다!
-이를 **특이성(singularity)** 또는 **공분산 붕괴(covariance collapsing)**라고 부르며, MLE가 과적합(overfitting)에 극도로 취약함을 보여줍니다. 
+이를 **특이성(singularity)** 또는 **공분산 붕괴(covariance collapsing)**\ 라고 부르며, MLE가 과적합(overfitting)에 극도로 취약함을 보여줍니다. 
 - *해결책*: 모수에 사전분포(Conjugate Prior)를 부여하는 베이지안 GMM(Bayesian GMM)이나 변분 추론(Variational Inference)을 사용하거나, 공분산 행렬 대각선에 작은 양수 $\epsilon I$를 더해주는 정규화(ridge regularization)를 적용합니다.
 
 #### 4. 비모수 밀도 추정과의 비교: 히스토그램과 커널 밀도 추정 (KDE, 교재 식 11.74)
@@ -459,7 +459,7 @@ $$\mathcal{N}(x_n \mid x_n, \sigma_k^2) = \frac{1}{\sqrt{2\pi \sigma_k^2}} \exp(
 - **커널 밀도 추정(Kernel Density Estimation, KDE)**: 모든 데이터 포인트 $x_n$마다 부드러운 커널 함수 $k(\cdot)$를 얹어 합치는 비모수적 기법:
   $$p(x) = \frac{1}{N h} \sum_{n=1}^N k\left( \frac{x - x_n}{h} \right)$$
   - $h > 0$: 대역폭(bandwidth, 평활화 매개변수).
-  - GMM과의 차이: GMM은 모수의 개수가 $K$개로 고정된 **모수적 모델(parametric model)**이지만, KDE는 데이터가 늘어날 때마다 커널의 개수가 데이터 수 $N$만큼 함께 늘어나는 **비모수적 모델(nonparametric model)**입니다.
+  - GMM과의 차이: GMM은 모수의 개수가 $K$개로 고정된 **모수적 모델(parametric model)**\ 이지만, KDE는 데이터가 늘어날 때마다 커널의 개수가 데이터 수 $N$만큼 함께 늘어나는 **비모수적 모델(nonparametric model)**\ 입니다.
 
 ---
 

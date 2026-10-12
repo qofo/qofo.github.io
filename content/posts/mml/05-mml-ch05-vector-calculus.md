@@ -38,7 +38,7 @@ flowchart TD
 | 절 번호 및 제목 | 핵심 한 줄 요약 | 중요도 | 근거 |
 |---|---|:---:|---|
 | **5.1 일변수 함수의 미분** *(pp. 141~146)* | 미분의 극한 정의와 다항식 테일러 급수 근사의 기초를 다룬다. | ★☆☆ | 뒤쪽 장에서 직접 단독으로 쓰이기보다는 다변수 확장의 논리적 징검다리 역할을 한다. |
-| **5.2 편미분과 기울기** *(pp. 146~149)* | 다변수 스칼라 함수의 편미분을 모은 기울기 벡터(Gradient)와 연쇄법칙을 정의한다. | ★★★ | MML의 핵심 관례인 **분자 중심 표기법(행벡터 기울기)**의 출발점이며 다변수 최적화의 기본이다. |
+| **5.2 편미분과 기울기** *(pp. 146~149)* | 다변수 스칼라 함수의 편미분을 모은 기울기 벡터(Gradient)와 연쇄법칙을 정의한다. | ★★★ | MML의 핵심 관례인 **분자 중심 표기법(행벡터 기울기)**\ 의 출발점이며 다변수 최적화의 기본이다. |
 | **5.3 벡터값 함수의 기울기** *(pp. 149~154)* | 벡터 출력 함수의 도함수인 야코비안 행렬(Jacobian)과 다변수 연쇄법칙의 행렬곱을 다룬다. | ★★★ | 신경망의 층별 변환, 6장 확률변수의 변수 변환(야코비안 행렬식), 가우스-뉴턴 최적화의 필수 기저다. |
 | **5.4 행렬의 기울기** *(pp. 155~157)* | 행렬을 벡터로 미분할 때 나타나는 3차원 텐서 야코비안과 벡터화($\text{vec}$) 기법을 학습한다. | ★★☆ | 신경망 가중치 행렬 미분과 공분산 행렬 추정식 전개에 사용된다. |
 | **5.5 기울기 계산을 위한 유용한 항등식** *(pp. 157~158)* | 2차 형식, 대각합(trace), 행렬식(determinant), 역행렬의 행렬 미분 공식을 정리한다. | ★★★ | 9장 선형회귀의 정규방정식 도출, 10장 PCA, 11장 GMM 정규분포 모수 추정에서 수식 전개에 직결된다. |
@@ -52,12 +52,12 @@ flowchart TD
 ## 5.1 일변수 함수의 미분(Differentiation of Univariate Functions, 교재 141~146쪽)
 
 ### 왜 필요한가 (직관)
-머신러닝의 궁극적인 목표는 손실 함수(Loss function)의 값을 최소화하는 최적의 매개변수를 찾는 것이다. 만약 우리가 조정할 수 있는 매개변수가 딱 하나($x$)뿐이라면, "현재 위치에서 $x$를 아주 조금 오른쪽으로 움직였을 때 손실이 늘어나는가, 줄어드는가?"를 알아야 한다. 이 질문에 답을 주는 수학적 도구가 바로 **도함수(derivative)**다. 도함수는 곡선 위의 한 점 근처를 직선(접선)으로 단순화하여, 변화의 즉각적인 방향과 속도를 알려준다.
+머신러닝의 궁극적인 목표는 손실 함수(Loss function)의 값을 최소화하는 최적의 매개변수를 찾는 것이다. 만약 우리가 조정할 수 있는 매개변수가 딱 하나($x$)뿐이라면, "현재 위치에서 $x$를 아주 조금 오른쪽으로 움직였을 때 손실이 늘어나는가, 줄어드는가?"를 알아야 한다. 이 질문에 답을 주는 수학적 도구가 바로 **도함수(derivative)**\ 다. 도함수는 곡선 위의 한 점 근처를 직선(접선)으로 단순화하여, 변화의 즉각적인 방향과 속도를 알려준다.
 
 ### 정의와 성질
 
 #### 1. 미분의 정의
-함수 $f: \mathbb{R} \to \mathbb{R}$에 대하여 점 $x$에서의 도함수 $f'(x)$ (또는 $\frac{df}{dx}$)는 **차분상(difference quotient)**의 극한으로 정의된다:
+함수 $f: \mathbb{R} \to \mathbb{R}$에 대하여 점 $x$에서의 도함수 $f'(x)$ (또는 $\frac{df}{dx}$)는 **차분상(difference quotient)**\ 의 극한으로 정의된다:
 $$f'(x) = \frac{df}{dx} = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}$$
 - $h$: 입력값의 미세한 변화량
 - $f(x+h) - f(x)$: 그에 따른 출력값의 변화량
@@ -68,10 +68,10 @@ $$f'(x) = \frac{df}{dx} = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}$$
 
 $n$차 **테일러 다항식(Taylor polynomial)** $T_n(x)$는 다음과 같이 정의된다:
 $$T_n(x) = \sum_{k=0}^n \frac{f^{(k)}(x_0)}{k!} (x - x_0)^k = f(x_0) + f'(x_0)(x - x_0) + \frac{f''(x_0)}{2!}(x - x_0)^2 + \cdots + \frac{f^{(n)}(x_0)}{n!}(x - x_0)^n$$
-- $x_0$: 근사의 기준이 되는 중심점(expansion point). $x_0 = 0$일 때를 특별히 **매클로린 급수(Maclaurin series)**라고 부른다.
+- $x_0$: 근사의 기준이 되는 중심점(expansion point). $x_0 = 0$일 때를 특별히 **매클로린 급수(Maclaurin series)**\ 라고 부른다.
 - $f^{(k)}(x_0)$: $f$의 $k$계 도함수를 $x_0$에서 평가한 값.
 - $k!$: $k$ 팩토리얼 ($k! = k \times (k-1) \times \cdots \times 1$).
-- **테일러 정리(Taylor's Theorem)**에 따르면, 원래 함수와 다항식 사이의 오차는 잉여항(remainder) $R_n(x)$로 주어지며, $f(x) = T_n(x) + R_n(x)$가 성립한다.
+- **테일러 정리(Taylor's Theorem)**\ 에 따르면, 원래 함수와 다항식 사이의 오차는 잉여항(remainder) $R_n(x)$로 주어지며, $f(x) = T_n(x) + R_n(x)$가 성립한다.
 
 #### 3. 5.1.2 미분 규칙(Differentiation Rules)
 기본적인 미분 규칙은 다변수 미분에서도 성분별 계산에 그대로 적용된다:
@@ -131,7 +131,7 @@ $x_0 = 0$에서 $f(x) = \cos(x)$의 4차 테일러 다항식 $T_4(x)$를 구하�
 
 ### 왜 필요한가 (직관)
 실제 머신러닝 모델의 파라미터는 1개가 아니라 수천, 수백만 개(벡터 $\boldsymbol{x} \in \mathbb{R}^n$)다. 예를 들어 산비탈에 서 있을 때, 동서 방향으로 한 걸음 갈 때의 경사와 남북 방향으로 한 걸음 갈 때의 경사는 완전히 다르다.
-다변수 함수 $f(x_1, x_2, \dots, x_n)$에서 **다른 모든 변수는 얼어붙은 듯 고정(상수 취급)**시키고, **관심 있는 변수 하나($x_i$)만 살짝 움직였을 때의 변화율**을 구하는 것이 바로 **편미분(partial differentiation)**이다. 그리고 이 모든 방향의 편미분을 하나의 벡터로 정돈해 묶은 것이 **기울기(gradient, 그레디언트)**다.
+다변수 함수 $f(x_1, x_2, \dots, x_n)$에서 **다른 모든 변수는 얼어붙은 듯 고정(상수 취급)**\ 시키고, **관심 있는 변수 하나($x_i$)만 살짝 움직였을 때의 변화율**을 구하는 것이 바로 **편미분(partial differentiation)**\ 이다. 그리고 이 모든 방향의 편미분을 하나의 벡터로 정돈해 묶은 것이 **기울기(gradient, 그레디언트)**\ 다.
 
 ### 정의와 성질
 
@@ -141,19 +141,19 @@ $$\frac{\partial f}{\partial x_i} = \lim_{h \to 0} \frac{f(x_1, \dots, x_{i-1}, 
 기호 $\partial$는 편미분을 나타내며, 읽을 때는 '라운드(round)' 또는 '파셜(partial)'이라고 읽는다.
 
 #### 2. 기울기(Gradient)의 정의와 MML의 표기 관례
-편미분들을 가로로 늘어놓아 벡터로 만든 것을 **기울기(gradient)** 또는 **야코비안(Jacobian)**이라고 부른다.
+편미분들을 가로로 늘어놓아 벡터로 만든 것을 **기울기(gradient)** 또는 **야코비안(Jacobian)**\ 이라고 부른다.
 
 $$\nabla_{\boldsymbol{x}} f = \text{grad}\, f = \frac{df}{d\boldsymbol{x}} = \begin{bmatrix} \frac{\partial f(\boldsymbol{x})}{\partial x_1} & \frac{\partial f(\boldsymbol{x})}{\partial x_2} & \cdots & \frac{\partial f(\boldsymbol{x})}{\partial x_n} \end{bmatrix} \in \mathbb{R}^{1 \times n}$$
 
 > **[매우 중요! MML 교재의 핵심 관례: 분자 중심 표기법(Numerator Layout)]**
-> 교재 MML에서는 입력 벡터가 $\boldsymbol{x} = [x_1, \dots, x_n]^\top \in \mathbb{R}^{n \times 1}$ (열벡터)일 때, 스칼라 함수 $f$의 기울기 $\frac{df}{d\boldsymbol{x}}$를 반드시 **$1 \times n$ 행벡터(row vector)**로 정의한다!
+> 교재 MML에서는 입력 벡터가 $\boldsymbol{x} = [x_1, \dots, x_n]^\top \in \mathbb{R}^{n \times 1}$ (열벡터)일 때, 스칼라 함수 $f$의 기울기 $\frac{df}{d\boldsymbol{x}}$를 반드시 **$1 \times n$ 행벡터(row vector)**\ 로 정의한다!
 > 
 > **왜 행벡터로 정의하는가? (교재의 두 가지 이유)**
 > 1. **일관된 일반화**: 이후 5.3절에서 배울 벡터값 함수 $\boldsymbol{f}: \mathbb{R}^n \to \mathbb{R}^m$의 도함수(야코비안 행렬)는 $m \times n$ 행렬이 된다. $m=1$인 특수한 경우가 바로 스칼라 함수이므로, $1 \times n$ 행벡터가 되는 것이 차원적으로 완벽히 일관된다.
 > 2. **연쇄법칙의 깔끔함**: 기울기를 행벡터로 정의해야만 다변수 연쇄법칙을 쓸 때 전치($^\top$) 기호를 덕지덕지 붙이지 않고 단순 행렬곱 $\frac{dz}{d\boldsymbol{x}} = \frac{dz}{d\boldsymbol{y}} \frac{d\boldsymbol{y}}{d\boldsymbol{x}}$ ($1 \times n = (1 \times m) \times (m \times n)$)으로 직관적으로 쓸 수 있다.
 > 
 > **(주의: 딥러닝 관례와의 차이)**
-> 딥러닝 실무나 일부 교재(예: Goodfellow의 Deep Learning)에서는 **분모 중심 표기법(Denominator Layout)**을 사용하여 기울기를 $\boldsymbol{x}$와 같은 형태인 $n \times 1$ 열벡터로 표기하기도 한다. 시험 답안을 작성할 때는 MML의 정의에 따라 기본적으로 **행벡터($1 \times n$)**로 서술하되, 필요 시 "분모 중심 표기법에서는 이를 전치한 열벡터 $\nabla f \in \mathbb{R}^{n \times 1}$로 표현한다"고 덧붙여 주는 것이 안전하다.
+> 딥러닝 실무나 일부 교재(예: Goodfellow의 Deep Learning)에서는 **분모 중심 표기법(Denominator Layout)**\ 을 사용하여 기울기를 $\boldsymbol{x}$와 같은 형태인 $n \times 1$ 열벡터로 표기하기도 한다. 시험 답안을 작성할 때는 MML의 정의에 따라 기본적으로 **행벡터($1 \times n$)**\ 로 서술하되, 필요 시 "분모 중심 표기법에서는 이를 전치한 열벡터 $\nabla f \in \mathbb{R}^{n \times 1}$로 표현한다"고 덧붙여 주는 것이 안전하다.
 
 #### 3. 5.2.1 편미분의 기본 규칙
 - **합의 규칙**: $\frac{\partial}{\partial \boldsymbol{x}} (f(\boldsymbol{x}) + g(\boldsymbol{x})) = \frac{\partial f}{\partial \boldsymbol{x}} + \frac{\partial g}{\partial \boldsymbol{x}}$
@@ -203,7 +203,7 @@ $f(x_1, x_2) = x_1^2 + 2x_2$이고 $x_1(t) = \sin t$, $x_2(t) = \cos t$일 때, 
 
 ### 왜 필요한가 (직관)
 입력도 벡터이고 출력도 벡터인 함수 $\boldsymbol{f}: \mathbb{R}^n \to \mathbb{R}^m$는 머신러닝의 도처에 존재한다. 신경망의 한 계층(layer)은 입력 벡터 $\boldsymbol{x} \in \mathbb{R}^n$을 받아 은닉 상태 벡터 $\boldsymbol{h} \in \mathbb{R}^m$를 출력한다.
-이때 $n$개의 입력 변수 각각이 $m$개의 출력 변수 각각에 미치는 모든 편미분 영향력을 빠짐없이 기록하려면 직사각형 형태의 행렬이 필요하다. 이 행렬이 바로 **야코비안 행렬(Jacobian Matrix)**이다.
+이때 $n$개의 입력 변수 각각이 $m$개의 출력 변수 각각에 미치는 모든 편미분 영향력을 빠짐없이 기록하려면 직사각형 형태의 행렬이 필요하다. 이 행렬이 바로 **야코비안 행렬(Jacobian Matrix)**\ 이다.
 
 ### 정의와 성질
 
@@ -328,7 +328,7 @@ $A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}$, $X = \begin{bmatrix} x_{11} 
 ## 5.5 기울기 계산을 위한 유용한 항등식(Useful Identities for Computing Gradients, 교재 158쪽)
 
 ### 왜 필요한가 (직관)
-복잡한 머신러닝 논문의 수식(예: 선형 회귀의 정규방정식, 가우시안 우도 극대화, 칼만 필터 게인 유도)을 전개할 때 매번 원소 단위($x_{ij}$)로 풀어서 합기호($\sum$)를 전개하는 것은 지나치게 비효율적이고 실수하기 쉽다. 선형대수학의 검증된 **행렬 미분 항등식(Matrix Calculus Identities)**을 활용하면 복잡한 다변수 목적함수의 최적화 해를 단 서너 줄 만에 깔끔하게 유도할 수 있다.
+복잡한 머신러닝 논문의 수식(예: 선형 회귀의 정규방정식, 가우시안 우도 극대화, 칼만 필터 게인 유도)을 전개할 때 매번 원소 단위($x_{ij}$)로 풀어서 합기호($\sum$)를 전개하는 것은 지나치게 비효율적이고 실수하기 쉽다. 선형대수학의 검증된 **행렬 미분 항등식(Matrix Calculus Identities)**\ 을 활용하면 복잡한 다변수 목적함수의 최적화 해를 단 서너 줄 만에 깔끔하게 유도할 수 있다.
 
 ### 정의와 성질: 핵심 10대 항등식 및 차원(Shape) 완전 분석
 
@@ -383,7 +383,7 @@ $A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}$, $X = \begin{bmatrix} x_{11} 
 신경망 학습의 본질은 수억 개의 가중치 매개변수에 대해 손실 함수 $L$의 기울기를 구하는 것이다.
 - **수치 미분(Numerical differentiation)**: $\frac{f(x+h)-f(x)}{h}$로 구하려면 매개변수가 1억 개일 때 네트워크 순전파를 1억 번 실행해야 하므로 실시간 학습이 완전히 불가능하다 ($O(D)$ 연산량).
 - **기호 미분(Symbolic differentiation)**: 연쇄법칙 수식을 수학적으로 전부 전개하면 공통 부분식이 중복 생성되어 수식의 길이가 지수적으로 폭발(Expression swell)한다.
-- **자동 미분(Automatic differentiation)과 역전파(Backpropagation)**: 계산 그래프 상에서 중간 계산값들을 한 번 메모리에 저장해 두고, 연쇄법칙의 **결합법칙(associativity)**을 역방향으로 묶음으로써 역방향 패스 한 번(순전파의 상수배 정도 비용)으로 모든 매개변수의 정확한 기울기를 계산해 낸다.
+- **자동 미분(Automatic differentiation)과 역전파(Backpropagation)**: 계산 그래프 상에서 중간 계산값들을 한 번 메모리에 저장해 두고, 연쇄법칙의 **결합법칙(associativity)**\ 을 역방향으로 묶음으로써 역방향 패스 한 번(순전파의 상수배 정도 비용)으로 모든 매개변수의 정확한 기울기를 계산해 낸다.
 
 ### 정의와 성질
 
@@ -394,10 +394,10 @@ $$\boldsymbol{y} = (\boldsymbol{f}_K \circ \boldsymbol{f}_{K-1} \circ \cdots \ci
 $$\boldsymbol{f}_0 := \boldsymbol{x}, \quad \boldsymbol{f}_i := \sigma_i(A_{i-1}\boldsymbol{f}_{i-1} + \boldsymbol{b}_{i-1}), \quad i = 1, \dots, K$$
 제곱 오차 손실 $L = \|\boldsymbol{y} - \boldsymbol{f}_K\|^2$에 대해 $i$번째 층의 매개변수 $\theta_i = \{A_i, \boldsymbol{b}_i\}$에 대한 편미분은 연쇄법칙에 의해:
 $$\frac{\partial L}{\partial \theta_i} = \underbrace{\frac{\partial L}{\partial \boldsymbol{f}_K} \frac{\partial \boldsymbol{f}_K}{\partial \boldsymbol{f}_{K-1}} \cdots \frac{\partial \boldsymbol{f}_{i+2}}{\partial \boldsymbol{f}_{i+1}}}_{\text{이미 계산된 오차 전달 항}} \frac{\partial \boldsymbol{f}_{i+1}}{\partial \theta_i}$$
-만약 우리가 바로 앞 층인 $\frac{\partial L}{\partial \theta_{i+1}}$를 이미 계산해 두었다면, 붉은색 괄호 친 앞부분의 행렬곱은 새로 계산할 필요 없이 **그대로 재사용(Dynamic Programming / 메모이제이션)**할 수 있다!
+만약 우리가 바로 앞 층인 $\frac{\partial L}{\partial \theta_{i+1}}$를 이미 계산해 두었다면, 붉은색 괄호 친 앞부분의 행렬곱은 새로 계산할 필요 없이 **그대로 재사용(Dynamic Programming / 메모이제이션)**\ 할 수 있다!
 
 #### 2. 5.6.2 자동 미분: Forward Mode vs Reverse Mode의 대조
-연쇄법칙 $\frac{dy}{dx} = J_K J_{K-1} \cdots J_2 J_1$에서 행렬곱은 **결합법칙(Associative property)**이 성립하므로 괄호를 어디에 묶느냐에 따라 계산 비용이 천양지차로 갈린다.
+연쇄법칙 $\frac{dy}{dx} = J_K J_{K-1} \cdots J_2 J_1$에서 행렬곱은 **결합법칙(Associative property)**\ 이 성립하므로 괄호를 어디에 묶느냐에 따라 계산 비용이 천양지차로 갈린다.
 
 ```mermaid
 flowchart LR
@@ -454,13 +454,13 @@ flowchart LR
 ## 5.7 고계 도함수(Higher-Order Derivatives, 교재 164~165쪽)
 
 ### 왜 필요한가 (직관)
-1계 도함수인 기울기(gradient)는 "어느 방향으로 가야 함숫값이 내려가는가?"만 알려줄 뿐, "그 골짜기가 완만한가, 가파른가?"하는 **곡률(Curvature)**은 전혀 알려주지 못한다.
+1계 도함수인 기울기(gradient)는 "어느 방향으로 가야 함숫값이 내려가는가?"만 알려줄 뿐, "그 골짜기가 완만한가, 가파른가?"하는 **곡률(Curvature)**\ 은 전혀 알려주지 못한다.
 만약 곡률을 안다면, 경사가 완만한 곳에서는 큰 보폭으로 성큼성큼 걷고, 곡률이 심해 요동치는 곳에서는 조심스럽게 보폭을 줄일 수 있다(7장 뉴턴 방법). 또한 어떤 지점에서 기울기가 0이 되었을 때, 이곳이 진짜 바닥(극소)인지, 봉우리(극대)인지, 아니면 말안장처럼 한쪽은 올라가고 한쪽은 내려가는 함정(**안장점, Saddle point**)인지 감별하기 위해 2계 편도함수가 필수적이다.
 
 ### 정의와 성질
 
 #### 1. 헤시안 행렬(Hessian Matrix)의 정의
-2번 미분 가능한 다변수 스칼라 함수 $f: \mathbb{R}^n \to \mathbb{R}$에 대하여, 모든 2계 편도함수를 모은 $n \times n$ 정방행렬을 **헤시안 행렬(Hessian Matrix)**이라고 부른다:
+2번 미분 가능한 다변수 스칼라 함수 $f: \mathbb{R}^n \to \mathbb{R}$에 대하여, 모든 2계 편도함수를 모은 $n \times n$ 정방행렬을 **헤시안 행렬(Hessian Matrix)**\ 이라고 부른다:
 
 $$H = \nabla_{\boldsymbol{x}}^2 f = \begin{bmatrix}
 \frac{\partial^2 f}{\partial x_1^2} & \frac{\partial^2 f}{\partial x_1 \partial x_2} & \cdots & \frac{\partial^2 f}{\partial x_1 \partial x_n} \\
@@ -472,7 +472,7 @@ $$H = \nabla_{\boldsymbol{x}}^2 f = \begin{bmatrix}
 #### 2. 슈와르츠 정리(Schwarz's Theorem / Clairaut's Theorem)
 함수 $f$가 2계 연속 미분 가능(twice continuously differentiable)하다면, 편미분을 수행하는 순서는 결과에 영향을 주지 않는다:
 $$\frac{\partial^2 f}{\partial x_i \partial x_j} = \frac{\partial^2 f}{\partial x_j \partial x_i}$$
-따라서 **헤시안 행렬은 항상 대칭행렬(Symmetric Matrix, $H = H^\top$)**이다!
+따라서 **헤시안 행렬은 항상 대칭행렬(Symmetric Matrix, $H = H^\top$)**\ 이다!
 
 #### 3. 2계 충분조건과 임계점 판정법
 기울기가 0인 점($\nabla f(\boldsymbol{x}^*) = \mathbf{0}$, 임계점/정상점)에서 헤시안 $H(\boldsymbol{x}^*)$의 고유값(eigenvalue) $\lambda_i$들의 부호로 극값을 판정한다:
@@ -499,11 +499,11 @@ $$\frac{\partial^2 f}{\partial x_i \partial x_j} = \frac{\partial^2 f}{\partial 
 - **3단계 (점 $P_1(1, 0)$ 판정)**:
   $$H(1, 0) = \begin{bmatrix} 6 & 0 \\ 0 & 2 \end{bmatrix}$$
   대각행렬이므로 고유값은 $\lambda_1 = 6 > 0, \lambda_2 = 2 > 0$이다.
-  양의 정부호이므로 $P_1(1, 0)$은 **엄격한 국소 극소점(Local Minimum)**이다.
+  양의 정부호이므로 $P_1(1, 0)$은 **엄격한 국소 극소점(Local Minimum)**\ 이다.
 - **4단계 (점 $P_2(-1, 0)$ 판정)**:
   $$H(-1, 0) = \begin{bmatrix} -6 & 0 \\ 0 & 2 \end{bmatrix}$$
   고유값은 $\lambda_1 = -6 < 0, \lambda_2 = 2 > 0$이다.
-  부호가 엇갈리므로 $P_2(-1, 0)$은 **안장점(Saddle Point)**이다!
+  부호가 엇갈리므로 $P_2(-1, 0)$은 **안장점(Saddle Point)**\ 이다!
 
 ### 헷갈리는 점 / 자주 하는 실수
 - **기울기가 0이라고 무조건 극값이라 단정하는 실수**: 고차원 공간(딥러닝 손실 표면)에서는 국소 극소점보다 안장점의 빈도가 훨씬 높다. 1계 미분만으로는 안장점을 걸러낼 수 없음을 명심해야 한다.
@@ -965,8 +965,8 @@ $f(z) = \ln(1 + z)$, $z = \boldsymbol{x}^\top \boldsymbol{x}$ (단, $\boldsymbol
    $$\frac{\partial X^{-1}}{\partial t} = -X^{-1} \frac{\partial X}{\partial t} X^{-1}, \quad \frac{\partial (\boldsymbol{a}^\top X^{-1} \boldsymbol{b})}{\partial X} = -(X^{-1})^\top \boldsymbol{a} \boldsymbol{b}^\top (X^{-1})^\top$$
 
 ### 3. 시험장 체크리스트
-- [ ] 기울기를 쓸 때 **행벡터($1 \times n$)**로 적었는가?
-- [ ] 야코비안의 크기를 **(출력 차원 $m$) $\times$ (입력 차원 $n$)**으로 정확히 맞추었는가?
-- [ ] 2차 형식 미분에서 행렬의 **대칭성 조건($B = B^\top$)**을 확인했는가?
+- [ ] 기울기를 쓸 때 **행벡터($1 \times n$)**\ 로 적었는가?
+- [ ] 야코비안의 크기를 **(출력 차원 $m$) $\times$ (입력 차원 $n$)**\ 으로 정확히 맞추었는가?
+- [ ] 2차 형식 미분에서 행렬의 **대칭성 조건($B = B^\top$)**\ 을 확인했는가?
 - [ ] 헤시안 판정 시 고유값의 부호를 정확히 확인했는가? (모두 양수 $\to$ 극소, 부호 혼재 $\to$ 안장점)
 - [ ] 테일러 2차 전개 시 헤시안 앞의 **$\frac{1}{2}$ 계수**를 빠뜨리지 않았는가?

@@ -10,7 +10,7 @@ description: "MML 3장(교재 70~97쪽) 해설. 노름과 내적, 길이·거리
 # h2 and h3 only (markup.tableOfContents); the theme's own TOC would list every h4 too
 UseHugoToc: true
 ---
-> **교재 70~97쪽.** 2장에서 다룬 벡터공간에 "길이·거리·각도"를 재는 도구(노름, 내적)를 붙인다. 이 장의 직교사영은 **9장 선형회귀(최대가능도 해 = 열공간으로의 직교사영)**, **10장 PCA(데이터를 부분공간에 사영)**, **12장 SVM(점과 초평면 사이 거리)**에서 그대로 다시 나온다. 대칭 양의 정부호 행렬은 4장(숄레스키, 고유값), 6장(공분산 행렬)으로 이어진다.
+> **교재 70~97쪽.** 2장에서 다룬 벡터공간에 "길이·거리·각도"를 재는 도구(노름, 내적)를 붙인다. 이 장의 직교사영은 **9장 선형회귀(최대가능도 해 = 열공간으로의 직교사영)**, **10장 PCA(데이터를 부분공간에 사영)**, **12장 SVM(점과 초평면 사이 거리)**\ 에서 그대로 다시 나온다. 대칭 양의 정부호 행렬은 4장(숄레스키, 고유값), 6장(공분산 행렬)으로 이어진다.
 
 ---
 
@@ -76,7 +76,7 @@ $$\Omega(\lambda x+\psi y,z)=\lambda\Omega(x,z)+\psi\Omega(y,z),\qquad \Omega(x,
 **정의 3.2–3.3:** 쌍선형 사상 $\Omega:V\times V\to\mathbb R$이
 - **대칭(symmetric):** $\Omega(x,y)=\Omega(y,x)$
 - **양의 정부호(positive definite):** $x\ne0$이면 $\Omega(x,x)>0$, 그리고 $\Omega(0,0)=0$
-이면 **내적(inner product)**이라 하고 $\langle x,y\rangle$로 쓴다. 내적이 붙은 벡터공간을 내적공간(inner product space), 점곱을 쓰면 유클리드 벡터공간이라 한다.
+이면 **내적(inner product)**\ 이라 하고 $\langle x,y\rangle$로 쓴다. 내적이 붙은 벡터공간을 내적공간(inner product space), 점곱을 쓰면 유클리드 벡터공간이라 한다.
 
 **점곱이 아닌 내적의 예(교재 예제 3.3):** $\mathbb R^2$에서
 $$\langle x,y\rangle=x_1y_1-(x_1y_2+x_2y_1)+2x_2y_2.$$
@@ -159,7 +159,7 @@ $$\cos\omega=\frac{\langle x,y\rangle}{\|x\|\,\|y\|},\qquad\omega\in[0,\pi].$$
 ### 정의
 $n$차원 공간의 기저 $b_1,\dots,b_n$이
 $$\langle b_i,b_j\rangle=0\ (i\ne j),\qquad\langle b_i,b_i\rangle=1$$
-이면 **정규직교기저(ONB, orthonormal basis)**다. 직교만 하면 직교기저(orthogonal basis).
+이면 **정규직교기저(ONB, orthonormal basis)**\ 다. 직교만 하면 직교기저(orthogonal basis).
 
 ### 왜 좋은가
 - 좌표를 구할 때 연립방정식을 풀 필요가 없다. $x=\sum_i\lambda_ib_i$이면 양변에 $b_j$를 내적해 $\lambda_j=\langle x,b_j\rangle$.

@@ -18,7 +18,7 @@ UseHugoToc: true
 
 ## 0. 이 장 지도
 
-확률론은 머신러닝에서 불확실성을 표현하고 추론하는 핵심 언어다. 단순한 동전 던지기 같은 고전적 확률에서 시작하여, 엄밀한 확률 공간($\sigma$-대수), 이산/연속 확률변수, 머신러닝의 3대 추론 원칙(합의 법칙, 곱의 법칙, 베이즈 정리), 요약 통계량(평균, 공분산, 선형변환), 그리고 머신러닝의 가장 중요한 두 기둥인 **가우시안 분포(Gaussian Distribution)**와 **켤레 사전분포 및 지수족(Conjugacy & Exponential Family)**으로 체계적으로 발전한다.
+확률론은 머신러닝에서 불확실성을 표현하고 추론하는 핵심 언어다. 단순한 동전 던지기 같은 고전적 확률에서 시작하여, 엄밀한 확률 공간($\sigma$-대수), 이산/연속 확률변수, 머신러닝의 3대 추론 원칙(합의 법칙, 곱의 법칙, 베이즈 정리), 요약 통계량(평균, 공분산, 선형변환), 그리고 머신러닝의 가장 중요한 두 기둥인 **가우시안 분포(Gaussian Distribution)**\ 와 **켤레 사전분포 및 지수족(Conjugacy & Exponential Family)**\ 으로 체계적으로 발전한다.
 
 ```mermaid
 flowchart TD
@@ -51,22 +51,22 @@ flowchart TD
 ## 6.1 확률 공간의 구성(Construction of a Probability Space, 교재 172~177쪽)
 
 ### 왜 필요한가 (직관)
-우리가 "오늘 비가 올 확률이 $70\%$다"라고 말할 때, 이 불확실성을 어떻게 수학적으로 엄밀하게 정의할 수 있을까? 직관에만 의존하면 "무한히 많은 경우의 수"를 다룰 때 수학적 모순(예: 바나흐-타르스키 역설이나 비가측 집합 문제)에 부딪힌다. 따라서 수학자들은 어떤 시행에서 나올 수 있는 모든 결과의 무대(**표본공간**), 확률을 부여할 수 있는 합법적인 사건들의 모임(**사건공간/$\sigma$-대수**), 그리고 각 사건에 $0$과 $1$ 사이의 숫자를 배정하는 엄격한 규칙(**확률측도**)이라는 삼위일체의 틀을 만들었다. 이것이 바로 **확률 공간(Probability Space)**이다.
+우리가 "오늘 비가 올 확률이 $70\%$다"라고 말할 때, 이 불확실성을 어떻게 수학적으로 엄밀하게 정의할 수 있을까? 직관에만 의존하면 "무한히 많은 경우의 수"를 다룰 때 수학적 모순(예: 바나흐-타르스키 역설이나 비가측 집합 문제)에 부딪힌다. 따라서 수학자들은 어떤 시행에서 나올 수 있는 모든 결과의 무대(**표본공간**), 확률을 부여할 수 있는 합법적인 사건들의 모임(**사건공간/$\sigma$-대수**), 그리고 각 사건에 $0$과 $1$ 사이의 숫자를 배정하는 엄격한 규칙(**확률측도**)이라는 삼위일체의 틀을 만들었다. 이것이 바로 **확률 공간(Probability Space)**\ 이다.
 
 ### 정의와 성질
 
 #### 1. 확률 공간의 세 가지 구성 요소 $(\Omega, \mathcal{A}, P)$
 1. **표본공간(Sample Space, $\Omega$)**:
-   어떤 무작위 실험에서 발생할 수 있는 **모든 가능한 결과(outcomes)**의 집합.
+   어떤 무작위 실험에서 발생할 수 있는 **모든 가능한 결과(outcomes)**\ 의 집합.
    - 예: 주사위 1회 던지기 $\implies \Omega = \{1, 2, 3, 4, 5, 6\}$.
 2. **사건공간(Event Space, $\mathcal{A}$)**:
-   우리가 확률을 부여할 수 있는 사건(event)들의 집합족으로, 수학적으로 **$\sigma$-대수($\sigma$-algebra)**를 형성한다.
+   우리가 확률을 부여할 수 있는 사건(event)들의 집합족으로, 수학적으로 **$\sigma$-대수($\sigma$-algebra)**\ 를 형성한다.
    - $\sigma$-대수의 조건:
      1. 전체집합이 포함된다: $\Omega \in \mathcal{A}$
      2. 여집합에 닫혀 있다: $A \in \mathcal{A} \implies A^c \in \mathcal{A}$
      3. 가산 무한 합집합에 닫혀 있다: $A_1, A_2, \dots \in \mathcal{A} \implies \bigcup_{i=1}^\infty A_i \in \mathcal{A}$
 3. **확률측도(Probability Measure, $P$)**:
-   사건 $A \in \mathcal{A}$에 실수값을 배정하는 함수 $P: \mathcal{A} \to [0, 1]$로, **콜모고로프의 3대 공리(Kolmogorov's Axioms)**를 만족한다:
+   사건 $A \in \mathcal{A}$에 실수값을 배정하는 함수 $P: \mathcal{A} \to [0, 1]$로, **콜모고로프의 3대 공리(Kolmogorov's Axioms)**\ 를 만족한다:
    1. **비음수성(Non-negativity)**: 모든 $A \in \mathcal{A}$에 대해 $P(A) \ge 0$.
    2. **정규화(Normalization)**: 전체사건의 확률은 1이다: $P(\Omega) = 1$.
    3. **가산가법성(Countable Additivity)**: 서로소(disjoint, $A_i \cap A_j = \emptyset$)인 사건열에 대해,
@@ -80,9 +80,9 @@ flowchart TD
 
 #### 3. 6.1.1 철학적 쟁점: 빈도주의 vs 베이지안
 - **빈도주의(Frequentist Interpretation)**:
-  확률을 **"동일한 실험을 무한히 반복했을 때 특정 사건이 발생하는 상대적 빈도(relative frequency)"**로 정의한다. 모수(parameter) $\theta$는 고정된 미지의 상수이며, 데이터가 무작위로 관측된다고 본다 (MLE 추정).
+  확률을 **"동일한 실험을 무한히 반복했을 때 특정 사건이 발생하는 상대적 빈도(relative frequency)"**\ 로 정의한다. 모수(parameter) $\theta$는 고정된 미지의 상수이며, 데이터가 무작위로 관측된다고 본다 (MLE 추정).
 - **베이지안(Bayesian Interpretation)**:
-  확률을 **"불확실성에 대한 주관적 또는 합리적인 믿음의 정도(degree of belief)"**로 정의한다. 데이터는 이미 관측된 고정된 사실이며, 모수 $\theta$ 자체가 불확실성을 가진 확률변수로 취급된다 (Prior, Posterior, MAP 추정).
+  확률을 **"불확실성에 대한 주관적 또는 합리적인 믿음의 정도(degree of belief)"**\ 로 정의한다. 데이터는 이미 관측된 고정된 사실이며, 모수 $\theta$ 자체가 불확실성을 가진 확률변수로 취급된다 (Prior, Posterior, MAP 추정).
 
 ### 손으로 풀어 보는 예제
 
@@ -113,7 +113,7 @@ flowchart TD
 
 ### 왜 필요한가 (직관)
 컴퓨터가 다루는 데이터는 두 종류다. 이미지 분류 라벨(고양이, 개, 자동차)이나 자연어 토큰 번호는 셀 수 있는 이산형(discrete) 데이터이고, 센서 전압, 온도, 오디오 파형, 신경망 가중치는 연속적인 실수형(continuous) 데이터다.
-이산형에서는 "어떤 특정 값이 나올 확률"을 직접 더할 수 있지만, 연속형에서는 임의의 특정 실수 하나가 정확히 나올 확률은 $0$이다(바늘 끝으로 수직선 위의 한 점을 정확히 찌를 확률). 따라서 연속형에서는 특정 점 대신 **구간의 면적(적분)**을 통해 확률을 구해야 하며, 이를 위해 **확률밀도함수(PDF)**라는 개념이 등장한다.
+이산형에서는 "어떤 특정 값이 나올 확률"을 직접 더할 수 있지만, 연속형에서는 임의의 특정 실수 하나가 정확히 나올 확률은 $0$이다(바늘 끝으로 수직선 위의 한 점을 정확히 찌를 확률). 따라서 연속형에서는 특정 점 대신 **구간의 면적(적분)**\ 을 통해 확률을 구해야 하며, 이를 위해 **확률밀도함수(PDF)**\ 라는 개념이 등장한다.
 
 ### 정의와 성질
 
@@ -169,15 +169,15 @@ $$f(x) = \begin{cases} 2e^{-2x} & (x \ge 0) \\ 0 & (x < 0) \end{cases}$$
 ## 6.3 합의 법칙, 곱의 법칙, 베이즈 정리(Sum Rule, Product Rule, and Bayes' Theorem, 교재 183~186쪽)
 
 ### 왜 필요한가 (직관)
-머신러닝은 기본적으로 **"이미 관측한 데이터 $y$를 바탕으로, 보이지 않는 진짜 정답이나 매개변수 $x$를 역추적하는 학문"**이다.
+머신러닝은 기본적으로 **"이미 관측한 데이터 $y$를 바탕으로, 보이지 않는 진짜 정답이나 매개변수 $x$를 역추적하는 학문"**\ 이다.
 - 원인($x$)에서 결과($y$)가 나오는 과정은 우리가 물리 법칙이나 모델로 기술할 수 있다 $\implies$ **우도(Likelihood, $p(y \mid x)$)**.
 - 하지만 우리가 알고 싶은 것은 반대로 "결과($y$)가 주어졌을 때 원인($x$)이 무엇이었을까?"이다 $\implies$ **사후확률(Posterior, $p(x \mid y)$)**.
-이 인과관계의 방향을 수학적으로 뒤집어 주는 역추론의 절대 법칙이 바로 **베이즈 정리(Bayes' Theorem)**이며, 이를 지탱하는 두 기둥이 **합의 법칙(Sum Rule)**과 **곱의 법칙(Product Rule)**이다.
+이 인과관계의 방향을 수학적으로 뒤집어 주는 역추론의 절대 법칙이 바로 **베이즈 정리(Bayes' Theorem)**\ 이며, 이를 지탱하는 두 기둥이 **합의 법칙(Sum Rule)**\ 과 **곱의 법칙(Product Rule)**\ 이다.
 
 ### 정의와 성질
 
 #### 1. 합의 법칙 (Sum Rule / Marginalization)
-결합확률분포 $p(x, y)$에서 관심 없는 변수 $y$를 모두 더하거나 적분하여 제거(주변화, marginalize out)하고, 관심 있는 변수 $x$만의 **주변확률분포(Marginal Distribution)**를 얻는 규칙:
+결합확률분포 $p(x, y)$에서 관심 없는 변수 $y$를 모두 더하거나 적분하여 제거(주변화, marginalize out)하고, 관심 있는 변수 $x$만의 **주변확률분포(Marginal Distribution)**\ 를 얻는 규칙:
 $$p(x) = \begin{cases} \sum_y p(x, y) & (\text{이산 확률변수}) \\ \int p(x, y) dy & (\text{연속 확률변수}) \end{cases}$$
 
 #### 2. 곱의 법칙 (Product Rule)
@@ -210,7 +210,7 @@ flowchart LR
 - 진단 키트의 성능:
   - 실제 질병 환자를 양성($+$)으로 판정할 확률(민감도): $P(+ \mid D) = 0.95$.
   - 정상인을 양성으로 오진할 확률(위양성률): $P(+ \mid D^c) = 0.05$.
-- 어떤 사람이 검사에서 양성($+$) 판정을 받았다. 이 사람이 **실제로 질병에 걸렸을 확률 $P(D \mid +)$**를 계산하라.
+- 어떤 사람이 검사에서 양성($+$) 판정을 받았다. 이 사람이 **실제로 질병에 걸렸을 확률 $P(D \mid +)$**\ 를 계산하라.
 
 - **1단계 (전체 양성 판정 확률, 증거 $P(+)$ 계산 - 합의 법칙)**:
   $$P(+) = P(+ \mid D)P(D) + P(+ \mid D^c)P(D^c)$$
@@ -218,7 +218,7 @@ flowchart LR
 - **2단계 (베이즈 정리 적용)**:
   $$P(D \mid +) = \frac{P(+ \mid D)P(D)}{P(+)} = \frac{0.0095}{0.0590} = \frac{95}{590} = \frac{19}{118} \approx 0.1610$$
 - **해석**:
-  검사 정확도가 $95\%$나 되는데도, 양성 판정을 받은 사람이 실제 환자일 확률은 고작 **$16.1\%$**에 불과하다!
+  검사 정확도가 $95\%$나 되는데도, 양성 판정을 받은 사람이 실제 환자일 확률은 고작 **$16.1\%$**\ 에 불과하다!
   이유는 질병의 사전확률(기저율, $1\%$)이 너무 낮기 때문에 정상인의 $5\%$ 오진($0.0495$)이 실제 환자의 양성($0.0095$)보다 압도적으로 많기 때문이다. 베이즈 추론에서 사전확률(Prior)의 영향력이 얼마나 막강한지 보여주는 교과서적 예시다.
 
 #### [예제 3-2] 이산 결합분포표에서의 주변화와 조건부 확률 (교재 예제 6.1 변형)
@@ -273,7 +273,7 @@ flowchart LR
    $$\Sigma = \mathbb{V}[\boldsymbol{x}] = \text{Cov}[\boldsymbol{x}, \boldsymbol{x}] = \mathbb{E}[(\boldsymbol{x} - \boldsymbol{\mu})(\boldsymbol{x} - \boldsymbol{\mu})^\top] \in \mathbb{R}^{D \times D}$$
    - 대각 원소 $\Sigma_{ii} = \mathbb{V}[x_i]$: 각 변수 $x_i$의 분산.
    - 비대각 원소 $\Sigma_{ij} = \text{Cov}[x_i, x_j]$: 두 변수 $x_i, x_j$ 사이의 공분산.
-   - **핵심 성질**: 공분산 행렬은 항상 **대칭(Symmetric, $\Sigma = \Sigma^\top$)**이며 **양의 준정부호(Positive Semi-Definite, PSD, $\boldsymbol{z}^\top \Sigma \boldsymbol{z} \ge 0$)**이다!
+   - **핵심 성질**: 공분산 행렬은 항상 **대칭(Symmetric, $\Sigma = \Sigma^\top$)**\ 이며 **양의 준정부호(Positive Semi-Definite, PSD, $\boldsymbol{z}^\top \Sigma \boldsymbol{z} \ge 0$)**\ 이다!
 
 #### 2. 6.4.2 표본 평균과 표본 공분산 (교재 관례 명시)
 $N$개의 데이터 샘플 $\{\boldsymbol{x}_1, \dots, \boldsymbol{x}_N\}$이 주어졌을 때:
@@ -282,7 +282,7 @@ $N$개의 데이터 샘플 $\{\boldsymbol{x}_1, \dots, \boldsymbol{x}_N\}$이 �
   $$\hat{\Sigma} = \frac{1}{N} \sum_{n=1}^N (\boldsymbol{x}_n - \hat{\boldsymbol{\mu}})(\boldsymbol{x}_n - \hat{\boldsymbol{\mu}})^\top$$
 
 > **[교재 관례 알림: 분모 $\frac{1}{N}$ vs $\frac{1}{N-1}$]**
-> MML 교재는 머신러닝의 최대우도추정(MLE) 관례에 따라 표본 분산과 공분산의 분모로 **$\frac{1}{N}$**을 기본 표기로 사용한다. 반면 통계학에서는 모분산의 비편향 추정량(unbiased estimator)을 만들기 위해 자유도를 1 뺀 **$\frac{1}{N-1}$**을 사용한다. 본 해설서와 교재 풀이에서는 교재의 정의인 $\frac{1}{N}$을 기본으로 따르며, 필요 시 비편향 추정량과의 차이를 함께 명시한다.
+> MML 교재는 머신러닝의 최대우도추정(MLE) 관례에 따라 표본 분산과 공분산의 분모로 **$\frac{1}{N}$**\ 을 기본 표기로 사용한다. 반면 통계학에서는 모분산의 비편향 추정량(unbiased estimator)을 만들기 위해 자유도를 1 뺀 **$\frac{1}{N-1}$**\ 을 사용한다. 본 해설서와 교재 풀이에서는 교재의 정의인 $\frac{1}{N}$을 기본으로 따르며, 필요 시 비편향 추정량과의 차이를 함께 명시한다.
 
 #### 3. 6.4.3 분산의 세 가지 표현식 (교재 식 (6.43), (6.44), (6.45))
 데이터셋 $\{x_1, \dots, x_N\}$에 대한 표본 분산은 다음 세 가지 형태로 완전히 동일하게 표현된다:
@@ -307,7 +307,7 @@ $$\mathbb{V}[\boldsymbol{y}] = \mathbb{V}[A\boldsymbol{x} + \boldsymbol{b}] = A 
 - **독립과 무상관의 관계**:
   - $X \perp Y \implies \text{Cov}[X, Y] = 0$ (**독립이면 반드시 무상관이다**).
   - 그러나 **역은 일반적으로 성립하지 않는다** (무상관이라고 해서 독립인 것은 아니다!).
-  - **대표적인 예외**: 두 변수가 **결합 가우시안(Joint Gaussian)**을 따를 때는 무상관과 독립이 동치(if and only if)이다.
+  - **대표적인 예외**: 두 변수가 **결합 가우시안(Joint Gaussian)**\ 을 따를 때는 무상관과 독립이 동치(if and only if)이다.
 
 #### 6. 6.4.6 확률변수의 내적 (교재 195~197쪽)
 - 무상관인 두 확률변수는 $\mathbb{V}[x+y] = \mathbb{V}[x] + \mathbb{V}[y]$이다(식 (6.58)). 분산은 제곱 단위라서 직각삼각형의 피타고라스 정리 $c^2 = a^2 + b^2$와 모양이 같다.
@@ -384,7 +384,7 @@ $$\boldsymbol{x} = \begin{bmatrix} \boldsymbol{x}_a \\ \boldsymbol{x}_b \end{bma
    $$\boldsymbol{\mu}_{a \mid b} = \boldsymbol{\mu}_a + \Sigma_{ab} \Sigma_{bb}^{-1} (\boldsymbol{x}_b - \boldsymbol{\mu}_b)$$
    $$\Sigma_{a \mid b} = \Sigma_{aa} - \Sigma_{ab} \Sigma_{bb}^{-1} \Sigma_{ba}$$
    - **조건부 평균 $\boldsymbol{\mu}_{a \mid b}$**: 원래 평균 $\boldsymbol{\mu}_a$에 관측 오차 $(\boldsymbol{x}_b - \boldsymbol{\mu}_b)$가 교차 공분산 가중치 $\Sigma_{ab}\Sigma_{bb}^{-1}$를 통해 보정된다.
-   - **조건부 공분산 $\Sigma_{a \mid b}$**: 원래 공분산 $\Sigma_{aa}$에서 정보 획득으로 인한 불확실성 감소분 $\Sigma_{ab} \Sigma_{bb}^{-1} \Sigma_{ba}$만큼 차감된다. 이는 $\Sigma_{aa}$의 **슈어 보수(Schur Complement)**다.
+   - **조건부 공분산 $\Sigma_{a \mid b}$**: 원래 공분산 $\Sigma_{aa}$에서 정보 획득으로 인한 불확실성 감소분 $\Sigma_{ab} \Sigma_{bb}^{-1} \Sigma_{ba}$만큼 차감된다. 이는 $\Sigma_{aa}$의 **슈어 보수(Schur Complement)**\ 다.
    - **결정적 특징**: **조건부 분산 $\Sigma_{a \mid b}$는 관측값 $\boldsymbol{x}_b$에 전혀 의존하지 않는다!** (관측값이 무엇이든 분산 축소량은 사전 공분산 구조만으로 결정된다).
    - **정밀도 행렬 $\Lambda = \Sigma^{-1}$ 표현**:
      $$\Sigma_{a \mid b} = \Lambda_{aa}^{-1}, \quad \boldsymbol{\mu}_{a \mid b} = \boldsymbol{\mu}_a - \Lambda_{aa}^{-1} \Lambda_{ab} (\boldsymbol{x}_b - \boldsymbol{\mu}_b)$$
@@ -409,7 +409,7 @@ $$c = \mathcal{N}(\boldsymbol{a} \mid \boldsymbol{b}, A + B) = (2\pi)^{-D/2} |A+
 
 #### 5. 6.5.4 다변량 가우시안 샘플링
 컴퓨터는 표준정규 난수 $z \sim \mathcal{N}(0, 1)$만 생성할 수 있다. 임의의 $\mathcal{N}(\boldsymbol{\mu}, \Sigma)$에서 샘플을 추출하는 방법:
-1. 공분산 행렬 $\Sigma$의 **촐레스키 분해(Cholesky Decomposition)**를 수행하여 하삼각행렬 $L$을 구한다: $\Sigma = L L^\top$.
+1. 공분산 행렬 $\Sigma$의 **촐레스키 분해(Cholesky Decomposition)**\ 를 수행하여 하삼각행렬 $L$을 구한다: $\Sigma = L L^\top$.
 2. 표준정규분포로부터 $D$차원 벡터 $\boldsymbol{z} \sim \mathcal{N}(\mathbf{0}, I)$를 추출한다.
 3. 선형 변환을 적용한다:
    $$\boldsymbol{x} = \boldsymbol{\mu} + L\boldsymbol{z}$$
@@ -460,12 +460,12 @@ $$\boldsymbol{\mu} = \begin{bmatrix} 1 \\ 2 \end{bmatrix}, \quad \Sigma = \begin
 $$p(\theta \mid x) = \frac{p(x \mid \theta) p(\theta)}{\int p(x \mid \theta') p(\theta') d\theta'}$$
 문제는 분모의 적분이다. 일반적인 분포 조합에서는 이 적분을 손으로 풀 수 없는 경우가 대부분이다.
 하지만 만약 **"사전분포 $p(\theta)$의 수식 형태와 사후분포 $p(\theta \mid x)$의 수식 형태가 완전히 똑같은 분포족에 머무른다면"**, 우리는 적분을 아예 할 필요 없이 **사전분포의 파라미터에 데이터의 카운트(통계량)만 덧셈해 주는 것**으로 사후분포를 즉시 얻을 수 있다!
-이 놀라운 성질을 **켤레성(Conjugacy)**이라 부르며, 켤레성을 만족하는 분포들을 통일된 하나의 공식으로 일반화한 것이 **지수족(Exponential Family)**이다.
+이 놀라운 성질을 **켤레성(Conjugacy)**\ 이라 부르며, 켤레성을 만족하는 분포들을 통일된 하나의 공식으로 일반화한 것이 **지수족(Exponential Family)**\ 이다.
 
 ### 정의와 성질
 
 #### 1. 6.6.1 켤레 사전분포(Conjugate Prior)의 정의
-어떤 우도 함수 $p(x \mid \theta)$에 대하여, 사후분포 $p(\theta \mid x)$가 사전분포 $p(\theta)$와 **동일한 함수 족(same family)**에 속할 때, 그 사전분포를 해당 우도에 대한 **켤레 사전분포(Conjugate Prior)**라고 부른다.
+어떤 우도 함수 $p(x \mid \theta)$에 대하여, 사후분포 $p(\theta \mid x)$가 사전분포 $p(\theta)$와 **동일한 함수 족(same family)**\ 에 속할 때, 그 사전분포를 해당 우도에 대한 **켤레 사전분포(Conjugate Prior)**\ 라고 부른다.
 
 #### [켤레 사전분포 정리 (교재 표 6.2와 여백 주석, 포아송 행은 교재 밖 보충)]
 
@@ -491,7 +491,7 @@ $$p(\theta \mid x) = \frac{p(x \mid \theta) p(\theta)}{\int p(x \mid \theta') p(
 3. 베이즈 정리로 사후분포 계산:
    $$p(\mu \mid x = h) \propto p(x = h \mid \mu) p(\mu) \propto \mu^h (1 - \mu)^{N - h} \cdot \mu^{\alpha - 1} (1 - \mu)^{\beta - 1}$$
    $$p(\mu \mid x = h) \propto \mu^{(\alpha + h) - 1} (1 - \mu)^{(\beta + N - h) - 1}$$
-   결과가 정확히 모수가 $\alpha' = \alpha + h$, $\beta' = \beta + (N - h)$인 **베타 분포 $\text{Beta}(\alpha + h, \beta + N - h)$**이다!
+   결과가 정확히 모수가 $\alpha' = \alpha + h$, $\beta' = \beta + (N - h)$인 **베타 분포 $\text{Beta}(\alpha + h, \beta + N - h)$**\ 이다!
    - $\alpha$: 사전에 관측했다고 믿는 '가상의 앞면 횟수 (Pseudo-count)'
    - $\beta$: 사전에 관측했다고 믿는 '가상의 뒷면 횟수 (Pseudo-count)'
 
@@ -521,7 +521,7 @@ $$p(x \mid \boldsymbol{\theta}) = h(x) \exp\left( \langle \boldsymbol{\theta}, \
    $$\nabla_{\boldsymbol{\theta}} A(\boldsymbol{\theta}) = \mathbb{E}[\boldsymbol{\phi}(x)]$$
 2. **2계 도함수 = 충분통계량의 공분산 행렬**:
    $$\nabla_{\boldsymbol{\theta}}^2 A(\boldsymbol{\theta}) = \mathbb{V}[\boldsymbol{\phi}(x)]$$
-   공분산 행렬은 양의 준정부호이므로, **로그 분할함수 $A(\boldsymbol{\theta})$는 항상 자연 매개변수 $\boldsymbol{\theta}$에 대해 볼록 함수(Convex Function)**이다!
+   공분산 행렬은 양의 준정부호이므로, **로그 분할함수 $A(\boldsymbol{\theta})$는 항상 자연 매개변수 $\boldsymbol{\theta}$에 대해 볼록 함수(Convex Function)**\ 이다!
 
 ### 손으로 풀어 보는 예제
 
@@ -575,7 +575,7 @@ $$p(x \mid \boldsymbol{\theta}) = h(x) \exp\left( \langle \boldsymbol{\theta}, \
 
 ### 왜 필요한가 (직관)
 우리가 표준정규분포 난수 $X \sim \mathcal{N}(0, 1)$를 생성할 수 있을 때, $Y = X^2$의 분포는 무엇일까?
-신경망의 각 은닉층을 통과할 때마다 입력 확률변수 $\boldsymbol{x}$는 비선형 변환 $\boldsymbol{y} = \boldsymbol{g}(\boldsymbol{x})$를 거쳐 왜곡된다. 현대 생성 모델인 **정규화 흐름(Normalizing Flow)**은 단순한 가우시안 노이즈에 역변환 가능한 신경망 층들을 연속 적용하여 복잡한 고해상도 이미지 분포를 만들어 낸다. 이때 변환 후의 확률밀도함수를 계산하려면 공간의 부피가 얼마나 늘어나거나 줄어들었는지를 보정해 주어야 하는데, 그 보정 비율이 바로 **야코비안의 행렬식(Jacobian Determinant)**이다.
+신경망의 각 은닉층을 통과할 때마다 입력 확률변수 $\boldsymbol{x}$는 비선형 변환 $\boldsymbol{y} = \boldsymbol{g}(\boldsymbol{x})$를 거쳐 왜곡된다. 현대 생성 모델인 **정규화 흐름(Normalizing Flow)**\ 은 단순한 가우시안 노이즈에 역변환 가능한 신경망 층들을 연속 적용하여 복잡한 고해상도 이미지 분포를 만들어 낸다. 이때 변환 후의 확률밀도함수를 계산하려면 공간의 부피가 얼마나 늘어나거나 줄어들었는지를 보정해 주어야 하는데, 그 보정 비율이 바로 **야코비안의 행렬식(Jacobian Determinant)**\ 이다.
 
 ### 정의와 성질
 
@@ -596,7 +596,7 @@ $$p(x \mid \boldsymbol{\theta}) = h(x) \exp\left( \langle \boldsymbol{\theta}, \
    - $\det(J)$는 $\boldsymbol{x}$ 공간의 미소 단위 초부피가 $\boldsymbol{y}$ 공간으로 변환될 때 몇 배로 팽창/수축하는지를 나타내는 체적 변환율이다.
 
 #### 3. 정리 6.15 확률적분변환 (Probability Integral Transformation)
-- 연속 확률변수 $X$가 CDF $F_X(x)$를 가질 때, 새로운 확률변수 $Y := F_X(X)$는 **구간 $(0, 1)$ 위의 균등분포 $\text{Uniform}(0, 1)$**를 따른다!
+- 연속 확률변수 $X$가 CDF $F_X(x)$를 가질 때, 새로운 확률변수 $Y := F_X(X)$는 **구간 $(0, 1)$ 위의 균등분포 $\text{Uniform}(0, 1)$**\ 를 따른다!
 - **역변환 샘플링(Inverse Transform Sampling)**:
   반대로 컴퓨터에서 균등분포 난수 $U \sim \text{Uniform}(0, 1)$를 뽑은 뒤, 원하는 분포의 역누적분포함수 $X = F_X^{-1}(U)$에 대입하면 우리가 원하는 임의의 확률분포 $X$의 샘플을 완벽하게 생성할 수 있다!
 
@@ -721,7 +721,7 @@ $$p(x \mid \boldsymbol{\theta}) = h(x) \exp\left( \langle \boldsymbol{\theta}, \
    $$F_Y(y) = y \quad (0 < y < 1)$$
    이를 $y$에 대해 미분하면:
    $$f_Y(y) = \frac{d}{dy} F_Y(y) = \frac{d}{dy}(y) = 1 \quad (0 < y < 1)$$
-   구간 $(0, 1)$에서 확률밀도가 상수 1인 분포는 정의상 **$\text{Uniform}(0, 1)$**이다. $\quad \text{(증명 완료)}$
+   구간 $(0, 1)$에서 확률밀도가 상수 1인 분포는 정의상 **$\text{Uniform}(0, 1)$**\ 이다. $\quad \text{(증명 완료)}$
 
 ---
 
@@ -922,7 +922,7 @@ $N$번의 시행 중 성공 횟수 $x$에 대한 이항분포 $p(x \mid N, \mu) 
 #### Exercise 6.5
 - **문제 요약**: 시계열 모델 $\boldsymbol{x}_{t+1} = A\boldsymbol{x}_t + \boldsymbol{w}$ ($\boldsymbol{w} \sim \mathcal{N}(0, Q)$), $\boldsymbol{y}_t = C\boldsymbol{x}_t + \boldsymbol{v}$ ($\boldsymbol{v} \sim \mathcal{N}(0, R)$), $\boldsymbol{x}_0 \sim \mathcal{N}(\boldsymbol{\mu}_0, \Sigma_0)$에 대하여 (a) 결합분포 형태, (b) 칼만 필터 예측 및 갱신 단계를 구하라.
 - **풀이**:
-  - (a) 초기 상태가 가우시안이고 모든 전이와 관측이 선형 가우시안 노이즈 모델이므로 결합분포 $p(\boldsymbol{x}_0, \dots, \boldsymbol{x}_T)$는 거대한 **결합 가우시안 분포(Joint Gaussian)**다.
+  - (a) 초기 상태가 가우시안이고 모든 전이와 관측이 선형 가우시안 노이즈 모델이므로 결합분포 $p(\boldsymbol{x}_0, \dots, \boldsymbol{x}_T)$는 거대한 **결합 가우시안 분포(Joint Gaussian)**\ 다.
   - (b) $p(\boldsymbol{x}_t \mid \boldsymbol{y}_{1:t}) = \mathcal{N}(\boldsymbol{\mu}_t, \Sigma_t)$ 가정 하에:
     1. 시간 갱신(예측): $p(\boldsymbol{x}_{t+1} \mid \boldsymbol{y}_{1:t}) = \mathcal{N}(A\boldsymbol{\mu}_t, A\Sigma_t A^\top + Q)$.
     2. 결합 예측: $\begin{bmatrix} \boldsymbol{x}_{t+1} \\ \boldsymbol{y}_{t+1} \end{bmatrix} \mid \boldsymbol{y}_{1:t} \sim \mathcal{N}\left( \begin{bmatrix} \boldsymbol{\mu}_{t+1|t} \\ C\boldsymbol{\mu}_{t+1|t} \end{bmatrix}, \begin{bmatrix} \Sigma_{t+1|t} & \Sigma_{t+1|t} C^\top \\ C\Sigma_{t+1|t} & C\Sigma_{t+1|t} C^\top + R \end{bmatrix} \right)$ (단, $\boldsymbol{\mu}_{t+1|t} = A\boldsymbol{\mu}_t, \Sigma_{t+1|t} = A\Sigma_t A^\top + Q$).
@@ -1014,8 +1014,8 @@ $N$번의 시행 중 성공 횟수 $x$에 대한 이항분포 $p(x \mid N, \mu) 
    $$\mathbb{V}[X] = \frac{1}{N}\sum (x_n - \mu)^2 = \frac{1}{N}\sum x_n^2 - \mu^2 = \frac{1}{2N^2}\sum_{i,j}(x_i - x_j)^2$$
 
 ### 3. 시험장 체크리스트
-- [ ] 베이즈 정리 분모 계산 시 **합의 법칙(Marginalization)**을 빠뜨리지 않았는가?
+- [ ] 베이즈 정리 분모 계산 시 **합의 법칙(Marginalization)**\ 을 빠뜨리지 않았는가?
 - [ ] 가우시안 조건부 분산에서 **$\Sigma_{ab}\Sigma_{bb}^{-1}\Sigma_{ba}$를 빼주는 것**을 잊지 않았는가?
-- [ ] 지수족 변환 시 **정규화 상수 부호($-A(\theta)$)**를 정확히 확인했는가?
+- [ ] 지수족 변환 시 **정규화 상수 부호($-A(\theta)$)**\ 를 정확히 확인했는가?
 - [ ] 연속 확률변수의 단일 점 확률은 **항상 0**이라는 점을 기억하고 있는가?
 - [ ] 독립성과 무상관의 차이를 정확히 인지하고 있는가? (결합 가우시안이면 동치)

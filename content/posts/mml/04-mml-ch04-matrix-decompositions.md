@@ -186,7 +186,7 @@ $l_{11}=\sqrt{a_{11}}$, $l_{21}=a_{21}/l_{11}$, $l_{22}=\sqrt{a_{22}-l_{21}^2}$.
 - **대각화 가능(diagonalizable, 정의 4.19):** $D=P^{-1}AP$가 대각행렬이 되는 가역행렬 $P$가 있다. 즉 $A$가 대각행렬과 **닮음**(2.7.2)이다.
 - **정리 4.20 (고유분해):** $A\in\mathbb R^{n\times n}$은
 $$A=PDP^{-1}$$
-  ($P$의 열 = 고유벡터, $D$의 대각 = 대응하는 고유값)으로 쓸 수 있는 것과 **$A$의 고유벡터가 $\mathbb R^n$의 기저를 이루는 것($n$개가 일차독립)**이 같은 말이다. 그래서 결손 행렬은 대각화되지 않는다.
+  ($P$의 열 = 고유벡터, $D$의 대각 = 대응하는 고유값)으로 쓸 수 있는 것과 **$A$의 고유벡터가 $\mathbb R^n$의 기저를 이루는 것($n$개가 일차독립)**\ 이 같은 말이다. 그래서 결손 행렬은 대각화되지 않는다.
 - **왜 $AP=PD$인가:** $AP=[Ap_1,\dots,Ap_n]=[\lambda_1p_1,\dots,\lambda_np_n]=PD$. 양변 오른쪽에 $P^{-1}$을 곱하면 $A=PDP^{-1}$.
 - **정리 4.21:** 대칭행렬은 항상 대각화된다. 스펙트럼 정리 덕분에 $P$를 직교행렬 $Q$로 고를 수 있어
 $$A=QDQ^\top\qquad(Q^{-1}=Q^\top).$$
@@ -224,7 +224,7 @@ $$A=U\Sigma V^\top$$
 로 분해된다.
 - $U\in\mathbb R^{m\times m}$: 직교행렬. 열 $u_i$를 **왼쪽 특이벡터(left-singular vectors)**.
 - $V\in\mathbb R^{n\times n}$: 직교행렬. 열 $v_j$를 **오른쪽 특이벡터(right-singular vectors)**.
-- $\Sigma\in\mathbb R^{m\times n}$: $\Sigma_{ii}=\sigma_i\ge0$, 나머지는 0. $\sigma_i$를 **특이값(singular values)**이라 하고 $\sigma_1\ge\sigma_2\ge\cdots\ge\sigma_r>0$, 나머지는 0. $\Sigma$는 $A$와 크기가 같아서, $m>n$이면 아래에 0 행이, $m<n$이면 오른쪽에 0 열이 붙는다.
+- $\Sigma\in\mathbb R^{m\times n}$: $\Sigma_{ii}=\sigma_i\ge0$, 나머지는 0. $\sigma_i$를 **특이값(singular values)**\ 이라 하고 $\sigma_1\ge\sigma_2\ge\cdots\ge\sigma_r>0$, 나머지는 0. $\Sigma$는 $A$와 크기가 같아서, $m>n$이면 아래에 0 행이, $m<n$이면 오른쪽에 0 열이 붙는다.
 - 0이 아닌 특이값의 개수 = $\text{rk}(A)$.
 
 ### 4.5.1 기하학적 의미

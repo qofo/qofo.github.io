@@ -37,6 +37,14 @@ disableHugoGeneratorInject = true
     block = [["$$", "$$"]]
     inline = [["$", "$"]]
 
+# Bold next to Korean. CommonMark will not close ** after punctuation when a letter follows,
+# as in **자유변수(free variable)**라. With escapedSpace, "\ " is an invisible space that
+# makes it work: **자유변수(free variable)**\ 라. No post had "\ " outside code before.
+[markup.goldmark.extensions.cjk]
+  enable = true
+  eastAsianLineBreaks = false
+  escapedSpace = true
+
 [markup.highlight]
   # PaperMod ships the chroma stylesheet, so the classes must stay in the HTML.
   noClasses = false
