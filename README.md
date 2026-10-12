@@ -32,7 +32,7 @@
 | `content/posts/` | 글 원본. 파일 이름은 `NN-<slug>.md`, 주소는 `/posts/<slug>/` |
 | `content-phone/` | 폰 빌드에만 들어가는 페이지. 지금은 실시간 대시보드 하나다 |
 | `themes/PaperMod/` | 테마 원본. 직접 고치지 않는다 |
-| `layouts/`, `assets/` | 테마 위에 얹는 것들. 대시보드, 텔레메트리, 한국어 폰트, 링크·표·코드 블록 렌더 훅, 글 머리의 연재 상자, 글 끝의 링크 복사·글쓴이 카드·함께 읽을 글, 읽기 진행 막대와 넓은 화면의 옆 목차(`assets/js/post.js`), `/` 검색 단축키(`assets/js/site.js`), 공유 미리보기 카드 |
+| `layouts/`, `assets/` | 테마 위에 얹는 것들. 대시보드, 텔레메트리, 한국어 폰트, 링크·표·코드 블록·수식·mermaid 렌더 훅, 글 머리의 연재 상자, 글 끝의 링크 복사·글쓴이 카드·함께 읽을 글, 읽기 진행 막대와 넓은 화면의 옆 목차(`assets/js/post.js`), `/` 검색 단축키(`assets/js/site.js`), 공유 미리보기 카드 |
 | `assets/fonts/` | 공유 미리보기 카드를 그릴 때만 쓰는 Pretendard Bold. [SIL OFL 1.1](assets/fonts/OFL.txt)이고, 방문자에게는 보내지 않는다 |
 | `hugo.toml` | GitHub Pages 빌드 설정 |
 | `config/phone/hugo.toml` | 폰 빌드에서 덮어쓰는 설정 (`hugo --environment phone`) |
@@ -74,6 +74,8 @@ hugo new posts/<slug>.md   # archetypes/posts.md의 틀로 초안(draft)을 만�
 - **카테고리**는 `categories: ["상위", "하위"]` 두 단계다. 메뉴(☰)의 카테고리 트리는 글에 적힌 값으로 빌드할 때 만들어지므로, 새 주제는 글에 새 카테고리를 적는 것으로 생긴다. 글 주소는 `/posts/<slug>/`이고 카테고리가 들어가지 않아서, 분류를 바꿔도 링크는 깨지지 않는다.
 - **연재**에 속하는 글만 `series`와 `weight`(편 번호)를 적고, 파일 이름을 `NN-<slug>.md`로 한다. 연재 밖의 글은 `<slug>.md`이고 둘 다 적지 않는다. 목록과 이전·다음 글은 날짜순이다.
 - 게시한 뒤 다른 날에 내용을 고쳤으면 `lastmod: YYYY-MM-DD`를 적는다(아래).
+- **수식**은 `$...$`(문장 안)와 `$$...$$`(따로 한 줄)로 쓴다. 빌드할 때 Hugo에 들어 있는 KaTeX가 HTML로 바꾸므로(`layouts/_markup/render-passthrough.html`), 방문자의 브라우저는 수식 스크립트를 돌리지 않고 스타일시트만 받는다. KaTeX가 읽지 못하는 수식은 빌드를 실패시킨다. 본문에 달러 기호를 그대로 쓰려면 `\$`로 적는다. 표 안의 수식에서는 `|`가 칸을 나누므로 `\vert`나 `\mid`로 쓴다.
+- ` ```mermaid ` 코드 블록은 다이어그램이 된다. 그 블록이 있는 글에서만 브라우저가 mermaid.js를 받아 그린다.
 
 ## 로컬 빌드
 

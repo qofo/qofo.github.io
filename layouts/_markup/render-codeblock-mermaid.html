@@ -1,0 +1,4 @@
+{{- /* A ```mermaid block is drawn in the browser by mermaid.js, which extend_post_content.html
+     loads only on a page that has one. Until it runs, the reader sees the diagram source. */ -}}
+<pre class="mermaid">{{ .Inner | htmlEscape | safeHTML }}</pre>
+{{- .Page.Store.Set "hasMermaid" true }}

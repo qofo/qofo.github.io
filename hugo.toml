@@ -28,6 +28,15 @@ disableHugoGeneratorInject = true
 [markup.goldmark.renderer]
   unsafe = false
 
+# Math: $...$ inline and $$...$$ display reach layouts/_markup/render-passthrough.html
+# untouched by Markdown, which renders them with KaTeX at build time. No post before the
+# MML series has a dollar sign outside code, so turning this on changed none of them.
+[markup.goldmark.extensions.passthrough]
+  enable = true
+  [markup.goldmark.extensions.passthrough.delimiters]
+    block = [["$$", "$$"]]
+    inline = [["$", "$"]]
+
 [markup.highlight]
   # PaperMod ships the chroma stylesheet, so the classes must stay in the HTML.
   noClasses = false

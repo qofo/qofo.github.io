@@ -996,3 +996,49 @@ html.drawer-open {
   color: var(--secondary);
   font-size: 0.85rem;
 }
+
+/* --- Math and diagrams ----------------------------------------------------------------
+   KaTeX HTML comes from render-passthrough.html. A display formula wider than a phone
+   scrolls inside its own box, the way a wide table does, so the page itself never scrolls
+   sideways. KaTeX's 1.21em is a size for print; next to 18px body text it makes formulas
+   wider than they need to be. */
+.post-content .katex {
+  font-size: 1.1em;
+}
+
+.post-content .katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin: 1em 0;
+  padding: 4px 0;
+}
+
+/* The theme's word breaking must not reach inside a formula */
+.post-content .katex,
+.post-content .katex * {
+  word-break: normal;
+  overflow-wrap: normal;
+}
+
+/* Mermaid replaces the block's text with an SVG; the code-block frame is not wanted */
+.post-content pre.mermaid {
+  background: none;
+  border: 0;
+  padding: 0;
+  overflow-x: auto;
+  text-align: center;
+  color: var(--secondary);
+}
+
+/* A page with formulas (the MML series) has dense tables of formulas and short phrases.
+   Breaking anywhere would squeeze each column to a character or two on a phone; break
+   Korean at spaces only and let the table scroll in its .table-wrap instead. */
+.post-content:has(.katex) .table-wrap table {
+  overflow-wrap: normal;
+}
+
+@media (max-width: 600px) {
+  .post-content:has(.katex) .table-wrap table {
+    font-size: 0.88em;
+  }
+}

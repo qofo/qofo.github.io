@@ -1,0 +1,13 @@
+{{- /* $...$ and $$...$$ (markup.goldmark.extensions.passthrough in hugo.toml) become KaTeX
+     HTML at build time, so a phone gets finished formulas and runs no math script. A formula
+     KaTeX cannot parse fails the build rather than showing red source on the page. The page
+     remembers it has math, and extend_head.html then links the KaTeX stylesheet. */ -}}
+{{- $opts := dict "output" "htmlAndMathml" "displayMode" (eq .Type "block") "strict" "ignore" }}
+{{- with try (transform.ToMath .Inner $opts) }}
+  {{- with .Err }}
+    {{- errorf "%s: KaTeX could not render %q: %s" $.Position $.Inner . }}
+  {{- else }}
+    {{- .Value }}
+    {{- $.Page.Store.Set "hasMath" true }}
+  {{- end }}
+{{- end -}}

@@ -61,3 +61,14 @@
 {{- $post := resources.Get "js/post.js" | minify | fingerprint }}
 <script src="{{ $post.RelPermalink }}" integrity="{{ $post.Data.Integrity }}" defer></script>
 {{- end }}
+
+{{- /* Mermaid diagrams (render-codeblock-mermaid.html), drawn once in the theme the reader
+     sees when the page opens. */}}
+{{- if .Store.Get "hasMermaid" }}
+<script type="module">
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.esm.min.mjs";
+  var t = document.documentElement.dataset.theme;
+  var dark = t === "dark" || (t !== "light" && matchMedia("(prefers-color-scheme: dark)").matches);
+  mermaid.initialize({ startOnLoad: true, theme: dark ? "dark" : "default" });
+</script>
+{{- end }}
