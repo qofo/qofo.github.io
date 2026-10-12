@@ -23,13 +23,32 @@
 | 11 | [터미널을 닫아도 작업은 이어진다: proot 밖 tmux에 에이전트 세션 두기](https://qofo.github.io/posts/agent-session-outside-proot/) |
 | 12 | [알림으로는 배터리를 지킬 수 없었다: 스마트 플러그로 충전기 켜고 끄기](https://qofo.github.io/posts/smart-plug-charging/) |
 
+### MML 장별 상세 해설
+
+Deisenroth, Faisal, Ong의 *Mathematics for Machine Learning* 2~12장을 장마다 한 편씩 풀어 쓴 해설이다. 장마다 손계산 예제, 핵심 유도, 말로 설명하기, 연습문제 풀이, 요약이 있다. 원고는 `content/posts/mml/`에 있다.
+
+| 편 | 제목 |
+|---|---|
+| 1 | [MML 장별 상세 해설: 목차와 공부 순서](https://qofo.github.io/posts/mml-guide/) |
+| 2 | [MML 2장 선형대수: 연립방정식, 기저와 랭크, 선형사상](https://qofo.github.io/posts/mml-ch02-linear-algebra/) |
+| 3 | [MML 3장 해석기하: 노름, 내적, 직교사영](https://qofo.github.io/posts/mml-ch03-analytic-geometry/) |
+| 4 | [MML 4장 행렬분해: 고유값, 대각화, SVD](https://qofo.github.io/posts/mml-ch04-matrix-decompositions/) |
+| 5 | [MML 5장 벡터 미적분: 기울기, 야코비안, 역전파](https://qofo.github.io/posts/mml-ch05-vector-calculus/) |
+| 6 | [MML 6장 확률과 분포: 베이즈 정리, 가우시안, 지수족](https://qofo.github.io/posts/mml-ch06-probability/) |
+| 7 | [MML 7장 연속최적화: 경사하강법, 라그랑주 승수, 볼록 최적화](https://qofo.github.io/posts/mml-ch07-continuous-optimization/) |
+| 8 | [MML 8장 모델과 데이터: 경험적 위험, MLE와 MAP, 모델 선택](https://qofo.github.io/posts/mml-ch08-models-and-data/) |
+| 9 | [MML 9장 선형회귀: 정규방정식, MAP, 베이즈 선형회귀](https://qofo.github.io/posts/mml-ch09-linear-regression/) |
+| 10 | [MML 10장 PCA: 분산 최대화, 재구성 오차, 확률적 PCA](https://qofo.github.io/posts/mml-ch10-pca/) |
+| 11 | [MML 11장 GMM: 가우시안 혼합 모델과 EM 알고리즘](https://qofo.github.io/posts/mml-ch11-gmm-em/) |
+| 12 | [MML 12장 SVM: 마진, 쌍대 문제, 커널](https://qofo.github.io/posts/mml-ch12-svm/) |
+
 ## 구조
 
 [Hugo](https://gohugo.io/) 사이트이고, 테마는 [PaperMod](https://github.com/adityatelange/hugo-PaperMod) (MIT)다. 서브모듈이나 Hugo 모듈이 아니라 `themes/PaperMod/`에 파일째 넣어 두었다. 폰에서 빌드하므로 빌드 시점에 네트워크를 타지 않는 편이 낫고, `git clone` 한 번으로 빌드가 되기 때문이다.
 
 | 경로 | 내용 |
 |---|---|
-| `content/posts/` | 글 원본. 파일 이름은 `NN-<slug>.md`, 주소는 `/posts/<slug>/` |
+| `content/posts/` | 글 원본. 파일 이름은 `NN-<slug>.md`, 주소는 `/posts/<slug>/`. 연재 하나를 하위 폴더에 모으기도 한다(`content/posts/mml/`). 폴더는 주소에 들어가지 않는다 |
 | `content-phone/` | 폰 빌드에만 들어가는 페이지. 지금은 실시간 대시보드 하나다 |
 | `themes/PaperMod/` | 테마 원본. 직접 고치지 않는다 |
 | `layouts/`, `assets/` | 테마 위에 얹는 것들. 대시보드, 텔레메트리, 한국어 폰트, 링크·표·코드 블록·수식·mermaid 렌더 훅, 글 머리의 연재 상자, 글 끝의 링크 복사·글쓴이 카드·함께 읽을 글, 읽기 진행 막대와 넓은 화면의 옆 목차(`assets/js/post.js`), `/` 검색 단축키(`assets/js/site.js`), 공유 미리보기 카드 |
