@@ -5,7 +5,7 @@ date: 2026-09-29
 weight: 13
 series: ["스마트폰으로 서버 만들기"]
 categories: ["인프라", "폰 홈서버"]
-tags: ["Colab", "Claude Code", "GPU", "OAuth", "Agent Skills", "proot"]
+tags: ["Colab", "Claude Code", "GPU", "OAuth", "Agent Skills", "PRoot"]
 description: "이 폰은 서버 일은 하지만 AI 모델을 돌릴 힘은 없다. 폰에서 도는 Claude Code가 필요할 때 Colab GPU를 직접 빌려 쓰도록 공식 Colab CLI를 붙였다. MCP가 아니라 CLI를 고른 이유, 브라우저 없는 로그인, 에이전트에게 규칙을 알려 주는 스킬, 그리고 T4까지의 검증을 적는다."
 ---
 이 폰의 램은 3.7GiB이고, CPU는 2016년 것이다. 블로그와 문서 서버, 코드 편집기는 돌리지만 AI 모델을 학습하거나 크게 돌릴 힘은 없다.
