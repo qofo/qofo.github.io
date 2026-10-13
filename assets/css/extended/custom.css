@@ -1001,9 +1001,14 @@ html.drawer-open {
    KaTeX HTML comes from render-passthrough.html. A display formula wider than a phone
    scrolls inside its own box, the way a wide table does, so the page itself never scrolls
    sideways. KaTeX's 1.21em is a size for print; next to 18px body text it makes formulas
-   wider than they need to be. */
+   wider than they need to be.
+   KaTeX also writes each formula as MathML for screen readers, in a hidden, absolutely placed
+   .katex-mathml box. With no positioned ancestor, that hidden box still counted toward the
+   page's width: on a 360px phone part 10 came out 573px wide and could be dragged
+   sideways. position: relative keeps it inside its formula. */
 .post-content .katex {
   font-size: 1.1em;
+  position: relative;
 }
 
 .post-content .katex-display {
