@@ -149,7 +149,7 @@ $$\begin{aligned} \nabla_{\boldsymbol{x}} f &= \text{grad}\, f \\ &= \frac{df}{d
 > 교재 MML에서는 입력 벡터가 $\boldsymbol{x} = [x_1, \dots, x_n]^\top \in \mathbb{R}^{n \times 1}$ (열벡터)일 때, 스칼라 함수 $f$의 기울기 $\frac{df}{d\boldsymbol{x}}$를 반드시 **$1 \times n$ 행벡터(row vector)**\ 로 정의한다!
 > 
 > **왜 행벡터로 정의하는가? (교재의 두 가지 이유)**
-> 1. **일관된 일반화**: 이후 5.3절에서 배울 벡터값 함수 $\boldsymbol{f}: \mathbb{R}^n \to \mathbb{R}^m$의 도함수(야코비안 행렬)는 $m \times n$ 행렬이 된다. $m=1$인 특수한 경우가 바로 스칼라 함수이므로, $1 \times n$ 행벡터가 되는 것이 차원적으로 완벽히 일관된다.
+> 1. **일관된 일반화**: 이후 5.3절에서 배울 벡터값 함수 $\boldsymbol{f}: \mathbb{R}^n \to \mathbb{R}^m$의 도함수(야코비안 행렬)는 $m \times n$ 행렬이 된다. $m=1$인 특수한 경우가 바로 스칼라 함수이므로, $1 \times n$ 행벡터가 되는 것이 차원적으로 정확히 일관된다.
 > 2. **연쇄법칙의 깔끔함**: 기울기를 행벡터로 정의해야만 다변수 연쇄법칙을 쓸 때 전치($^\top$) 기호를 덕지덕지 붙이지 않고 단순 행렬곱 $\frac{dz}{d\boldsymbol{x}} = \frac{dz}{d\boldsymbol{y}} \frac{d\boldsymbol{y}}{d\boldsymbol{x}}$ ($1 \times n = (1 \times m) \times (m \times n)$)으로 직관적으로 쓸 수 있다.
 > 
 > **(주의: 딥러닝 관례와의 차이)**
@@ -267,7 +267,7 @@ $\boldsymbol{x} = \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} \xrightarrow{\boldsym
   $z = (x_1 x_2)^2 + 3(x_1 + x_2) = x_1^2 x_2^2 + 3x_1 + 3x_2$.
   $\frac{\partial z}{\partial x_1} = 2x_1 x_2^2 + 3 \implies 2(1)(4) + 3 = 11$.
   $\frac{\partial z}{\partial x_2} = 2x_1^2 x_2 + 3 \implies 2(1)(2) + 3 = 7$.
-  $\begin{bmatrix} 11 & 7 \end{bmatrix}$로 완벽히 일치한다!
+  $\begin{bmatrix} 11 & 7 \end{bmatrix}$로 정확히 일치한다!
 
 ### 헷갈리는 점 / 자주 하는 실수
 - **야코비안의 차원 반대 표기**: 야코비안 행렬의 행 수는 '출력의 개수($m$)', 열 수는 '입력의 개수($n$)'이다. 이를 $n \times m$으로 잘못 쓰면 연쇄법칙 행렬곱의 안쪽 차원이 맞지 않아 계산이 완전히 불가능해진다.
@@ -312,7 +312,7 @@ $A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}$, $X = \begin{bmatrix} x_{11} 
   - $\frac{\partial f}{\partial x_{22}} = 4$
 - **4단계 (행렬 조립)**:
   $$\frac{\partial f}{\partial X} = \begin{bmatrix} \frac{\partial f}{\partial x_{11}} & \frac{\partial f}{\partial x_{12}} \\ \frac{\partial f}{\partial x_{21}} & \frac{\partial f}{\partial x_{22}} \end{bmatrix} = \begin{bmatrix} 1 & 3 \\ 2 & 4 \end{bmatrix}$$
-  놀랍게도 이 결과는 $A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}$의 전치행렬인 $A^\top = \begin{bmatrix} 1 & 3 \\ 2 & 4 \end{bmatrix}$와 정확히 같다!
+  이 결과는 $A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}$의 전치행렬인 $A^\top = \begin{bmatrix} 1 & 3 \\ 2 & 4 \end{bmatrix}$와 정확히 같다!
   따라서 $\frac{\partial \text{tr}(AX)}{\partial X} = A^\top$가 성립함을 손계산으로 직접 확인하였다.
 
 ### 헷갈리는 점 / 자주 하는 실수
@@ -347,7 +347,7 @@ $A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}$, $X = \begin{bmatrix} x_{11} 
 > - $\boldsymbol{x} \in \mathbb{R}^D, \boldsymbol{s} \in \mathbb{R}^K, A \in \mathbb{R}^{D \times K}, W \in \mathbb{R}^{D \times D}$.
 > - 미분 대상 스칼라를 $K \times 1$ 열벡터 $\boldsymbol{s}$로 미분하므로 MML 분자 표기법에 의해 결과는 **$1 \times K$ 행벡터**가 나와야 한다.
 > - 우변의 차원: $\underbrace{(\boldsymbol{x} - A\boldsymbol{s})^\top}_{1 \times D} \times \underbrace{W}_{D \times D} \times \underbrace{A}_{D \times K} = 1 \times K$.
-> 차원이 완벽하게 일치한다! 시험장에서 수식이 헷갈릴 때는 이처럼 양변의 shape를 맞춰보면 실수를 100% 잡아낼 수 있다.
+> 차원이 정확히 일치한다! 시험장에서 수식이 헷갈릴 때는 이처럼 양변의 shape를 맞춰보면 전치 실수를 대부분 잡아낼 수 있다.
 
 ### 손으로 풀어 보는 예제
 
@@ -389,10 +389,10 @@ $$\boldsymbol{y} = (\boldsymbol{f}_K \circ \boldsymbol{f}_{K-1} \circ \cdots \ci
 $$\begin{gathered} \boldsymbol{f}_0 := \boldsymbol{x}, \\ \boldsymbol{f}_i := \sigma_i(A_{i-1}\boldsymbol{f}_{i-1} + \boldsymbol{b}_{i-1}), \\ i = 1, \dots, K \end{gathered}$$
 제곱 오차 손실 $L = \|\boldsymbol{y} - \boldsymbol{f}_K\|^2$에 대해 $i$번째 층의 매개변수 $\theta_i = \{A_i, \boldsymbol{b}_i\}$에 대한 편미분은 연쇄법칙에 의해:
 $$\frac{\partial L}{\partial \theta_i} = \underbrace{\frac{\partial L}{\partial \boldsymbol{f}_K} \frac{\partial \boldsymbol{f}_K}{\partial \boldsymbol{f}_{K-1}} \cdots \frac{\partial \boldsymbol{f}_{i+2}}{\partial \boldsymbol{f}_{i+1}}}_{\text{이미 계산된 오차 전달 항}} \frac{\partial \boldsymbol{f}_{i+1}}{\partial \theta_i}$$
-만약 우리가 바로 앞 층인 $\frac{\partial L}{\partial \theta_{i+1}}$를 이미 계산해 두었다면, 붉은색 괄호 친 앞부분의 행렬곱은 새로 계산할 필요 없이 **그대로 재사용(Dynamic Programming / 메모이제이션)**\ 할 수 있다!
+중괄호로 묶은 앞부분(출력 쪽에서부터 $\boldsymbol{f}_{i+1}$까지의 곱)은 한 층 뒤의 매개변수 $\theta_{i+1}$에 대한 기울기를 구할 때 이미 거의 다 계산했다. $\theta_{i+1}$의 기울기에는 $\frac{\partial L}{\partial \boldsymbol{f}_K}\cdots\frac{\partial \boldsymbol{f}_{i+3}}{\partial \boldsymbol{f}_{i+2}}$가 들어 있으므로, 여기에 $\frac{\partial \boldsymbol{f}_{i+2}}{\partial \boldsymbol{f}_{i+1}}$ 하나만 더 곱하면 중괄호 부분이 된다. 그래서 출력 쪽에서 입력 쪽으로 가면서 이 곱을 저장해 두고 한 번씩만 늘려 가면, 층마다 처음부터 다시 곱할 필요가 없다. 이것이 역전파다.
 
 #### 2. 5.6.2 자동 미분: Forward Mode vs Reverse Mode의 대조
-연쇄법칙 $\frac{dy}{dx} = J_K J_{K-1} \cdots J_2 J_1$에서 행렬곱은 **결합법칙(Associative property)**\ 이 성립하므로 괄호를 어디에 묶느냐에 따라 계산 비용이 천양지차로 갈린다.
+연쇄법칙 $\frac{dy}{dx} = J_K J_{K-1} \cdots J_2 J_1$에서 행렬곱은 **결합법칙(Associative property)**\ 이 성립하므로 괄호를 어디에 묶느냐에 따라 계산 비용이 크게 달라진다.
 
 ```mermaid
 flowchart LR
@@ -439,7 +439,7 @@ flowchart LR
     $$\delta_{\boldsymbol{h}} = \frac{\partial L}{\partial \boldsymbol{h}} = \delta_y \cdot \boldsymbol{v}^\top = 1.5 \times \begin{bmatrix} 2 & -1 \end{bmatrix} = \begin{bmatrix} 3.0 & -1.5 \end{bmatrix} \in \mathbb{R}^{1 \times 2}$$
   - 1층 가중치 기울기:
     $$\frac{\partial L}{\partial W} = \delta_{\boldsymbol{h}}^\top \boldsymbol{x}^\top = \begin{bmatrix} 3.0 \\ -1.5 \end{bmatrix} \begin{bmatrix} 1 & 0.5 \end{bmatrix} = \begin{bmatrix} 3.0(1) & 3.0(0.5) \\ -1.5(1) & -1.5(0.5) \end{bmatrix} = \begin{bmatrix} 3.0 & 1.5 \\ -1.5 & -0.75 \end{bmatrix} \in \mathbb{R}^{2 \times 2}$$
-  단 세 단계의 행렬 연산으로 모든 파라미터($\boldsymbol{v}, W$)의 기울기가 완벽하게 유도되었다.
+  단 세 단계의 행렬 연산으로 모든 파라미터($\boldsymbol{v}, W$)의 기울기가 정확히 유도되었다.
 
 ### 헷갈리는 점 / 자주 하는 실수
 - **순전파 활성화 값의 메모리 보존 필요성**: 역전파에서 가중치 기울기를 구할 때 순전파 단계에서 계산되었던 은닉 활성화 값 $\boldsymbol{h}$가 반드시 곱해진다. 따라서 순전파 시 중간 텐서들을 메모리에 들고 있어야 하며, 이것이 딥러닝 학습 시 GPU 메모리가 많이 소모되는 근본적인 이유다.
@@ -543,7 +543,7 @@ $$\begin{aligned} f(\boldsymbol{x}_0 + \boldsymbol{\delta}) &\approx f(\boldsymb
   $$T_2(x, y) = 13 + \begin{bmatrix} 6 & 14 \end{bmatrix} \begin{bmatrix} x - 1 \\ y - 2 \end{bmatrix} + \frac{1}{2} \begin{bmatrix} x - 1 & y - 2 \end{bmatrix} \begin{bmatrix} 2 & 2 \\ 2 & 12 \end{bmatrix} \begin{bmatrix} x - 1 \\ y - 2 \end{bmatrix}$$
   전개하면:
   $$T_2(x, y) = 13 + 6(x-1) + 14(y-2) + (x-1)^2 + 2(x-1)(y-2) + 6(y-2)^2$$
-  원래 함수가 3차식이므로, 여기에 3차 항 $\frac{1}{3!} \frac{\partial^3 f}{\partial y^3}(y-2)^3 = (y-2)^3$만 더해주면 원래 함수와 완벽히 동일해진다.
+  원래 함수가 3차식이므로, 여기에 3차 항 $\frac{1}{3!} \frac{\partial^3 f}{\partial y^3}(y-2)^3 = (y-2)^3$만 더해주면 원래 함수와 정확히 동일해진다.
 
 ### 헷갈리는 점 / 자주 하는 실수
 - **2차 항 앞의 $\frac{1}{2}$ 계수 누락**: 1차 항에는 계수가 없지만 2차 항 앞에는 반드시 테일러 정리의 $\frac{1}{2!} = \frac{1}{2}$이 곱해져야 한다.
@@ -817,13 +817,13 @@ $f(z) = \ln(1 + z)$, $z = \boldsymbol{x}^\top \boldsymbol{x}$ (단, $\boldsymbol
 #### Exercise 5.1
 - **문제 요약**: $f(x) = \log(x^4) \sin(x^3)$의 도함수 $f'(x)$를 계산하라.
 - **풀이**:
-  로그 성질에 의해 $\log(x^4) = 4\log(x)$로 간단히 정리된다.
+  $x^4$는 $x\ne0$이면 항상 양수라서 $f$는 음수 $x$에서도 정의된다. 그래서 로그 성질을 쓸 때 절댓값을 붙여 $\log(x^4) = 4\log|x|$로 정리한다($x>0$만 생각하면 $4\log x$와 같다).
   곱의 미분법을 적용:
-  $$f'(x) = \frac{d}{dx}[4\log x] \cdot \sin(x^3) + 4\log x \cdot \frac{d}{dx}[\sin(x^3)]$$
-  - $\frac{d}{dx}[4\log x] = \frac{4}{x}$
+  $$f'(x) = \frac{d}{dx}[4\log |x|] \cdot \sin(x^3) + 4\log |x| \cdot \frac{d}{dx}[\sin(x^3)]$$
+  - $\frac{d}{dx}[4\log |x|] = \frac{4}{x}$ ($x<0$이어도 $\frac{d}{dx}\log(-x)=\frac{-1}{-x}=\frac1x$이라 같은 꼴)
   - $\frac{d}{dx}[\sin(x^3)] = \cos(x^3) \cdot 3x^2 = 3x^2 \cos(x^3)$
   결합하면:
-  $$f'(x) = \frac{4\sin(x^3)}{x} + 12x^2 \log(x) \cos(x^3)$$
+  $$f'(x) = \frac{4\sin(x^3)}{x} + 12x^2 \log|x| \cos(x^3)$$
 
 #### Exercise 5.2
 - **문제 요약**: 로지스틱 시그모이드 $f(x) = \frac{1}{1 + \exp(-x)}$의 도함수를 구하라.
@@ -881,7 +881,7 @@ $f(z) = \ln(1 + z)$, $z = \boldsymbol{x}^\top \boldsymbol{x}$ (단, $\boldsymbol
      $$\frac{df}{d\boldsymbol{t}} = \cos(v) \cdot \frac{1}{u} \cdot 2\boldsymbol{t}^\top = \frac{2\cos(\log(\boldsymbol{t}^\top \boldsymbol{t}))}{\boldsymbol{t}^\top \boldsymbol{t}} \boldsymbol{t}^\top \in \mathbb{R}^{1 \times D}$$
   2. 5.5절 항등식 8번 적용:
      $$\frac{\partial g}{\partial X} = A^\top B^\top \in \mathbb{R}^{E \times F}$$
-     차원 확인: $A^\top \in \mathbb{R}^{E \times D}$, $B^\top \in \mathbb{R}^{D \times F} \implies A^\top B^\top \in \mathbb{R}^{E \times F}$로 $X$의 차원과 완벽히 일치한다.
+     차원 확인: $A^\top \in \mathbb{R}^{E \times D}$, $B^\top \in \mathbb{R}^{D \times F} \implies A^\top B^\top \in \mathbb{R}^{E \times F}$로 $X$의 차원과 정확히 일치한다.
 
 #### Exercise 5.7
 - **문제 요약**: 연쇄법칙을 사용하여 다음 함수의 미분을 구하고 모든 중간 편미분의 차원을 명시하라.
@@ -896,14 +896,15 @@ $f(z) = \ln(1 + z)$, $z = \boldsymbol{x}^\top \boldsymbol{x}$ (단, $\boldsymbol
 
 #### Exercise 5.8
 - **문제 요약**: 다음 함수들의 도함수 $\frac{df}{d\boldsymbol{x}}$를 구하라.
-  (a) $f(z) = \exp(-\frac{1}{2}z), z = \boldsymbol{y}^\top S^{-1} \boldsymbol{y}, \boldsymbol{y} = \boldsymbol{x} - \boldsymbol{\mu}$ ($S$ 대칭)
+  (a) $f(z) = \exp(-\frac{1}{2}z), z = \boldsymbol{y}^\top S^{-1} \boldsymbol{y}, \boldsymbol{y} = \boldsymbol{x} - \boldsymbol{\mu}$ ($\boldsymbol{x},\boldsymbol{\mu}\in\mathbb{R}^D$, $S\in\mathbb{R}^{D\times D}$. 교재는 $S$가 대칭이라고 하지 않았다)
   (b) $f(\boldsymbol{x}) = \text{tr}(\boldsymbol{x}\boldsymbol{x}^\top + \sigma^2 I)$
   (c) $\boldsymbol{f} = \tanh(\boldsymbol{z}) \in \mathbb{R}^M, \boldsymbol{z} = A\boldsymbol{x} + \boldsymbol{b}, A \in \mathbb{R}^{M \times N}$
 - **풀이**:
   (a) $\frac{df}{dz} = -\frac{1}{2}\exp(-\frac{1}{2}z) \in \mathbb{R}^{1 \times 1}$.
-      $\frac{dz}{d\boldsymbol{y}} = 2\boldsymbol{y}^\top S^{-1} \in \mathbb{R}^{1 \times D}$ ($S$ 대칭).
+      $\frac{dz}{d\boldsymbol{y}} = \boldsymbol{y}^\top (S^{-1} + S^{-\top}) \in \mathbb{R}^{1 \times D}$ (식 5.107: $\frac{\partial}{\partial \boldsymbol{y}}\boldsymbol{y}^\top B\boldsymbol{y} = \boldsymbol{y}^\top(B+B^\top)$에 $B=S^{-1}$을 넣음).
       $\frac{d\boldsymbol{y}}{d\boldsymbol{x}} = I_D \in \mathbb{R}^{D \times D}$.
-      $$\frac{df}{d\boldsymbol{x}} = -\exp\left(-\frac{1}{2}(\boldsymbol{x}-\boldsymbol{\mu})^\top S^{-1}(\boldsymbol{x}-\boldsymbol{\mu})\right) (\boldsymbol{x}-\boldsymbol{\mu})^\top S^{-1} \in \mathbb{R}^{1 \times D}$$
+      $$\frac{df}{d\boldsymbol{x}} = \frac{df}{dz}\frac{dz}{d\boldsymbol{y}}\frac{d\boldsymbol{y}}{d\boldsymbol{x}} = -\frac{1}{2} f\,(\boldsymbol{x}-\boldsymbol{\mu})^\top (S^{-1}+S^{-\top}) \in \mathbb{R}^{1 \times D}$$
+      여기서 $f = \exp\left(-\frac{1}{2}(\boldsymbol{x}-\boldsymbol{\mu})^\top S^{-1}(\boldsymbol{x}-\boldsymbol{\mu})\right)$는 원래 함수값이다($\exp(-\frac12z)$를 미분하면 자기 자신의 $-\frac12$배). $S$가 대칭이면(공분산 행렬처럼) $S^{-\top}=S^{-1}$이라 괄호가 $2S^{-1}$이 되고, 앞의 $\frac12$과 약분되어 $-f\,(\boldsymbol{x}-\boldsymbol{\mu})^\top S^{-1}$로 줄어든다.
   (b) 대각합의 성질: $\text{tr}(\boldsymbol{x}\boldsymbol{x}^\top) = \boldsymbol{x}^\top \boldsymbol{x} = \sum x_i^2$, $\text{tr}(\sigma^2 I) = D\sigma^2$.
       따라서 $f(\boldsymbol{x}) = \boldsymbol{x}^\top \boldsymbol{x} + D\sigma^2$.
       $$\frac{df}{d\boldsymbol{x}} = 2\boldsymbol{x}^\top \in \mathbb{R}^{1 \times D}$$
@@ -939,7 +940,7 @@ $f(z) = \ln(1 + z)$, $z = \boldsymbol{x}^\top \boldsymbol{x}$ (단, $\boldsymbol
 | 행렬 $\mathbb{R}^{m \times n}$ | 열벡터 $\mathbb{R}^p$ | $\frac{dA}{d\boldsymbol{x}}$ | $m \times n \times p$ 텐서 | 텐서 야코비안 |
 | 스칼라 $\mathbb{R}$ | 행렬 $\mathbb{R}^{m \times n}$ | $\frac{\partial f}{\partial X}$ | $m \times n$ 행렬 | 행렬 편미분 |
 
-### 2. 시험에 무조건 나오는 핵심 행렬 미분 항등식
+### 2. 외워 둘 행렬 미분 항등식
 
 1. **선형 형태**:
    $$\frac{\partial (\boldsymbol{a}^\top \boldsymbol{x})}{\partial \boldsymbol{x}} = \boldsymbol{a}^\top \in \mathbb{R}^{1 \times n}, \quad \frac{\partial (A\boldsymbol{x})}{\partial \boldsymbol{x}} = A \in \mathbb{R}^{m \times n}$$

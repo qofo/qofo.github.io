@@ -13,7 +13,7 @@ UseHugoToc: true
 > **교재 쪽수**: 370~394쪽 (Chapter 12)  
 > **교재 밖 보충:** 교재에 없는 내용(Cover 정리, Pegasos, SMO, Platt 식)은 "교재 밖 보충"으로 표시했다.  
 > **선수 지식 및 연계**: 2장 선형대수학(아핀 부분공간으로서의 초평면), 3장 해석기하학(내적, 직교 사영, 거리 계산), 7장 연속 최적화(라그랑주 승수법, KKT 최적성 조건, 라그랑주 쌍대성, 2차 계획법 QP), 8장 모델과 데이터(경험적 위험 최소화 ERM, $\ell_2$ 정규화, 교차검증).  
-> **후속 및 의의**: 9장(회귀)의 확률적·우도 기반 접근법과 달리, 기하학적 직관(마진 최대화)과 손실 함수 관점(힌지 손실 + 정규화)을 완벽히 융합한 지도학습의 정수입니다. 재생 커널 힐베르트 공간(RKHS)을 통한 비선형 확장(커널 트릭)을 완성합니다.
+> **후속 및 의의**: 9장(회귀)의 확률적·우도 기반 접근법과 달리, 기하학적 직관(마진 최대화)과 손실 함수 관점(힌지 손실 + 정규화)을 함께 쓰는 지도학습 방법입니다. 재생 커널 힐베르트 공간(RKHS)을 통한 비선형 확장(커널 트릭)을 완성합니다.
 
 ---
 
@@ -127,7 +127,7 @@ $$y_n (\langle w, x_n \rangle + b) \ge 0 \quad (\forall n = 1, \dots, N)$$
 ## 12.2 원시 서포트 벡터 머신(Primal Support Vector Machine, 374~383쪽)
 
 ### 왜 필요한가 (직관)
-데이터가 완벽히 선형 분리 가능(linearly separable)할 때, 두 클래스를 나누는 초평면은 단 하나만 존재하는 것이 아니라 **무한히 많이 존재**합니다 (교재 그림 12.3).
+데이터가 정확히 선형 분리 가능(linearly separable)할 때, 두 클래스를 나누는 초평면은 단 하나만 존재하는 것이 아니라 **무한히 많이 존재**합니다 (교재 그림 12.3).
 어떤 초평면은 빨간 점에 너무 바짝 붙어 있고, 어떤 것은 파란 점에 너무 바짝 붙어 있습니다. 이렇게 데이터에 아슬아슬하게 붙어 있는 경계선은 새로운 테스트 데이터가 조금만 노이즈를 띠고 들어와도 잘못 분류할 위험(일반화 오차, generalization error)이 큽니다.
 
 그렇다면 무한히 많은 후보 중에서 **가장 훌륭한 단 하나의 초평면**은 무엇일까요?
@@ -205,7 +205,7 @@ $$\begin{aligned} \min_{w, b} \quad & \frac{1}{2} \|w\|^2 \\ \text{subject to} \
 
 ### 12.2.4 소프트 마진 SVM: 기하학적 관점 (379~380쪽)
 
-현실의 데이터는 노이즈가 섞여 있거나, 두 클래스가 서로 약간 겹쳐 있어서 어떤 직선으로도 완벽하게 둘로 쪼갤 수 없는 **선형 분리 불가능(linearly non-separable)**\ 인 경우가 대부분입니다 (교재 그림 12.6(b)). 하드 마진 SVM은 단 하나의 이상치(outlier)만 있어도 조건을 만족하는 해가 아예 존재하지 않는 치명적 취약점을 가집니다.
+현실의 데이터는 노이즈가 섞여 있거나, 두 클래스가 서로 약간 겹쳐 있어서 어떤 직선으로도 정확히 둘로 쪼갤 수 없는 **선형 분리 불가능(linearly non-separable)**\ 인 경우가 대부분입니다 (교재 그림 12.6(b)). 하드 마진 SVM은 단 하나의 이상치(outlier)만 있어도 조건을 만족하는 해가 아예 존재하지 않는 치명적 취약점을 가집니다.
 
 이를 해결하기 위해 각 데이터 포인트마다 마진 조건을 위반하는 것을 허용하는 **슬랙 변수(slack variable, 여유 변수)** $\xi_n \ge 0$을 도입합니다 (교재 그림 12.7).
 
@@ -235,7 +235,7 @@ SVM은 0-1 손실의 볼록 상한(convex upper bound)인 **힌지 손실(hinge 
 
 $$\begin{aligned} \ell_{\text{hinge}}(t) &= \max\{0, 1 - t\}, \\ \text{where } t &= y f(x) = y (\langle w, x \rangle + b) \end{aligned}$$
 
-이 힌지 손실을 전체 데이터에 대해 더하고 $\ell_2$ 규제항 $\frac{1}{2}\|w\|^2$을 더하면, 놀랍게도 아무런 제약조건이 없는 **비제약 최적화 문제(unconstrained optimization problem)**\ 가 됩니다 (교재 식 12.31):
+이 힌지 손실을 전체 데이터에 대해 더하고 $\ell_2$ 규제항 $\frac{1}{2}\|w\|^2$을 더하면, 아무런 제약조건이 없는 **비제약 최적화 문제(unconstrained optimization problem)**\ 가 됩니다 (교재 식 12.31):
 
 $$\begin{aligned} \min_{w, b} \quad & \underbrace{\frac{1}{2} \|w\|^2}_{\text{규제항 (마진 최대화)}} \\ &\quad + C \sum_{n=1}^N \\ &\quad \underbrace{\max\{0, 1 - y_n (\langle w, x_n \rangle + b)\}}_{\text{힌지 손실 (오차 패널티)}} \end{aligned}$$
 
@@ -243,7 +243,7 @@ $$\begin{aligned} \min_{w, b} \quad & \underbrace{\frac{1}{2} \|w\|^2}_{\text{�
 단일 데이터에 대해 힌지 손실의 최소화 문제 $\min_t \max\{0, 1-t\}$를 생각해 봅시다.
 보조 변수 $\xi$를 도입하여 $\xi \ge 0$ 이고 $\xi \ge 1-t$ 라는 두 제약조건을 걸면:
 $$\begin{aligned} \min \xi \quad \text{s.t.} \quad & \xi \ge 0, \\ & \xi \ge 1 - y_n (\langle w, x_n \rangle + b) \end{aligned}$$
-와 완벽히 동치입니다 (교재 식 12.32, 12.33). 이를 모든 데이터에 적용하면 정확히 12.2.4절의 슬랙 변수 기반 소프트 마진 최적화 문제 (12.26)로 복원됩니다!
+와 정확히 동치입니다 (교재 식 12.32, 12.33). 이를 모든 데이터에 적용하면 정확히 12.2.4절의 슬랙 변수 기반 소프트 마진 최적화 문제 (12.26)로 복원됩니다!
 
 ---
 
@@ -264,7 +264,7 @@ $$\begin{aligned} \min \xi \quad \text{s.t.} \quad & \xi \ge 0, \\ & \xi \ge 1 -
 ### 왜 필요한가 (직관)
 원시 SVM(Primal SVM)의 결정 변수는 $w \in \mathbb{R}^D$입니다. 즉, 특성의 차원 수 $D$에 비례하여 최적화 변수가 늘어납니다. 만약 데이터의 차원이 수천, 수만 차원이거나 무한 차원이라면 원시 문제는 계산이 불가능해집니다.
 
-하지만 7장에서 배운 **라그랑주 쌍대성(Lagrangian Duality)**\ 을 적용하면 기적이 일어납니다:
+하지만 7장에서 배운 **라그랑주 쌍대성(Lagrangian Duality)**\ 을 적용하면 다음과 같이 바뀝니다:
 1. 최적화 변수가 $D$차원 벡터 $w$에서 데이터 개수 $N$개의 라그랑주 승수 $\alpha \in \mathbb{R}^N$으로 바뀝니다!
 2. 데이터 $x$가 오직 **데이터 쌍 간의 내적 $\langle x_i, x_j \rangle$의 형태**로만 목적함수에 등장합니다!
 이 두 가지 특성 덕분에 차원이 아무리 높아도 데이터 개수 $N$만 적당하면 문제를 쉽게 풀 수 있고, 나아가 12.4절의 비선형 **커널 트릭(Kernel Trick)**\ 이 작동할 수 있는 문이 활짝 열립니다.
@@ -343,7 +343,7 @@ $$\begin{aligned} & \text{conv}(X) \\ &= \left\{ \sum_{n=1}^N \alpha_n x_n \ \mi
 $$\begin{aligned} \min_{\alpha^+, \alpha^-} \frac{1}{2} \|c - d\|^2 &= \min \frac{1}{2} \Biggl\| \sum_{n: y_n=+1} \alpha_n^+ x_n \\ &\quad - \sum_{n: y_n=-1} \alpha_n^- x_n \Biggr\|^2 \end{aligned}$$
 제약조건 $\sum \alpha_n^+ = 1$과 $\sum \alpha_n^- = 1$을 합치면:
 $$\begin{aligned} &\sum_{n: y_n=+1} (+1)\alpha_n^+ \\ &\quad + \sum_{n: y_n=-1} (-1)\alpha_n^- \\ &= 1 - 1 = 0 \\ &\iff \sum_{n=1}^N y_n \alpha_n = 0 \end{aligned}$$
-이 기하학적 최소화 문제는 **하드 마진 쌍대 SVM과 수학적으로 완벽히 동치**입니다!
+이 기하학적 최소화 문제는 **하드 마진 쌍대 SVM과 수학적으로 정확히 동치**입니다!
 최적의 초평면은 바로 두 볼록 껍질 사이의 최단 선분 $c - d$를 수직이등분하는 평면이 됩니다.
 
 ---
@@ -412,7 +412,7 @@ $$\begin{aligned} \alpha_1^* &= \frac{2}{9}, \\ \alpha_2^* &= \frac{2}{9}, \\ \a
   - 양성 껍질의 중점 $c = \frac{1}{2}x_1 + \frac{1}{2}x_2 = \begin{bmatrix} 1.5 \\ 1.5 \end{bmatrix}$
   - 음성 껍질의 점 $d = x_3 = \begin{bmatrix} 0 \\ 0 \end{bmatrix}$
   - 두 점 사이의 최단 벡터 $c - d = \begin{bmatrix} 1.5 \\ 1.5 \end{bmatrix}$
-  - 초평면의 법선 벡터 $w = \begin{bmatrix} 2/3 \\ 2/3 \end{bmatrix}$는 $c - d$와 완벽하게 같은 방향입니다! 초평면은 $c$와 $d$의 중점인 $[0.75, 0.75]^\top$을 지나며 수직이등분합니다.
+  - 초평면의 법선 벡터 $w = \begin{bmatrix} 2/3 \\ 2/3 \end{bmatrix}$는 $c - d$와 정확히 같은 방향입니다! 초평면은 $c$와 $d$의 중점인 $[0.75, 0.75]^\top$을 지나며 수직이등분합니다.
   - 마진 $r = \frac{3\sqrt{2}}{4}$는 $\|c - d\| = \frac{3\sqrt{2}}{2}$의 정확히 절반입니다. 볼록 껍질 가중치 $(\tfrac12, \tfrac12, 1)$은 쌍대 해 $(\tfrac29, \tfrac29, \tfrac49)$에 $\tfrac94$를 곱한 것으로, 두 관점의 해가 비례합니다.
 
 ---
@@ -425,7 +425,7 @@ $$\begin{aligned} \alpha_1^* &= \frac{2}{9}, \\ \alpha_2^* &= \frac{2}{9}, \\ \a
 
 저차원에서는 뒤엉켜 있던 데이터도 충분히 높은 고차원으로 올리면 선형 초평면 하나로 가를 수 있게 되는 경우가 많습니다(교재 밖 보충: Cover의 정리).
 하지만 고차원 특성 벡터 $\phi(x)$를 직접 계산하는 것은 계산량이 너무 많고 메모리가 폭발합니다.
-여기서 SVM 쌍대 문제의 마법이 발휘됩니다: **쌍대 문제에는 데이터 $x$가 오직 내적 $\langle \phi(x_i), \phi(x_j) \rangle$의 형태로만 존재**하므로, 고차원 좌표를 직접 구하지 않고 내적 결과값만 한 방에 계산해 주는 요술 함수 **커널 $k(x_i, x_j)$**\ 를 사용하면 됩니다. 이것이 바로 **커널 트릭(Kernel Trick)**\ 입니다!
+여기서 SVM 쌍대 문제의 장점이 드러납니다: **쌍대 문제에는 데이터 $x$가 오직 내적 $\langle \phi(x_i), \phi(x_j) \rangle$의 형태로만 존재**하므로, 고차원 좌표를 직접 구하지 않고 내적 결과값만 한 방에 계산해 주는 요술 함수 **커널 $k(x_i, x_j)$**\ 를 사용하면 됩니다. 이것이 바로 **커널 트릭(Kernel Trick)**\ 입니다!
 
 ### 정의와 성질
 
@@ -447,7 +447,7 @@ $$z^\top K z \ge 0$$
    $$k(x_i, x_j) = (\langle x_i, x_j \rangle + c)^d \quad (c \ge 0, d \in \mathbb{N})$$
 3. **가우시안 RBF 커널 (Radial Basis Function Kernel)**:
    $$k(x_i, x_j) = \exp\left( -\frac{\|x_i - x_j\|^2}{2\sigma^2} \right) = \exp(-\gamma \|x_i - x_j\|^2)$$
-   > **놀라운 성질**: 가우시안 RBF 커널에 대응하는 힐베르트 공간 $\mathcal{H}$는 **무한 차원(infinite-dimensional)** 공간입니다! 테일러 급수 전개를 통해 무한 차원의 다항식 특성 공간에서의 내적을 단 하나의 지수함수 계산으로 완벽히 대체합니다.
+   > **성질**: 가우시안 RBF 커널에 대응하는 힐베르트 공간 $\mathcal{H}$는 **무한 차원(infinite-dimensional)** 공간입니다! 테일러 급수 전개를 통해 무한 차원의 다항식 특성 공간에서의 내적을 단 하나의 지수함수 계산으로 정확히 대체합니다.
 
 #### 4. 커널 SVM의 최종 분류 결정 함수
 학습된 최적의 쌍대 해 $\alpha^*$를 사용하면, 새로운 데이터 $x_{\text{test}}$에 대한 예측은 다음과 같이 커널 값들의 선형결합으로 즉시 계산됩니다:
@@ -485,7 +485,7 @@ $$g(t) = \begin{cases} -1 & \text{if } t < 1 \\ [-1, 0] & \text{if } t = 1 \\ 0 
 이를 이용해 7장의 경사하강법·확률적 경사하강법을 그대로 쓸 수 있습니다(교재 밖 보충: Pegasos가 대표적인 SGD 기반 선형 SVM 학습법).
 
 #### 2. 원시 SVM의 2차 계획법(QP) 표준형 (교재 식 12.56)
-변수들을 하나의 긴 벡터 $\theta = \begin{bmatrix} w \\ b \\ \xi \end{bmatrix} \in \mathbb{R}^{D + 1 + N}$로 결합하면, 원시 SVM은 표준 QP 형태 $\min_\theta \frac{1}{2} \theta^\top P \theta + q^\top \theta \quad \text{s.t.} \quad A \theta \le h$ 로 완벽히 표현됩니다:
+변수들을 하나의 긴 벡터 $\theta = \begin{bmatrix} w \\ b \\ \xi \end{bmatrix} \in \mathbb{R}^{D + 1 + N}$로 결합하면, 원시 SVM은 표준 QP 형태 $\min_\theta \frac{1}{2} \theta^\top P \theta + q^\top \theta \quad \text{s.t.} \quad A \theta \le h$ 로 정확히 표현됩니다:
 
 $$\begin{aligned} & \min_{w, b, \xi} \frac{1}{2} \begin{bmatrix} w \\ b \\ \xi \end{bmatrix}^\top \begin{bmatrix} I_D & \mathbf{0} & \mathbf{0} \\ \mathbf{0} & 0 & \mathbf{0} \\ \mathbf{0} & \mathbf{0} & \mathbf{0} \end{bmatrix} \begin{bmatrix} w \\ b \\ \xi \end{bmatrix} \\ &\quad + \begin{bmatrix} \mathbf{0}_{D+1} \\ C \mathbf{1}_N \end{bmatrix}^\top \begin{bmatrix} w \\ b \\ \xi \end{bmatrix} \end{aligned}$$
 $$\begin{aligned} \text{subject to} \quad & \begin{bmatrix} -YX & -y & -I_N \\ \mathbf{0} & 0 & -I_N \end{bmatrix} \begin{bmatrix} w \\ b \\ \xi \end{bmatrix} \\ & \le \begin{bmatrix} -\mathbf{1}_N \\ \mathbf{0}_N \end{bmatrix} \end{aligned}$$
@@ -577,7 +577,7 @@ $$\text{subject to} \quad \begin{bmatrix} y^\top \\ -y^\top \\ -I_N \\ I_N \end{
 "분리하는 직선이 여러 개면 양쪽 데이터에서 가장 멀리 떨어진 것이 새 데이터의 작은 흔들림에도 덜 틀리기 때문입니다. 초평면 $\langle w,x\rangle+b=0$은 $w,b$에 같은 양수를 곱해도 그대로라서, 가장 가까운 점에서 $y_n(\langle w,x_n\rangle+b)=1$이 되도록 크기를 고정할 수 있습니다. 그러면 점과 초평면 사이 거리 공식 $\frac{|\langle w,x\rangle+b|}{\|w\|}$에서 마진이 $1/\|w\|$이고, 마진 최대화는 $\frac12\|w\|^2$ 최소화와 같습니다."
 
 **Q. 소프트 마진에서 $C$와 슬랙 변수의 역할은?**
-"현실 데이터는 완벽히 나뉘지 않으므로 점마다 위반량 $\xi_n\ge0$을 허용해 $y_n f(x_n)\ge1-\xi_n$으로 완화합니다. $\xi_n$이 0과 1 사이면 마진 안쪽, 1보다 크면 오분류입니다. $C$가 크면 위반을 거의 허용하지 않아 마진이 좁아지고 과적합 위험이 커지며, 작으면 마진이 넓어지고 과소적합 위험이 커집니다."
+"현실 데이터는 정확히 나뉘지 않으므로 점마다 위반량 $\xi_n\ge0$을 허용해 $y_n f(x_n)\ge1-\xi_n$으로 완화합니다. $\xi_n$이 0과 1 사이면 마진 안쪽, 1보다 크면 오분류입니다. $C$가 크면 위반을 거의 허용하지 않아 마진이 좁아지고 과적합 위험이 커지며, 작으면 마진이 넓어지고 과소적합 위험이 커집니다."
 
 **Q. 힌지 손실 관점으로 SVM을 설명해 보세요.**
 "$\min\frac12\|w\|^2+C\sum\max\{0,1-y_nf(x_n)\}$로, 정규화 항과 힌지 손실의 합을 최소화하는 경험적 위험 최소화입니다. 힌지 손실은 0-1 손실의 볼록 상한이고, $\xi_n\ge0,\ \xi_n\ge1-t$ 제약으로 바꾸면 슬랙 변수를 쓴 기하학적 문제와 정확히 같아집니다."
@@ -711,14 +711,14 @@ $$\begin{aligned} k(x, z) &= \sum_{m=0}^\infty \left[ \exp\left(-\frac{x^2}{2}\r
 분류 문제에서 SVM과 로지스틱 회귀(Logistic Regression)를 비교할 때, 새로운 이상치 데이터가 기존 결정 경계에서 아주 멀리 떨어진 올바른 방향($y_n f(x_n) \gg 1$)에 추가되었을 때 두 모델의 경계선이 어떻게 반응하는지 설명하시오.
 
 **[풀이]**
-- **SVM**: 마진 바깥 올바른 쪽에 위치한 데이터는 힌지 손실이 정확히 $0$이고 라그랑주 승수 $\alpha_n = 0$이므로, 결정 경계선에 **아무런 영향도 주지 않는다** (완벽히 불변).
+- **SVM**: 마진 바깥 올바른 쪽에 위치한 데이터는 힌지 손실이 정확히 $0$이고 라그랑주 승수 $\alpha_n = 0$이므로, 결정 경계선에 **아무런 영향도 주지 않는다** (정확히 불변).
 - **로지스틱 회귀**: 멀리 떨어진 데이터라도 시그모이드 확률이 $1$에 매우 가까울 뿐 손실이 정확히 $0$은 아니므로, 미세하게나마 그라디언트를 발생시켜 결정 경계선을 조금씩 움직인다. 즉, 올바른 쪽 멀리 있는 점에는 SVM 경계가 전혀 반응하지 않는다. 다만 잘못 분류된 먼 이상치에는 힌지 손실과 로지스틱 손실이 모두 거의 선형으로 커지므로 두 모델 다 영향을 받는다. SVM이 모든 이상치에 강건하다는 뜻은 아니다.
 
 ---
 
 ### 교재 연습문제 안내 (Exercises)
 
-> **교재 원문 안내**: MML 교재 원본의 Part 2(8~12장)는 실전 머신러닝 응용을 다루는 장으로, 장 끝 연습문제(Exercises) 섹션이 별도로 수록되어 있지 않습니다. 따라서 본 해설서에서는 본문에서 명시적으로 언급된 연습 과제 및 필기시험 출제 1순위 핵심 유도 과제들을 추출하여 해설과 풀이 방향을 안내합니다.
+> **교재 원문 안내**: MML 교재 원본의 Part 2(8~12장)는 실전 머신러닝 응용을 다루는 장으로, 장 끝 연습문제(Exercises) 섹션이 별도로 수록되어 있지 않습니다. 따라서 본 해설서에서는 교재 본문의 예제와 핵심 유도를 바탕으로 이 해설이 만든 확인 문제를 싣습니다.
 
 #### [본문 핵심 과제 1: 표현자 정리(Representer Theorem)의 유도 (교재 384쪽 식 12.38)]
 - **질문 요약**: 라그랑지안 $\mathcal{L}$을 원시 변수 $w$로 편미분하여 최적의 $w$가 데이터의 선형결합 $w = \sum_{n=1}^N \alpha_n y_n x_n$으로 표현됨을 유도하시오.

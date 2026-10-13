@@ -28,7 +28,7 @@ UseHugoToc: true
 | **9.2.1** | 최대가능도 추정 (Maximum Likelihood Estimation) | 293 | 음의 로그 가능도 최소화를 통한 최소제곱법 및 정규방정식(Normal Equation) 도출 | ★★★ |
 | **9.2.2** | 선형 회귀에서의 과적합 (Overfitting in Linear Regression) | 298 | 복잡한 모델(고차 다항식)이 노이즈까지 암기하여 일반화 성능이 파괴되는 현상 | ★★☆ |
 | **9.2.3** | 최대 사후확률 추정 (Maximum A Posteriori Estimation) | 300 | 가우시안 사전분포(Prior)를 결합하여 모수의 크기를 억제하는 MAP 추정 유도 | ★★★ |
-| **9.2.4** | 규제화로서의 MAP (MAP Estimation as Regularization) | 302 | MAP 목적함수와 $L_2$ 능형 회귀(Ridge Regression) 손실함수의 완벽한 동치 증명 | ★★★ |
+| **9.2.4** | 규제화로서의 MAP (MAP Estimation as Regularization) | 302 | MAP 목적함수와 $L_2$ 능형 회귀(Ridge Regression) 손실함수의 동치 증명 | ★★★ |
 | **9.3** | 베이즈 선형 회귀 (Bayesian Linear Regression) | 303 | 모수를 단일 점이 아닌 확률분포 전체로 추론하여 예측 불확실성을 수치화 | ★★★ |
 | **9.3.1** | 모델 (Model) | 304 | 공액(켤레) 가우시안 사전분포 $p(\theta)$와 우도 $p(y \mid x,\theta)$의 결합 모델 구성 | ★★☆ |
 | **9.3.2** | 사전 예측 (Prior Predictions) | 304 | 데이터를 보기 전 모델이 예측하는 출력 분포 $p(y_* \mid x_*)$의 평균 및 분산 | ★★☆ |
@@ -65,7 +65,7 @@ graph TD
 ### 왜 필요한가 (직관과 개념)
 기계학습에서 지도학습(Supervised Learning)의 목표는 입력 변수 $x$로부터 연속적인 출력 변수 $y$를 예측하는 규칙(함수 $f$)을 찾는 것입니다. 이를 **회귀(Regression, 곡선 적합/Curve Fitting)**\ 라고 부릅니다.
 
-현실 세계에서 우리가 관측하는 데이터는 결코 완벽하지 않습니다. 센서의 오차, 측정의 한계, 모델이 미처 고려하지 못한 무수한 환경적 요인으로 인해 항상 잡음(노이즈, noise)이 섞여 있습니다. 따라서 우리는 단순하게 관측된 점들을 선으로 잇는 것이 아니라, **"노이즈 뒤에 숨겨진 참된 시스템 함수 $f(x)$"**\ 를 복원해야 합니다.
+현실 세계에서 우리가 관측하는 데이터는 결코 완전하지 않습니다. 센서의 오차, 측정의 한계, 모델이 미처 고려하지 못한 무수한 환경적 요인으로 인해 항상 잡음(노이즈, noise)이 섞여 있습니다. 따라서 우리는 단순하게 관측된 점들을 선으로 잇는 것이 아니라, **"노이즈 뒤에 숨겨진 참된 시스템 함수 $f(x)$"**\ 를 복원해야 합니다.
 
 ```
 [관측 데이터] (x₁, y₁), (x₂, y₂), ..., (x_N, y_N)
@@ -247,7 +247,7 @@ $$\begin{aligned} \sigma_{ML}^2 &= \frac{1}{3} \|e\|^2 \\ &= \frac{1}{3} \cdot \
 #### 왜 필요한가 (직관과 개념)
 다항 회귀(Polynomial Regression)에서 기저 함수를 $\phi(x) = [1, x, x^2, \dots, x^M]^\top$로 설정하면, 차수 $M$이 커질수록 모델이 표현할 수 있는 함수의 유연성(expressive power)이 급격히 증가합니다.
 - $M$이 너무 작으면: 데이터의 진정한 곡선 패턴을 잡아내지 못함 (**과소적합, Underfitting**)
-- $M$이 데이터 수 $N$에 육박하면: 데이터에 포함된 무작위 노이즈 하나하나까지 완벽하게 통과하려고 함수가 요동침 (**과적합, Overfitting**)
+- $M$이 데이터 수 $N$에 육박하면: 데이터에 포함된 무작위 노이즈 하나하나까지 정확히 통과하려고 함수가 요동침 (**과적합, Overfitting**)
 
 ```
         Underfitting (M=0,1)      Good Fit (M=3)        Overfitting (M=9)
@@ -305,7 +305,7 @@ $$\theta_{MAP} = \left( \Phi^\top \Phi + \frac{\sigma^2}{b^2} I \right)^{-1} \Ph
 ### 9.2.4 규제화 관점에서의 MAP 추정 (MAP Estimation as Regularization, 302쪽)
 
 #### 왜 필요한가 (직관과 개념)
-통계학과 기계학습의 최적화 이론에서는 과적합을 막기 위해 손실함수에 가중치 크기에 대한 페널티 항을 인위적으로 더해주는 **규제화(Regularization)** 기법을 오랫동안 사용해 왔습니다. 9.2.4절은 이 순수 최적화적 기법이 확률론적 MAP 추정과 완벽하게 동일한 것임을 보여줍니다.
+통계학과 기계학습의 최적화 이론에서는 과적합을 막기 위해 손실함수에 가중치 크기에 대한 페널티 항을 인위적으로 더해주는 **규제화(Regularization)** 기법을 오랫동안 사용해 왔습니다. 9.2.4절은 이 순수 최적화적 기법이 확률론적 MAP 추정과 정확히 동일한 것임을 보여줍니다.
 
 #### 정의와 성질
 
@@ -436,7 +436,7 @@ $$\begin{aligned} &\log \mathcal{N}(\theta \mid m_N, S_N) \\ &= -\frac{1}{2} \bi
 두 식의 2차 계수와 1차 계수를 항등식으로 직접 비교(matching coefficients)하면:
 - **2차항 계수 매칭**: $S_N^{-1} = S_0^{-1} + \sigma^{-2} \Phi^\top \Phi$
 - **1차항 계수 매칭**: $S_N^{-1} m_N = S_0^{-1} m_0 + \sigma^{-2} \Phi^\top y \implies m_N = S_N (S_0^{-1} m_0 + \sigma^{-2} \Phi^\top y)$  
-증명이 완벽하게 끝납니다. (상세 유도는 본 문서 후반의 '핵심 유도 모음' 참조)
+증명이 정확히 끝납니다. (상세 유도는 본 문서 후반의 '핵심 유도 모음' 참조)
 
 > **직관적 해석 (정밀도 행렬, Precision Matrix)**:  
 > 공분산의 역행렬을 **정밀도(Precision)**\ 라고 부릅니다.
@@ -549,7 +549,7 @@ $$\begin{aligned} p(\theta \mid X, Y) &= \mathcal{N}\biggl( \begin{bmatrix} 1 \\
 ## 9.4 직교 사영으로서의 최대가능도 (Maximum Likelihood as Orthogonal Projection, 313쪽)
 
 ### 왜 필요한가 (기하학적 직관)
-많은 학생들이 선형 회귀를 단순히 "미분해서 기울기를 0으로 놓는 대수적 계산"으로만 기억합니다. 그러나 선형대수학의 눈으로 바라본 선형 회귀는 **"고차원 벡터 공간에서 한 점을 평면에 수직으로 떨어뜨리는 직교 사영(Orthogonal Projection)"**\ 이라는 극도로 아름다운 기하학적 본질을 품고 있습니다. 9.4절은 2~3장의 직교 사영 이론과 9.2장의 정규방정식이 완벽하게 같은 이야기임을 증명합니다.
+많은 학생들이 선형 회귀를 단순히 "미분해서 기울기를 0으로 놓는 대수적 계산"으로만 기억합니다. 그러나 선형대수학의 눈으로 바라본 선형 회귀는 **"고차원 벡터 공간에서 한 점을 평면에 수직으로 떨어뜨리는 직교 사영(Orthogonal Projection)"**\ 이라는 극도로 아름다운 기하학적 본질을 품고 있습니다. 9.4절은 2~3장의 직교 사영 이론과 9.2장의 정규방정식이 정확히 같은 이야기임을 증명합니다.
 
 ```
        [N차원 타깃 벡터 공간 ℝᴺ]
@@ -586,7 +586,7 @@ $$\begin{aligned} \langle \phi_k, \; y - \Phi\theta \rangle &= \phi_k^\top (y - 
 이를 $K$개의 행으로 쌓아서 하나의 행렬식으로 표현하면:
 $$\begin{aligned} \begin{bmatrix} \phi_1^\top \\ \phi_2^\top \\ \vdots \\ \phi_K^\top \end{bmatrix} (y - \Phi\theta) &= 0 \\ &\iff \Phi^\top (y - \Phi\theta) = 0 \end{aligned}$$
 $$\Phi^\top \Phi \theta = \Phi^\top y$$
-미분을 단 한 번도 쓰지 않고, 순수한 기하학적 직교 조건만으로 **정규방정식이 완벽하게 유도**되었습니다!
+미분을 단 한 번도 쓰지 않고, 순수한 기하학적 직교 조건만으로 **정규방정식이 정확히 유도**되었습니다!
 
 #### 4. 사영 행렬 (Projection Matrix / Hat Matrix, $P$)
 최적의 $\theta_{ML} = (\Phi^\top \Phi)^{-1} \Phi^\top y$를 예측 벡터 $\hat{y} = \Phi \theta_{ML}$에 대입하면:
@@ -594,7 +594,7 @@ $$\hat{y} = \Phi (\Phi^\top \Phi)^{-1} \Phi^\top y = P y$$
 여기서 $P \in \mathbb{R}^{N \times N}$를 **사영 행렬(Projection Matrix)** 또는 통계학에서 $y$에 모자(hat)를 씌워 $\hat{y}$를 만든다고 하여 **모자 행렬(Hat Matrix)**\ 이라고 부릅니다:
 $$P = \Phi (\Phi^\top \Phi)^{-1} \Phi^\top$$
 
-##### 사영 행렬 $P$의 4대 대수적 성질 (시험 단골 증명)
+##### 사영 행렬 $P$의 네 가지 대수적 성질
 1. **대칭성 (Symmetric)**:
    $$P^\top = \left( \Phi (\Phi^\top \Phi)^{-1} \Phi^\top \right)^\top = (\Phi^\top)^\top \left( (\Phi^\top \Phi)^{-1} \right)^\top \Phi^\top = \Phi (\Phi^\top \Phi)^{-1} \Phi^\top = P$$
 2. **멱등성 (Idempotent)**: 두 번 사영해도 제자리입니다.
@@ -623,8 +623,8 @@ $$\begin{aligned} \Phi (\Phi^\top \Phi)^{-1} &= \frac{1}{6} \begin{bmatrix} 1 & 
 이제 $\Phi^\top$을 곱합니다:
 $$\begin{aligned} P &= \frac{1}{6} \begin{bmatrix} 5 & -3 \\ 2 & 0 \\ -1 & 3 \end{bmatrix} \begin{bmatrix} 1 & 1 & 1 \\ 0 & 1 & 2 \end{bmatrix} \\ &= \frac{1}{6} \begin{bmatrix} 5 & 5-3 & 5-6 \\ 2 & 2+0 & 2+0 \\ -1 & -1+3 & -1+6 \end{bmatrix} \\ &= \frac{1}{6} \begin{bmatrix} 5 & 2 & -1 \\ 2 & 2 & 2 \\ -1 & 2 & 5 \end{bmatrix} \end{aligned}$$
 
-- **대칭성 확인**: $P = P^\top$ 완벽 성립.
-- **대각합 확인**: $\text{Tr}(P) = \frac{1}{6}(5 + 2 + 5) = \frac{12}{6} = 2 = K$ 완벽 성립!
+- **대칭성 확인**: $P = P^\top$ 정확히 성립.
+- **대각합 확인**: $\text{Tr}(P) = \frac{1}{6}(5 + 2 + 5) = \frac{12}{6} = 2 = K$ 정확히 성립!
 
 **[2단계: 사영 계산 및 직교성 검증]**
 $$\begin{aligned} \hat{y} &= Py = \frac{1}{6} \begin{bmatrix} 5 & 2 & -1 \\ 2 & 2 & 2 \\ -1 & 2 & 5 \end{bmatrix} \begin{bmatrix} 1 \\ 3 \\ 4 \end{bmatrix} \\ &= \frac{1}{6} \begin{bmatrix} 5 + 6 - 4 \\ 2 + 6 + 8 \\ -1 + 6 + 20 \end{bmatrix} = \frac{1}{6} \begin{bmatrix} 7 \\ 16 \\ 25 \end{bmatrix} \end{aligned}$$
@@ -798,7 +798,7 @@ $p(Y \mid X) = \int p(Y \mid X, \theta) p(\theta) d\theta$가 $\mathcal{N}(y \mi
 | **7** | 잔차 벡터 $e = y - \hat{y} = y - Py = (I_N - P)y$ | 최적 예측 벡터 $\hat{y} = Py$ 대입 및 항등행렬로 묶음 |
 | **8** | $\Phi^\top e = \Phi^\top (I_N - P)y = \left( \Phi^\top - \Phi^\top P \right) y$ | $\Phi^\top$ 분배법칙 |
 | **9** | $\Phi^\top P = \Phi^\top \left( \Phi (\Phi^\top \Phi)^{-1} \Phi^\top \right) = (\Phi^\top \Phi) (\Phi^\top \Phi)^{-1} \Phi^\top = I_K \Phi^\top = \Phi^\top$ | $P$ 정의 대입 후 전방 역행렬 상쇄 |
-| **10** | $\Phi^\top e = (\Phi^\top - \Phi^\top) y = 0 \cdot y = 0$ | 잔차 벡터가 설계행렬의 모든 열벡터와 직교함이 완벽히 증명됨 $\blacksquare$ |
+| **10** | $\Phi^\top e = (\Phi^\top - \Phi^\top) y = 0 \cdot y = 0$ | 잔차 벡터가 설계행렬의 모든 열벡터와 직교함이 정확히 증명됨 $\blacksquare$ |
 
 
 ---
@@ -878,7 +878,7 @@ $$\begin{aligned} (x_1, y_1) &= (0, 1), \\ (x_2, y_2) &= (1, 3), \\ (x_3, y_3) &
    - $x=-1 \implies \theta_0 - \theta_1 + \theta_2 = 2 \implies 1 - \theta_1 + \theta_2 = 2 \implies -\theta_1 + \theta_2 = 1$
    두 식을 더하면 $2\theta_2 = 4 \implies \theta_2 = 2$, 대입하면 $\theta_1 = 1$.
    따라서 $\theta_{ML} = \begin{bmatrix} 1 \\ 1 \\ 2 \end{bmatrix}$, 회귀식은 $f(x) = 1 + x + 2x^2$입니다.
-   모든 훈련 데이터 점을 완벽하게 통과하므로 잔차 벡터 $e = y - \Phi\theta_{ML} = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}$입니다.
+   모든 훈련 데이터 점을 정확히 통과하므로 잔차 벡터 $e = y - \Phi\theta_{ML} = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}$입니다.
 
 ---
 
@@ -1017,14 +1017,14 @@ $$P = \frac{1}{6} \begin{bmatrix} 5 & 2 & -1 \\ 2 & 2 & 2 \\ -1 & 2 & 5 \end{bma
 
 ---
 
-### 교재 연습문제 안내 ((교재 특이사항) Part II 핵심 예제 및 심화 과제 5선)
+### 교재 예제·그림으로 복습하기 (Part II에는 장 끝 연습문제가 없음)
 
 > **교재 특이사항 안내**:  
-> MML 교재의 기초수학 파트(Part I, 2~7장)에는 장 끝에 별도의 'Exercises' 절이 번호와 함께 수록되어 있으나, 응용 머신러닝 파트(Part II, 8~12장)는 각 장 끝에 별도의 번호 매겨진 Exercises 절이 없고 바로 'Further Reading'으로 끝납니다. 따라서 본 해설서에서는 시험 대비를 위해 9장 본문 전체를 관통하는 핵심 예제(Example) 및 핵심 심화 과제 5선을 엄선하여 질문 요약과 풀이 방향을 완벽히 제시합니다.
+> MML 교재의 기초수학 파트(Part I, 2~7장)에는 장 끝에 별도의 'Exercises' 절이 번호와 함께 수록되어 있으나, 응용 머신러닝 파트(Part II, 8~12장)는 각 장 끝에 별도의 번호 매겨진 Exercises 절이 없고 바로 'Further Reading'으로 끝납니다. 그래서 아래 5개는 교재의 예제와 그림을 바탕으로 이 해설이 만든 복습 과제다(교재에 이런 이름의 과제가 있는 것은 아니다).
 
 ---
 
-#### [교재 과제 1] 다항 특징 변환과 차수 $M$의 영향 (Example 9.1 / Figure 9.5)
+#### [복습 과제 1] 다항 특징 변환과 차수 $M$의 영향 (Example 9.1 / Figure 9.5)
 - **질문 요약**: 1차원 데이터셋에 $M$차 다항 기저 함수 $\phi(x) = [1, x, x^2, \dots, x^M]^\top$를 적용할 때, $M=0, 1, 3, 9$에 따른 적합선의 형태 변화와 과적합 발생 양상을 분석하시오.
 - **풀이 방향**:
   - $M=0$: $f(x) = \theta_0$ (상수 함수). 데이터의 평균으로만 예측하므로 심각한 과소적합.
@@ -1032,33 +1032,33 @@ $$P = \frac{1}{6} \begin{bmatrix} 5 & 2 & -1 \\ 2 & 2 & 2 \\ -1 & 2 & 5 \end{bma
   - $M=3$: $f(x) = \sum_{m=0}^3 \theta_m x^m$ (3차 곡선). 노이즈에 둔감하면서 데이터의 참된 주기/곡률 패턴을 가장 훌륭하게 복원.
   - $M=9$: 데이터 포인트 개수 $N$에 가까워지면서 모든 훈련 점을 정확히 지나기 위해 데이터 사이 구간에서 극단적으로 요동침. 훈련 오차는 0이지만 시험 오차는 크게 커진다.
 
-#### [교재 과제 2] 모수 정규화와 능형 회귀의 억제 효과 (Figure 9.7)
+#### [복습 과제 2] 모수 정규화와 능형 회귀의 억제 효과 (Figure 9.7)
 - **질문 요약**: $M=9$ 다항 회귀에서 $\theta_{ML}$의 계수 크기와, 가우시안 사전분포 분산 $b^2$을 부여한 $\theta_{MAP}$의 계수 크기 변화를 비교하시오.
 - **풀이 방향**:
   - MLE의 경우 $M=9$일 때 고차 계수가 $+10^5, -10^5$ 수준으로 발산함.
   - 능형 회귀 손실함수 $\frac{1}{2}\|y - \Phi\theta\|^2 + \frac{\lambda}{2}\|\theta\|^2$에서 $\lambda = \sigma^2/b^2 > 0$을 도입하면, 행렬 $\Phi^\top\Phi$의 대각 원소에 $\lambda$가 더해져 고유값이 $\lambda_i + \lambda$로 상승함.
   - 역행렬 연산 시 $(\lambda_i + \lambda)^{-1}$이 되어 고유값이 0에 가까워 폭발하던 방향의 계수를 강하게 압축(수축)시킴. 결과적으로 $M=9$의 유연성을 유지하면서도 부드러운 곡선 적합을 달성함.
 
-#### [교재 과제 3] 베이즈 선형 회귀의 함수 공간 사후분포 샘플링 (Figure 9.9 & 9.10)
+#### [복습 과제 3] 베이즈 선형 회귀의 함수 공간 사후분포 샘플링 (Figure 9.9 & 9.10)
 - **질문 요약**: 베이즈 선형 회귀에서 사후분포 $p(\theta \mid X, Y)$로부터 샘플링한 모수 $\theta^{(s)} \sim \mathcal{N}(m_N, S_N)$를 이용해 여러 개의 회귀선 $f^{(s)}(x) = \phi(x)^\top \theta^{(s)}$를 그렸을 때 나타나는 기하학적 특성을 설명하시오.
 - **풀이 방향**:
   - 훈련 데이터가 관측된 위치 $x_n$에서는 모든 샘플링된 함수선들이 데이터 포인트 주변의 좁은 병목(choke point)을 일제히 통과함 (모수 불확실성이 낮음).
   - 훈련 데이터가 없는 영역으로 갈수록 샘플링된 함수선들이 위아래로 부채꼴처럼 넓게 퍼져나감. 이 선들의 평균이 $\phi(x)^\top m_N$이며, 퍼진 폭의 표준편차가 바로 $\sqrt{\phi(x)^\top S_N \phi(x)}$임을 시각적으로 설명함.
 
-#### [교재 과제 4] 주변 가능도를 통한 최적 모델 자동 선택 (Section 9.3.5)
+#### [복습 과제 4] 주변 가능도를 통한 최적 모델 자동 선택 (Section 9.3.5)
 - **질문 요약**: $M=0, 1, \dots, 9$ 차수 모델들에 대해 $\log p(Y \mid X, M)$을 계산했을 때 최대가 되는 차수가 왜 실제 참된 차수 부근에서 나타나는지 논증하시오.
 - **풀이 방향**:
   - 모델 차수 $M$이 증가함에 따라 첫 번째 항 $-\frac{1}{2}(y - \Phi m_0)^\top (\Phi S_0 \Phi^\top + \sigma^2 I)^{-1}(y - \Phi m_0)$ (데이터 적합도)은 단조 증가함.
   - 반면 두 번째 항 $-\frac{1}{2}\log\det(\Phi S_0 \Phi^\top + \sigma^2 I)$ (복잡도 페널티)은 $M$차원 부피가 커지므로 단조 감소함.
   - 두 곡선의 합은 최적 차수(예: $M=3$)에서 전역 극댓값을 형성하며, $M \ge 4$부터는 페널티 감소량이 적합도 증가량을 압도하여 주변 가능도가 급락함을 그래프 개형과 함께 서술함.
 
-#### [교재 과제 5] 정규방정식의 기하학적 직교 분해 (Figure 9.12)
+#### [복습 과제 5] 정규방정식의 기하학적 직교 분해 (Figure 9.12)
 - **질문 요약**: 1차원 데이터 $x \in \mathbb{R}^1$에 대해 원점을 지나는 직선 $y = \theta x$를 적합할 때, 데이터 벡터 $y = [y_1, \dots, y_N]^\top$와 기저 벡터 $x = [x_1, \dots, x_N]^\top$가 이루는 사영 관계를 $N$차원 공간에서 증명하시오.
 - **풀이 방향**:
   - $\Phi = x \in \mathbb{R}^N$ (1차원 열벡터). 부분공간은 $x$ 방향의 직선.
   - 사영 행렬은 스칼라 분모를 갖는 $P = \frac{x x^\top}{x^\top x}$.
   - 최적 추정량 $\theta_{ML} = (x^\top x)^{-1} x^\top y = \frac{x^\top y}{x^\top x} = \frac{\sum x_n y_n}{\sum x_n^2}$.
-  - 잔차 $e = y - \theta_{ML} x$에 대해 $x^\top e = x^\top y - \frac{x^\top y}{x^\top x} x^\top x = 0$임을 보여 고교 기하학의 벡터 내적 0 조건과 완벽히 일치함을 보임.
+  - 잔차 $e = y - \theta_{ML} x$에 대해 $x^\top e = x^\top y - \frac{x^\top y}{x^\top x} x^\top x = 0$임을 보여 고교 기하학의 벡터 내적 0 조건과 정확히 일치함을 보임.
 
 ---
 
@@ -1091,7 +1091,7 @@ $$P = \frac{1}{6} \begin{bmatrix} 5 & 2 & -1 \\ 2 & 2 & 2 \\ -1 & 2 & 5 \end{bma
 | **모수 $\theta$의 정의** | 고정된 미지의 상수 | 고정된 미지의 상수 | **확률 변수 (Random Variable)** |
 | **사전 지식 활용** | 없음 (데이터에만 의존) | 가우시안 사전분포 $p(\theta)$ 반영 | 사전분포 $p(\theta)$ 반영 |
 | **출력 결과 형태** | 단일 점 추정값 $\theta_{ML}$ | 단일 점 추정값 $\theta_{MAP}$ | **사후 확률분포 $p(\theta \mid X, Y)$** |
-| **과적합 취약성** | 매우 취약 ($N < K$시 계산 불가) | 강인함 (규제화 항이 발산 방지) | 완전 면역 (모든 모수 적분 소거) |
+| **과적합 취약성** | 매우 취약 ($N < K$시 계산 불가) | 강인함 (규제화 항이 발산 방지) | 강함 (모수 하나를 고르지 않고 사후분포 전체로 평균. 단, 사전분포·기저함수 선택이 나쁘면 여전히 틀림) |
 | **예측값 형태** | 단일 점 $\phi(x_*)^\top \theta_{ML}$ | 단일 점 $\phi(x_*)^\top \theta_{MAP}$ | **분포 $\mathcal{N}(\mu_*, \sigma_N^2(x_*))$** |
 | **불확실성 제공 여부**| 불가 | 불가 | **가능 (신뢰구간 정량화)** |
 | **모델 선택 기준** | 훈련 오차 (과적합 유발) | 교차 검증(CV) 필요 | **주변 가능도 $p(Y \mid X)$** |

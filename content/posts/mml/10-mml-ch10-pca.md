@@ -11,7 +11,7 @@ description: "MML 10장(교재 317~347쪽) 해설. 분산 최대화와 재구성
 UseHugoToc: true
 ---
 > **교재 범위**: Deisenroth, Faisal, Ong, *Mathematics for Machine Learning*(MML), pp. 317–347.  
-> **선후수 연결 및 의존성**: 이 장은 비지도 학습(Unsupervised Learning)의 대표 기법인 차원 축소(Dimensionality Reduction)를 다룹니다. 3장의 직교 사영(Orthogonal Projection), 4장의 고유값 분해(Eigendecomposition) 및 특이값 분해(SVD), 7장의 등식 제약 조건 최적화(라그랑주 승수법, Lagrange Multipliers), 6장의 가우시안 확률 모델이 완벽하게 결합된 장입니다. 여기서 다루는 데이터 압축과 잠재 표현(Latent Representation)의 개념은 현대 오토인코더(Autoencoder), 확산 모델(Diffusion Model), 고차원 임베딩 분석의 기초를 이룹니다.
+> **선후수 연결 및 의존성**: 이 장은 비지도 학습(Unsupervised Learning)의 대표 기법인 차원 축소(Dimensionality Reduction)를 다룹니다. 3장의 직교 사영(Orthogonal Projection), 4장의 고유값 분해(Eigendecomposition) 및 특이값 분해(SVD), 7장의 등식 제약 조건 최적화(라그랑주 승수법, Lagrange Multipliers), 6장의 가우시안 확률 모델이 정확히 결합된 장입니다. 여기서 다루는 데이터 압축과 잠재 표현(Latent Representation)의 개념은 현대 오토인코더(Autoencoder), 확산 모델(Diffusion Model), 고차원 임베딩 분석의 기초를 이룹니다.
 
 ---
 
@@ -39,7 +39,7 @@ UseHugoToc: true
 | **10.4.1**| 저계수 근사를 통한 PCA (PCA Using Low-Rank Matrix Approx) | 333 | 중심화 데이터 행렬 $X$의 절단 SVD(Truncated SVD)가 곧 PCA 해임을 증명 | ★★★ |
 | **10.4.2**| 실무적 계산 고려사항 (Practical Aspects) | 334 | 고차원에서의 특성방정식 한계(Abel-Ruffini)와 수치적 거듭제곱법(Power Iteration) | ★★☆ |
 | **10.5** | 고차원에서의 PCA (PCA in High Dimensions, $N < D$) | 335 | $D \times D$ 공분산 대신 $N \times N$ 그람 행렬 $\frac{1}{N}X^\top X$를 풀어 연산량을 획기적으로 절감 | ★★★ |
-| **10.6** | 실전에서의 PCA 핵심 단계 (Key Steps of PCA in Practice) | 337 | 중심화(평균 차감), 표준화(정규화), 고유분해, 사영, 복원 6단계 완벽 정리 | ★★★ |
+| **10.6** | 실전에서의 PCA 핵심 단계 (Key Steps of PCA in Practice) | 337 | 중심화(평균 차감), 표준화(정규화), 고유분해, 사영, 복원 6단계 정리 | ★★★ |
 | **10.7** | 잠재 변수 관점 (Latent Variable Perspective, PPCA) | 339 | 확률적 PCA: 가우시안 잠재 변수 $z$로부터 관측치 $x = Bz + \mu + \epsilon$을 생성하는 모델 | ★★★ |
 | **10.7.1**| 생성 과정 및 확률 모델 (Generative Process & Probabilistic Model) | 340 | 사전분포 $p(z)$와 조건부 분포 $p(x \mid z)$로 정의되는 그래피컬 모델 | ★★☆ |
 | **10.7.2**| 가능도 및 결합 분포 (Likelihood and Joint Distribution) | 342 | 주변 가우시안 분포 $p(x) = \mathcal{N}(\mu, BB^\top + \sigma^2 I)$ 유도 | ★★★ |
@@ -47,7 +47,7 @@ UseHugoToc: true
 | **10.8** | 더 읽을거리 (Further Reading) | 345 | 커널 PCA, 오토인코더(Autoencoder), GP-LVM과의 개념적 계보 | ★☆☆ |
 
 > **중요도 선정 근거**:  
-> - **10.2, 10.3, 10.4, 10.5, 10.7 (★★★)**: 라그랑주 승수법 유도, 두 관점의 동치성 증명, SVD 및 Eckart-Young 연결, $N < D$ 차원 축소 트릭, PPCA의 잠재변수 사후분포는 구술 및 필기시험에서 가장 깊이 있는 선형대수·확률 결합 문제로 출제됩니다.
+> - **10.2, 10.3, 10.4, 10.5, 10.7 (★★★)**: 라그랑주 승수법 유도, 두 관점의 동치성 증명, SVD 및 Eckart-Young 연결, $N < D$ 차원 축소 트릭, PPCA의 잠재변수 사후분포는 선형대수와 확률을 함께 쓰는 유도라 손으로 한 번씩 써 볼 만합니다.
 
 ```mermaid
 graph TD
@@ -128,7 +128,7 @@ $$\sum_{n=1}^N x_n = 0 \iff \mu = 0$$
 
 표본 공분산 행렬(Data Covariance Matrix) $S \in \mathbb{R}^{D \times D}$는 다음과 같이 정의됩니다:
 $$S = \frac{1}{N} \sum_{n=1}^N x_n x_n^\top = \frac{1}{N} X X^\top$$
-- $X = [x_1, x_2, \dots, x_N] \in \mathbb{R}^{D \times N}$은 데이터 행렬입니다.
+- $X = [x_1, x_2, \dots, x_N] \in \mathbb{R}^{D \times N}$은 데이터 행렬입니다. **주의: 9장(회귀)은 데이터 점을 행으로 쌓아 $N\times D$로 쓰지만, 10장(교재 10.3절 식 (10.17)부터, 10.4절 SVD)은 점을 열로 세워 $D\times N$으로 쓴다.** 그래서 9장의 $X^\top X$에 해당하는 것이 10장에서는 $XX^\top$이다. 두 장의 식을 섞어 쓸 때 전치를 확인한다. **주의: 9장(회귀)은 데이터 점을 행으로 쌓아 $N\times D$로 쓰지만, 10장(교재 10.3절 식 (10.17)부터, 10.4절 SVD)은 점을 열로 세워 $D\times N$으로 쓴다.** 그래서 9장의 $X^\top X$에 해당하는 것이 10장에서는 $XX^\top$이다. 두 장의 식을 섞어 쓸 때 전치를 확인한다.
 - $S$는 대칭(Symmetric) 행렬이며, 양의 준정부호(Positive Semi-Definite) 행렬입니다 ($x^\top S x \ge 0$).
 
 > **교재 표기법 주의 (MML 관례)**: 통계학의 비편향 공분산은 자유도 분모로 $\frac{1}{N-1}$을 사용하지만, MML 교재와 머신러닝 교과서(Bishop 등)에서는 최대가능도 표본 공분산 관례인 **$\frac{1}{N}$**\ 을 일관되게 사용합니다. 본 해설서도 교재 관례인 $\frac{1}{N}$을 엄격히 따릅니다.
@@ -198,7 +198,7 @@ $$\sum_{m=1}^{M} \mathbb{V}[z_m] = \sum_{m=1}^M \lambda_m$$
 10.3절에서는 완전히 다른, 그러나 매우 직관적인 공학적 관점에서 출발합니다:
 **"원래 고차원 데이터 $x_n$과 저차원으로 압축했다가 다시 복원한 데이터 $\tilde{x}_n$ 사이의 차이(재구성 오차, Reconstruction Error)를 가장 작게 만들자!"**
 
-데이터를 압축해서 전송하거나 저장할 때 발생하는 왜곡을 최소화하겠다는 목표입니다. 놀랍게도 이 최소 재구성 오차 문제는 분산 최대화 문제와 수학적으로 **완전히 동일한 고유값 분해 해**로 귀결됩니다.
+데이터를 압축해서 전송하거나 저장할 때 발생하는 왜곡을 최소화하겠다는 목표입니다. 이 최소 재구성 오차 문제는 분산 최대화 문제와 수학적으로 **완전히 동일한 고유값 분해 해**로 귀결됩니다.
 
 ```
                   xₙ (원래 고차원 데이터)
@@ -292,7 +292,7 @@ $$J_M = \sum_{j=M+1}^D b_j^\top S b_j$$
 정규직교 제약 조건 $b_j^\top b_j = 1$ 하에서 이 오차합 $J_M$을 최소화하려면, 10.2절의 라그랑주 승수법 결과에 의해 $b_j$는 $S$의 고유벡터여야 하며, 그 값은 고유값 $\lambda_j$가 됩니다:
 $$J_M = \sum_{j=M+1}^D \lambda_j$$
 
-> **결정적 결론 (두 관점의 완벽한 일치)**:  
+> **결정적 결론 (두 관점의 일치)**:  
 > - 재구성 오차 $J_M = \sum_{j=M+1}^D \lambda_j$를 **최소화**하려면, 버려지는 $D-M$개의 고유값을 **가장 작은 고유값들**로 골라야 합니다!
 > - 버려지는 고유값이 가장 작다는 것은, 거꾸로 **우리가 보존하는 앞쪽 $M$개의 고유값 $\lambda_1, \dots, \lambda_M$이 가장 큰 고유값들이어야 함**을 뜻합니다.
 > - 따라서 **"재구성 오차 최소화"와 "사영 분산 최대화"는 완전히 동일한 고유값 분해 문제**입니다!
@@ -301,7 +301,7 @@ $$J_M = \sum_{j=M+1}^D \lambda_j$$
 
 ### [필수 손계산] 작은 2차원 데이터셋으로 PCA 처음부터 끝까지 손계산하기
 
-시험에 가장 직결되는 작은 2차원 데이터셋($N=4, D=2, M=1$)을 이용해 중심화부터 공분산, 고유값/고유벡터, 1차원 좌표 사영, 2차원 공간 복원, 재구성 오차 검산까지 모든 계산 단계를 한 줄도 생략하지 않고 손으로 풀어봅시다.
+작은 2차원 데이터셋($N=4, D=2, M=1$)을 이용해 중심화부터 공분산, 고유값/고유벡터, 1차원 좌표 사영, 2차원 공간 복원, 재구성 오차 검산까지 모든 계산 단계를 한 줄도 생략하지 않고 손으로 풀어봅시다.
 
 #### 문제 설정
 4개의 2차원 데이터 포인트가 주어졌습니다:
@@ -374,7 +374,7 @@ $M=1$이므로 기저 행렬은 $B = b_1 = \frac{1}{\sqrt{2}} \begin{bmatrix} 1 
 
 **사영된 데이터의 표본 분산 검산:**
 $$\begin{aligned} \frac{1}{4} \sum_{n=1}^4 z_n^2 &= \frac{1}{4} \Bigl( \left(-\frac{3}{\sqrt{2}}\right)^2 + 0^2 \\ &\quad + 0^2 + \left(\frac{3}{\sqrt{2}}\right)^2 \Bigr) \\ &= \frac{1}{4} \left( \frac{9}{2} + 0 + 0 + \frac{9}{2} \right) \\ &= \frac{1}{4} (9) = \frac{9}{4} = 2.25 \end{aligned}$$
-사영된 좌표의 분산이 정확히 최대 고유값 $\lambda_1 = 2.25$와 완벽하게 일치합니다!
+사영된 좌표의 분산이 정확히 최대 고유값 $\lambda_1 = 2.25$와 정확히 일치합니다.
 
 ---
 
@@ -382,14 +382,14 @@ $$\begin{aligned} \frac{1}{4} \sum_{n=1}^4 z_n^2 &= \frac{1}{4} \Bigl( \left(-\f
 공식: $\tilde{x}_n = \mu + b_1 z_n$
 - $n=1$:
   $$\tilde{x}_1 = \begin{bmatrix} 2.5 \\ 2.5 \end{bmatrix} + \frac{1}{\sqrt{2}} \begin{bmatrix} 1 \\ 1 \end{bmatrix} \left(-\frac{3}{\sqrt{2}}\right) = \begin{bmatrix} 2.5 \\ 2.5 \end{bmatrix} + \begin{bmatrix} -1.5 \\ -1.5 \end{bmatrix} = \begin{bmatrix} 1 \\ 1 \end{bmatrix}$$
-  (원래 점 $x_1 = [1, 1]^\top$과 오차 없이 완벽 복원!)
+  (원래 점 $x_1 = [1, 1]^\top$과 오차 없이 정확히 복원!)
 - $n=2$:
   $$\tilde{x}_2 = \begin{bmatrix} 2.5 \\ 2.5 \end{bmatrix} + \frac{1}{\sqrt{2}} \begin{bmatrix} 1 \\ 1 \end{bmatrix} (0) = \begin{bmatrix} 2.5 \\ 2.5 \end{bmatrix}$$
 - $n=3$:
   $$\tilde{x}_3 = \begin{bmatrix} 2.5 \\ 2.5 \end{bmatrix} + \frac{1}{\sqrt{2}} \begin{bmatrix} 1 \\ 1 \end{bmatrix} (0) = \begin{bmatrix} 2.5 \\ 2.5 \end{bmatrix}$$
 - $n=4$:
   $$\tilde{x}_4 = \begin{bmatrix} 2.5 \\ 2.5 \end{bmatrix} + \frac{1}{\sqrt{2}} \begin{bmatrix} 1 \\ 1 \end{bmatrix} \left(\frac{3}{\sqrt{2}}\right) = \begin{bmatrix} 2.5 \\ 2.5 \end{bmatrix} + \begin{bmatrix} 1.5 \\ 1.5 \end{bmatrix} = \begin{bmatrix} 4 \\ 4 \end{bmatrix}$$
-  (원래 점 $x_4 = [4, 4]^\top$과 오차 없이 완벽 복원!)
+  (원래 점 $x_4 = [4, 4]^\top$과 오차 없이 정확히 복원!)
 
 ---
 
@@ -405,7 +405,7 @@ $$\begin{aligned} J_1 &= \frac{1}{4} \sum_{n=1}^4 \|x_n - \tilde{x}_n\|^2 \\ &= 
 
 버려진 두 번째 고유값:
 $$\lambda_2 = 0.25$$
-$$J_1 = \lambda_2 = 0.25 \quad (\text{완벽하게 일치!})$$
+$$J_1 = \lambda_2 = 0.25 \quad (\text{일치})$$
 이로써 수식의 모든 이론적 성질이 한 치의 오차도 없이 손계산으로 증명되었습니다!
 
 
@@ -434,7 +434,7 @@ $$\begin{aligned} S &= \frac{1}{N} X X^\top = \frac{1}{N} (U \Sigma V^\top) (U \
 $V$는 직교 행렬이므로 $V^\top V = I_N$으로 소거됩니다:
 $$S = \frac{1}{N} U (\Sigma \Sigma^\top) U^\top = U \left( \frac{1}{N} \Sigma \Sigma^\top \right) U^\top$$
 
-여기서 $\Sigma \Sigma^\top \in \mathbb{R}^{D \times D}$는 완벽한 대각 행렬입니다:
+여기서 $\Sigma \Sigma^\top \in \mathbb{R}^{D \times D}$는 대각 행렬입니다:
 $$\frac{1}{N} \Sigma \Sigma^\top = \text{diag}\left( \frac{\sigma_1^2}{N}, \; \frac{\sigma_2^2}{N}, \; \dots, \; \frac{\sigma_D^2}{N} \right)$$
 
 이것은 정확히 공분산 행렬 $S$의 **스펙트럼 분해(고유값 분해)** $S = U \Lambda U^\top$의 형태입니다!
@@ -477,7 +477,7 @@ $$\begin{aligned} \tilde{X} &= B B^\top X = U_M U_M^\top (U \Sigma V^\top) \\ &=
 - 원소 개수만 1억 개이며, 이 거대한 행렬의 고유값을 계산하는 알고리즘($\mathcal{O}(D^3)$)은 약 $10^{12}$회의 연산을 필요로 하므로 메모리가 터지거나 연산이 멈춥니다.
 - 하지만 데이터 포인트가 $N$개뿐이므로, 이 데이터들이 $D$차원 공간에서 펼쳐낼 수 있는 부분공간의 계수(rank)는 **기껏해야 $N$차원**에 불과합니다. 나머지 $D-N$개의 축 방향으로는 데이터가 전혀 없으므로 분산(고유값)이 정확히 0입니다!
 
-10.5절에서는 이 기하학적 잉여성을 역이용하여, $D \times D$ 행렬 대신 **$N \times N$ 크기의 초소형 행렬**만 풀어서 완벽하게 동일한 PCA 고유벡터를 구해내는 기적의 연산 단축 기법을 다룹니다.
+10.5절에서는 이 기하학적 잉여성을 역이용하여, $D \times D$ 행렬 대신 **$N \times N$ 크기의 작은 행렬**만 풀어서 정확히 동일한 PCA 고유벡터를 구해내는 기적의 연산 단축 기법을 다룹니다.
 
 ---
 
@@ -496,7 +496,7 @@ $$X \left( \frac{1}{N} X^\top X c_m \right) = X (\lambda_m c_m)$$
 $$\left( \frac{1}{N} X X^\top \right) (X c_m) = \lambda_m (X c_m)$$
 $$\therefore S (X c_m) = \lambda_m (X c_m)$$
 
-놀랍게도:
+그러면 다음이 성립한다:
 1. $N \times N$ 행렬 $\frac{1}{N}X^\top X$의 고유값 $\lambda_m$은 $D \times D$ 행렬 $S$의 고유값과 **완전히 동일**합니다!
 2. $S$의 고유벡터 $b_m$은 다름 아닌 **$X c_m$에 비례**합니다!
 
@@ -596,7 +596,7 @@ $$\begin{aligned} S b_1 &= \begin{bmatrix} 1 & 1 & -1 \\ 1 & 1 & -1 \\ -1 & -1 &
 3. **불확실성(Uncertainty) 미반영**: 잠재 좌표 $z$를 오직 단 하나의 점으로만 사영하므로, 사영 위치에 대한 신뢰도를 알 수 없습니다.
 4. **차원 $M$의 확률적 선택 불가**: 주변 가능도(Marginal Likelihood) 개념이 없어 베이지안 모델 선택을 적용할 수 없습니다.
 
-Tipping과 Bishop(1999)이 제안한 **확률적 주성분 분석(Probabilistic PCA, PPCA)**\ 은 표준 PCA를 **가우시안 잠재 변수 생성 모델(Gaussian Latent Variable Model)**\ 로 재해석함으로써 이 모든 한계를 완벽하게 해결합니다.
+Tipping과 Bishop(1999)이 제안한 **확률적 주성분 분석(Probabilistic PCA, PPCA)**\ 은 표준 PCA를 **가우시안 잠재 변수 생성 모델(Gaussian Latent Variable Model)**\ 로 재해석함으로써 이 모든 한계를 정확히 해결합니다.
 
 ```
        [PPCA 그래피컬 모델]
@@ -674,9 +674,7 @@ $$C_z = \sigma^2 (B^\top B + \sigma^2 I_M)^{-1}$$
   즉, 잠재 좌표의 확률적 불확실성이 사라지고 단 하나의 고정된 점으로 붕괴합니다.
 - 사후 평균:
   $$m = \lim_{\sigma^2 \to 0} (B^\top B + \sigma^2 I_M)^{-1} B^\top (x - \mu) = (B^\top B)^{-1} B^\top (x - \mu)$$
-  정규직교 기저 조건 $B^\top B = I_M$을 적용하면:
-  $$m = B^\top (x - \mu)$$
-  이것은 표준 PCA에서 유도했던 **최적 잠재 좌표 $z_n = B^\top (x_n - \mu)$와 완벽하게 일치**합니다!
+  $(B^\top B)^{-1} B^\top (x - \mu)$는 $x-\mu$를 $B$의 열공간에 직교 사영했을 때의 좌표다(3장 사영 공식 $\pi_U(x)=B(B^\top B)^{-1}B^\top x$의 좌표 부분). 주의할 점이 있다. PPCA의 $B$는 정규직교가 아니다. 최대가능도 해가 $B = U_M(\Lambda_M - \sigma^2 I)^{1/2}R$ 꼴(아래 4절)이라 열마다 길이가 다르다. 그래서 $m$ 자체는 PCA 좌표 $U_M^\top(x-\mu)$와 숫자가 다르다(축마다 배율이 다르고 회전 $R$이 붙는다). 하지만 복원한 점 $Bm = B(B^\top B)^{-1}B^\top(x-\mu)$는 같은 부분공간으로의 직교 사영이므로 **PCA의 복원 결과와 같다.** $B$가 정규직교($B^\top B = I_M$)인 특별한 경우에만 $m = B^\top (x - \mu)$로 PCA 좌표와 숫자까지 같아진다. 아래 확인 문제 8이 이 차이를 숫자로 보여 준다.
 
 #### 4. PPCA의 최대가능도 모수 해 (교재 10.8절 식 (10.77)~(10.79), 증명은 Tipping & Bishop 1999)
 로그 주변 가능도 $\sum_{n=1}^N \log p(x_n \mid B, \mu, \sigma^2)$를 최대화하는 모수 해는 닫힌 형태로 정확히 풀립니다:
@@ -687,7 +685,7 @@ $$C_z = \sigma^2 (B^\top B + \sigma^2 I_M)^{-1}$$
   - $\Lambda_M = \text{diag}(\lambda_1, \dots, \lambda_M)$: 상위 $M$개 고유값 대각 행렬
   - $R \in \mathbb{R}^{M \times M}$: 임의의 직교 회전 행렬 ($R R^\top = I_M$)
 
-> **수학적 경이로움**: 노이즈 분산의 MLE 추정량 $\sigma_{ML}^2$이 정확히 **PCA에서 사영하며 버려진 잔여 고유값들의 평균**으로 도출됩니다! 노이즈가 없는 극한($\sigma \to 0$)에서는 $BB^\top$가 데이터 공분산과 같아져 $B = U_M \Lambda_M^{1/2} R$이 됩니다(교재 식 (10.81)). $B$의 열은 고유벡터에 $\sqrt{\lambda}$를 곱한 것이라 정규직교는 아니지만, 열공간이 PCA의 주부분공간과 같으므로 PPCA와 PCA가 같은 답을 줍니다.
+> **의미**: 노이즈 분산의 MLE 추정량 $\sigma_{ML}^2$이 정확히 **PCA에서 사영하며 버려진 잔여 고유값들의 평균**으로 도출됩니다! 노이즈가 없는 극한($\sigma \to 0$)에서는 $BB^\top$가 데이터 공분산과 같아져 $B = U_M \Lambda_M^{1/2} R$이 됩니다(교재 식 (10.81)). $B$의 열은 고유벡터에 $\sqrt{\lambda}$를 곱한 것이라 정규직교는 아니지만, 열공간이 PCA의 주부분공간과 같으므로 PPCA와 PCA가 같은 답을 줍니다.
 
 ---
 
@@ -709,7 +707,7 @@ PCA의 선형적 한계를 극복하고 현대 생성 모델로 나아가는 주
 
 ## 핵심 유도 모음 (시험 대비 백지 유도 연습)
 
-시험장에서 백지에 직접 완벽하게 유도할 수 있어야 하는 10장의 7대 핵심 유도입니다.
+시험장에서 백지에 직접 정확히 유도할 수 있어야 하는 10장의 7대 핵심 유도입니다.
 
 ---
 
@@ -836,7 +834,7 @@ $z \sim \mathcal{N}(0, I_M)$과 $x = Bz + \mu + \epsilon$, $\epsilon \sim \mathc
 ### [유도 7] PPCA 사후분포 $p(z \mid x)$의 Woodbury 역행렬 변환 및 극한
 
 **[목표]**  
-$m = B^\top(BB^\top + \sigma^2 I)^{-1}(x-\mu)$가 $(B^\top B + \sigma^2 I)^{-1}B^\top(x-\mu)$와 같음을 증명하고, $\sigma^2 \to 0$일 때 $B^\top(x-\mu)$로 수렴함을 보인다.
+$m = B^\top(BB^\top + \sigma^2 I)^{-1}(x-\mu)$가 $(B^\top B + \sigma^2 I)^{-1}B^\top(x-\mu)$와 같음을 증명하고, $\sigma^2 \to 0$일 때 $(B^\top B)^{-1}B^\top(x-\mu)$(직교 사영의 좌표)로 수렴함을 보인다.
 
 | 번호 | 수식 전개 단계 | 이 단계가 성립하는 이유 (수학적 근거) |
 | :---: | :--- | :--- |
@@ -849,7 +847,7 @@ $m = B^\top(BB^\top + \sigma^2 I)^{-1}(x-\mu)$가 $(B^\top B + \sigma^2 I)^{-1}B
 | **7** | $(B^\top B + \sigma^2 I_M)^{-1} B^\top = B^\top (B B^\top + \sigma^2 I_D)^{-1}$ | 대칭 행렬의 역행렬은 대칭이므로 전치 기호 제거 (증명 완료) |
 | **8** | $m = (B^\top B + \sigma^2 I_M)^{-1} B^\top (x - \mu)$ | 1단계 식에 7단계 항등식을 대입 |
 | **9** | $\lim_{\sigma^2 \to 0} m = (B^\top B + 0)^{-1} B^\top (x - \mu) = (B^\top B)^{-1} B^\top (x - \mu)$ | 노이즈 분산이 0으로 가는 극한 취함 |
-| **10** | $B^\top B = I_M \implies m = I_M^{-1} B^\top (x - \mu) = B^\top (x - \mu)$ | 표준 PCA의 직교 사영 계수 공식과 완벽하게 일치 $\blacksquare$ |
+| **10** | $Bm = B(B^\top B)^{-1} B^\top (x - \mu)$ | 복원한 점은 $B$의 열공간(= PCA 주부분공간)으로의 직교 사영이라 PCA 복원과 같다. 좌표 $m$이 PCA 좌표와 숫자까지 같은 것은 $B^\top B = I_M$일 때뿐이다 $\blacksquare$ |
 
 
 ---
@@ -932,7 +930,7 @@ $$x_1 = \begin{bmatrix} 1 \\ 2 \end{bmatrix}, \quad x_2 = \begin{bmatrix} 2 \\ 1
    - $\|x_2 - \tilde{x}_2\|^2 = (2 - 1.5)^2 + (1 - 1.5)^2 = 0.25 + 0.25 = 0.5$
    - $\|x_3 - \tilde{x}_3\|^2 = (3 - 3)^2 + (3 - 3)^2 = 0$
    - 평균 오차:
-     $$J_1 = \frac{1}{3} (0.5 + 0.5 + 0) = \frac{1}{3} = \lambda_2 \quad (\text{완벽하게 일치!})$$
+     $$J_1 = \frac{1}{3} (0.5 + 0.5 + 0) = \frac{1}{3} = \lambda_2 \quad (\text{일치})$$
 
 ---
 
@@ -985,7 +983,7 @@ $$x_1 = \begin{bmatrix} 1 \\ 2 \end{bmatrix}, \quad x_2 = \begin{bmatrix} 2 \\ 1
 **[정답 및 풀이]**
 - Eckart-Young-Mirsky 정리(교재 정리 4.25는 스펙트럼 노름으로 서술, 프로베니우스 노름에서도 성립)에 따르면, 임의의 행렬 $X$의 SVD가 $X = \sum_{i=1}^r \sigma_i u_i v_i^\top$일 때, 임의의 계수 $M$ 이하인 행렬 $A$ 중 오차 $\|X - A\|_F^2$를 최소화하는 최적 행렬($\sigma_M > \sigma_{M+1}$이면 유일)은 상위 $M$개의 특이값 성분만 남긴 절단 SVD 행렬 $\tilde{X}_M = \sum_{i=1}^M \sigma_i u_i v_i^\top = U_M \Sigma_M V_M^\top$입니다.
 - PCA에서 데이터를 상위 $M$개 주성분 기저 $B = U_M$으로 사영한 후 복원한 데이터 행렬은 $\tilde{X} = B B^\top X = U_M U_M^\top (U \Sigma V^\top) = U_M \Sigma_M V_M^\top$입니다.
-- 두 행렬이 완벽히 동일하므로, PCA는 데이터 행렬 전체를 계수 $M$인 행렬로 압축할 때 정보 손실(프로베니우스 오차)을 수학적으로 가장 작게 만드는 최적해임이 보장됩니다.
+- 두 행렬이 정확히 동일하므로, PCA는 데이터 행렬 전체를 계수 $M$인 행렬로 압축할 때 정보 손실(프로베니우스 오차)을 수학적으로 가장 작게 만드는 최적해임이 보장됩니다.
 
 ---
 
@@ -1020,7 +1018,7 @@ $$B = \begin{bmatrix} 2 \\ 1 \end{bmatrix}, \quad \mu = \begin{bmatrix} 0 \\ 0 \
    $$m_{\sigma^2 \to 0} = (B^\top B)^{-1} B^\top (x - \mu) = \frac{7}{5} = 1.4$$
    표준 PCA에서 단위 기저 벡터 $b_1 = \frac{B}{\|B\|} = \frac{1}{\sqrt{5}}[2, 1]^\top$ 위로의 사영 좌표는:
    $$z_{PCA} = b_1^\top x = \frac{7}{\sqrt{5}}$$
-   이때 복원 벡터는 $b_1 z_{PCA} = \frac{7}{5}[2, 1]^\top = B m_{\sigma^2 \to 0}$으로 완벽하게 일치합니다!
+   이때 복원 벡터는 $b_1 z_{PCA} = \frac{7}{5}[2, 1]^\top = B m_{\sigma^2 \to 0}$으로 정확히 일치합니다.
 
 ---
 
@@ -1060,7 +1058,7 @@ PPCA의 최대가능도 해에서 노이즈 분산 $\sigma_{ML}^2 = \frac{1}{D -
 ### 교재 예제와 연결한 심화 과제 5선 (Part II에는 장 끝 연습문제가 없음)
 
 > **교재 특이사항 안내**:  
-> MML 교재의 기초수학 파트(Part I, 2~7장)에는 장 끝에 별도의 'Exercises' 절이 번호와 함께 수록되어 있으나, 응용 머신러닝 파트(Part II, 8~12장)는 각 장 끝에 별도의 번호 매겨진 Exercises 절이 없고 바로 'Further Reading'으로 끝납니다. 따라서 본 해설서에서는 시험 대비를 위해 10장 본문 전체를 관통하는 핵심 예제(Example) 및 핵심 심화 과제 5선을 엄선하여 질문 요약과 풀이 방향을 완벽히 제시합니다.
+> MML 교재의 기초수학 파트(Part I, 2~7장)에는 장 끝에 별도의 'Exercises' 절이 번호와 함께 수록되어 있으나, 응용 머신러닝 파트(Part II, 8~12장)는 각 장 끝에 별도의 번호 매겨진 Exercises 절이 없고 바로 'Further Reading'으로 끝납니다. 따라서 본 해설서에서는 시험 대비를 위해 10장 본문 전체를 관통하는 핵심 예제(Example) 및 핵심 심화 과제 5선을 엄선하여 질문 요약과 풀이 방향을 정확히 제시합니다.
 
 ---
 

@@ -207,7 +207,7 @@ $(\nabla f(x))^\top = \begin{bmatrix} x_1 \\ 10x_2 \end{bmatrix}$입니다.
    직전 스텝의 관성($-1.0$)의 절반인 $-0.5$가 살아남아 $x_2$가 음수 쪽으로 살짝 이동했습니다. 다음 스텝에서는 양수 방향 그래디언트가 발생하여 이 관성을 브레이크 걸어주게 됩니다.
 
 #### 헷갈리는 점 / 자주 하는 실수
-- **부호 정의**: 식을 어떻게 정의하느냐에 따라 $\Delta x$를 속도 $v_t$로 정의하고 $x_{t+1} = x_t + v_{t+1}$로 쓸 수도 있고, 뺄셈 형태로 쓸 수도 있습니다. MML 교재(식 (7.14))에서는 이동량을 더하는 형태 $\Delta x_{t+1} = \alpha \Delta x_t - \gamma (\nabla f(x_t))^\top$, $x_{t+1} = x_t + \Delta x_{t+1}$을 표준으로 채택합니다.
+- **부호 정의**: 식을 어떻게 정의하느냐에 따라 $\Delta x$를 속도 $v_t$로 정의하고 $x_{t+1} = x_t + v_{t+1}$로 쓸 수도 있고, 뺄셈 형태로 쓸 수도 있습니다. MML 교재(식 (7.11)~(7.12))는 $x_{i+1} = x_i - \gamma_i (\nabla f(x_i))^\top + \alpha \Delta x_i$, $\Delta x_i = x_i - x_{i-1}$로 쓴다. 이것은 이동량 $\Delta x_{t+1} = \alpha \Delta x_t - \gamma (\nabla f(x_t))^\top$을 구해서 $x_{t+1} = x_t + \Delta x_{t+1}$로 더하는 것과 같은 식이다.
 
 ---
 
@@ -342,7 +342,7 @@ MML 7장은 이 네 조건을 이름 붙여 정리하지 않고 라그랑지안�
 ---
 
 ### 12장 서포트 벡터 머신(SVM)과의 필연적 연결
-이 KKT 상보 여유성 조건은 **12장 서포트 벡터 머신(SVM)**\ 을 완벽하게 관통하는 핵심 원리입니다!
+이 KKT 상보 여유성 조건은 **12장 서포트 벡터 머신(SVM)**\ 에서 그대로 다시 쓰이는 원리입니다.
 SVM에서 데이터를 분류하는 마진 제약조건은 다음과 같습니다:
 $$g_n(w, b) = 1 - y_n(w^\top x_n + b) \le 0$$
 이 제약에 대한 라그랑주 승수를 $\alpha_n \ge 0$이라 할 때, 상보 여유성 조건은:
@@ -379,7 +379,7 @@ $$\begin{aligned} &\min_{x_1, x_2} f(x_1, x_2) = (x_1 - 3)^2 + (x_2 - 4)^2 \\ &\
      해의 좌표:
      $$x_1^* = 3 - \frac{2}{2} = 2, \quad x_2^* = 4 - \frac{2}{2} = 3$$
      최솟값: $f(2, 3) = (2 - 3)^2 + (3 - 4)^2 = 1 + 1 = 2$.
-     완벽하게 유일한 최적해 $(x_1^*, x_2^*) = (2, 3)$, $\lambda^* = 2$를 도출했습니다.
+     정확히 유일한 최적해 $(x_1^*, x_2^*) = (2, 3)$, $\lambda^* = 2$를 도출했습니다.
 
 ---
 
@@ -387,10 +387,10 @@ $$\begin{aligned} &\min_{x_1, x_2} f(x_1, x_2) = (x_1 - 3)^2 + (x_2 - 4)^2 \\ &\
 
 ### 왜 필요한가 (직관)
 일반적인 최적화 문제에서는 컴퓨터가 찾은 해가 "진짜 지구상에서 가장 낮은 곳(전역 최적해)"인지, 아니면 "단지 근처 웅덩이(국소 최적해)"에 불과한지 판별하기가 수학적으로 불가능에 가깝습니다.
-하지만 문제가 **볼록 최적화(Convex Optimization)** 범주에 속한다면 기적이 일어납니다:
+하지만 문제가 **볼록 최적화(Convex Optimization)** 범주에 속한다면 다음이 성립합니다:
 > **"어떤 국소 최솟값(local minimum)도 예외 없이 전역 최솟값(global minimum)이다!"**
 
-즉, 경사하강법이든 어떤 알고리즘이든 기울기가 0인 지점에 도달하기만 하면, 그것이 곧 전체 우주에서 가장 완벽한 최적해임이 보장됩니다. 이것이 머신러닝 연구자들이 문제를 어떻게든 볼록 문제로 공식화하려고 애쓰는 이유입니다.
+즉, 경사하강법이든 어떤 알고리즘이든 기울기가 0인 지점에 도달하기만 하면, 그것이 곧 전역 최적해임이 보장됩니다. 이것이 머신러닝 연구자들이 문제를 어떻게든 볼록 문제로 공식화하려고 애쓰는 이유입니다.
 
 ### 정의와 성질
 
@@ -416,7 +416,7 @@ $$\begin{aligned} &f(\theta x + (1 - \theta) y) \\ &\le \theta f(x) + (1 - \thet
 ---
 
 ### 라그랑주 쌍대성 이론 (Lagrangian Duality Theory)
-볼록 최적화의 가장 깊고 아름다운 이론은 바로 **원 문제(Primal Problem)**\ 와 **쌍대 문제(Dual Problem)**\ 의 관계입니다.
+볼록 최적화의 중심 이론은 **원 문제(Primal Problem)**\ 와 **쌍대 문제(Dual Problem)**\ 의 관계입니다.
 
 #### 원 문제 (Primal Problem)
 $$\begin{aligned} &\min_{x \in \mathbb{R}^D} f(x) \\ &\text{subject to} \quad g_i(x) \le 0 \; (i=1,\dots,m), \\ &\quad h_j(x) = 0 \; (j=1,\dots,p) \end{aligned}$$
@@ -426,14 +426,14 @@ $$\begin{aligned} \mathfrak{L}(x, \lambda, \nu) &= f(x) + \sum_{i=1}^m \lambda_i
 $$\min_x \max_{\lambda \ge 0, \nu} \mathfrak{L}(x, \lambda, \nu)$$
 - 만약 어떤 $x$가 제약을 위반하면(예: $g_i(x) > 0$), $\lambda_i \to \infty$로 보내버려 내부의 최댓값이 $+\infty$가 됩니다.
 - 반면 제약을 모두 만족하면 $\lambda_i g_i(x) \le 0$이므로 $\lambda_i=0$일 때 최댓값 $f(x)$가 남습니다.
-- 따라서 불가능한 영역에는 무한대의 벌점을 주어 자연스럽게 원 문제와 완벽히 동치가 됩니다!
+- 따라서 불가능한 영역에는 무한대의 벌점을 주어 자연스럽게 원 문제와 정확히 동치가 됩니다!
 
 #### 쌍대 함수와 쌍대 문제 (Dual Problem)
 이제 $\min$과 $\max$의 순서를 바꾸어 봅시다:
 $$\max_{\lambda \ge 0, \nu} \min_x \mathfrak{L}(x, \lambda, \nu)$$
 1. **라그랑주 쌍대 함수 (Lagrange Dual Function)**:
    $$\mathfrak{D}(\lambda, \nu) = \inf_{x} \mathfrak{L}(x, \lambda, \nu)$$
-   - **경이로운 성질**: 원래 목적함수 $f(x)$가 볼록 함수이든 아니든 상관없이, 쌍대 함수 $\mathfrak{D}(\lambda, \nu)$는 $(\lambda, \nu)$에 대해 **항상 오목 함수(Concave Function)**\ 입니다! (아핀 함수들의 인피멈(infimum)이기 때문입니다).
+   - **중요한 성질**: 원래 목적함수 $f(x)$가 볼록 함수이든 아니든 상관없이, 쌍대 함수 $\mathfrak{D}(\lambda, \nu)$는 $(\lambda, \nu)$에 대해 **항상 오목 함수(Concave Function)**\ 입니다! (아핀 함수들의 인피멈(infimum)이기 때문입니다).
 2. **라그랑주 쌍대 문제 (Lagrange Dual Problem)**:
    $$\max_{\lambda \ge 0, \nu} \mathfrak{D}(\lambda, \nu)$$
    오목 함수를 최대화하는 문제이므로, **쌍대 문제는 언제나 볼록 최적화 문제**가 됩니다!
@@ -442,14 +442,14 @@ $$\max_{\lambda \ge 0, \nu} \min_x \mathfrak{L}(x, \lambda, \nu)$$
 - **약쌍대성 (Weak Duality)**:
   어떤 최적화 문제이든, 쌍대 문제의 최적값 $d^*$는 항상 원 문제의 최적값 $p^*$ 이하입니다:
   $$d^* \le p^*$$
-  (최소의 최댓값은 최대의 최솟값보다 작거나 같다는 $\max \min \le \min \max$ 부등식에 의해 항상 성립).
+  근거는 최소최대 부등식(교재 식 (7.23), (7.27))이다: $\max_{\lambda\ge0}\min_x \mathfrak{L}(x,\lambda) \le \min_x\max_{\lambda\ge0} \mathfrak{L}(x,\lambda)$. 왼쪽("먼저 $x$로 최소화한 값들 가운데 가장 큰 값")이 쌍대 최적값 $d^*$이고, 오른쪽("먼저 $\lambda$로 최대화한 값들 가운데 가장 작은 값")이 원 문제 최적값 $p^*$이다. 오른쪽이 원 문제인 이유: 제약을 어기는 $x$에서는 $\max_\lambda$가 $+\infty$가 되고, 지키는 $x$에서는 $f(x)$가 되기 때문이다(교재 식 (7.25)).
   - 차이 $p^* - d^* \ge 0$를 **쌍대성 간극(Duality Gap)**\ 이라 부릅니다.
 - **강쌍대성 (Strong Duality)**:
   쌍대성 간극이 0이 되어 두 문제의 최적값이 완전히 일치하는 상태입니다:
   $$d^* = p^*$$
 - **슬레이터 조건 (Slater's Condition)** (교재 밖 보충. 교재 7.3은 "목적함수가 볼록이고 제약이 볼록 집합이면 강쌍대성이 성립한다"고만 서술한다):
   원 문제가 볼록 최적화이고, 모든 부등식 제약을 엄격히 만족하는 점이 적어도 하나 존재하면($\exists x \text{ s.t. } g_i(x) < 0$), **강쌍대성이 반드시 성립**합니다.
-  강쌍대성이 성립하면, 복잡한 원 문제 대신 다루기 쉬운 쌍대 문제를 풀어 원래의 최적해를 완벽히 복원할 수 있습니다!
+  강쌍대성이 성립하면, 복잡한 원 문제 대신 다루기 쉬운 쌍대 문제를 풀어 원래의 최적해를 정확히 복원할 수 있습니다!
 
 ---
 
@@ -530,7 +530,8 @@ $$f^*(\alpha) = \sup_{y} \left( \alpha^\top y - \frac{\lambda}{2} y^\top K^{-1} 
    $$= \frac{1}{\lambda} \alpha^\top K \alpha - \frac{1}{2\lambda} \alpha^\top K \alpha = \frac{1}{2\lambda} \alpha^\top K \alpha$$
    아주 깔끔하게 2차 형식의 켤레 함수가 다시 역행렬의 역행렬($K$)을 갖는 2차 형식이 됨을 확인할 수 있습니다!
 
-#### 펜첼 쌍대성 정리 (Fenchel Duality Theorem, 교재 예제 7.8)
+#### 펜첼 쌍대성 정리 (Fenchel Duality Theorem, 교재 예제 7.9, 식 (7.64)~(7.68))
+(교재 예제 7.8은 손실 합의 볼록 켤레 $L^*(z)=\sum_i \ell_i^*(z_i)$이고, 아래 결과는 그다음 예제 7.9에서 라그랑주 승수로 유도한다.)
 머신러닝 목적함수가 두 함수의 합 $f(Ax) + g(x)$ 형태로 주어질 때:
 $$\begin{aligned} &\min_x f(Ax) + g(x) \\ &= \max_u -f^*(u) - g^*(-A^\top u) \end{aligned}$$
 이 정리는 복잡한 정규화 문제(예: Lasso, Ridge)를 분해하여 쌍대 공간에서 매우 효율적으로 풀 수 있게 해주는 강력한 이론적 토대입니다.
@@ -914,7 +915,7 @@ $f(x) = \frac{1}{2}x^2$에 대해 $f^*(s) = \frac{1}{2}s^2$이다.
 | **경사하강법 갱신** | $x_{t+1} = x_t - \gamma (\nabla f(x_t))^\top$ | 전치 취해 열벡터 일치, 음의 그래디언트 방향 이동 |
 | **최적 고정 보폭** | $\gamma^* = \frac{2}{\lambda_{\min} + \lambda_{\max}}$ | 2차 문제에서 오차 수축률 $\frac{\kappa - 1}{\kappa + 1}$ 최소화 |
 | **발산 방지 상한** | $\gamma < \frac{2}{\lambda_{\max}}$ | 최대 고유값(곡률)의 역수의 2배 초과 시 발산 |
-| **모멘텀 갱신** | $\Delta x_{t+1} = \alpha \Delta x_t - \gamma (\nabla f(x_t))^\top$ | 직전 이동을 기억해 진동을 줄임 (식 7.14) |
+| **모멘텀 갱신** | $\Delta x_{t+1} = \alpha \Delta x_t - \gamma (\nabla f(x_t))^\top$ | 직전 이동을 기억해 진동을 줄임 (식 7.11~7.12) |
 | **Robbins-Monro** (교재 밖) | $\sum \gamma_t = \infty, \quad \sum \gamma_t^2 < \infty$ | SGD 수렴 보장 조건, 예 $\gamma_t=c/t$ |
 | **KKT 4대 조건** (교재 밖) | 1. $\nabla_x \mathfrak{L} = 0$, 2. $g_i \le 0$, 3. $\lambda_i \ge 0$, 4. $\lambda_i g_i = 0$ | 볼록 문제(+ 제약 자격 조건)에서 최적성의 필요충분조건 |
 | **약쌍대성/강쌍대성** | $d^* \le p^*$ (약), $d^* = p^*$ (강) | 약쌍대성은 최소최대 부등식에서 나옴. 볼록 문제면 강쌍대성(교재 7.3) |

@@ -332,7 +332,7 @@ $$\begin{aligned} \mathbb{V}[\boldsymbol{y}] &= \mathbb{V}[A\boldsymbol{x} + \bo
   - $(5-1)^2 = 16, (5-3)^2 = 4, (5-5)^2 = 0$
   합: $0 + 4 + 16 + 4 + 0 + 4 + 16 + 4 + 0 = 48$.
   $$\mathbb{V}[X] = \frac{1}{2N^2} \sum_{i,j} (x_i - x_j)^2 = \frac{1}{2 \times 3^2} \times 48 = \frac{48}{18} = \frac{8}{3}$$
-  세 공식 모두 $\frac{8}{3}$로 완벽히 일치한다!
+  세 공식 모두 $\frac{8}{3}$로 정확히 일치한다!
 
 #### [예제 4-2] 2차원 아핀 변환의 평균과 공분산 계산
 $\boldsymbol{\mu} = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$, $\Sigma = \begin{bmatrix} 2 & 1 \\ 1 & 3 \end{bmatrix}$인 확률변수 $\boldsymbol{x}$에 대하여, $\boldsymbol{y} = A\boldsymbol{x} + \boldsymbol{b}$ (단, $A = \begin{bmatrix} 1 & -1 \\ 2 & 0 \end{bmatrix}$, $\boldsymbol{b} = \begin{bmatrix} 3 \\ -1 \end{bmatrix}$)의 평균 $\boldsymbol{\mu}_{\boldsymbol{y}}$와 공분산 $\Sigma_{\boldsymbol{y}}$를 구하라.
@@ -345,7 +345,7 @@ $\boldsymbol{\mu} = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$, $\Sigma = \begin{bmat
 
   $$\begin{aligned} \Sigma_{\boldsymbol{y}} &= \begin{bmatrix} 1 & -2 \\ 4 & 2 \end{bmatrix} \begin{bmatrix} 1 & 2 \\ -1 & 0 \end{bmatrix} \\ &= \begin{bmatrix} 1(1) + (-2)(-1) & 1(2) + (-2)(0) \\ 4(1) + 2(-1) & 4(2) + 2(0) \end{bmatrix} \\ &= \begin{bmatrix} 3 & 2 \\ 2 & 8 \end{bmatrix} \end{aligned}$$
 
-  결과 $\Sigma_{\boldsymbol{y}} = \begin{bmatrix} 3 & 2 \\ 2 & 8 \end{bmatrix}$는 완벽한 대칭행렬이며 양의 정부호($\det = 24 - 4 = 20 > 0$)이다!
+  결과 $\Sigma_{\boldsymbol{y}} = \begin{bmatrix} 3 & 2 \\ 2 & 8 \end{bmatrix}$는 대칭행렬이며 양의 정부호($\det = 24 - 4 = 20 > 0$)이다!
 
 ### 헷갈리는 점 / 자주 하는 실수
 - **무상관을 독립으로 단정하는 실수**: $X \sim \text{Uniform}(-1, 1)$이고 $Y = X^2$이면 $\text{Cov}[X, Y] = \mathbb{E}[X^3] - \mathbb{E}[X]\mathbb{E}[X^2] = 0 - 0 = 0$으로 무상관이지만, $Y$는 $X$에 의해 완전히 결정되므로 명백히 종속이다.
@@ -355,9 +355,9 @@ $\boldsymbol{\mu} = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$, $\Sigma = \begin{bmat
 ## 6.5 가우시안 분포(Gaussian Distribution, 교재 197~204쪽) — 핵심 중점
 
 ### 왜 필요한가 (직관)
-머신러닝과 통계학에서 가우시안(정규분포)이 황제 대접을 받는 이유는 두 가지다.
+머신러닝과 통계학에서 가우시안(정규분포)이 널리 쓰이는 이유는 두 가지다.
 1. **중심극한정리(CLT)**: 서로 독립인 무수한 미세 오차들이 합쳐지면 그 합은 원래 분포가 무엇이든 가우시안으로 수렴한다. 현실 세계의 거의 모든 잡음(noise)이 가우시안을 띠는 이유다.
-2. **해석적 다루기 쉬움(Analytical Tractability)**: 가우시안 분포는 **미적분과 선형대수 연산에 대해 '완벽하게 닫혀(closed)' 있다**. 가우시안의 일부를 잘라내도(주변분포), 어떤 값을 관측하여 조건을 걸어도(조건부분포), 행렬을 곱해 선형변환을 해도, 두 가우시안 밀도를 곱해도 **결과는 언제나 다시 가우시안**이다! 이 성질 덕분에 9장의 베이지안 선형 회귀와 11장의 GMM에서 모든 사후분포를 컴퓨터의 복잡한 수치 적분 없이 종이와 연필로 닫힌 형태(closed form)로 유도할 수 있다.
+2. **해석적 다루기 쉬움(Analytical Tractability)**: 가우시안 분포는 **미적분과 선형대수 연산에 대해 '정확히 닫혀(closed)' 있다**. 가우시안의 일부를 잘라내도(주변분포), 어떤 값을 관측하여 조건을 걸어도(조건부분포), 행렬을 곱해 선형변환을 해도, 두 가우시안 밀도를 곱해도 **결과는 언제나 다시 가우시안**이다! 이 성질 덕분에 9장의 베이지안 선형 회귀와 11장의 GMM에서 모든 사후분포를 컴퓨터의 복잡한 수치 적분 없이 종이와 연필로 닫힌 형태(closed form)로 유도할 수 있다.
 
 ### 정의와 성질
 
@@ -415,7 +415,7 @@ $$\begin{aligned} c &= \mathcal{N}(\boldsymbol{a} \mid \boldsymbol{b}, A + B) \\
 2. 표준정규분포로부터 $D$차원 벡터 $\boldsymbol{z} \sim \mathcal{N}(\mathbf{0}, I)$를 추출한다.
 3. 선형 변환을 적용한다:
    $$\boldsymbol{x} = \boldsymbol{\mu} + L\boldsymbol{z}$$
-   분산 검산: $\mathbb{V}[\boldsymbol{x}] = L \mathbb{V}[\boldsymbol{z}] L^\top = L I L^\top = L L^\top = \Sigma$. 완벽하다!
+   분산 검산: $\mathbb{V}[\boldsymbol{x}] = L \mathbb{V}[\boldsymbol{z}] L^\top = L I L^\top = L L^\top = \Sigma$. 맞다.
 
 ### 손으로 풀어 보는 예제
 
@@ -498,7 +498,7 @@ $$p(\theta \mid x) = \frac{p(x \mid \theta) p(\theta)}{\int p(x \mid \theta') p(
    - $\beta$: 사전에 관측했다고 믿는 '가상의 뒷면 횟수 (Pseudo-count)'
 
 #### 3. 6.6.2 충분통계량(Sufficient Statistics)과 피셔-네이만 정리
-- **정의**: 데이터 $x$가 모수 $\theta$에 대해 제공하는 모든 정보를 완벽히 압축하고 있는 함수 $\phi(x)$를 **충분통계량**이라 부른다.
+- **정의**: 데이터 $x$가 모수 $\theta$에 대해 제공하는 모든 정보를 정확히 압축하고 있는 함수 $\phi(x)$를 **충분통계량**이라 부른다.
 - **피셔-네이만 인수분해 정리(Fisher-Neyman Factorization Theorem)**:
   통계량 $\phi(x)$가 모수 $\theta$에 대해 충분통계량일 필요충분조건은 우도함수가 다음과 같이 분해되는 것이다:
   $$p(x \mid \theta) = h(x) g_\theta(\phi(x))$$
@@ -517,8 +517,8 @@ $$\begin{aligned} p(x \mid \boldsymbol{\theta}) &= h(x) \exp\left( \langle \bold
   확률의 총합이 1이 되도록 만드는 정규화 상수의 로그값:
   $$A(\boldsymbol{\theta}) = \ln \int h(x) \exp(\boldsymbol{\theta}^\top \boldsymbol{\phi}(x)) dx$$
 
-#### 5. 지수족 로그 분할함수의 미분과 모멘트
-지수족에서 평균과 분산을 구할 때 복잡한 적분을 할 필요가 없다. **로그 분할함수 $A(\boldsymbol{\theta})$를 미분하기만 하면 평균과 공분산이 자동으로 튀어나온다!**
+#### 5. 지수족 로그 분할함수의 미분과 모멘트 (교재 밖 보충)
+교재에는 없는 성질이다. 로그 분할함수 $A(\boldsymbol{\theta})$를 미분하면 충분통계량의 평균과 공분산이 나온다(증명은 핵심 유도 2).
 1. **1계 도함수 = 충분통계량의 기댓값**:
    $$\nabla_{\boldsymbol{\theta}} A(\boldsymbol{\theta}) = \mathbb{E}[\boldsymbol{\phi}(x)]$$
 2. **2계 도함수 = 충분통계량의 공분산 행렬**:
@@ -549,7 +549,7 @@ $$\begin{aligned} p(x \mid \boldsymbol{\theta}) &= h(x) \exp\left( \langle \bold
   정확히 $\mathbb{E}[\phi(x)] = \mathbb{E}[x] = \mu$가 유도되었다!
   2계 도함수:
   $$\frac{d^2 A}{d\theta^2} = \frac{d}{d\theta} \left(\frac{e^\theta}{1+e^\theta}\right) = \frac{e^\theta(1+e^\theta) - (e^\theta)^2}{(1+e^\theta)^2} = \frac{e^\theta}{(1+e^\theta)^2} = \mu(1-\mu) = \mathbb{V}[x]$$
-  분산까지 완벽하게 한 번의 미분으로 유도된다.
+  분산까지 정확히 한 번의 미분으로 유도된다.
 
 #### [예제 6-2] 베타-이항 켤레 사후분포 수치 업데이트
 동전의 앞면 확률 $\mu$에 대해 사전 믿음으로 $\mu \sim \text{Beta}(2, 2)$ (평균 $\frac{2}{2+2} = 0.5$)를 가지고 있었다. 동전을 10번 던져 앞면이 7번, 뒷면이 3번 나왔다 ($N=10, h=7$).
@@ -600,7 +600,7 @@ $$\begin{aligned} p(x \mid \boldsymbol{\theta}) &= h(x) \exp\left( \langle \bold
 #### 3. 정리 6.15 확률적분변환 (Probability Integral Transformation)
 - 연속 확률변수 $X$가 CDF $F_X(x)$를 가질 때, 새로운 확률변수 $Y := F_X(X)$는 **구간 $(0, 1)$ 위의 균등분포 $\text{Uniform}(0, 1)$**\ 를 따른다!
 - **역변환 샘플링(Inverse Transform Sampling)**:
-  반대로 컴퓨터에서 균등분포 난수 $U \sim \text{Uniform}(0, 1)$를 뽑은 뒤, 원하는 분포의 역누적분포함수 $X = F_X^{-1}(U)$에 대입하면 우리가 원하는 임의의 확률분포 $X$의 샘플을 완벽하게 생성할 수 있다!
+  반대로 컴퓨터에서 균등분포 난수 $U \sim \text{Uniform}(0, 1)$를 뽑은 뒤, 원하는 분포의 역누적분포함수 $X = F_X^{-1}(U)$에 대입하면 우리가 원하는 임의의 확률분포 $X$의 샘플을 정확히 생성할 수 있다!
 
 ### 손으로 풀어 보는 예제
 
@@ -614,7 +614,7 @@ $$\begin{aligned} p(x \mid \boldsymbol{\theta}) &= h(x) \exp\left( \langle \bold
   $$1 - U = e^{-\lambda X} \implies \ln(1 - U) = -\lambda X \implies X = -\frac{1}{\lambda} \ln(1 - U)$$
 - **4단계 (단순화)**:
   $U$가 $\text{Uniform}(0, 1)$이면 $1 - U$ 역시 정확히 $\text{Uniform}(0, 1)$을 따른다.
-  따라서 컴퓨터에서 표준 균등 난수 $u$를 뽑아 $x = -\frac{1}{\lambda} \ln(u)$를 계산하면 완벽한 지수분포 난수가 생성된다!
+  따라서 컴퓨터에서 표준 균등 난수 $u$를 뽑아 $x = -\frac{1}{\lambda} \ln(u)$를 계산하면 지수분포 난수가 생성된다!
 
 ### 헷갈리는 점 / 자주 하는 실수
 - **야코비안 행렬식의 전치/역수 혼동**: 변환 후 밀도 $f_Y(y)$를 구할 때는 $y$에 대한 $x$의 편미분 행렬식 $\left| \det\left(\frac{\partial x}{\partial y}\right) \right|$를 곱하거나, $x$에 대한 $y$의 편미분 행렬식의 역수 $\frac{1}{|\det(\partial y / \partial x)|}$를 곱해야 한다.
@@ -663,7 +663,8 @@ $$\begin{aligned} p(x \mid \boldsymbol{\theta}) &= h(x) \exp\left( \langle \bold
 
 ---
 
-### [유도 2] 지수족 로그 분할함수의 미분이 기댓값과 분산임을 증명
+### [유도 2] 지수족 로그 분할함수의 미분이 기댓값과 분산임을 증명 (교재 밖 보충)
+> 교재 6.6.3절은 로그 분할함수 $A(\boldsymbol{\theta})$를 "정규화 상수"로만 소개하고, 아래 성질은 다루지 않는다. 지수족을 깊이 물을 때 쓸 수 있는 참고 내용이다.
 - **목표**: $p(x \mid \boldsymbol{\theta}) = h(x) \exp(\boldsymbol{\theta}^\top \boldsymbol{\phi}(x) - A(\boldsymbol{\theta}))$에 대하여 $\nabla_{\boldsymbol{\theta}} A(\boldsymbol{\theta}) = \mathbb{E}[\boldsymbol{\phi}(x)]$, $\nabla_{\boldsymbol{\theta}}^2 A(\boldsymbol{\theta}) = \mathbb{V}[\boldsymbol{\phi}(x)]$임을 증명한다.
 
 1. **확률의 총합이 1이라는 항등식에서 출발**:
@@ -696,11 +697,27 @@ $$\begin{aligned} p(x \mid \boldsymbol{\theta}) &= h(x) \exp\left( \langle \bold
 3. **새로운 분산 $C = (A^{-1} + B^{-1})^{-1}$ 및 평균 $c_0 = C(A^{-1}a + B^{-1}b)$로 제곱 완성**:
    $$x^\top C^{-1} x - 2 x^\top C^{-1} c_0 = (x - c_0)^\top C^{-1} (x - c_0) - c_0^\top C^{-1} c_0$$
 4. **남은 상수 항 정리**:
-   $$E = -\frac{1}{2} (x - c_0)^\top C^{-1} (x - c_0) - \frac{1}{2} \Big( a^\top A^{-1} a + b^\top B^{-1} b - c_0^\top C^{-1} c_0 \Big)$$
-   선형대수적 항등식에 의해 뒤쪽의 상수 항은 다음과 같이 묶인다:
-   $$a^\top A^{-1} a + b^\top B^{-1} b - c_0^\top C^{-1} c_0 = (a - b)^\top (A + B)^{-1} (a - b)$$
+   $$E = -\frac{1}{2} (x - c_0)^\top C^{-1} (x - c_0) - \frac{1}{2} K,$$
+   $$K := a^\top A^{-1} a + b^\top B^{-1} b - c_0^\top C^{-1} c_0$$
+   $K$에는 $x$가 없으므로 상수다. 이제 $K = (a - b)^\top (A + B)^{-1} (a - b)$임을 보인다. ($A$, $B$는 공분산이라 대칭이고 역행렬이 있다고 둔다.)
+   - **(가) $C$를 다른 모양으로 쓰기.** $A^{-1}+B^{-1}$의 양쪽에서 $A^{-1}$과 $B^{-1}$을 빼내면
+     $$A^{-1}+B^{-1} = A^{-1}(B + A)B^{-1}$$
+     이다(오른쪽을 전개하면 $A^{-1}BB^{-1} + A^{-1}AB^{-1} = A^{-1} + B^{-1}$). 곱의 역행렬은 순서를 뒤집은 역행렬의 곱이므로
+     $$C = (A^{-1}+B^{-1})^{-1} = B(A+B)^{-1}A.$$
+     같은 방법으로 $A^{-1}+B^{-1} = B^{-1}(A+B)A^{-1}$로 묶으면 $C = A(A+B)^{-1}B$도 된다.
+   - **(나) 세 가지 보조 등식.** (가)의 두 모양 중 계산이 줄어드는 쪽을 골라 쓴다. $C = B(A+B)^{-1}A$를 쓰면 오른쪽 끝의 $AA^{-1}$이 지워져
+     $$A^{-1}CA^{-1} = A^{-1}B(A+B)^{-1}AA^{-1} = A^{-1}B(A+B)^{-1}$$
+     이므로 $A^{-1} - A^{-1}CA^{-1} = A^{-1}\big[(A+B) - B\big](A+B)^{-1} = (A+B)^{-1}$. 같은 방법으로 $B^{-1} - B^{-1}CB^{-1} = B^{-1}\big[(A+B)-A\big](A+B)^{-1} = (A+B)^{-1}$. 그리고 $A^{-1}CB^{-1} = A^{-1}\,A(A+B)^{-1}B\,B^{-1} = (A+B)^{-1}$.
+   - **(다) $c_0^\top C^{-1}c_0$ 펼치기.** $c_0 = C(A^{-1}a + B^{-1}b)$이므로 $C^{-1}c_0 = A^{-1}a + B^{-1}b$이고
+     $$c_0^\top C^{-1} c_0 = (A^{-1}a + B^{-1}b)^\top C (A^{-1}a + B^{-1}b) = a^\top A^{-1}CA^{-1}a + 2a^\top A^{-1}CB^{-1}b + b^\top B^{-1}CB^{-1}b.$$
+     (가운데 두 교차항 $a^\top A^{-1}CB^{-1}b$와 $b^\top B^{-1}CA^{-1}a$는 서로의 전치인 스칼라라 같아서 2배로 합쳤다.)
+   - **(라) 대입.** $K$에 (다)를 넣고 같은 벡터끼리 묶은 뒤 (나)를 쓰면
+     $$K = a^\top\big(A^{-1} - A^{-1}CA^{-1}\big)a + b^\top\big(B^{-1} - B^{-1}CB^{-1}\big)b - 2a^\top A^{-1}CB^{-1}b$$
+     $$= a^\top(A+B)^{-1}a + b^\top(A+B)^{-1}b - 2a^\top(A+B)^{-1}b = (a-b)^\top(A+B)^{-1}(a-b).$$
 5. **정규화 상수와 결합**:
-   앞쪽의 계수 $\frac{1}{(2\pi)^{D/2}|A|^{1/2}} \frac{1}{(2\pi)^{D/2}|B|^{1/2}}$와 지수부의 잔여 상수항이 결합하여 정확히 $c = \mathcal{N}(a \mid b, A + B)$가 됨이 확인된다. $\quad \text{(증명 완료)}$
+   두 밀도의 앞 계수를 곱하면 $(2\pi)^{-D}|A|^{-1/2}|B|^{-1/2}$이다. (가)의 $C = A(A+B)^{-1}B$에서 행렬식을 취하면 $|C| = |A|\,|B|\,/\,|A+B|$, 즉 $|A|\,|B| = |C|\,|A+B|$이다. 그래서 계수를 둘로 나눌 수 있다:
+   $$(2\pi)^{-D}|A|^{-1/2}|B|^{-1/2} = \Big[(2\pi)^{-D/2}|A+B|^{-1/2}\Big]\Big[(2\pi)^{-D/2}|C|^{-1/2}\Big].$$
+   첫째 괄호와 $\exp(-\frac12 K)$를 묶으면 $c = (2\pi)^{-D/2}|A+B|^{-1/2}\exp\big(-\frac12(a-b)^\top(A+B)^{-1}(a-b)\big) = \mathcal{N}(a \mid b, A + B)$이고, 둘째 괄호와 $\exp(-\frac12(x-c_0)^\top C^{-1}(x-c_0))$를 묶으면 $\mathcal{N}(x \mid c_0, C)$다(교재 식 (6.74)~(6.76)). $\quad \text{(증명 완료)}$
 
 ---
 
@@ -824,7 +841,7 @@ $p_1(x) = \mathcal{N}(x \mid 0, 2)$와 $p_2(x) = \mathcal{N}(x \mid 4, 2)$의 �
      - 충분통계량: $\phi(x) = x$
      - 자연 매개변수: $\theta = \ln\lambda \implies \lambda = e^\theta$
      - 로그 분할함수: $A(\theta) = \lambda = e^\theta$
-  3. 검산: $\frac{dA}{d\theta} = e^\theta = \lambda = \mathbb{E}[x]$. 완벽하다!
+  3. 검산: $\frac{dA}{d\theta} = e^\theta = \lambda = \mathbb{E}[x]$. 맞다.
   답: $\theta = \ln\lambda$, $A(\theta) = e^\theta$.
 
 #### [문제 7] (확률변수의 변수 변환 PDF 구하기)
@@ -870,7 +887,7 @@ $N$번의 시행 중 성공 횟수 $x$에 대한 이항분포 $p(x \mid N, \mu) 
      - $\phi(x) = x$
      - $\theta = \ln\left(\frac{\mu}{1-\mu}\right)$
      - $A(\theta) = N \ln(1 + e^\theta)$
-  4. 도함수 확인: $\frac{dA}{d\theta} = N \frac{e^\theta}{1+e^\theta} = N\mu = \mathbb{E}[x]$. 완벽하다!
+  4. 도함수 확인: $\frac{dA}{d\theta} = N \frac{e^\theta}{1+e^\theta} = N\mu = \mathbb{E}[x]$. 맞다.
   답: $\theta = \ln\frac{\mu}{1-\mu}$, $A(\theta) = N\ln(1+e^\theta)$.
 
 ---
@@ -973,15 +990,18 @@ $N$번의 시행 중 성공 횟수 $x$에 대한 이항분포 $p(x \mid N, \mu) 
   $$= \int_x x \left( \int_y p(x, y) dy \right) dx = \int_x x p(x) dx = \mathbb{E}_X[X] \quad \text{(증명 완료)}$$
 
 #### Exercise 6.12 (가우시안 확률변수의 선형 조작과 사후분포)
-- **문제 요약**: $\boldsymbol{x} \sim \mathcal{N}(\boldsymbol{\mu}_x, \Sigma_x)$, $\boldsymbol{y} = A\boldsymbol{x} + \boldsymbol{b} + \boldsymbol{w}$ ($\boldsymbol{w} \sim \mathcal{N}(0, Q)$)에 대해 우도 $p(\boldsymbol{y} \mid \boldsymbol{x})$, 주변분포 $p(\boldsymbol{y})$, 그리고 관측치 $\boldsymbol{y} = \hat{\boldsymbol{y}}$가 주어졌을 때 사후분포 $p(\boldsymbol{x} \mid \hat{\boldsymbol{y}})$를 유도하라.
+- **문제 요약**: $\boldsymbol{x} \sim \mathcal{N}(\boldsymbol{\mu}_x, \Sigma_x)$, $\boldsymbol{y} = A\boldsymbol{x} + \boldsymbol{b} + \boldsymbol{w}$ ($\boldsymbol{w} \sim \mathcal{N}(0, Q)$, $\boldsymbol{x}$와 독립)일 때 (a) 우도 $p(\boldsymbol{y} \mid \boldsymbol{x})$, (b) 주변분포 $p(\boldsymbol{y})$, (c) $\boldsymbol{z} = C\boldsymbol{y} + \boldsymbol{v}$의 $p(\boldsymbol{z}\mid\boldsymbol{y})$와 $p(\boldsymbol{z})$, (d) 관측값 $\hat{\boldsymbol{y}}$가 주어졌을 때 사후분포 $p(\boldsymbol{x} \mid \hat{\boldsymbol{y}})$를 구하라.
 - **풀이**:
-  1. 우도: $p(\boldsymbol{y} \mid \boldsymbol{x}) = \mathcal{N}(\boldsymbol{y} \mid A\boldsymbol{x} + \boldsymbol{b}, Q)$.
-  2. 주변분포: $\mathbb{E}[\boldsymbol{y}] = A\boldsymbol{\mu}_x + \boldsymbol{b} + \mathbb{E}[\boldsymbol{w}] = A\boldsymbol{\mu}_x + \boldsymbol{b}$, $\mathbb{V}[\boldsymbol{y}] = A\Sigma_x A^\top + Q$($\boldsymbol{x}$와 $\boldsymbol{w}$가 독립이라 교차항이 0) $\implies p(\boldsymbol{y}) = \mathcal{N}(A\boldsymbol{\mu}_x + \boldsymbol{b}, A\Sigma_x A^\top + Q)$.
-  - (c) 측정 사상 $\boldsymbol{z} = C\boldsymbol{y} + \boldsymbol{v}$, $\boldsymbol{v} \sim \mathcal{N}(\mathbf{0}, R)$: $p(\boldsymbol{z} \mid \boldsymbol{y}) = \mathcal{N}(\boldsymbol{z} \mid C\boldsymbol{y}, R)$이고, (b)와 같은 방법으로 $p(\boldsymbol{z}) = \mathcal{N}(C\boldsymbol{\mu}_y, \; C\Sigma_y C^\top + R)$이다. 여기서 $\boldsymbol{\mu}_y = A\boldsymbol{\mu}_x + \boldsymbol{b}$, $\Sigma_y = A\Sigma_x A^\top + Q$.
-  - (d) 아래 3~4단계: 관측값 $\hat{\boldsymbol{y}}$가 주어진 사후분포.
-  3. 결합분포: 교차 공분산 $\text{Cov}[\boldsymbol{x}, \boldsymbol{y}] = \Sigma_x A^\top$.
+  - (a) $\boldsymbol{x}$를 고정하면 $A\boldsymbol{x} + \boldsymbol{b}$는 상수이고 무작위인 것은 $\boldsymbol{w}$뿐이다. 상수를 더하면 평균만 옮겨지므로 $p(\boldsymbol{y} \mid \boldsymbol{x}) = \mathcal{N}(\boldsymbol{y} \mid A\boldsymbol{x} + \boldsymbol{b}, Q)$.
+  - (b) 평균: 기댓값은 선형이라 $\mathbb{E}[\boldsymbol{y}] = A\mathbb{E}[\boldsymbol{x}] + \boldsymbol{b} + \mathbb{E}[\boldsymbol{w}] = A\boldsymbol{\mu}_x + \boldsymbol{b}$. 분산: $\boldsymbol{y}$에서 평균을 빼면 $\boldsymbol{u} + \boldsymbol{w}$, $\boldsymbol{u} := A(\boldsymbol{x}-\boldsymbol{\mu}_x)$이므로
+    $$\mathbb{V}[\boldsymbol{y}] = \mathbb{E}[(\boldsymbol{u}+\boldsymbol{w})(\boldsymbol{u}+\boldsymbol{w})^\top] = \mathbb{E}[\boldsymbol{u}\boldsymbol{u}^\top] + \mathbb{E}[\boldsymbol{u}\boldsymbol{w}^\top] + \mathbb{E}[\boldsymbol{w}\boldsymbol{u}^\top] + \mathbb{E}[\boldsymbol{w}\boldsymbol{w}^\top].$$
+    첫 항은 $A\,\mathbb{E}[(\boldsymbol{x}-\boldsymbol{\mu}_x)(\boldsymbol{x}-\boldsymbol{\mu}_x)^\top]A^\top = A\Sigma_x A^\top$, 마지막 항은 $Q$다. 가운데 두 항은 $\boldsymbol{x}$와 $\boldsymbol{w}$가 독립이라 $\mathbb{E}[\boldsymbol{u}]\,\mathbb{E}[\boldsymbol{w}]^\top = 0$이다. 따라서 $p(\boldsymbol{y}) = \mathcal{N}(\boldsymbol{\mu}_y, \Sigma_y)$, $\boldsymbol{\mu}_y = A\boldsymbol{\mu}_x + \boldsymbol{b}$, $\Sigma_y = A\Sigma_x A^\top + Q$.
+  - (c) (a)와 같은 이유로 $p(\boldsymbol{z} \mid \boldsymbol{y}) = \mathcal{N}(\boldsymbol{z} \mid C\boldsymbol{y}, R)$이고, (b)와 같은 계산을 $\boldsymbol{y}$에서 한 번 더 하면 $p(\boldsymbol{z}) = \mathcal{N}(C\boldsymbol{\mu}_y, \; C\Sigma_y C^\top + R)$이다.
+  - (d) 교재 힌트대로 결합분포를 먼저 만든다. 교차 공분산은
+    $$\text{Cov}[\boldsymbol{x}, \boldsymbol{y}] = \mathbb{E}[(\boldsymbol{x}-\boldsymbol{\mu}_x)(\boldsymbol{u} + \boldsymbol{w})^\top] = \mathbb{E}[(\boldsymbol{x}-\boldsymbol{\mu}_x)(\boldsymbol{x}-\boldsymbol{\mu}_x)^\top]A^\top + \mathbb{E}[(\boldsymbol{x}-\boldsymbol{\mu}_x)\boldsymbol{w}^\top] = \Sigma_x A^\top + 0$$
+    이고 $\text{Cov}[\boldsymbol{y}, \boldsymbol{x}]$는 그 전치 $A\Sigma_x$다. 그래서
      $$\begin{aligned} &\begin{bmatrix} \boldsymbol{x} \\ \boldsymbol{y} \end{bmatrix} \sim \mathcal{N}\biggl( \begin{bmatrix} \boldsymbol{\mu}_x \\ A\boldsymbol{\mu}_x + \boldsymbol{b} \end{bmatrix}, \\ &\quad \begin{bmatrix} \Sigma_x & \Sigma_x A^\top \\ A\Sigma_x & A\Sigma_x A^\top + Q \end{bmatrix} \biggr) \end{aligned}$$
-  4. 조건부 가우시안 공식 적용:
+    조건부 가우시안 공식($a=\boldsymbol{x}$, $b=\boldsymbol{y}$, $\Sigma_{ab}=\Sigma_xA^\top$, $\Sigma_{bb}=\Sigma_y$)에 넣으면:
      $$\boldsymbol{\mu}_{x \mid \hat{y}} = \boldsymbol{\mu}_x + \Sigma_x A^\top (A\Sigma_x A^\top + Q)^{-1} (\hat{\boldsymbol{y}} - A\boldsymbol{\mu}_x - \boldsymbol{b})$$
      $$\Sigma_{x \mid \hat{y}} = \Sigma_x - \Sigma_x A^\top (A\Sigma_x A^\top + Q)^{-1} A\Sigma_x$$
 

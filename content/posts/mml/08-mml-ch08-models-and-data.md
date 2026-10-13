@@ -67,10 +67,10 @@ flowchart TD
 
 ### 절별 중요도 안내
 - **8.1 데이터, 모델, 그리고 학습 (★★)**: 머신러닝의 용어와 기호 체계를 통일하는 총론 도입부입니다.
-- **8.2 경험적 위험 최소화 (★★★)**: 머신러닝을 최적화 관점으로 보는 핵심 프레임워크. $L_1/L_2$ 정규화의 기하학적 비교와 교차검증은 모든 시험의 핵심 개념입니다.
-- **8.3 파라미터 추정 (★★★)**: MLE와 OLS의 동치성, MAP와 Ridge/Lasso의 동치성 유도는 대학원 구술 및 필기시험에서 가장 빈출되는 표준 증명입니다.
+- **8.2 경험적 위험 최소화 (★★★)**: 머신러닝을 최적화 관점으로 보는 핵심 프레임워크. $L_1/L_2$ 정규화의 기하학적 비교와 교차검증이 핵심 개념입니다.
+- **8.3 파라미터 추정 (★★★)**: MLE와 최소제곱의 동치성, MAP와 Ridge/Lasso의 동치성 유도가 이 장의 중심 유도입니다.
 - **8.4 확률적 모델링과 추론 (★★★)**: 점추정(MLE/MAP)과 분포추정(Bayesian)의 근본적 차이, 불확실성(Aleatoric vs Epistemic)의 개념, 잠재변수 모델의 주변화 적분을 명확히 이해해야 10~11장을 정복할 수 있습니다.
-- **8.5 방향성 그래프 모델 (★★★)**: V-구조(Collider)에서 조건화 시 오히려 독립성이 깨지는 'Explaining away' 현상과 d-분리 판정법은 단골 고난도 기출 문제입니다.
+- **8.5 방향성 그래프 모델 (★★★)**: V-구조(Collider)에서 조건화 시 오히려 독립성이 깨지는 'Explaining away' 현상과 d-분리 판정법이 핵심입니다.
 - **8.6 모델 선택 (★★)**: 베이지안 오컴의 면도날 원리와 AIC/BIC의 페널티 항 유도는 모델의 복잡도 제어에 대한 깊은 통찰을 요구합니다.
 
 ---
@@ -119,7 +119,7 @@ $$\hat{y} = f(x; \theta)$$
 ### 8.1.3 확률 분포로서의 모델 (Models as Probability Distributions, 256~257쪽)
 
 #### 왜 확률적 모델인가?
-현실 세계의 데이터는 결코 완벽한 수학 함수대로 움직이지 않습니다. 동일한 환자에게 동일한 약을 투여해도 혈압 변화가 다를 수 있으며, 센서에는 항상 물리적 잡음(noise)이 낍니다.
+현실 세계의 데이터는 결코 수학 함수대로 정확히 움직이지 않습니다. 동일한 환자에게 동일한 약을 투여해도 혈압 변화가 다를 수 있으며, 센서에는 항상 물리적 잡음(noise)이 낍니다.
 따라서 입출력 관계를 단순한 함수 $y = f(x)$가 아니라 **조건부 확률 분포(Conditional Probability Distribution)**\ 로 표현하는 것이 훨씬 정직하고 유연합니다:
 $$p(y \mid x, \theta)$$
 
@@ -169,7 +169,7 @@ $$f \in \mathcal{H}$$
 #### 유도 편향 (Inductive Bias)과 모델 복잡도
 우리가 특정 가설 공간을 선택하는 행위 자체가 "세상의 법칙은 아마 이러이러한 형태일 것이다"라는 사전 가정, 즉 **유도 편향(inductive bias)**\ 을 주입하는 것입니다.
 - **과소적합 (Underfitting)**: 가설 공간 $\mathcal{H}$가 너무 단순하여(예: 구불구불한 3차 곡선 데이터에 1차 직선 모델을 고집함) 훈련 데이터의 기본 패턴조차 학습하지 못하고 높은 편향(bias)을 갖는 현상.
-- **과적합 (Overfitting)**: 가설 공간 $\mathcal{H}$가 너무 복잡하여(예: 데이터 10개에 9차 다항식을 적용함) 데이터에 포함된 무작위 노이즈까지 완벽하게 외워버려 훈련 오차는 0이지만 새로운 시험 데이터에서는 엉망이 되는 현상.
+- **과적합 (Overfitting)**: 가설 공간 $\mathcal{H}$가 너무 복잡하여(예: 데이터 10개에 9차 다항식을 적용함) 데이터에 포함된 무작위 노이즈까지 그대로 외워 버려 훈련 오차는 0이지만 새로운 시험 데이터에서는 엉망이 되는 현상.
 
 ---
 
@@ -260,7 +260,7 @@ ERM이 손실 함수를 사람이 임의로 골라 최적화하는 공학적 접
 3. **음의 로그 우도 (Negative Log-Likelihood, NLL)**:
    최대화 문제를 최적화 표준인 최소화 문제로 바꾸기 위해 마이너스를 붙입니다:
    $$\mathcal{L}(\theta) = -\sum_{n=1}^N \log p(x_n \mid \theta)$$
-   **NLL은 ERM의 손실 함수 $\ell(x_n, \theta) = -\log p(x_n \mid \theta)$와 완벽히 대응됩니다!**
+   **NLL은 ERM의 손실 함수 $\ell(x_n, \theta) = -\log p(x_n \mid \theta)$와 정확히 대응됩니다!**
 4. **MLE 공식**:
    $$\theta_{\text{ML}} = \arg\max_\theta p(\mathcal{D} \mid \theta) = \arg\min_\theta \mathcal{L}(\theta)$$
 
@@ -285,12 +285,12 @@ $$\begin{aligned} \theta_{\text{MAP}} &= \arg\max_\theta p(\theta \mid \mathcal{
 부호를 바꾸어 최소화 문제로 쓰면:
 $$\begin{aligned} \theta_{\text{MAP}} &= \arg\min_\theta \Bigl[ \underbrace{-\sum_{n=1}^N \log p(x_n \mid \theta)}_{\text{NLL (경험적 오차)}} \\ &\quad + \underbrace{(-\log p(\theta))}_{\text{사전분포에 의한 벌점}} \Bigr] \end{aligned}$$
 
-#### 경이로운 연결: 사전분포는 정규화 항과 완벽히 동치이다!
+#### 연결: 가우시안 사전분포의 MAP 추정은 L2 정규화와 같다
 - **가우시안 사전분포 $\theta \sim \mathcal{N}(0, \sigma_0^2 I)$**:
   $$-\log p(\theta) = \frac{1}{2\sigma_0^2} \|\theta\|_2^2 + \text{const} \iff L_2 \text{ 정규화 (Ridge)!}$$
 - **라플라스 사전분포 $p(\theta) \propto \exp\left(-\frac{\|\theta\|_1}{b}\right)$**:
   $$-\log p(\theta) = \frac{1}{b} \|\theta\|_1 + \text{const} \iff L_1 \text{ 정규화 (Lasso)!}$$
-즉, ERM에서 직관적으로 도입했던 정규화 항 $\lambda \Omega(\theta)$는 확률론적 세계관에서 **파라미터의 사전분포 $-\log p(\theta)$와 수학적으로 완벽히 동일한 실체**였던 것입니다!
+즉, ERM에서 직관적으로 도입했던 정규화 항 $\lambda \Omega(\theta)$는 확률론적 세계관에서 **파라미터의 사전분포 $-\log p(\theta)$와 수학적으로 정확히 동일한 실체**였던 것입니다!
 
 ---
 
@@ -335,7 +335,7 @@ $$p(\mathcal{D}) = \int p(\mathcal{D} \mid \theta) p(\theta) \, d\theta$$
 #### 2. 사후 예측 분포 (Posterior Predictive Distribution)
 새로운 입력 $x_*$가 들어왔을 때 타깃 $y_*$를 예측할 때, 베이지안은 단 하나의 $\theta$를 대입하지 않고 **사후분포 $p(\theta \mid \mathcal{D})$를 가중치로 삼아 가능한 모든 $\theta$의 예측을 평균(앙상블)** 냅니다:
 $$\begin{aligned} &p(y_* \mid x_*, \mathcal{D}) \\ &= \int p(y_* \mid x_*, \theta) p(\theta \mid \mathcal{D}) \, d\theta \end{aligned}$$
-이 적분을 거치면 예측값은 더 이상 파라미터 $\theta$에 의존하지 않고 오직 데이터 $\mathcal{D}$에만 조건화되며, 예측 평균뿐만 아니라 **예측의 신뢰 구간(분산)**\ 까지 완벽하게 함께 얻을 수 있습니다!
+이 적분을 거치면 예측값은 더 이상 파라미터 $\theta$에 의존하지 않고 오직 데이터 $\mathcal{D}$에만 조건화되며, 예측 평균뿐만 아니라 **예측의 신뢰 구간(분산)**\ 까지 정확히 함께 얻을 수 있습니다!
 
 ---
 
@@ -391,7 +391,7 @@ $$p(x_1, x_2, \dots, x_K) = \prod_{k=1}^K p(x_k \mid \text{pa}_k)$$
 3. **공통 효과 / V-구조 (Head-to-Head / Collider)**: $A \to B \leftarrow C$
    - 두 독립적인 원인 $A, C$가 하나의 결과 $B$를 초래합니다.
    - **$B$를 모를 때**: 두 원인은 서로 아무 상관이 없습니다! 따라서 **$A$와 $C$는 무조건부 독립**입니다 ($A \perp C$).
-   - **$B$(또는 $B$의 자손)가 주어졌을 때(관측됨)**: 놀랍게도 **경로가 열리며 $A$와 $C$는 종속이 됩니다!** ($A \not\perp C \mid B$).
+   - **$B$(또는 $B$의 자손)가 주어졌을 때(관측됨)**: **경로가 열리며 $A$와 $C$는 종속이 됩니다!** ($A \not\perp C \mid B$).
    - **Explaining Away 현상 직관**: 잔디가 젖어있는 사건($B$)의 원인이 비($A$)와 스프링클러($C$)라고 합시다. 평소에 비와 스프링클러는 독립입니다. 하지만 잔디가 젖어있는 것을 본 상태에서($B$ 관측), 하늘을 보니 폭우가 내렸다는 사실($A$)을 알게 되면 스프링클러가 틀어졌을 확률($C$)은 급격히 낮아집니다. 한 원인이 다른 원인의 필요성을 설명해 없애버리기(explain away) 때문에 두 원인이 종속이 되는 것입니다!
 
 #### d-분리 판정 알고리즘
@@ -781,7 +781,7 @@ $$\underbrace{\frac{p(M_1 \mid \mathcal{D})}{p(M_2 \mid \mathcal{D})}}_{\text{�
 |---|---|---|---|---|
 | **경험적 위험 최소화 (ERM)** | $\min_\theta \frac{1}{N}\sum \ell(y_n, f(x_n)) + \lambda\Omega(\theta)$ | 경사하강법 등 연속 최적화 | 확률 가정 불필요, 빠르고 직관적 | 불확실성 표현 불가, 손실함수 주관성 |
 | **최대우도/최대사후 (MLE/MAP)** | $\max_\theta p(\mathcal{D} \mid \theta)$ 또는 $\max_\theta p(\mathcal{D} \mid \theta)p(\theta)$ | NLL 최소화 (점추정) | 확률적 해석 가능, 사전분포로 정규화 | 점추정에 불과, 과적합 위험 잔존 |
-| **베이지안 추론 (Bayesian)** | $p(\theta \mid \mathcal{D}) = \frac{p(\mathcal{D} \mid \theta)p(\theta)}{p(\mathcal{D})}$ | 사후분포 계산 및 사후 예측 적분 | 완벽한 불확실성 표현, 자동 오컴의 면도날 | 고차원 적분 계산의 극심한 난해성 |
+| **베이지안 추론 (Bayesian)** | $p(\theta \mid \mathcal{D}) = \frac{p(\mathcal{D} \mid \theta)p(\theta)}{p(\mathcal{D})}$ | 사후분포 계산 및 사후 예측 적분 | 완전한 불확실성 표현, 자동 오컴의 면도날 | 고차원 적분 계산의 극심한 난해성 |
 
 ### 2. d-분리 3대 모티프 판정 체크리스트
 - **Tail-to-Head (연쇄, $A \to B \to C$)**:
