@@ -25,7 +25,7 @@
 
 ### MML 장별 상세 해설
 
-Deisenroth, Faisal, Ong의 *Mathematics for Machine Learning* 2~12장을 장마다 한 편씩 풀어 쓴 해설이다. 장마다 손계산 예제, 핵심 유도, 말로 설명하기, 연습문제 풀이, 요약이 있다. 원고는 `content/posts/mml/`에 있다.
+Deisenroth, Faisal, Ong의 *Mathematics for Machine Learning* 2~12장을 장마다 한 편씩 풀어 쓴 해설이다. 장마다 손계산 예제, 핵심 유도, 말로 설명하기, 연습문제 풀이, 요약이 있다. 13편은 2~7장 교재 연습문제 75개의 단계별 전체 풀이다. 원고는 `content/posts/mml/`에 있다.
 
 | 편 | 제목 |
 |---|---|
@@ -41,6 +41,7 @@ Deisenroth, Faisal, Ong의 *Mathematics for Machine Learning* 2~12장을 장마�
 | 10 | [MML 10장 PCA: 분산 최대화, 재구성 오차, 확률적 PCA](https://qofo.github.io/posts/mml-ch10-pca/) |
 | 11 | [MML 11장 GMM: 가우시안 혼합 모델과 EM 알고리즘](https://qofo.github.io/posts/mml-ch11-gmm-em/) |
 | 12 | [MML 12장 SVM: 마진, 쌍대 문제, 커널](https://qofo.github.io/posts/mml-ch12-svm/) |
+| 13 | [MML 교재 연습문제 전체 풀이: 2~7장 75문제](https://qofo.github.io/posts/mml-exercise-solutions/) |
 
 ## 구조
 
