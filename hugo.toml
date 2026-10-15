@@ -7,6 +7,9 @@ title = "qofo.log"
 theme = "PaperMod"
 enableRobotsTXT = true
 disableHugoGeneratorInject = true
+# Rendering every formula at build time (transform.ToMath) takes the phone longer than
+# Hugo's 1-minute page limit when its cache is empty: MML part 13 timed out (2026-10-15).
+timeout = "300s"
 # No timeZone: the phone's Ubuntu has no tzdata, so Hugo there rejects "Asia/Seoul".
 # Posts carry dates without times, so UTC shows the same dates.
 
