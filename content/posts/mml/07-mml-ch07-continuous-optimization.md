@@ -923,11 +923,12 @@ $f(x) = \frac{1}{2}x^2$에 대해 $f^*(s) = \frac{1}{2}s^2$이다.
 | **Fenchel-Young** | $\langle s, x \rangle \le f(x) + f^*(s)$ | 등호 성립 조건: $s = \nabla f(x)$ |
 
 ### 2. KKT 상보 여유성 판정 체크리스트
-- $\lambda_i^* = 0 \implies g_i(x^*) \le 0$ (제약이 활동하지 않음, 최적해는 내부 해)
-- $g_i(x^*) = 0 \implies \lambda_i^* \ge 0$ (제약이 활동 중, 최적해는 경계 해, $-\nabla f$가 경계 밖을 향함)
+- $g_i(x^*) < 0$ (제약이 느슨함) $\implies \lambda_i^* = 0$
+- $\lambda_i^* > 0 \implies g_i(x^*) = 0$ (제약이 꽉 낌, 최적해가 경계 위)
+- $g_i(x^*) = 0$이면서 $\lambda_i^* = 0$인 경우도 있다. 그래서 "경계 위에 있다"만으로 승수가 양수라고 할 수 없다.
 - **12장 SVM 연계 판정**:
   - 마진 밖 안전한 점: $y_n(w^\top x_n + b) > 1 \implies \alpha_n = 0$ (서포트 벡터 아님)
-  - 마진 경계 위의 점: $y_n(w^\top x_n + b) = 1 \implies \alpha_n > 0$ (**서포트 벡터!**)
+  - 서포트 벡터: $\alpha_n > 0 \implies y_n(w^\top x_n + b) = 1$ (하드 마진에서는 마진 경계 위). 거꾸로 경계 위의 점이라도 $\alpha_n = 0$일 수 있다.
 
 ### 3. 볼록 최적화 원 문제 vs 쌍대 문제 매핑
 - **선형 계획법 (LP)**:

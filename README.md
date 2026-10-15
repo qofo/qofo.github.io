@@ -25,7 +25,7 @@
 
 ### MML 장별 상세 해설
 
-Deisenroth, Faisal, Ong의 *Mathematics for Machine Learning* 2~12장을 장마다 한 편씩 풀어 쓴 해설이다. 장마다 손계산 예제, 핵심 유도, 말로 설명하기, 연습문제 풀이, 요약이 있다. 13편은 2~7장 교재 연습문제 75개의 단계별 전체 풀이다. 교재에 장 끝 문제가 없는 8~12장은 교재를 따라 문제를 만들어 14편(문제)과 15편(답과 풀이)으로 나눴다. 16편과 17편은 과목당 60분에 맞춘 실전 모의고사(기본 계산 위주의 A형, 영어 지문·증명 위주의 B형)와 그 풀이다. 원고는 `content/posts/mml/`에 있다.
+Deisenroth, Faisal, Ong의 *Mathematics for Machine Learning* 2~12장을 장마다 한 편씩 풀어 쓴 해설이다. 장마다 손계산 예제, 핵심 유도, 말로 설명하기, 연습문제 풀이, 요약이 있다. 13편은 2~7장 교재 연습문제 75개의 단계별 전체 풀이다. 교재에 장 끝 문제가 없는 8~12장은 교재를 따라 문제를 만들어 14편(문제)과 15편(답과 풀이)으로 나눴다. 16편과 17편은 과목당 60분에 맞춘 실전 모의고사(기본 계산 위주의 A형, 영어 지문·증명 위주의 B형)와 그 풀이다. 18편은 시험 직전에 볼 공식·조건·증명 뼈대를 한 편에 모은 최종 정리다. 원고는 `content/posts/mml/`에 있다.
 
 | 편 | 제목 |
 |---|---|
@@ -46,6 +46,7 @@ Deisenroth, Faisal, Ong의 *Mathematics for Machine Learning* 2~12장을 장마�
 | 15 | [MML 8~12장 연습문제 풀이: 답과 단계별 풀이](https://qofo.github.io/posts/mml-ch08-12-solutions/) |
 | 16 | [MML 실전 모의고사: 기초수학·기초 AI 60분 세트](https://qofo.github.io/posts/mml-mock-exams/) |
 | 17 | [MML 실전 모의고사 풀이: 답과 단계별 풀이](https://qofo.github.io/posts/mml-mock-exam-solutions/) |
+| 18 | [MML 시험 직전 최종 정리: 공식, 조건, 증명 뼈대](https://qofo.github.io/posts/mml-final-review/) |
 
 ## 구조
 
