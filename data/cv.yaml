@@ -37,8 +37,6 @@ sections:
       - title: 아주대학교 소프트웨어학과 학사
         sub: 소프트웨어및컴퓨터공학 심화과정
         date: 2021.03 – 2027.02 (졸업 예정)
-        items:
-          - 평점 4.00 / 4.5 · 학부 학년 석차 39 / 347 · 병역필
 
   - title: 논문
     entries:
@@ -91,34 +89,10 @@ sections:
         date: 2026.03 – 2026.06
         items:
           - LLM 에이전트 구조 4종(Monolithic, Master-Worker, Queue-Based, Swarm)을 같은 환경에 구현해 처리량, 지연 시간, 큐 대기 시간을 측정하고, 워커 장애를 주입해 구조별로 비교함
-      - title: 문서 이해와 식별 기반 RAG 미세조정
-        sub: AI집중교육2 과목 팀 프로젝트
-        date: 2025.11 – 2025.12
-        items:
-          - RAG용 미세조정 기법인 RAFT와 Test-Time Training을 HotPotQA에서 Llama-2-7B·QLoRA로 구현해 비교함
 
-  - title: 어학 · 자격 · 교육
-    compact: true
-    rows:
-      - label: 어학
-        text: TOEIC 795
-        date: 2026.07
-      - label: 자격증
-        text: 정보처리기사
-        date: 2026.06
-      - label: 교육
-        text: Security Engineering on AWS 과정 수료
-        date: 2025.11
-      # No label: the row above already says 교육
-      - text: SK AI Data Academy 중급 과정 우수 학습자 수료
-        date: 2024.08
-
-  - title: 대외활동 · 수상
+  - title: 대외활동
     compact: true
     rows:
       - label: 소학회
         text: 클라우드 소학회 아올다 인프라팀. 교내 클라우드 운영, VM 내부 지표 수집 파이프라인 구현
         date: 2026.03 – 2026.07
-      - label: 수상
-        text: SKT FLY AI Challenger 8기 수료, 팀 최우수상 (SK텔레콤)
-        date: 2026.02
