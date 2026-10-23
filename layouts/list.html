@@ -1,10 +1,15 @@
 {{- define "main" }}
 
-{{- if (and site.Params.profileMode.enabled .IsHome) }}
+{{- /* CHANGED FROM THE THEME: the home page is the CV (home.html), and the blog's front
+     page moved to /blog/ (content/posts/_index.md, layout "blog"). $home stands for "the
+     blog's front page" below, where the theme wrote .IsHome. */}}
+{{- $home := or .IsHome (eq .Layout "blog") }}
+
+{{- if (and site.Params.profileMode.enabled $home) }}
 {{- partial "index_profile.html" . }}
 {{- else }} {{/* if not profileMode */}}
 
-{{- if not .IsHome | and .Title }}
+{{- if not $home | and .Title }}
 <header class="page-header">
   {{- partial "breadcrumbs.html" . }}
   <h1>
@@ -40,7 +45,7 @@
 
 {{- $pages := union .RegularPages .Sections }}
 
-{{- if .IsHome }}
+{{- if $home }}
 {{- $pages = where site.RegularPages "Type" "in" site.Params.mainSections }}
 {{- $pages = where $pages "Params.hiddenInHomeList" "!=" "true"  }}
 {{- end }}
@@ -51,7 +56,7 @@
      before part 4. */}}
 {{- $paginator := .Paginate $pages.ByDate.Reverse }}
 
-{{- if and .IsHome site.Params.homeInfoParams (eq $paginator.PageNumber 1) }}
+{{- if and $home site.Params.homeInfoParams (eq $paginator.PageNumber 1) }}
 {{- partial "home_info.html" . }}
 {{- end }}
 
@@ -61,7 +66,7 @@
 {{- $class := "post-entry" }}
 
 {{- $user_preferred := or site.Params.disableSpecial1stPost site.Params.homeInfoParams }}
-{{- if (and $.IsHome (eq $paginator.PageNumber 1) (eq $index 0) (not $user_preferred)) }}
+{{- if (and $home (eq $paginator.PageNumber 1) (eq $index 0) (not $user_preferred)) }}
 {{- $class = "first-entry" }}
 {{- else if $term }}
 {{- $class = "post-entry tag-entry" }}
@@ -87,9 +92,9 @@
   <div class="entry-content">
     {{- /* CHANGED FROM THE THEME: every post carries a description written for the list, so
          it is used instead of the first 70 words of the body. The theme's summary stays as
-         the fallback. This, the sort order above and the tags line in the footer below are
-         the only edits in this file; when PaperMod is updated, copy
-         themes/PaperMod/layouts/list.html over it again and re-apply just those three. */}}
+         the fallback. This, $home at the top, the sort order above and the tags line in
+         the footer below are the only edits in this file; when PaperMod is updated, copy
+         themes/PaperMod/layouts/list.html over it again and re-apply just those four. */}}
     <p>{{ with .Description }}{{ . }}{{ else }}{{ $.Summary | plainify | htmlUnescape }}{{ if $.Truncated }}...{{ end }}{{ end }}</p>
   </div>
   {{- end }}

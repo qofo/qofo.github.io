@@ -3,12 +3,16 @@
      font is read only here; visitors never download it. Returns the image resource. */ -}}
 {{- $base := resources.Get "images/og-base.png" }}
 {{- $font := resources.Get "fonts/Pretendard-Bold.ttf" }}
-{{- /* A post: series and part (or else its category path) / title / blog name. Any other
-     page: blog name / its description. */ -}}
+{{- /* A post: series and part (or else its category path) / title / blog name. The home
+     page, which is the CV: "CV" / its title, the owner's name / the site's address. Any
+     other page, the blog's front page included: blog name / its description. */ -}}
 {{- $kicker := "" }}
 {{- $title := site.Title }}
 {{- $footer := "qofo.github.io" }}
-{{- if eq .Section "posts" }}
+{{- if .IsHome }}
+  {{- $kicker = "CV" }}
+  {{- $title = .Title }}
+{{- else if and (eq .Section "posts") (ne .Layout "blog") }}
   {{- $title = .Title }}
   {{- $footer = printf "%s · qofo.github.io" site.Title }}
   {{- with .Params.categories }}{{ $kicker = delimit (complement (slice "") .) " › " }}{{ end }}

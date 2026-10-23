@@ -1,6 +1,8 @@
 {{- /* Old links shared before the move to Hugo pointed at /#post=<file id> and /#dashboard.
-     site.js reads this map and redirects; it is only needed on the page those links land on. */}}
-{{- if .IsHome }}
+     site.js reads this map and redirects; it is only needed on the page those links land on.
+     Those links were the phone's (GitHub Pages began with Hugo), and the home page is the CV
+     now, which lists nothing of the blog, so only the phone build carries the map. */}}
+{{- if and .IsHome (eq site.Params.origin "phone") }}
 {{- $legacy := dict }}
 {{- with site.GetPage "/dashboard" }}{{ $legacy = dict "dashboard" .RelPermalink }}{{ end }}
 {{- range where site.RegularPages "Section" "posts" }}
@@ -10,12 +12,15 @@
 <script type="application/json" id="legacy-links">{{ $legacy | jsonify | safeJS }}</script>
 {{- end }}
 
-{{- /* Every page: the legacy redirect above (home only) and the "/" search shortcut */}}
+{{- /* Every page: the legacy redirect above (home only) and the "/" search shortcut. The
+     search is the blog's, so on the CV at the root "/" leads nowhere. */}}
 {{- $js := resources.Get "js/site.js" | minify | fingerprint }}
-<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" data-search="{{ with site.GetPage "/search" }}{{ .RelPermalink }}{{ end }}" defer></script>
+<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" data-search="{{ if not .IsHome }}{{ with site.GetPage "/search" }}{{ .RelPermalink }}{{ end }}{{ end }}" defer></script>
 
-{{- /* Live numbers exist only where the dashboard page does, which is the phone build */}}
-{{- if and (site.GetPage "/dashboard") (or .IsHome (eq .Layout "dashboard")) }}
+{{- /* Live numbers exist only where the dashboard page does, which is the phone build. The
+     strip is on the blog's front page (/blog/, layout "blog"), not on the CV at the root.
+     footer.html is cached per .Layout and .Kind, so the layout is what tells them apart. */}}
+{{- if and (site.GetPage "/dashboard") (or (eq .Layout "blog") (eq .Layout "dashboard")) }}
 {{- partial "telemetry-script.html" . }}
 {{- end }}
 

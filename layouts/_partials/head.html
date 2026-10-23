@@ -8,7 +8,10 @@
 {{- end }}
 
 {{- /* Title */}}
-<title>{{ if .IsHome }}{{ else }}{{ if .Title }}{{ .Title }} | {{ end }}{{ end }}{{ site.Title }}</title>
+{{- /* CHANGED FROM THE THEME: the home page is the CV, titled with its owner's name alone
+     (content/_index.md); the blog's name stays off it. The blog's front page is titled
+     after the site, so the name is not written twice there. */}}
+<title>{{ if .IsHome }}{{ .Title }}{{ else }}{{ if and .Title (ne .Title site.Title) }}{{ .Title }} | {{ end }}{{ site.Title }}{{ end }}</title>
 
 {{- /* Meta */}}
 {{- if .IsHome }}
@@ -24,8 +27,9 @@
 <meta name="author" content="{{ (partial "author.html" . ) }}">
 {{- /* CHANGED FROM THE THEME: the theme uses .Permalink, which on the phone build is the
      ngrok address. Both servers deliver the same pages, so both point search engines at the
-     GitHub Pages copy. This is the only edit in this file; when PaperMod is updated, copy
-     themes/PaperMod/layouts/_partials/head.html over it again and re-apply just this line. */}}
+     GitHub Pages copy. This, the title above and the feed links below are the only edits in
+     this file; when PaperMod is updated, copy themes/PaperMod/layouts/_partials/head.html
+     over it again and re-apply just those three. */}}
 <link rel="canonical" href="{{ if .Params.canonicalURL -}} {{ trim .Params.canonicalURL " " }} {{- else -}} {{ site.Params.canonicalBase | strings.TrimSuffix "/" }}{{ .RelPermalink }} {{- end }}">
 {{- if site.Params.analytics.google.SiteVerificationTag }}
 <meta name="google-site-verification" content="{{ site.Params.analytics.google.SiteVerificationTag }}">
@@ -98,9 +102,11 @@
 <meta name="msapplication-TileColor" content="{{ site.Params.assets.msapplication_TileColor | default "#2e2e33" }}">
 
 {{- /* RSS */}}
-{{ range .AlternativeOutputFormats -}}
+{{- /* CHANGED FROM THE THEME: the home page's other outputs are the blog's feed and search
+     index; the CV does not advertise them. */}}
+{{ if not .IsHome }}{{ range .AlternativeOutputFormats -}}
 <link rel="{{ .Rel }}" type="{{ .MediaType.Type | html }}" href="{{ .Permalink | safeURL }}" title="{{ .Name }}">
-{{ end -}}
+{{ end -}}{{ end -}}
 {{- range .AllTranslations -}}
 <link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}">
 {{ end -}}

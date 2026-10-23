@@ -1,0 +1,124 @@
+# The CV on the home page, rendered by layouts/home.html. The page's title, description and
+# the short introduction under the name are in content/_index.md; this file is the CV itself.
+#
+# The page is public: no phone number, birth date, address or photo here.
+#
+# Text fields take Markdown (links, **bold**). Dates are written as they should appear.
+# A section lists `entries`; each entry may have
+#   title     the bold first line
+#   titleEn   an English title under it (papers)
+#   authors   the author line, own name in bold (papers)
+#   sub       a muted line under the title: degree track, venue, kind of project
+#   date      right of the title on a wide screen, under it on a phone
+#   links     small buttons: [{name, url}]
+#   items     bullet points
+# A section with `compact: true` lists one-line `rows` of {label, text, date} instead.
+
+name: 이준서
+nameEn: Junseo Lee
+affiliation: 아주대학교 소프트웨어학과 학부생 · 2027년 2월 졸업 예정
+contacts:
+  - icon: email
+    text: junseolee@ajou.ac.kr
+    url: mailto:junseolee@ajou.ac.kr
+  - icon: github
+    text: github.com/qofo
+    url: https://github.com/qofo
+interests:
+  - VLM Reasoning
+  - LLM Reasoning
+  - Mechanistic Interpretability
+  - Negation Understanding
+updated: 2026-10-23
+
+sections:
+  - title: 학력
+    entries:
+      - title: 아주대학교 소프트웨어학과 학사
+        sub: 소프트웨어및컴퓨터공학 심화과정
+        date: 2021.03 – 2027.02 (졸업 예정)
+        items:
+          - 평점 4.00 / 4.5 · 학부 학년 석차 39 / 347 · 병역필
+
+  - title: 논문
+    entries:
+      - title: 객체 단위 통제로 본 CLIP 부정 이해의 병목 분석과 저계수 이중선형 변환
+        titleEn: Analyzing CLIP's Negation Bottleneck under Object-Level Control with a Low-Rank Bilinear Transform
+        authors: "**이준서** (제1저자), 조현석"
+        sub: 제7회 한국인공지능학술대회 · 게재 승인, 구두 발표
+        date: "2026"
+        links:
+          - name: 코드
+            url: https://github.com/qofo/lowrank-bilinear-negation
+        items:
+          - CLIP이 부정이 들어간 질의로 이미지를 검색할 때 실패하는 문제를, 같은 사진에서 객체 하나만 지운 이미지 쌍과 긍정·부정 캡션 쌍을 맞추는 2×2 판정 문제로 정의함
+          - 실패 원인을 표현, 모달리티 정렬, 유사도 함수의 세 단계로 나누어 차례로 검증함. 선형 프로빙으로 두 인코더 모두에 부정·존재 정보가 담겨 있음을 확인하고, 직교 회전으로 두 모달리티의 방향을 완전히 정렬해도 정확도가 무작위 수준을 넘지 못함을 보임
+          - 코사인 유사도를 저계수 이중선형 변환으로 바꿔, 인코더를 고정한 채 적은 파라미터로 부정 판정 정확도를 높임
+
+  - title: 연구 경험
+    entries:
+      - title: 아주대학교 iKnow Lab. 학부 인턴 (조현석 교수)
+        date: 2026.03 – 현재
+        items:
+          - 대형 언어모델·멀티모달 연구실에서 위 논문을 독립 연구로 수행
+          - ICML 2026 현장 참석, 연구실 세미나에서 최신 논문 리뷰 발표
+      - title: 아주대학교 Net. Systems Lab. 학부연구생 (김영훈 교수)
+        date: 2025.04 – 2025.12
+        items:
+          - 리눅스 커널 네트워크 스택의 수신·송신 경로 중 TCP·소켓 함수 분석
+
+  - title: 프로젝트
+    entries:
+      - title: "SKT FLY AI Challenger 8기: 유튜브 AI 악용 허위 광고 탐지 서비스 Realy.ai"
+        sub: 팀 프로젝트 · 팀 최우수상
+        date: 2025.12 – 2026.02
+        links:
+          - name: 코드 (backend)
+            url: https://github.com/SKT-FLY-AI-Challenger-D2/backend
+          - name: 코드 (ai)
+            url: https://github.com/SKT-FLY-AI-Challenger-D2/ai
+        items:
+          - "**서비스** 사용자가 유튜브 영상 분석을 요청하면 VLM으로 딥페이크 여부를, LLM으로 내용의 위법성·허위성을 판별"
+          - "**팀 모델** 실제 유튜브 광고 영상과 LLM이 만든 판정 근거 설명으로 도메인 특화 데이터셋을 구축하고, LLaVA-1.5-7B를 LoRA로 미세조정해 성능을 높임"
+          - "**맡은 역할** 백엔드 개발, 인프라 구축, RESTful API 설계"
+      - title: VLM 공간 추론 한계 분석과 시각 프롬프팅 기반 이상 탐지
+        sub: 언어모델의이해및활용 과목 프로젝트
+        date: 2026.03 – 2026.06
+        items:
+          - Anomaly detection에서 VLM이 좌우, 위아래 관계나 부품 배치 같은 spatial reasoning에 실패하는 현상을 유형별로 정리하고, 시각 프롬프팅 기법을 적용해 유형별 해결책을 제시
+      - title: 분산 시스템 관점의 멀티 에이전트 구조 비교
+        sub: 분산시스템 과목 프로젝트
+        date: 2026.03 – 2026.06
+        items:
+          - LLM 에이전트 구조 4종(Monolithic, Master-Worker, Queue-Based, Swarm)을 같은 환경에 구현해 처리량, 지연 시간, 큐 대기 시간을 측정하고, 워커 장애를 주입해 구조별로 비교함
+      - title: 문서 이해와 식별 기반 RAG 미세조정
+        sub: AI집중교육2 과목 팀 프로젝트
+        date: 2025.11 – 2025.12
+        items:
+          - RAG용 미세조정 기법인 RAFT와 Test-Time Training을 HotPotQA에서 Llama-2-7B·QLoRA로 구현해 비교함
+
+  - title: 어학 · 자격 · 교육
+    compact: true
+    rows:
+      - label: 어학
+        text: TOEIC 795
+        date: 2026.07
+      - label: 자격증
+        text: 정보처리기사
+        date: 2026.06
+      - label: 교육
+        text: Security Engineering on AWS 과정 수료
+        date: 2025.11
+      # No label: the row above already says 교육
+      - text: SK AI Data Academy 중급 과정 우수 학습자 수료
+        date: 2024.08
+
+  - title: 대외활동 · 수상
+    compact: true
+    rows:
+      - label: 소학회
+        text: 클라우드 소학회 아올다 인프라팀. 교내 클라우드 운영, VM 내부 지표 수집 파이프라인 구현
+        date: 2026.03 – 2026.07
+      - label: 수상
+        text: SKT FLY AI Challenger 8기 수료, 팀 최우수상 (SK텔레콤)
+        date: 2026.02

@@ -17,7 +17,7 @@
 <div class="drawer-overlay" hidden></div>
 <nav id="site-drawer" class="site-drawer" aria-label="사이트 메뉴">
   <div class="drawer-head">
-    <a class="drawer-profile" href="{{ site.Home.RelPermalink }}">
+    <a class="drawer-profile" href="{{ with site.GetPage "/posts" }}{{ .RelPermalink }}{{ end }}">
       <img class="drawer-avatar" src="{{ "favicon.svg" | relURL }}" alt="" width="40" height="40">
       <span class="drawer-title">{{ site.Title }}</span>
     </a>

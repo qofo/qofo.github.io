@@ -1,0 +1,97 @@
+{{- /* The home page is a CV. Its entries come from data/cv.yaml; the title, description and
+     the introduction under the name come from content/_index.md. The blog's front page is
+     /blog/ (content/posts/_index.md, drawn by list.html), and posts keep /posts/<slug>/.
+     Nothing on this page points to the blog: header.html leaves out the menu, the logo and
+     the search here, and content/_index.md hides the footer.
+
+     The layout follows what researchers' home pages and CV pages commonly do (Jon Barron's
+     page, al-folio, academicpages): name and contact links first, a short introduction, then
+     sections newest first, each entry with its dates on the right and the owner's name in
+     bold in an author line. No photo. */ -}}
+{{- define "main" }}
+{{- $cv := site.Data.cv }}
+<article class="cv">
+  <header class="cv-head">
+    <h1 class="cv-name">{{ $cv.name }}{{ with $cv.nameEn }} <span class="cv-name-en">{{ . }}</span>{{ end }}</h1>
+    {{- with $cv.affiliation }}
+    <p class="cv-affiliation">{{ . | markdownify }}</p>
+    {{- end }}
+    <ul class="cv-contacts">
+      {{- range $cv.contacts }}
+      <li><a href="{{ .url | safeURL }}">{{ with .icon }}{{ partial "svg.html" (dict "name" .) }}{{ end }}<span>{{ .text }}</span></a></li>
+      {{- end }}
+    </ul>
+    {{- with $cv.interests }}
+    <div class="cv-interests">
+      <span class="cv-interests-label">관심 연구</span>
+      <ul>
+        {{- range . }}
+        <li>{{ . }}</li>
+        {{- end }}
+      </ul>
+    </div>
+    {{- end }}
+  </header>
+
+  {{- with .Content }}
+  <div class="cv-intro">{{ . }}</div>
+  {{- end }}
+
+  {{- range $cv.sections }}
+  <section class="cv-section">
+    <h2 class="cv-section-title">{{ .title }}</h2>
+    {{- if .compact }}
+    <ul class="cv-rows">
+      {{- range .rows }}
+      <li class="cv-row">
+        <span class="cv-row-label">{{ .label }}</span>
+        <span class="cv-row-text">{{ .text | markdownify }}</span>
+        {{- with .date }}
+        <span class="cv-date">{{ . }}</span>
+        {{- end }}
+      </li>
+      {{- end }}
+    </ul>
+    {{- else }}
+    {{- range .entries }}
+    <div class="cv-entry">
+      <div class="cv-entry-head">
+        <h3 class="cv-entry-title">{{ .title | markdownify }}</h3>
+        {{- with .date }}
+        <span class="cv-date">{{ . }}</span>
+        {{- end }}
+      </div>
+      {{- with .titleEn }}
+      <p class="cv-entry-title-en">{{ . | markdownify }}</p>
+      {{- end }}
+      {{- with .authors }}
+      <p class="cv-entry-authors">{{ . | markdownify }}</p>
+      {{- end }}
+      {{- with .sub }}
+      <p class="cv-entry-sub">{{ . | markdownify }}</p>
+      {{- end }}
+      {{- with .links }}
+      <p class="cv-entry-links">
+        {{- range . }}
+        <a href="{{ .url | safeURL }}">{{ .name }}</a>
+        {{- end }}
+      </p>
+      {{- end }}
+      {{- with .items }}
+      <ul class="cv-entry-items">
+        {{- range . }}
+        <li>{{ . | markdownify }}</li>
+        {{- end }}
+      </ul>
+      {{- end }}
+    </div>
+    {{- end }}
+    {{- end }}
+  </section>
+  {{- end }}
+
+  {{- with $cv.updated }}
+  <p class="cv-updated">마지막 갱신 {{ time.Format "2006년 1월 2일" . }}</p>
+  {{- end }}
+</article>
+{{- end }}{{/* end main */ -}}

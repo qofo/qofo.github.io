@@ -1,0 +1,27 @@
+{{- if (.Param "ShowBreadCrumbs") -}}
+<nav class="breadcrumbs" role="navigation" aria-label="Breadcrumb">
+    {{- /* CHANGED FROM THE THEME: the site's home is the CV, which stands apart from the blog,
+         so "홈" leads to the blog's front page (/blog/), and that page, the posts' section,
+         is not listed a second time. This block is the only edit in this file; when
+         PaperMod is updated, copy the theme's breadcrumbs.html over it again and re-apply
+         it. */}}
+    {{- $blog := site.GetPage "/posts" }}
+    {{- $ancestors := slice $blog }}
+    {{- range .Ancestors.Reverse }}{{ if not (or .IsHome (.Eq $blog)) }}{{ $ancestors = $ancestors | append . }}{{ end }}{{ end }}
+    {{- range $i, $bc := $ancestors }}
+        {{- if eq $i 0 }}
+            <a href="{{ $bc.RelPermalink }}">{{ i18n "home" | default "Home" }}</a>
+        {{- else }}
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+            <a href="{{ $bc.RelPermalink }}">{{ $bc.Title }}</a>
+        {{- end }}
+    {{- end }}
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+        <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+</nav>
+{{- end -}}

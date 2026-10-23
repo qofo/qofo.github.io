@@ -4,6 +4,9 @@ baseURL = "https://qofo.github.io/"
 languageCode = "ko-KR"
 defaultContentLanguage = "ko"
 title = "qofo.log"
+# The footer's name. The theme links it to the site's home, which is the CV now; on the
+# blog's pages it leads to the blog's front page instead.
+copyright = "© [qofo.log](/blog/)"
 theme = "PaperMod"
 enableRobotsTXT = true
 disableHugoGeneratorInject = true
@@ -23,6 +26,9 @@ timeout = "300s"
 
 [permalinks.page]
   posts = "/posts/:slug/"
+# The site's home (/) is the CV (content/_index.md, data/cv.yaml, layouts/home.html). The
+# list of posts that used to open the site is /blog/, set by the url in content/posts/_index.md;
+# the posts themselves keep the address above. The CV and the blog do not link to each other.
 
 [pagination]
   # The series is short; one page holds all of it.
@@ -116,7 +122,8 @@ timeout = "300s"
   ShowWordCount = false
   # One author writes everything here, so repeating the name on every entry is noise.
   hideAuthor = true
-  # The home page opens with homeInfoParams, so the first entry gets no special size.
+  # The blog's front page (/blog/) opens with homeInfoParams, so the first entry gets no
+  # special size.
   disableSpecial1stPost = true
   # The theme's share buttons are Western networks only; the post footer has its own
   # copy-link and native share buttons (assets/js/post.js) instead.
@@ -133,7 +140,7 @@ timeout = "300s"
     name = "RSS"
     url = "/index.xml"
 
-# GitHub and RSS icons under the home page's introduction
+# GitHub and RSS icons under the introduction on the blog's front page (/blog/)
 [[params.socialIcons]]
   name = "github"
   url = "https://github.com/qofo"

@@ -1,0 +1,281 @@
+/* The CV on the home page (layouts/home.html, data/cv.yaml), laid out the way researchers'
+   CV pages commonly are: name and contacts, a short introduction, then sections whose
+   entries carry their dates on the right. On a phone a date that no longer fits drops under
+   its title. Colours are the theme's variables, so the page follows the reader's theme. */
+
+/* The header on this page holds only the theme switch (header.html leaves out the blog's
+   menu, logo and search here), kept at the right */
+body:has(.cv) .header-nav {
+  justify-content: flex-end;
+  height: var(--header-height);
+}
+
+.cv {
+  color: var(--content);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* --- Name, contacts, interests --------------------------------------------------------- */
+.cv-head {
+  margin: 8px 0 22px;
+}
+
+.cv-name {
+  margin: 0;
+  color: var(--primary);
+  font-size: 2.2rem;
+  line-height: 1.25;
+}
+
+.cv-name-en {
+  margin-inline-start: 4px;
+  color: var(--secondary);
+  font-size: 1.3rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.cv-affiliation {
+  margin-top: 6px;
+  color: var(--secondary);
+}
+
+.cv-contacts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cv-contacts a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--primary);
+  font-size: 0.95rem;
+}
+
+.cv-contacts a:hover span {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.cv-contacts svg {
+  flex: none;
+  width: 16px;
+  height: 16px;
+}
+
+.cv-interests {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 10px;
+  margin-top: 14px;
+}
+
+.cv-interests-label {
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.cv-interests ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cv-interests li {
+  padding: 0 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--entry);
+  color: var(--primary);
+  font-size: 0.85rem;
+  line-height: 1.8;
+}
+
+/* --- Introduction ------------------------------------------------------------------------ */
+.cv-intro p + p {
+  margin-top: 0.6em;
+}
+
+.cv-intro a {
+  box-shadow: 0 1px 0 var(--primary);
+}
+
+/* --- Sections and entries --------------------------------------------------------------- */
+.cv-section {
+  margin-top: 36px;
+}
+
+.cv-section-title {
+  margin: 0 0 14px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+  color: var(--primary);
+  font-size: 1.15rem;
+}
+
+.cv-entry + .cv-entry {
+  margin-top: 20px;
+}
+
+/* A title takes the line and the date sits at its right end; when the two no longer fit,
+   the date wraps to the start of the next line. */
+.cv-entry-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  column-gap: 16px;
+}
+
+.cv-entry-title {
+  flex: 1 1 18rem;
+  margin: 0;
+  color: var(--primary);
+  font-size: 1.02rem;
+  line-height: 1.5;
+}
+
+.cv-date {
+  flex: none;
+  color: var(--secondary);
+  font-size: 0.88rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.cv-entry-title-en {
+  margin-top: 2px;
+  color: var(--secondary);
+  font-size: 0.9rem;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.cv-entry-authors {
+  margin-top: 4px;
+  font-size: 0.95rem;
+}
+
+.cv-entry-authors strong {
+  color: var(--primary);
+}
+
+.cv-entry-sub {
+  margin-top: 2px;
+  color: var(--secondary);
+  font-size: 0.92rem;
+}
+
+.cv-entry-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.cv-entry-links a {
+  padding: 0 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--primary);
+  font-size: 0.82rem;
+  line-height: 1.9;
+}
+
+.cv-entry-links a:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.cv-entry-items {
+  margin: 6px 0 0;
+  padding-inline-start: 1.2em;
+}
+
+.cv-entry-items li {
+  margin: 3px 0;
+  list-style: disc;
+}
+
+.cv-entry-items li::marker {
+  color: var(--secondary);
+}
+
+.cv-entry-items strong {
+  margin-inline-end: 4px;
+  color: var(--primary);
+}
+
+/* --- One-line rows: languages, certificates, activities -------------------------------- */
+.cv-rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cv-row {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr auto;
+  align-items: baseline;
+  column-gap: 12px;
+  padding: 3px 0;
+}
+
+.cv-row-label {
+  color: var(--secondary);
+  font-size: 0.88rem;
+}
+
+@media (max-width: 600px) {
+  .cv-row {
+    grid-template-columns: 3.5rem 1fr;
+  }
+
+  .cv-row .cv-date {
+    grid-column: 2;
+  }
+}
+
+.cv-updated {
+  margin-top: 40px;
+  color: var(--secondary);
+  font-size: 0.85rem;
+}
+
+/* --- Printing --------------------------------------------------------------------------
+   A printed or saved-as-PDF copy is the CV alone: no site header, menu or footer. */
+@media print {
+  body:has(.cv) .header,
+  body:has(.cv) .footer,
+  body:has(.cv) .site-drawer,
+  body:has(.cv) .drawer-overlay,
+  body:has(.cv) .top-link {
+    display: none !important;
+  }
+
+  body:has(.cv) .main {
+    max-width: none;
+    padding: 0;
+  }
+
+  .cv {
+    color: #000;
+    font-size: 10.5pt;
+  }
+
+  .cv-entry,
+  .cv-row {
+    break-inside: avoid;
+  }
+}
